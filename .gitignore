@@ -1,0 +1,5 @@
+qwizm.org/
+node_modules/
+.vscode/
+.babelrc
+package.json
