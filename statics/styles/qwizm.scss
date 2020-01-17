@@ -1,0 +1,434 @@
+// breakpoints
+$SMALL: "576px";
+// $MED: "768px";
+// $LARGE: "992px";
+// $XLARGE: "1200px";
+
+$PRIMARY:darkred;
+$LOGIN_BTN_HOVER: darken($PRIMARY, 7);
+$GRADIENT_1: 'gainsboro';
+$GRADIENT_2: 'darkgray';
+$COURSE_LIGHT: #eee;
+// $COURSE_LIGHT: lighten(silver, 5);
+$TOPIC_LIGHT: white;
+$TEXT: #333;
+
+// $HEADER_TOPIC: "Kaushan Script";
+// $HEADER_TOPIC: "Rancho";
+$HEADER_TOPIC: "Quicksand";
+// $HEADER_TOPIC: "Shadows Into Light";
+$HEADER_COURSE: "Tillana";
+// $HEADER_COURSE: "Sedgwick Ave";
+// $HEADER_TOPIC: "Jose";
+// $HEADER_TOPIC: "Sedgwick Ave";
+
+html {
+  height: 100%;
+  // font-size: 16px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: calc(10px + 0.75vw);
+}
+
+header {
+  display: flex;
+  flex-flow: row wrap;
+  font-size: calc(4px + 2vw); // there must be spaces around the arithmetical operator
+  background-color: $PRIMARY;
+  padding: 0;
+  margin-bottom: 1em;
+
+  /* For mobile, full width - without which 'text-align: center;' doesn't do anything */
+  &>* {
+    flex: 1 100%;
+  }
+
+  &>h1 {
+    margin: 0;
+    padding: 0.125em 0;
+    color: $COURSE_LIGHT;
+    font-family: $HEADER_COURSE, cursive;
+    letter-spacing: 0.075em;
+    line-height: 1.125em;
+    text-shadow: 0.2vw 0.2vw 0.375vw black;
+    text-align: center;
+  }
+
+  &>.rightblock {
+    display: flex;
+    flex-flow: row wrap;
+    margin: 0;
+    padding: 0;
+    font-size: calc(4px + 1.75vw); // there must be spaces around the arithmetical operator
+
+  }
+
+  &>.rightblock>h3 {
+    margin: 0;
+    margin-bottom: 0.125em;
+    padding: 0.0625em 0.5em 0.25em 0.5em;
+    flex: 1 auto;
+    font-family: $HEADER_TOPIC;
+    color: $TOPIC_LIGHT;
+    text-shadow: 0.1vw 0.1vw .15vw black;
+    line-height: 1em;
+    letter-spacing: 0.075em;
+
+    &+h3 {
+      text-align: right;
+    }
+  }
+}
+
+footer {
+  background-color: $PRIMARY;
+  margin-top: 1em;
+  padding: 0.05em 1em;
+}
+
+.navbar {
+  height: 100%; // so that align-self: center is in the (vertical) center of <footer>
+  display: flex;
+  padding: 0;
+
+  &>* {
+    flex: 1 auto;
+  }
+
+  &>ul {
+    flex-grow: 0.125;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    padding: 0;
+    margin: 0.5em 0;
+    margin-right: 1em;
+    list-style: none;
+    color: whitesmoke;
+
+    &>li {
+
+      align-self: center;
+      padding: 0 0.25em;
+      margin: 0 0.25em;
+      box-shadow: 0 0 0.1em 0 black;
+      background-color: darken($PRIMARY, 2.5);
+
+      &.active {
+        color: black;
+        background: $COURSE_LIGHT;
+      }
+
+      &:hover {
+        background: darken($COURSE_LIGHT, 20);
+        color: black;
+        cursor: pointer;
+      }
+    }
+  }
+
+  &>.uname {
+    color: white;
+    align-self: center;
+    font-family: 'Architects Daughter';
+    font-size: 115%;
+    text-align: right;
+    padding: 0;
+    margin: 0;
+    text-shadow: 0.12vw 0.12vw 0.25vw black;
+    // line-height: 1em;
+    // flex-wrap: nowrap;
+  }
+}
+
+
+@media screen and (min-width: $SMALL) {
+
+  header {
+    display: flex;
+    // align-content: center;
+    padding: 0 1em;
+    font-size: calc(12px + 1vw); // there must be spaces around the arithmetical operator
+    justify-content: space-between;
+
+    &>* {
+      flex: 0 auto;
+    }
+
+    &>h1 {
+      margin: 0;
+      margin-right: 1em;
+      margin-bottom: 0.125em;
+      align-self: center;
+    }
+
+    &>.rightblock {
+      display: flex;
+      text-align: right;
+      flex-direction: column;
+      flex: 1 0 0;
+      justify-content: center;
+      align-content: flex-end;
+
+      &>h3 {
+        text-align: right;
+        margin: 0.125em 0 0.25em 1.5em;
+        padding: 0;
+      }
+    }
+  }
+}
+
+
+
+main {
+  display: flex;
+  flex: 1; // this is for the containing flex in <body>
+  // align-items: center;
+  // align-content: flex-end;
+  // flex-wrap: wrap;
+  overflow-y: auto;
+  justify-content: center;
+
+  &>.login-card {
+    font-size: 90%;
+    display: flex;
+    flex-flow: row wrap;
+    padding: 1em;
+    border: 1px solid #ccc;
+    box-shadow: 0.1em 0.1em 0.275em 0.1em grey;
+    align-self: center;
+    flex-basis: 25em;
+    background-color: #eee;
+
+    &>h2 {
+      margin-top: 0.5em;
+      color: $PRIMARY;
+      text-align: center;
+      flex: 1 100%;
+      font-family: $HEADER_TOPIC;
+      font-weight: 700;
+      font-size: 175%;
+    }
+
+    &>form .login-list {
+      padding: 0;
+      margin: 0 auto;
+      list-style-type: none;
+      // border: 1px solid black;
+      flex-basis: 20.5em;
+
+      &>li {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+
+        &>label {
+          padding: 0.5em;
+          padding-left: 0;
+          font-size: 120%;
+          // flex: 1 0 120px;
+        }
+
+        &>input {
+          // background-color: green;
+          font-size: 120%;
+          flex: 1 100%;
+          color: $PRIMARY;
+          border: 1px solid #ccc;
+          padding: 0.5em;
+          // padding-left: 1em;
+          margin-bottom: 0.5em;
+
+          &::placeholder {
+            font-size: 80%;
+            color: $PRIMARY;
+            opacity: 0.5;
+          }
+
+          &:focus {
+            // border: 10px solid #ccc;
+            outline: 1px solid $PRIMARY;
+          }
+        }
+
+        &>button {
+          flex: 1 100%;
+          border: none;
+          padding: 0.5em;
+          font-size: 125%;
+          font-weight: 600;
+          font-family: $HEADER_TOPIC;
+          background-color: $PRIMARY;
+          color: white;
+          margin-top: 2em;
+          margin-bottom: 1em;
+          border-radius: 0.25em;
+          letter-spacing: .075em;
+
+          &:hover {
+            background-color: linear-gradient($GRADIENT_1, $GRADIENT_2);
+            cursor: pointer;
+          }
+
+          &:focus {
+            outline: none;
+          }
+        }
+      }
+
+      &>li#uIdError,
+      &>li#unameError {
+        display: block;
+        color: $PRIMARY;
+        margin-bottom: 1em;
+        text-align: center;
+        margin: 0 auto 0.5em auto;
+        text-transform: uppercase;
+        font-weight: bold;
+        height: 1.5em;
+      }
+    }
+
+
+  }
+}
+
+// .flex-outer,
+// .flex-inner {
+//   list-style-type: none;
+//   padding: 0;
+// }
+
+// .flex-outer {
+//   max-width: 800px;
+//   margin: 0 auto;
+//   padding: 0;
+// }
+
+// .flex-outer li {
+//   display: flex;
+//   flex-wrap: wrap;
+//   align-items: center;
+// }
+
+
+
+// .flex-outer>li:not(:last-child) {
+//   margin-bottom: 20px;
+// }
+
+// .flex-outer li label,
+// .flex-outer li p {
+//   padding: 8px;
+//   font-weight: 300;
+//   letter-spacing: .09em;
+//   text-transform: uppercase;
+// }
+
+// .flex-outer>li>label,
+// .flex-outer li p {
+//   flex: 1 0 120px;
+//   max-width: 220px;
+// }
+
+// .flex-outer>li>label+* {
+//   flex: 1 0 220px;
+// }
+
+// .flex-outer li p {
+//   margin: 0;
+// }
+
+// .flex-outer li input:not([type='checkbox']),
+// .flex-outer li textarea {
+//   padding: 15px;
+//   border: none;
+// }
+
+// .flex-outer li button {
+//   margin-left: auto;
+//   padding: 8px 16px;
+//   border: none;
+//   background: #333;
+//   color: #f2f2f2;
+//   text-transform: uppercase;
+//   letter-spacing: .09em;
+//   border-radius: 2px;
+// }
+
+// .flex-inner li {
+//   width: 100px;
+// }
+
+
+
+// .question-statement {
+//   background: pink;
+//   padding: 1em;
+// }
+
+// .question-figure {
+//   background: cornsilk;
+//   padding: 1em;
+
+//   &>img {
+//     width: 100%;
+//   }
+// }
+
+// .question-inputs {
+//   background: palegreen;
+//   padding: 1em;
+// }
+
+// .width30 {
+//   flex-basis: 30%;
+// }
+
+// .width35 {
+//   flex-basis: 35%;
+// }
+
+// .width40 {
+//   flex-basis: 40%;
+// }
+
+// .width45 {
+//   flex-basis: 45%;
+// }
+
+// .width50 {
+//   flex-basis: 50%;
+// }
+
+// .width55 {
+//   flex-basis: 55%;
+// }
+
+// .width60 {
+//   flex-basis: 60%;
+// }
+
+// .width65 {
+//   flex-basis: 65%;
+// }
+
+// .width70 {
+//   flex-basis: 70%;
+// }

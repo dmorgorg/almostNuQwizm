@@ -1,0 +1,361 @@
+html {
+  height: 100%;
+}
+
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+*:before,
+*:after {
+  -webkit-box-sizing: inherit;
+          box-sizing: inherit;
+}
+
+body {
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: calc(10px + 0.75vw);
+}
+
+header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  font-size: calc(4px + 2vw);
+  background-color: darkred;
+  padding: 0;
+  margin-bottom: 1em;
+  /* For mobile, full width - without which 'text-align: center;' doesn't do anything */
+}
+
+header > * {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 100%;
+          flex: 1 100%;
+}
+
+header > h1 {
+  margin: 0;
+  padding: 0.125em 0;
+  color: #eee;
+  font-family: "Tillana", cursive;
+  letter-spacing: 0.075em;
+  line-height: 1.125em;
+  text-shadow: 0.2vw 0.2vw 0.375vw black;
+  text-align: center;
+}
+
+header > .rightblock {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  margin: 0;
+  padding: 0;
+  font-size: calc(4px + 1.75vw);
+}
+
+header > .rightblock > h3 {
+  margin: 0;
+  margin-bottom: 0.125em;
+  padding: 0.0625em 0.5em 0.25em 0.5em;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 auto;
+          flex: 1 auto;
+  font-family: "Quicksand";
+  color: white;
+  text-shadow: 0.1vw 0.1vw .15vw black;
+  line-height: 1em;
+  letter-spacing: 0.075em;
+}
+
+header > .rightblock > h3 + h3 {
+  text-align: right;
+}
+
+footer {
+  background-color: darkred;
+  margin-top: 1em;
+  padding: 0.05em 1em;
+}
+
+.navbar {
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0;
+}
+
+.navbar > * {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 auto;
+          flex: 1 auto;
+}
+
+.navbar > ul {
+  -webkit-box-flex: 0.125;
+      -ms-flex-positive: 0.125;
+          flex-grow: 0.125;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  padding: 0;
+  margin: 0.5em 0;
+  margin-right: 1em;
+  list-style: none;
+  color: whitesmoke;
+}
+
+.navbar > ul > li {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  padding: 0 0.25em;
+  margin: 0 0.25em;
+  -webkit-box-shadow: 0 0 0.1em 0 black;
+          box-shadow: 0 0 0.1em 0 black;
+  background-color: #7e0000;
+}
+
+.navbar > ul > li.active {
+  color: black;
+  background: #eee;
+}
+
+.navbar > ul > li:hover {
+  background: #bbbbbb;
+  color: black;
+  cursor: pointer;
+}
+
+.navbar > .uname {
+  color: white;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  font-family: 'Architects Daughter';
+  font-size: 115%;
+  text-align: right;
+  padding: 0;
+  margin: 0;
+  text-shadow: 0.12vw 0.12vw 0.25vw black;
+}
+
+@media screen and (min-width: 576px) {
+  header {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    padding: 0 1em;
+    font-size: calc(12px + 1vw);
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+  }
+  header > * {
+    -webkit-box-flex: 0;
+        -ms-flex: 0 auto;
+            flex: 0 auto;
+  }
+  header > h1 {
+    margin: 0;
+    margin-right: 1em;
+    margin-bottom: 0.125em;
+    -ms-flex-item-align: center;
+        -ms-grid-row-align: center;
+        align-self: center;
+  }
+  header > .rightblock {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    text-align: right;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-flex: 1;
+        -ms-flex: 1 0 0px;
+            flex: 1 0 0;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -ms-flex-line-pack: end;
+        align-content: flex-end;
+  }
+  header > .rightblock > h3 {
+    text-align: right;
+    margin: 0.125em 0 0.25em 1.5em;
+    padding: 0;
+  }
+}
+
+main {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  overflow-y: auto;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+main > .login-card {
+  font-size: 90%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  padding: 1em;
+  border: 1px solid #ccc;
+  -webkit-box-shadow: 0.1em 0.1em 0.275em 0.1em grey;
+          box-shadow: 0.1em 0.1em 0.275em 0.1em grey;
+  -ms-flex-item-align: center;
+      align-self: center;
+  -ms-flex-preferred-size: 25em;
+      flex-basis: 25em;
+  background-color: #eee;
+}
+
+main > .login-card > h2 {
+  margin-top: 0.5em;
+  color: darkred;
+  text-align: center;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 100%;
+          flex: 1 100%;
+  font-family: "Quicksand";
+  font-weight: 700;
+  font-size: 175%;
+}
+
+main > .login-card > form .login-list {
+  padding: 0;
+  margin: 0 auto;
+  list-style-type: none;
+  -ms-flex-preferred-size: 20.5em;
+      flex-basis: 20.5em;
+}
+
+main > .login-card > form .login-list > li {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+main > .login-card > form .login-list > li > label {
+  padding: 0.5em;
+  padding-left: 0;
+  font-size: 120%;
+}
+
+main > .login-card > form .login-list > li > input {
+  font-size: 120%;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 100%;
+          flex: 1 100%;
+  color: darkred;
+  border: 1px solid #ccc;
+  padding: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+main > .login-card > form .login-list > li > input::-webkit-input-placeholder {
+  font-size: 80%;
+  color: darkred;
+  opacity: 0.5;
+}
+
+main > .login-card > form .login-list > li > input:-ms-input-placeholder {
+  font-size: 80%;
+  color: darkred;
+  opacity: 0.5;
+}
+
+main > .login-card > form .login-list > li > input::-ms-input-placeholder {
+  font-size: 80%;
+  color: darkred;
+  opacity: 0.5;
+}
+
+main > .login-card > form .login-list > li > input::placeholder {
+  font-size: 80%;
+  color: darkred;
+  opacity: 0.5;
+}
+
+main > .login-card > form .login-list > li > input:focus {
+  outline: 1px solid darkred;
+}
+
+main > .login-card > form .login-list > li > button {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 100%;
+          flex: 1 100%;
+  border: none;
+  padding: 0.5em;
+  font-size: 125%;
+  font-weight: 600;
+  font-family: "Quicksand";
+  background-color: darkred;
+  color: white;
+  margin-top: 2em;
+  margin-bottom: 1em;
+  border-radius: 0.25em;
+  letter-spacing: .075em;
+}
+
+main > .login-card > form .login-list > li > button:hover {
+  background-color: linear-gradient("gainsboro", "darkgray");
+  cursor: pointer;
+}
+
+main > .login-card > form .login-list > li > button:focus {
+  outline: none;
+}
+
+main > .login-card > form .login-list > li#uIdError,
+main > .login-card > form .login-list > li#unameError {
+  display: block;
+  color: darkred;
+  margin-bottom: 1em;
+  text-align: center;
+  margin: 0 auto 0.5em auto;
+  text-transform: uppercase;
+  font-weight: bold;
+  height: 1.5em;
+}
