@@ -1,3 +1,3 @@
 # nuQwizm
 
-An in-progress refactoring of and replacement for the existing site that is currently available at http://qwizm.org
+An in-progress refactoring of and replacement for the existing site that currently resides at http://qwizm.org

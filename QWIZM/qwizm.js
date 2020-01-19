@@ -19,13 +19,13 @@ QWIZM.methods.writeHeader = function (o) {
 QWIZM.methods.writeFooter = function () {
   var o = QWIZM.methods.readStorage(QWIZM.QUIZ_KEY),
       len = QWIZM.quiz.questions.length,
-      inner = "<footer>\n                <nav class='navbar'>\n                    <ul class='nav-links'>\n                        <li class = \"nav-item active\" id=\"instructionsBtn\" > Instructions </li>\n                        <li class = \"nav-item\" id=\"clearBtn\" > Clear </li>";
+      html = "<footer>\n                <nav class='navbar'>\n                    <ul class='nav-links'>\n                        <li class = \"nav-item active\" id=\"instructionsBtn\" > Instructions </li>\n                        <li class = \"nav-item\" id=\"clearBtn\" > Clear </li>";
 
-  for (var i = 1; i <= len; i++) {
-    inner += "<li class=\"nav-item\" id=\"Q".concat(i, "Btn\">Q").concat(i, "</li>");
+  for (var i = 1; i < len; i++) {
+    html += "<li class=\"nav-item\" id=\"Q".concat(i, "Btn\">Q").concat(i, "</li>");
   }
 
-  return inner + "<li class = \"nav-item\" id=\"summaryBtn\">Summary </li>\n                </ul>                                          \n                <div class='uname'>".concat(o.uname, "</div>                     \n            </nav>                     \n        </footer>");
+  return html + "<li class = \"nav-item\" id=\"summaryBtn\">Summary </li>\n                </ul>                                          \n                <div class='uname'>".concat(o.uname, "</div>                     \n            </nav>                     \n        </footer>");
 };
 
 QWIZM.methods.pageLoad = function (o) {
@@ -37,7 +37,8 @@ QWIZM.methods.pageLoad = function (o) {
   else {
       QWIZM.state = QWIZM.methods.readStorage(quizId);
       $('body').append(QWIZM.methods.writeFooter());
-      $('main').text("text"); // $('main').html(QWIZM.methods.loadQuestions());
+      $('main').text("text");
+      $('main').html(QWIZM.methods.loadQuestions());
     }
 };
 
@@ -45,10 +46,12 @@ QWIZM.methods.loadQuestions = function () {
   var len = QWIZM.quiz.questions.length,
       html = '';
 
-  for (var i = 1; i <= len; i++) {
-    console.log(QWIZM.quiz.questions[i - 1]);
-    html += "<script src = \"./lib/utils.js\" ></script>\n";
+  for (var i = 1; i < len; i++) {
+    // console.log('test: ' + QWIZM.quiz.questions[i - 1].statement)
+    html += "<div id='Q".concat(i, "' class='question'>\n            ").concat(QWIZM.quiz.questions[i].statement, "</div>\n");
   }
+
+  return html;
 };
 
 QWIZM.methods.displayPage = function (e) {

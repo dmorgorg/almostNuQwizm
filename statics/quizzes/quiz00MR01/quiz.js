@@ -9,5 +9,5 @@ QWIZM.quiz = {
   sigdigs: 3,
   extraForLeadingOne: true,
   workingdigs: 6,
-  questions: ['_00MathReview/qES00MR001', '_00MathReview/qES00MR002', '_00MathReview/qES00MR003', '_00MathReview/qES00MR004', '_00MathReview/qES00MR005']
+  questions: [QWIZM.question.qES00MR001, QWIZM.question.qES00MR002, QWIZM.question.qES00MR003, QWIZM.question.qES00MR004, QWIZM.question.qES00MR005]
 };

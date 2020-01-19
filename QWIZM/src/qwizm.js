@@ -24,17 +24,17 @@ QWIZM.methods.writeHeader = o => {
 QWIZM.methods.writeFooter = () => {
     let o = QWIZM.methods.readStorage(QWIZM.QUIZ_KEY),
         len = QWIZM.quiz.questions.length,
-        inner = `<footer>
+        html = `<footer>
                 <nav class='navbar'>
                     <ul class='nav-links'>
                         <li class = "nav-item active" id="instructionsBtn" > Instructions </li>
-                        <li class = "nav-item" id="clearBtn" > Clear </li>`
+                        <li class = "nav-item" id="clearBtn" > Clear </li>`;
 
-    for (let i = 1; i <= len; i++) {
-        inner += `<li class="nav-item" id="Q${i}Btn">Q${i}</li>`;
+    for (let i = 1; i < len; i++) {
+        html += `<li class="nav-item" id="Q${i}Btn">Q${i}</li>`;
     }
 
-    return inner + `<li class = "nav-item" id="summaryBtn">Summary </li>
+    return html + `<li class = "nav-item" id="summaryBtn">Summary </li>
                 </ul>                                          
                 <div class='uname'>${o.uname}</div>                     
             </nav>                     
@@ -52,7 +52,7 @@ QWIZM.methods.pageLoad = o => {
         QWIZM.state = QWIZM.methods.readStorage(quizId);
         $('body').append(QWIZM.methods.writeFooter());
         $('main').text("text");
-        // $('main').html(QWIZM.methods.loadQuestions());
+        $('main').html(QWIZM.methods.loadQuestions());
 
     }
 };
@@ -60,10 +60,14 @@ QWIZM.methods.pageLoad = o => {
 QWIZM.methods.loadQuestions = () => {
     let len = QWIZM.quiz.questions.length,
         html = '';
-    for (let i = 1; i <= len; i++) {
-        console.log(QWIZM.quiz.questions[i - 1]);
-        html += `<script src = "./lib/utils.js" ></script>\n`;
+
+    for (let i = 1; i < len; i++) {
+        // console.log('test: ' + QWIZM.quiz.questions[i - 1].statement)
+        html += `<div id='Q${i}' class='question'>
+            ${QWIZM.quiz.questions[i].statement}</div>\n`;
     }
+
+    return html;
 }
 
 QWIZM.methods.displayPage = e => {
