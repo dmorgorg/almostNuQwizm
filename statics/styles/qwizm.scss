@@ -8,7 +8,7 @@ $PRIMARY:darkred;
 $LOGIN_BTN_HOVER: darken($PRIMARY, 7);
 $GRADIENT_1: 'gainsboro';
 $GRADIENT_2: 'darkgray';
-$COURSE_LIGHT: #eee;
+$COURSE_LIGHT: white;
 // $COURSE_LIGHT: lighten(silver, 5);
 $TOPIC_LIGHT: white;
 $TEXT: #333;
@@ -126,8 +126,8 @@ footer {
       align-self: center;
       padding: 0 0.25em;
       margin: 0 0.25em;
-      box-shadow: 0 0 0.1em 0 black;
-      background-color: darken($PRIMARY, 2.5);
+      box-shadow: 0 0 0.2em 0 black;
+      background-color: darken($PRIMARY, 5);
 
       &.active {
         color: black;
@@ -135,7 +135,7 @@ footer {
       }
 
       &:hover {
-        background: darken($COURSE_LIGHT, 20);
+        background: darken($COURSE_LIGHT, 0);
         color: black;
         cursor: pointer;
       }
@@ -151,8 +151,6 @@ footer {
     padding: 0;
     margin: 0;
     text-shadow: 0.12vw 0.12vw 0.25vw black;
-    // line-height: 1em;
-    // flex-wrap: nowrap;
   }
 }
 
@@ -194,30 +192,40 @@ footer {
   }
 }
 
-
-
 main {
   display: flex;
   flex: 1; // this is for the containing flex in <body>
-  // align-items: center;
+  align-items: center;
   // align-content: flex-end;
-  // flex-wrap: wrap;
+  flex-wrap: wrap;
   overflow-y: auto;
   justify-content: center;
+  padding: 0 1em;
 
-  &>.login-card {
+  & #clear {
+    text-align: center;
+  }
+
+  & #login {
+    text-align: center;
+  }
+
+  & .card {
     font-size: 90%;
     display: flex;
     flex-flow: row wrap;
-    padding: 1em;
+    padding: 1em 2em;
     border: 1px solid #ccc;
     box-shadow: 0.1em 0.1em 0.275em 0.1em grey;
-    align-self: center;
     flex-basis: 25em;
     background-color: #eee;
 
-    &>h2 {
-      margin-top: 0.5em;
+    & p {
+      margin: 0.5em 0;
+    }
+
+    & h2 {
+      margin-top: 0.25em;
       color: $PRIMARY;
       text-align: center;
       flex: 1 100%;
@@ -226,27 +234,48 @@ main {
       font-size: 175%;
     }
 
-    &>form .login-list {
+    & button {
+      flex: 1 100%;
+      border: none;
+      padding: 0.5em 0.25em;
+      font-size: 125%;
+      font-weight: 600;
+      font-family: $HEADER_TOPIC;
+      background-color: $PRIMARY;
+      color: white;
+      margin-top: 1em;
+      margin-bottom: 0.5em;
+      letter-spacing: .075em;
+
+      &:hover {
+        background-color: darken($PRIMARY, 5);
+        cursor: pointer;
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    & .login-list {
       padding: 0;
       margin: 0 auto;
       list-style-type: none;
       // border: 1px solid black;
       flex-basis: 20.5em;
 
-      &>li {
+      & li {
         display: flex;
         flex-wrap: wrap;
         align-items: center;
 
-        &>label {
+        & label {
           padding: 0.5em;
           padding-left: 0;
           font-size: 120%;
-          // flex: 1 0 120px;
         }
 
-        &>input {
-          // background-color: green;
+        & input {
           font-size: 120%;
           flex: 1 100%;
           color: $PRIMARY;
@@ -262,38 +291,13 @@ main {
           }
 
           &:focus {
-            // border: 10px solid #ccc;
             outline: 1px solid $PRIMARY;
-          }
-        }
-
-        &>button {
-          flex: 1 100%;
-          border: none;
-          padding: 0.5em;
-          font-size: 125%;
-          font-weight: 600;
-          font-family: $HEADER_TOPIC;
-          background-color: $PRIMARY;
-          color: white;
-          margin-top: 2em;
-          margin-bottom: 1em;
-          border-radius: 0.25em;
-          letter-spacing: .075em;
-
-          &:hover {
-            background-color: linear-gradient($GRADIENT_1, $GRADIENT_2);
-            cursor: pointer;
-          }
-
-          &:focus {
-            outline: none;
           }
         }
       }
 
-      &>li#uIdError,
-      &>li#unameError {
+      & li#uIdError,
+      & li#unameError {
         display: block;
         color: $PRIMARY;
         margin-bottom: 1em;
@@ -304,10 +308,22 @@ main {
         height: 1.5em;
       }
     }
-
-
   }
+
+  // end main
 }
+
+.highlight {
+  color: $PRIMARY;
+  font-weight: bold;
+}
+
+// .view {
+// display: block;
+// margin: 1em auto;
+// border: 1px solid black;
+// text-align: center;
+// }
 
 // .flex-outer,
 // .flex-inner {
@@ -400,6 +416,10 @@ main {
 // .width30 {
 //   flex-basis: 30%;
 // }
+
+.width30 {
+  flex-basis: 30%;
+}
 
 // .width35 {
 //   flex-basis: 35%;

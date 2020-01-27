@@ -13,5 +13,6 @@ QWIZM.quiz = {
     QWIZM.question.qES00MR003,
     QWIZM.question.qES00MR004,
     QWIZM.question.qES00MR005
-  ]
+  ],
+  instructions: `<h1>Instructions</h1>`
 };

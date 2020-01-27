@@ -51,7 +51,7 @@ header > * {
 header > h1 {
   margin: 0;
   padding: 0.125em 0;
-  color: #eee;
+  color: white;
   font-family: "Tillana", cursive;
   letter-spacing: 0.075em;
   line-height: 1.125em;
@@ -135,18 +135,18 @@ footer {
       align-self: center;
   padding: 0 0.25em;
   margin: 0 0.25em;
-  -webkit-box-shadow: 0 0 0.1em 0 black;
-          box-shadow: 0 0 0.1em 0 black;
-  background-color: #7e0000;
+  -webkit-box-shadow: 0 0 0.2em 0 black;
+          box-shadow: 0 0 0.2em 0 black;
+  background-color: #720000;
 }
 
 .navbar > ul > li.active {
   color: black;
-  background: #eee;
+  background: white;
 }
 
 .navbar > ul > li:hover {
-  background: #bbbbbb;
+  background: white;
   color: black;
   cursor: pointer;
 }
@@ -220,13 +220,27 @@ main {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   overflow-y: auto;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  padding: 0 1em;
 }
 
-main > .login-card {
+main #clear {
+  text-align: center;
+}
+
+main #login {
+  text-align: center;
+}
+
+main .card {
   font-size: 90%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -235,19 +249,21 @@ main > .login-card {
   -webkit-box-direction: normal;
       -ms-flex-flow: row wrap;
           flex-flow: row wrap;
-  padding: 1em;
+  padding: 1em 2em;
   border: 1px solid #ccc;
   -webkit-box-shadow: 0.1em 0.1em 0.275em 0.1em grey;
           box-shadow: 0.1em 0.1em 0.275em 0.1em grey;
-  -ms-flex-item-align: center;
-      align-self: center;
   -ms-flex-preferred-size: 25em;
       flex-basis: 25em;
   background-color: #eee;
 }
 
-main > .login-card > h2 {
-  margin-top: 0.5em;
+main .card p {
+  margin: 0.5em 0;
+}
+
+main .card h2 {
+  margin-top: 0.25em;
   color: darkred;
   text-align: center;
   -webkit-box-flex: 1;
@@ -258,7 +274,32 @@ main > .login-card > h2 {
   font-size: 175%;
 }
 
-main > .login-card > form .login-list {
+main .card button {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 100%;
+          flex: 1 100%;
+  border: none;
+  padding: 0.5em 0.25em;
+  font-size: 125%;
+  font-weight: 600;
+  font-family: "Quicksand";
+  background-color: darkred;
+  color: white;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+  letter-spacing: .075em;
+}
+
+main .card button:hover {
+  background-color: #720000;
+  cursor: pointer;
+}
+
+main .card button:focus {
+  outline: none;
+}
+
+main .card .login-list {
   padding: 0;
   margin: 0 auto;
   list-style-type: none;
@@ -266,7 +307,7 @@ main > .login-card > form .login-list {
       flex-basis: 20.5em;
 }
 
-main > .login-card > form .login-list > li {
+main .card .login-list li {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -277,13 +318,13 @@ main > .login-card > form .login-list > li {
           align-items: center;
 }
 
-main > .login-card > form .login-list > li > label {
+main .card .login-list li label {
   padding: 0.5em;
   padding-left: 0;
   font-size: 120%;
 }
 
-main > .login-card > form .login-list > li > input {
+main .card .login-list li input {
   font-size: 120%;
   -webkit-box-flex: 1;
       -ms-flex: 1 100%;
@@ -294,62 +335,36 @@ main > .login-card > form .login-list > li > input {
   margin-bottom: 0.5em;
 }
 
-main > .login-card > form .login-list > li > input::-webkit-input-placeholder {
+main .card .login-list li input::-webkit-input-placeholder {
   font-size: 80%;
   color: darkred;
   opacity: 0.5;
 }
 
-main > .login-card > form .login-list > li > input:-ms-input-placeholder {
+main .card .login-list li input:-ms-input-placeholder {
   font-size: 80%;
   color: darkred;
   opacity: 0.5;
 }
 
-main > .login-card > form .login-list > li > input::-ms-input-placeholder {
+main .card .login-list li input::-ms-input-placeholder {
   font-size: 80%;
   color: darkred;
   opacity: 0.5;
 }
 
-main > .login-card > form .login-list > li > input::placeholder {
+main .card .login-list li input::placeholder {
   font-size: 80%;
   color: darkred;
   opacity: 0.5;
 }
 
-main > .login-card > form .login-list > li > input:focus {
+main .card .login-list li input:focus {
   outline: 1px solid darkred;
 }
 
-main > .login-card > form .login-list > li > button {
-  -webkit-box-flex: 1;
-      -ms-flex: 1 100%;
-          flex: 1 100%;
-  border: none;
-  padding: 0.5em;
-  font-size: 125%;
-  font-weight: 600;
-  font-family: "Quicksand";
-  background-color: darkred;
-  color: white;
-  margin-top: 2em;
-  margin-bottom: 1em;
-  border-radius: 0.25em;
-  letter-spacing: .075em;
-}
-
-main > .login-card > form .login-list > li > button:hover {
-  background-color: linear-gradient("gainsboro", "darkgray");
-  cursor: pointer;
-}
-
-main > .login-card > form .login-list > li > button:focus {
-  outline: none;
-}
-
-main > .login-card > form .login-list > li#uIdError,
-main > .login-card > form .login-list > li#unameError {
+main .card .login-list li#uIdError,
+main .card .login-list li#unameError {
   display: block;
   color: darkred;
   margin-bottom: 1em;
@@ -358,4 +373,14 @@ main > .login-card > form .login-list > li#unameError {
   text-transform: uppercase;
   font-weight: bold;
   height: 1.5em;
+}
+
+.highlight {
+  color: darkred;
+  font-weight: bold;
+}
+
+.width30 {
+  -ms-flex-preferred-size: 30%;
+      flex-basis: 30%;
 }
