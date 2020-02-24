@@ -8,7 +8,8 @@ QWIZM.quiz = {
   subtopic: "Exercise Set 01",
   sigdigs: 3,
   extraForLeadingOne: true,
-  workingdigs: 6,
-  questions: [QWIZM.question.qES00MR001, QWIZM.question.qES00MR002, QWIZM.question.qES00MR003, QWIZM.question.qES00MR004, QWIZM.question.qES00MR005],
-  instructions: "<h1>Instructions</h1>"
+  workingdigs: 7,
+  questions: [QWIZM.question.qES00MR001, QWIZM.question.qES00MR002, QWIZM.question.qES00MR003, QWIZM.question.qES00MR004, QWIZM.question.qES00MR005, QWIZM.question.qES00MR001, QWIZM.question.qES00MR002, QWIZM.question.qES00MR003, QWIZM.question.qES00MR004, QWIZM.question.qES00MR005],
+  instructions: "<h1>Instructions</h1>" // instructions can be modified on a per quiz basis here
+
 };

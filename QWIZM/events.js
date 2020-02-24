@@ -7,6 +7,6 @@ $('body').on("keyup", "#uname", function (e) {
 $('body').on("keyup", "#uId", function (e) {
   return e.target.value = utils.makeInputInteger(e.target.value);
 });
-$('body').on("click", "#login-button", QWIZM.methods.validateLogin);
-$('body').on("click", "li.nav-item", QWIZM.methods.updateView);
+$('body').on("click", "#login-button", QWIZM.handlers.validateLogin);
+$('body').on("click", "li.nav-item", QWIZM.handlers.updateView);
 $('body').on("click", "#clear-button", QWIZM.methods.reset);

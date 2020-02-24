@@ -1,31 +1,19 @@
 // breakpoints
-$SMALL: "576px";
-// $MED: "768px";
-// $LARGE: "992px";
-// $XLARGE: "1200px";
+$SMALL: "376px";
 
-$PRIMARY:darkred;
+$PRIMARY: darkred;
 $LOGIN_BTN_HOVER: darken($PRIMARY, 7);
-$GRADIENT_1: 'gainsboro';
-$GRADIENT_2: 'darkgray';
 $COURSE_LIGHT: white;
-// $COURSE_LIGHT: lighten(silver, 5);
 $TOPIC_LIGHT: white;
 $TEXT: #333;
-
-// $HEADER_TOPIC: "Kaushan Script";
-// $HEADER_TOPIC: "Rancho";
 $HEADER_TOPIC: "Quicksand";
-// $HEADER_TOPIC: "Shadows Into Light";
 $HEADER_COURSE: "Tillana";
-// $HEADER_COURSE: "Sedgwick Ave";
-// $HEADER_TOPIC: "Jose";
-// $HEADER_TOPIC: "Sedgwick Ave";
 
 html {
   height: 100%;
-  // font-size: 16px;
 }
+
+//////////////////////////////////////////////////////////////////////////////////////
 
 * {
   box-sizing: border-box;
@@ -42,13 +30,11 @@ body {
   flex-direction: column;
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: calc(10px + 0.75vw);
 }
 
 header {
   display: flex;
   flex-flow: row wrap;
-  font-size: calc(4px + 2vw); // there must be spaces around the arithmetical operator
   background-color: $PRIMARY;
   padding: 0;
   margin-bottom: 1em;
@@ -74,8 +60,6 @@ header {
     flex-flow: row wrap;
     margin: 0;
     padding: 0;
-    font-size: calc(4px + 1.75vw); // there must be spaces around the arithmetical operator
-
   }
 
   &>.rightblock>h3 {
@@ -85,7 +69,7 @@ header {
     flex: 1 auto;
     font-family: $HEADER_TOPIC;
     color: $TOPIC_LIGHT;
-    text-shadow: 0.1vw 0.1vw .15vw black;
+    text-shadow: 0.1vw 0.1vw 0.15vw black;
     line-height: 1em;
     letter-spacing: 0.075em;
 
@@ -111,10 +95,15 @@ footer {
   }
 
   &>ul {
-    flex-grow: 0.125;
-    display: flex;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
+    // flex-grow: 0.125;
+    // display: flex;
+    // justify-content: space-between;
+    // flex-wrap: wrap;
+    display: inline;
+    text-align: center;
+    // font-size: 90%;
+
+
     padding: 0;
     margin: 0.5em 0;
     margin-right: 1em;
@@ -122,10 +111,10 @@ footer {
     color: whitesmoke;
 
     &>li {
-
-      align-self: center;
-      padding: 0 0.25em;
-      margin: 0 0.25em;
+      // align-self: center;
+      padding: 0 0.5vw;
+      display: inline-block;
+      margin: 0.25em 0.375em;
       box-shadow: 0 0 0.2em 0 black;
       background-color: darken($PRIMARY, 5);
 
@@ -145,7 +134,7 @@ footer {
   &>.uname {
     color: white;
     align-self: center;
-    font-family: 'Architects Daughter';
+    font-family: "Architects Daughter";
     font-size: 115%;
     text-align: right;
     padding: 0;
@@ -154,14 +143,49 @@ footer {
   }
 }
 
+$min_font: 8;
+$mid_font: 10; //font-size at media break
+$max_font: 16;
+$min_view: 300;
+$max_view: 1200;
+
+// maximum font for large window
+@media screen and (min-width: #{$max-view}px) {
+  html {
+    font-size: $max-font;
+    // background-color: purple;
+  }
+}
+
+@media screen and (max-width: #{$max_view}px) {
+  html {
+    // font-size: calc(#{$mid-font} + (100vw - #{$min-view}) * (#{$max-font} - #{$mid-font}) / (#{$max-view} - #{$min-view}));
+    // font-size: calc($mid-font + (100vw - $min-view) / 9);
+
+    // font-size: calc(#{$mid_font} + 8 * ((100vw - #{$min_view}) / (#{$max_view} - #{$min_view})));
+    font-size: calc(#{$min_font}px + (#{$max_font} - #{$min_font}) * ((100vw - #{$min_view}px) / (#{$max_view} - #{$min_view})));
+    // background-color: pink;
+  }
+}
+
+@media screen and (max-width: #{$min_view}px) {
+  html {
+    // font-size: calc($min-font + (100vw - $min-view) * ($mid-font - $mnd-font) / ($max-view-$min-view));
+    // background-color: limegreen;
+  }
+}
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////
 
 @media screen and (min-width: $SMALL) {
 
   header {
     display: flex;
-    // align-content: center;
+    align-content: center;
     padding: 0 1em;
-    font-size: calc(12px + 1vw); // there must be spaces around the arithmetical operator
+    // font-size: calc(12px + 1vw); // there must be spaces around the arithmetical operator
     justify-content: space-between;
 
     &>* {
@@ -186,11 +210,14 @@ footer {
       &>h3 {
         text-align: right;
         margin: 0.125em 0 0.25em 1.5em;
-        padding: 0;
+        padding-top: 0.25em;
+        padding-bottom: 0.25em;
       }
     }
   }
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 main {
   display: flex;
@@ -211,7 +238,7 @@ main {
   }
 
   & .card {
-    font-size: 90%;
+    font-size: 95%;
     display: flex;
     flex-flow: row wrap;
     padding: 1em 2em;
@@ -245,7 +272,7 @@ main {
       color: white;
       margin-top: 1em;
       margin-bottom: 0.5em;
-      letter-spacing: .075em;
+      letter-spacing: 0.075em;
 
       &:hover {
         background-color: darken($PRIMARY, 5);
@@ -317,105 +344,6 @@ main {
   color: $PRIMARY;
   font-weight: bold;
 }
-
-// .view {
-// display: block;
-// margin: 1em auto;
-// border: 1px solid black;
-// text-align: center;
-// }
-
-// .flex-outer,
-// .flex-inner {
-//   list-style-type: none;
-//   padding: 0;
-// }
-
-// .flex-outer {
-//   max-width: 800px;
-//   margin: 0 auto;
-//   padding: 0;
-// }
-
-// .flex-outer li {
-//   display: flex;
-//   flex-wrap: wrap;
-//   align-items: center;
-// }
-
-
-
-// .flex-outer>li:not(:last-child) {
-//   margin-bottom: 20px;
-// }
-
-// .flex-outer li label,
-// .flex-outer li p {
-//   padding: 8px;
-//   font-weight: 300;
-//   letter-spacing: .09em;
-//   text-transform: uppercase;
-// }
-
-// .flex-outer>li>label,
-// .flex-outer li p {
-//   flex: 1 0 120px;
-//   max-width: 220px;
-// }
-
-// .flex-outer>li>label+* {
-//   flex: 1 0 220px;
-// }
-
-// .flex-outer li p {
-//   margin: 0;
-// }
-
-// .flex-outer li input:not([type='checkbox']),
-// .flex-outer li textarea {
-//   padding: 15px;
-//   border: none;
-// }
-
-// .flex-outer li button {
-//   margin-left: auto;
-//   padding: 8px 16px;
-//   border: none;
-//   background: #333;
-//   color: #f2f2f2;
-//   text-transform: uppercase;
-//   letter-spacing: .09em;
-//   border-radius: 2px;
-// }
-
-// .flex-inner li {
-//   width: 100px;
-// }
-
-
-
-// .question-statement {
-//   background: pink;
-//   padding: 1em;
-// }
-
-// .question-figure {
-//   background: cornsilk;
-//   padding: 1em;
-
-//   &>img {
-//     width: 100%;
-//   }
-// }
-
-// .question-inputs {
-//   background: palegreen;
-//   padding: 1em;
-// }
-
-// .width30 {
-//   flex-basis: 30%;
-// }
 
 .width30 {
   flex-basis: 30%;
