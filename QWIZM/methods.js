@@ -20,7 +20,6 @@ QWIZM.methods.viewsLoad = function (o) {
   } // if there is a quiz item, load the state of the quiz
   else {
       QWIZM.state = QWIZM.methods.readState(quizId);
-      console.log('on reload: ' + QWIZM.state.currentView);
       $('main').html(QWIZM.methods.loadViews());
       $('body').append(QWIZM.methods.writeFooter()); // set all views to display:none;. Do that here rather than initializing all views to hidden so that when they are shown, display: flex (or whatever) is maintained
 
@@ -51,7 +50,7 @@ QWIZM.methods.loadViews = function () {
   html += "<div id='instructions' class='view' >".concat(QWIZM.quiz.instructions, "</div>\n            <div id='clear' class='card view' > ").concat(QWIZM.methods.writeClearView(), "</div>");
 
   for (var i = 1; i < len; i++) {
-    html += "<div id='Q".concat(i, "' class='view'>\n            ").concat(QWIZM.quiz.questions[i].statement, "</div>\n");
+    html += "<div id='Q".concat(i, "' class='view'>\n            ").concat(QWIZM.quiz.questions[i](i), "</div>\n");
   }
 
   html += "<div id='summary' class='view'>Summary</div>";

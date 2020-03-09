@@ -152,8 +152,33 @@ footer {
 
 @media screen and (min-width: 1200px) {
   html {
-    font-size: 16;
+    font-size: 16 px;
   }
+}
+
+.katex {
+  font-size: 105%;
+  color: DarkRed;
+  font-weight: 600;
+}
+
+.statement {
+  border: 3px solid green;
+  margin: 0 auto;
+}
+
+.statement h3 {
+  display: inline;
+  margin: 0;
+}
+
+.image {
+  border: 3px solid yellow;
+  margin: 1em auto;
+}
+
+img {
+  width: 100%;
 }
 
 @media screen and (max-width: 1200px) {
@@ -375,12 +400,69 @@ main .card .login-list li#unameError {
   height: 1.5em;
 }
 
+main .view {
+  width: 100%;
+  border: 3px solid pink;
+}
+
 .highlight {
   color: darkred;
   font-weight: bold;
 }
 
+.width25 {
+  width: 25%;
+}
+
 .width30 {
-  -ms-flex-preferred-size: 30%;
-      flex-basis: 30%;
+  width: 30%;
+}
+
+.width35 {
+  width: 35%;
+}
+
+.width40 {
+  width: 40%;
+}
+
+.width45 {
+  width: 45%;
+}
+
+.width50 {
+  width: 50%;
+}
+
+.width55 {
+  width: 55%;
+}
+
+.width60 {
+  width: 60%;
+}
+
+.width65 {
+  width: 65%;
+}
+
+.width70 {
+  width: 70%;
+}
+
+.width75 {
+  width: 75%;
+}
+
+.width80 {
+  width: 80%;
+}
+
+.width85 {
+  width: 85%;
+}
+
+.width90 {
+  width: 90%;
+  border: 3px green solid;
 }

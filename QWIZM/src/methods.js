@@ -32,7 +32,6 @@ QWIZM.methods.viewsLoad = o => {
     else {
 
         QWIZM.state = QWIZM.methods.readState(quizId);
-        console.log('on reload: ' + QWIZM.state.currentView);
 
         $('main').html(QWIZM.methods.loadViews());
 
@@ -74,9 +73,10 @@ QWIZM.methods.loadViews = () => {
     html += `<div id='instructions' class='view' >${QWIZM.quiz.instructions}</div>
             <div id='clear' class='card view' > ${QWIZM.methods.writeClearView()}</div>`;
 
+
     for (let i = 1; i < len; i++) {
         html += `<div id='Q${i}' class='view'>
-            ${QWIZM.quiz.questions[i].statement}</div>\n`;
+            ${QWIZM.quiz.questions[i](i)}</div>\n`;
     }
 
     html += `<div id='summary' class='view'>Summary</div>`;

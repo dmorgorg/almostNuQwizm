@@ -152,28 +152,42 @@ $max_view: 1200;
 // maximum font for large window
 @media screen and (min-width: #{$max-view}px) {
   html {
-    font-size: $max-font;
+    font-size: $max-font px;
     // background-color: purple;
   }
 }
 
+.katex {
+  font-size: 105%;
+  color: DarkRed;
+  font-weight: 600;
+}
+
+.statement {
+  border: 3px solid green;
+  margin: 0 auto;
+
+  & h3 {
+    display: inline;
+    margin: 0;
+  }
+}
+
+.image {
+  border: 3px solid yellow;
+  margin: 1em auto;
+}
+
+img {
+  width: 100%;
+}
+
 @media screen and (max-width: #{$max_view}px) {
   html {
-    // font-size: calc(#{$mid-font} + (100vw - #{$min-view}) * (#{$max-font} - #{$mid-font}) / (#{$max-view} - #{$min-view}));
-    // font-size: calc($mid-font + (100vw - $min-view) / 9);
-
-    // font-size: calc(#{$mid_font} + 8 * ((100vw - #{$min_view}) / (#{$max_view} - #{$min_view})));
     font-size: calc(#{$min_font}px + (#{$max_font} - #{$min_font}) * ((100vw - #{$min_view}px) / (#{$max_view} - #{$min_view})));
-    // background-color: pink;
   }
 }
 
-@media screen and (max-width: #{$min_view}px) {
-  html {
-    // font-size: calc($min-font + (100vw - $min-view) * ($mid-font - $mnd-font) / ($max-view-$min-view));
-    // background-color: limegreen;
-  }
-}
 
 
 
@@ -228,6 +242,7 @@ main {
   overflow-y: auto;
   justify-content: center;
   padding: 0 1em;
+  // background: yellow;
 
   & #clear {
     text-align: center;
@@ -337,6 +352,12 @@ main {
     }
   }
 
+  & .view {
+    // background: pink;
+    width: 100%;
+    border: 3px solid pink;
+  }
+
   // end main
 }
 
@@ -345,38 +366,74 @@ main {
   font-weight: bold;
 }
 
-.width30 {
-  flex-basis: 30%;
+.width25 {
+  // flex-basis: 30%;
+  width: 25%;
 }
 
-// .width35 {
-//   flex-basis: 35%;
-// }
+.width30 {
+  // flex-basis: 30%;
+  width: 30%;
+}
 
-// .width40 {
-//   flex-basis: 40%;
-// }
+.width35 {
+  // flex-basis: 35%;
+  width: 35%;
+}
 
-// .width45 {
-//   flex-basis: 45%;
-// }
+.width40 {
+  // flex-basis: 40%;
+  width: 40%;
+}
 
-// .width50 {
-//   flex-basis: 50%;
-// }
+.width45 {
+  // flex-basis: 45%;
+  width: 45%;
+}
 
-// .width55 {
-//   flex-basis: 55%;
-// }
+.width50 {
+  // flex-basis: 50%;
+  width: 50%;
+  // background-color: pink;
+}
 
-// .width60 {
-//   flex-basis: 60%;
-// }
+.width55 {
+  // flex-basis: 55%;
+  width: 55%;
+}
 
-// .width65 {
-//   flex-basis: 65%;
-// }
+.width60 {
+  // flex-basis: 60%;
+  width: 60%
+}
 
-// .width70 {
-//   flex-basis: 70%;
-// }
+.width65 {
+  //   flex-basis: 65%;
+  width: 65%;
+}
+
+.width70 {
+  // flex-basis: 70%;
+  width: 70%;
+}
+
+.width75 {
+  // flex-basis: 75%;
+  width: 75%;
+}
+
+.width80 {
+  // flex-basis: 80%;
+  width: 80%;
+}
+
+.width85 {
+  // flex-basis: 85%;
+  width: 85%;
+}
+
+.width90 {
+  // flex-basis: 90%;
+  width: 90%;
+  border: 3px green solid;
+}
