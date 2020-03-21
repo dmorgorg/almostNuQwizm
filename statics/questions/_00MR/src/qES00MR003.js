@@ -5,14 +5,15 @@ QWIZM.question.qES00MR003 = (qNumber) => {
     let qId = 1000037, // question ID number, unique to this question
         uId = QWIZM.state.uId,
         sd = utils.toSigDigs,
+        stringify = utils.stringify,
         sin = utils.sin,
         cos = utils.cos,
         asin = utils.asin,
         acos = utils.acos,
         tan = utils.tan,
         atan = utils.atan,
-        stringify = utils.stringify,
         sigDigs = QWIZM.quiz.sigDigs,
+        ov = QWIZM.methods.overlayVariable,
         seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
         lcrng = new utils.LCRNG(seed);
 
@@ -35,15 +36,39 @@ QWIZM.question.qES00MR003 = (qNumber) => {
     phi = stringify(phi, sigDigs);
     theta = stringify(theta, sigDigs);
 
-    let statement = `Determine angles !$\\theta!$ and !$\\phi!$. <br\>
-    Temp: topChordAngle = ${topChord}!$^\\circ!$, mult = ${multiplier}, !$x_{AB} = ${x}!$ m, !$y!$&nbsp;=&nbsp;${y} m<br\>
-   `;
-
-    let img = `../../images/math03.png`;
-
+    let statement = `Determine angles !$\\theta!$ and !$\\phi!$.`,
+        //  <br\>
+        // Temp: topChordAngle = ${topChord}!$^\\circ!$, mult = ${multiplier}, !$x_{AB} = ${x}!$ m, !$y!$&nbsp;=&nbsp;${y} m<br\>
+        //    `,
+        img = `../../images/math03.png`,
+        iV1 = ov({
+            input: x + ' m',
+            left: 21.75,
+            top: 82.25
+        }),
+        iV2 = ov({
+            input: x + ' m',
+            left: 46.75,
+            top: 82.25
+        }),
+        iV3 = ov({
+            input: x + ' m',
+            left: 70.75,
+            top: 82.25
+        }),
+        iV4 = ov({
+            input: y + ' m',
+            left: 2,
+            top: 33.5
+        });
 
     return `<div class='statement width40'><h3>Q${qNumber}</h3>: ${statement}<br>
-    Ans: <i>&theta;</i> = ${theta}&deg;, <i>&phi;</i> = ${phi}&deg;
+    <!--  Ans: <i>&theta;</i> = ${theta}&deg;, <i>&phi;</i> = ${phi}&deg; -->
     </div>
-    <div class='image width60'><img src= ${img}></div>`;
+    <div class='image width60'><img src= ${img}>
+    ${iV1}
+    ${iV2}
+    ${iV3}
+    ${iV4}
+    </div>`;
 };

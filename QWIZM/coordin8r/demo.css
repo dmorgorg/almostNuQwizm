@@ -1,0 +1,141 @@
+@CHARSET "ISO-8859-1";
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family: verdana, sans;
+	/* background-color: #faf; */
+	font-size: 80%;
+	/* not sure why overflow needs to be hidden; there seems to be something causing appearance of vertical scroll bar otherwise */
+	overflow: hidden;
+}
+
+#wrapper{
+	/* make position relative so that contained position divs use this as a parent */
+	position: relative;
+	width:850px;
+	height: 500px;	
+	margin: 50px auto;
+	/* background-color: #ffbbbb; */
+	/* border: 1px solid red; */
+}
+
+.reqdProps{
+	position: absolute;
+	color: blue;
+	line-height: 2em;
+	/* background-color: #ffffbb;" */
+}
+.head{
+	margin-top: 1em;
+	font-variant: small-caps;
+	font-size: 1.4em;
+	font-weight: bolder;
+	color: black;
+}
+.subhead{
+	margin-top: 0.5em;
+	margin-bottom: 0.25em;
+	/* font-variant: small-caps; */
+	font-size: 1.0em;
+	font-weight: bold;	
+}
+
+.command{
+	position: absolute;
+	bottom: -100px;
+	right: 0;
+	color: blue;
+}
+
+
+
+.red{
+	
+	color: red;
+}
+.six66{
+	color: #666;
+}
+.nine99{
+	color: #999;
+}
+.aaa{
+	color: #aaa;
+}
+.bbb{
+	color: #bbb;
+}
+.ccc{
+	color: #ccc;
+}
+
+
+
+
+#coords{
+	position: absolute;
+	/* width: 8em;
+	height: 1.5em; */
+	padding: 5px;
+	text-align: center;
+	background-color: #ccc;
+	/* visibility: hidden; */
+}
+
+:disabled{
+	color: grey;
+}
+
+.disabled{
+	color: red;
+}
+
+#tl{
+	position: absolute;
+	text-align: right;
+	width: 4em;
+	right: 830px;
+	top: -2em;
+}
+
+#tr{
+	position: absolute;
+	text-align: left;
+	width: 5em;
+	left: 470px;
+	top: -2em;
+}
+
+#bl{
+	position: absolute;
+	text-align: right;
+	width: 5em;
+	right: 830px;
+	bottom: -2em;
+}
+
+#br{
+	position: absolute;
+	text-align: left;
+	width: 7em;
+	left: 470px;
+	bottom: -2em;
+}
+
+#controls{
+	margin-top: 0px;
+	width: 300px;
+	/* background-color: #dfd;; */
+	float: right;
+	text-align: right;
+}
+
+.shadow {
+  -moz-box-shadow:    1px 3px 5px 6px #ccc;
+  -webkit-box-shadow: 1px 3px 5px 6px #ccc;
+  box-shadow:         1px 3px 5px 6px #ccc;
+}
+
+
+

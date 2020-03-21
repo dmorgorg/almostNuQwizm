@@ -16,6 +16,7 @@ QWIZM.question.qES00MR002 = function (qNumber) {
       tan = utils.tan,
       atan = utils.atan,
       sigDigs = QWIZM.quiz.sigDigs,
+      ov = QWIZM.methods.overlayVariable,
       seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
       lcrng = new utils.LCRNG(seed); //inputs
 
@@ -26,10 +27,30 @@ QWIZM.question.qES00MR002 = function (qNumber) {
 
   var a2 = Math.sqrt(b * b + c * c - 2 * b * c * cos(A)),
       B = acos((a * a + c * c - b * b) / (2 * a * c));
-  var statement = "Determine the length of !$BC!$ and the angle !$ABC!$. <br>\n    Temp: !$a!$ = ".concat(a, " cm, !$b!$ = ").concat(b, " cm, !$c!$ = ").concat(c, " cm, !$A!$&nbsp;=&nbsp;").concat(A, "&deg;<br>\n    Note: don't overlay <i>a</i>.<br>");
-  var img = "../../images/math02.png"; //stringify
+  var statement = "Determine the length of !$BC!$ and the angle !$ABC!$. <br>",
+      // Temp: !$a!$ = ${a} cm, !$b!$ = ${b} cm, !$c!$ = ${c} cm, !$A!$&nbsp;=&nbsp;${A}&deg;<br\>
+  // Note: don't overlay <i>a</i>.<br\>`,
+  img = "../../images/math02.png",
+      iV1 = ov({
+    input: A + '&deg;',
+    left: 23,
+    top: 81,
+    background: 'linen'
+  }),
+      iV2 = ov({
+    input: c + ' cm',
+    left: 36,
+    top: 90
+  }),
+      iV3 = ov({
+    input: b + ' cm',
+    left: 32,
+    top: 48,
+    rot: 55,
+    background: 'none'
+  }); //stringify
 
   a2 = stringify(a, sigDigs);
   B = stringify(B, sigDigs);
-  return "<div class='statement width50'><h3>Q".concat(qNumber, "</h3>: ").concat(statement, "<br>\n    Ans: !$a!$ = ").concat(a2, " cm, !$ABC!$ = ").concat(B, "!$^\\circ!$;\n    </div>\n    <div class='image width30'><img src= ").concat(img, "></div>");
+  return "<div class='statement width50'><h3>Q".concat(qNumber, "</h3>: ").concat(statement, "<br>\n    <!-- Ans: !$a!$ = ").concat(a2, " cm, !$ABC!$ = ").concat(B, "!$^\\circ!$ -->\n    </div>\n    <div id = '").concat(qId, "img' class='image width30'>\n    <img src= ").concat(img, ">\n    ").concat(iV1, "\n    ").concat(iV2, "\n    ").concat(iV3, "\n    </div>");
 };

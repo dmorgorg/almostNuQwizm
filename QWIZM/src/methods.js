@@ -84,6 +84,7 @@ QWIZM.methods.loadViews = () => {
     return html;
 };
 
+
 QWIZM.methods.reset = () => {
     $('#clear').fadeOut();
     localStorage.removeItem(QWIZM.QUIZ_KEY);
@@ -97,6 +98,24 @@ QWIZM.methods.writeState = (key, value) => {
 QWIZM.methods.readState = (key) => {
     return JSON.parse(localStorage.getItem(key));
 };
+
+QWIZM.methods.overlayVariable = (o) => {
+    let input = o.input,
+        left = o.left,
+        top = o.top,
+        rot = o.rot || 0,
+        fs = o.fontSize || 1.5,
+        bg = o.background || 'white'; // default value is 'white', use 'inherit' or 'none' for no background
+
+    return `<div class='label' style="
+        transform: rotate(${-rot}deg);
+        top: ${top}%; 
+        left: ${left}%;
+        background-color:${bg};        
+        font-size: ${fs}vw">
+        ${input}
+        </div>`;
+}
 
 QWIZM.methods.writeLoginForm = () => {
     $('main').append(`<div id="login" class="card view">

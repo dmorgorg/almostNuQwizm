@@ -5,16 +5,18 @@ QWIZM.question.qES00MR004 = (qNumber) => {
     let qId = 1000039, // question ID number, unique to this question
         uId = QWIZM.state.uId,
         sd = utils.toSigDigs,
+        stringify = utils.stringify,
         sin = utils.sin,
         cos = utils.cos,
         asin = utils.asin,
         acos = utils.acos,
         tan = utils.tan,
         atan = utils.atan,
-        stringify = utils.stringify,
         sigDigs = QWIZM.quiz.sigDigs,
+        ov = QWIZM.methods.overlayVariable,
         seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
         lcrng = new utils.LCRNG(seed);
+
 
     //inputs
     let AB = sd(lcrng.getNext(400, 600, 5), sigDigs),
@@ -41,18 +43,31 @@ QWIZM.question.qES00MR004 = (qNumber) => {
 
 
     let statement = `!$ABCD!$ is a rigid plate, able to rotate about a pinned connection at !$C!$. !$ABCD!$ is held in position by linkages !$BF!$ and !$DE!$. When force !$P!$ is applied at !$A!$, !$A!$ moves rightwards a distance of ${dA} mm as plate !$ABCD!$ rotates about !$C!$. !$BF!$ increases in length (deforms) but can be assumed to remain horizontal. !$DE!$ decreases in length (its deformation is negative) but remains vertical. <p>
-    Determine the deformation !$\\delta_{BF}!$ in !$BF!$ and the deformation !$\\delta_{DE}!$ in !$DE!$. <p>
-    Inputs: AB = ${AB} mm, BC = ${BC} mm, CD = ${CD} mm, DE = ${DE} mm, BF = ${BF} mm, deltaDE = ${deltaDE1} mm<p>
-    
-    <p>
-    
-   `;
+    Determine the deformation !$\\delta_{BF}!$ in !$BF!$ and the deformation !$\\delta_{DE}!$ in !$DE!$.`,
+        img = `../../images/math04.png`,
+        iV1 = ov({
+            input: AB + ' mm',
+            left: 27.5,
+            top: 16.5
+        }),
+        iV2 = ov({
+            input: BC + ' mm',
+            left: 27.5,
+            top: 46
+        }),
+        iV3 = ov({
+            input: CD + ' mm',
+            left: 58,
+            top: 77.5
+        });
 
-    let img = `../../images/math04.png`;
 
-
-    return `<div class='statement width60'><h3>Q${qNumber}</h3>: ${statement}<br>
-    Ans: <i>&delta;<sub>DE</sub></i> = ${deltaDE} mm, <i>&delta;<sub>BF</sub></i> = ${deltaBF} mm;
+    return `<div class='statement width60 taleft'><h3>Q${qNumber}</h3>: ${statement}<br>
+    <!-- Ans: <i>&delta;<sub>DE</sub></i> = ${deltaDE} mm, <i>&delta;<sub>BF</sub></i> = ${deltaBF} mm; -->
     </div>
-    <div class='image width45'><img src= ${img}></div>`;
+    <div class='image width45'><img src= ${img}>
+    ${iV1}
+    ${iV2}
+    ${iV3}
+    </div>`
 };

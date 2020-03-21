@@ -8,14 +8,15 @@ QWIZM.question.qES00MR004 = function (qNumber) {
       // question ID number, unique to this question
   uId = QWIZM.state.uId,
       sd = utils.toSigDigs,
+      stringify = utils.stringify,
       sin = utils.sin,
       cos = utils.cos,
       asin = utils.asin,
       acos = utils.acos,
       tan = utils.tan,
       atan = utils.atan,
-      stringify = utils.stringify,
       sigDigs = QWIZM.quiz.sigDigs,
+      ov = QWIZM.methods.overlayVariable,
       seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
       lcrng = new utils.LCRNG(seed); //inputs
 
@@ -38,7 +39,22 @@ QWIZM.question.qES00MR004 = function (qNumber) {
   dA = stringify(dA, sigDigs);
   deltaBF = stringify(deltaBF, sigDigs);
   deltaDE = stringify(deltaDE, sigDigs);
-  var statement = "!$ABCD!$ is a rigid plate, able to rotate about a pinned connection at !$C!$. !$ABCD!$ is held in position by linkages !$BF!$ and !$DE!$. When force !$P!$ is applied at !$A!$, !$A!$ moves rightwards a distance of ".concat(dA, " mm as plate !$ABCD!$ rotates about !$C!$. !$BF!$ increases in length (deforms) but can be assumed to remain horizontal. !$DE!$ decreases in length (its deformation is negative) but remains vertical. <p>\n    Determine the deformation !$\\delta_{BF}!$ in !$BF!$ and the deformation !$\\delta_{DE}!$ in !$DE!$. <p>\n    Inputs: AB = ").concat(AB, " mm, BC = ").concat(BC, " mm, CD = ").concat(CD, " mm, DE = ").concat(DE, " mm, BF = ").concat(BF, " mm, deltaDE = ").concat(deltaDE1, " mm<p>\n    \n    <p>\n    \n   ");
-  var img = "../../images/math04.png";
-  return "<div class='statement width60'><h3>Q".concat(qNumber, "</h3>: ").concat(statement, "<br>\n    Ans: <i>&delta;<sub>DE</sub></i> = ").concat(deltaDE, " mm, <i>&delta;<sub>BF</sub></i> = ").concat(deltaBF, " mm;\n    </div>\n    <div class='image width45'><img src= ").concat(img, "></div>");
+  var statement = "!$ABCD!$ is a rigid plate, able to rotate about a pinned connection at !$C!$. !$ABCD!$ is held in position by linkages !$BF!$ and !$DE!$. When force !$P!$ is applied at !$A!$, !$A!$ moves rightwards a distance of ".concat(dA, " mm as plate !$ABCD!$ rotates about !$C!$. !$BF!$ increases in length (deforms) but can be assumed to remain horizontal. !$DE!$ decreases in length (its deformation is negative) but remains vertical. <p>\n    Determine the deformation !$\\delta_{BF}!$ in !$BF!$ and the deformation !$\\delta_{DE}!$ in !$DE!$."),
+      img = "../../images/math04.png",
+      iV1 = ov({
+    input: AB + ' mm',
+    left: 27.5,
+    top: 16.5
+  }),
+      iV2 = ov({
+    input: BC + ' mm',
+    left: 27.5,
+    top: 46
+  }),
+      iV3 = ov({
+    input: CD + ' mm',
+    left: 58,
+    top: 77.5
+  });
+  return "<div class='statement width60 taleft'><h3>Q".concat(qNumber, "</h3>: ").concat(statement, "<br>\n    <!-- Ans: <i>&delta;<sub>DE</sub></i> = ").concat(deltaDE, " mm, <i>&delta;<sub>BF</sub></i> = ").concat(deltaBF, " mm; -->\n    </div>\n    <div class='image width45'><img src= ").concat(img, ">\n    ").concat(iV1, "\n    ").concat(iV2, "\n    ").concat(iV3, "\n    </div>");
 };

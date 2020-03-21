@@ -5,14 +5,15 @@ QWIZM.question.qES00MR005 = (qNumber) => {
     let qId = 1000081, // question ID number, unique to this question
         uId = QWIZM.state.uId,
         sd = utils.toSigDigs,
+        stringify = utils.stringify,
         sin = utils.sin,
         cos = utils.cos,
         asin = utils.asin,
         acos = utils.acos,
         tan = utils.tan,
         atan = utils.atan,
-        stringify = utils.stringify,
         sigDigs = QWIZM.quiz.sigDigs,
+        ov = QWIZM.methods.overlayVariable,
         seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
         lcrng = new utils.LCRNG(seed);
 
@@ -35,17 +36,31 @@ QWIZM.question.qES00MR005 = (qNumber) => {
     BC = stringify(BC, sigDigs);
 
 
-    let statement = `Using the Pythagorean Theorem and the theory of similar triangles, determine the lengths of  !$AB!$, !$BD!$ and !$CD!$.<p>
-    Inputs: AC = ${AC} cm, AD = ${AD} cm<p>    
-    <p>
-    
-   `;
+    let statement = `Using the Pythagorean Theorem and the theory of similar triangles, determine the lengths of  !$AB!$, !$BD!$ and !$CD!$.
+    <!-- Inputs: AC = ${AC} cm, AD = ${AD} cm<p> -->`,
+        img = `../../images/math05.png`,
+        iV1 = ov({
+            input: AC,
+            left: 40,
+            top: 86,
+            fontSize: 1.6,
+            background: 'none'
+        }),
+        iV2 = ov({
+            input: AD,
+            left: 17,
+            top: 53,
+            fontSize: 1.6,
+            background: 'none',
+            rot: 53.5
+        });
 
-    let img = `../../images/math05.png`;
 
-
-    return `<div class='statement width60'><h3>Q${qNumber}</h3>: ${statement}<br>
-    Ans: <i>CD</i> = ${CD} cm, <i>AB</i> = ${AB} cm, <i>BC</i> = ${BC} cm;
+    return `<div class='statement width45 taleft'><h3>Q${qNumber}</h3>: ${statement}
+    <!-- Ans: <i>CD</i> = ${CD} cm, <i>AB</i> = ${AB} cm, <i>BC</i> = ${BC} cm; -->
     </div>
-    <div class='image width35'><img src= ${img}></div>`;
+    <div class='image width35'><img src= ${img}>
+    ${iV1}
+    ${iV2}
+    </div>`;
 };

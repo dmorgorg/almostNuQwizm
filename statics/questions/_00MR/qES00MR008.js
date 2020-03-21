@@ -22,7 +22,7 @@ QWIZM.question.qES00MR008 = function (qNumber) {
   var theta = sd(lcrng.getNext(21, 24, 0.1), sigDigs),
       phi = sd(lcrng.getNext(52, 60, 0.1), sigDigs),
       W = sd(lcrng.getNext(100, 200, 5), sigDigs) * 9.81,
-      b1 = W,
+      b1 = sd(W, sigDigs),
       b2 = 0; //calcs
 
   var a11 = sin(theta),
@@ -34,9 +34,6 @@ QWIZM.question.qES00MR008 = function (qNumber) {
       Dy = a11 * b2 - a21 * b1,
       x = stringify(Dx / D, sigDigs),
       y = stringify(Dy / D, sigDigs);
-  var statement = "Solve this system of equations for !$F_{AC}!$ and !$F_{BC}!$.\n        \n        $$\n        \\begin{aligned}\n            F_{BC}\\cdot\\sin\\left(".concat(phi, "^\\circ\\right) +F_{AC}\\cdot\\sin\\left(").concat(theta, "^\\circ\\right)  &= ").concat(W, " \\\\\n            F_{BC}\\cdot\\cos\\left(").concat(phi, "^\\circ\\right) - F_{BC}\\cdot\\cos\\left(").concat(theta, "^\\circ\\right) &= 0 \n        \\end{aligned}\n        $$"); //stringify
-  // a2 = stringify(a, sigDigs);
-  // B = stringify(B, sigDigs);
-
-  return "<div class='statement width50'><h3>Q".concat(qNumber, "</h3>: ").concat(statement, "<p>\n    Temp: a11=").concat(a11, ", a12=").concat(a12, ", a21=").concat(a21, ", a22=").concat(a22, ", !$D!$=").concat(D, ", !$Dx=").concat(Dx, "!$, !$Dy!$=").concat(Dy, ";<p>\n    Ans: !$FBC!$ = ").concat(x, ", !$FAC!$ = ").concat(y, ".\n    \n\n    </div>");
+  var statement = "Solve this system of equations for !$F_{AC}!$ and !$F_{BC}!$.\n        \n        $$\n        \\begin{aligned}\n            F_{BC}\\cdot\\sin\\left(".concat(phi, "^\\circ\\right) +F_{AC}\\cdot\\sin\\left(").concat(theta, "^\\circ\\right)  &= ").concat(W, " \\\\\n            F_{BC}\\cdot\\cos\\left(").concat(phi, "^\\circ\\right) - F_{BC}\\cdot\\cos\\left(").concat(theta, "^\\circ\\right) &= 0 \n        \\end{aligned}\n        $$");
+  return "<div class='statement width50'><h3>Q".concat(qNumber, "</h3>: ").concat(statement, "<p>\n    Temp: !$ a_{11}=").concat(a11, " !$  , a12=").concat(a12, ", a21=").concat(a21, ", a22=").concat(a22, ", !$D!$=").concat(D, ", !$Dx=").concat(Dx, "!$, !$Dy!$=").concat(Dy, ";<p>\n    Ans: !$FAC!$ = ").concat(x, ", !$FBC!$ = ").concat(y, ".\n    \n\n    </div>");
 };

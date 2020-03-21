@@ -10,6 +10,7 @@ QWIZM.question.qES00MR001 = function (qNumber) {
       sd = utils.toSigDigs,
       stringify = utils.stringify,
       sigDigs = QWIZM.quiz.sigDigs,
+      ov = QWIZM.methods.overlayVariable,
       seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
       lcrng = new utils.LCRNG(seed); //inputs
 
@@ -27,7 +28,44 @@ QWIZM.question.qES00MR001 = function (qNumber) {
   y2 = stringify(y2, sigDigs);
   BF = stringify(BF, sigDigs);
   CE = stringify(CE, sigDigs);
-  var statement = "Determine the lengths of truss members !$BF!$ and !$CE!$. <br>\n    Temp: !$x!$ = ".concat(x, " cm, !$y1!$ = ").concat(y1, " cm, !$y2!$ = ").concat(y2, " cm <br>");
-  var img = "../../images/math01.png";
-  return "<div class='statement width50'><h3>Q".concat(qNumber, "</h3>: \n    ").concat(statement, "\n    Ans: !$BF!$ = ").concat(BF, ", !$CE!$ = ").concat(CE, "\n    </div>\n    <div class='image width60'>\n    <img src= ").concat(img, ">\n    </div>\n    ");
+  var statement = "Determine the lengths of truss members !$BF!$ and !$CE!$.",
+      //  <br\>
+  // Temp: !$x!$ = ${x} m, !$y1!$ = ${y1} m, !$y2!$ = ${y2} m <br\>`;
+  img = "../../images/math01.png",
+      iV1 = ov({
+    input: x + ' m',
+    left: 22.75,
+    top: 85.75 // background: 'orange'
+
+  }),
+      iV2 = ov({
+    input: x + ' m',
+    left: 44.25,
+    top: 86 // background: 'violet'
+
+  }),
+      iV3 = ov({
+    input: x + ' m',
+    left: 65.25,
+    top: 86 // background: 'yellow'
+
+  }),
+      iV4 = ov({
+    input: y1 + ' m',
+    left: 84,
+    top: 58.5 // background: 'pink'
+
+  }),
+      iV5 = ov({
+    input: y2 + ' m',
+    left: 83.25,
+    top: 36.5 // background: 'yellow'
+
+  }),
+      iV6 = ov({
+    input: y2 + ' m',
+    left: 83.25,
+    top: 21.25
+  });
+  return "<div class='statement width50'><h3>Q".concat(qNumber, "</h3>: \n    ").concat(statement, "\n    <!--Ans: !$BF!$ = ").concat(BF, ", !$CE!$ = ").concat(CE, " -->\n    </div>\n    <div id = '").concat(qId, "img' class='image width60'>\n    <img src= ").concat(img, ">\n    ").concat(iV1, "\n    ").concat(iV2, "\n    ").concat(iV3, "\n    ").concat(iV4, "\n    ").concat(iV5, "\n    ").concat(iV6, "\n    </div>\n    ");
 };

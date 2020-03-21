@@ -13,6 +13,7 @@ QWIZM.question.qES00MR002 = (qNumber) => {
         tan = utils.tan,
         atan = utils.atan,
         sigDigs = QWIZM.quiz.sigDigs,
+        ov = QWIZM.methods.overlayVariable,
         seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
         lcrng = new utils.LCRNG(seed);
 
@@ -26,11 +27,28 @@ QWIZM.question.qES00MR002 = (qNumber) => {
     let a2 = Math.sqrt(b * b + c * c - 2 * b * c * cos(A)),
         B = acos((a * a + c * c - b * b) / (2 * a * c));
 
-    let statement = `Determine the length of !$BC!$ and the angle !$ABC!$. <br\>
-    Temp: !$a!$ = ${a} cm, !$b!$ = ${b} cm, !$c!$ = ${c} cm, !$A!$&nbsp;=&nbsp;${A}&deg;<br\>
-    Note: don't overlay <i>a</i>.<br\>`;
-
-    let img = `../../images/math02.png`;
+    let statement = `Determine the length of !$BC!$ and the angle !$ABC!$. <br\>`,
+        // Temp: !$a!$ = ${a} cm, !$b!$ = ${b} cm, !$c!$ = ${c} cm, !$A!$&nbsp;=&nbsp;${A}&deg;<br\>
+        // Note: don't overlay <i>a</i>.<br\>`,
+        img = `../../images/math02.png`,
+        iV1 = ov({
+            input: A + '&deg;',
+            left: 23,
+            top: 81,
+            background: 'linen'
+        }),
+        iV2 = ov({
+            input: c + ' cm',
+            left: 36,
+            top: 90
+        }),
+        iV3 = ov({
+            input: b + ' cm',
+            left: 32,
+            top: 48,
+            rot: 55,
+            background: 'none'
+        });
 
     //stringify
     a2 = stringify(a, sigDigs);
@@ -38,9 +56,14 @@ QWIZM.question.qES00MR002 = (qNumber) => {
 
 
     return `<div class='statement width50'><h3>Q${qNumber}</h3>: ${statement}<br>
-    Ans: !$a!$ = ${a2} cm, !$ABC!$ = ${B}!$^\\circ!$;
+    <!-- Ans: !$a!$ = ${a2} cm, !$ABC!$ = ${B}!$^\\circ!$ -->
     </div>
-    <div class='image width30'><img src= ${img}></div>`;
+    <div id = '${qId}img' class='image width30'>
+    <img src= ${img}>
+    ${iV1}
+    ${iV2}
+    ${iV3}
+    </div>`;
 
 
 };

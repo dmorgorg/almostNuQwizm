@@ -20,11 +20,8 @@ QWIZM.question.qES00MR008 = (qNumber) => {
     let theta = sd(lcrng.getNext(21, 24, 0.1), sigDigs),
         phi = sd(lcrng.getNext(52, 60, 0.1), sigDigs),
         W = sd(lcrng.getNext(100, 200, 5), sigDigs) * 9.81,
-        b1 = W,
+        b1 = sd(W, sigDigs),
         b2 = 0;
-
-
-
 
     //calcs
     let a11 = sin(theta),
@@ -37,6 +34,8 @@ QWIZM.question.qES00MR008 = (qNumber) => {
         x = stringify(Dx / D, sigDigs),
         y = stringify(Dy / D, sigDigs);
 
+
+
     let statement = `Solve this system of equations for !$F_{AC}!$ and !$F_{BC}!$.
         
         $$
@@ -48,14 +47,9 @@ QWIZM.question.qES00MR008 = (qNumber) => {
 
 
 
-    //stringify
-    // a2 = stringify(a, sigDigs);
-    // B = stringify(B, sigDigs);
-
-
     return `<div class='statement width50'><h3>Q${qNumber}</h3>: ${statement}<p>
-    Temp: a11=${a11}, a12=${a12}, a21=${a21}, a22=${a22}, !$D!$=${D}, !$Dx=${Dx}!$, !$Dy!$=${Dy};<p>
-    Ans: !$FBC!$ = ${x}, !$FAC!$ = ${y}.
+    Temp: !$ a_{11}=${a11} !$  , a12=${a12}, a21=${a21}, a22=${a22}, !$D!$=${D}, !$Dx=${Dx}!$, !$Dy!$=${Dy};<p>
+    Ans: !$FAC!$ = ${x}, !$FBC!$ = ${y}.
     
 
     </div>`;

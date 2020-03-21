@@ -71,6 +71,17 @@ QWIZM.methods.readState = function (key) {
   return JSON.parse(localStorage.getItem(key));
 };
 
+QWIZM.methods.overlayVariable = function (o) {
+  var input = o.input,
+      left = o.left,
+      top = o.top,
+      rot = o.rot || 0,
+      fs = o.fontSize || 1.5,
+      bg = o.background || 'white'; // default value is 'white', use 'inherit' or 'none' for no background
+
+  return "<div class='label' style=\"\n        transform: rotate(".concat(-rot, "deg);\n        top: ").concat(top, "%; \n        left: ").concat(left, "%;\n        background-color:").concat(bg, ";        \n        font-size: ").concat(fs, "vw\">\n        ").concat(input, "\n        </div>");
+};
+
 QWIZM.methods.writeLoginForm = function () {
   $('main').append("<div id=\"login\" class=\"card view\">\n            <h2> Please Log In </h2>\n            <form>\n            <ul class = \"login-list\">\n                <li>\n                    <label for=\"uname\">Username:</label>\n                    <input type=\"text\" id=\"uname\" autocomplete=\"off\" placeholder=\"Alphabetical characters only, e.g. johnSmith\" />\n                </li> \n                <li id=\"unameError\"></li>\n                <li>\n                    <label for=\"uId\">ID number:</label>\n                    <input type = \"text\" id = \"uId\" autocomplete=\"off\" placeholder = \"Numerical characters only, e.g. 402235\" />\n                </li> \n                <li id = \"uIdError\"></li>\n                <li><button id=\"login-button\" type=\"submit\">Submit</button></li>\n            </ul>\n            </form>\n        </div>");
 };
