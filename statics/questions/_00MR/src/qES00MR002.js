@@ -18,18 +18,18 @@ QWIZM.question.qES00MR002 = (qNumber) => {
         lcrng = new utils.LCRNG(seed);
 
     //inputs
-    let c = sd(lcrng.getNext(2, 4, 0.025), sigDigs),
-        a = sd(lcrng.getNext(1.5, 1.64, 0.01) * c, sigDigs),
-        b = sd(lcrng.getNext(1.95, 1.975, 0.01) * c, sigDigs),
-        A = sd(acos((b * b + c * c - a * a) / (2 * b * c)), sigDigs);
+    // console.log(stringify(lcrng.getNext(2, 4, 0.025)))
+    let c = stringify(lcrng.getNext(2, 4, 0.025)),
+        a = stringify(lcrng.getNext(1.5, 1.64, 0.01) * c),
+        b = stringify(lcrng.getNext(1.95, 1.975, 0.01) * c),
+        A = stringify(acos((b * b + c * c - a * a) / (2 * b * c)));
 
     //calcs
     let a2 = Math.sqrt(b * b + c * c - 2 * b * c * cos(A)),
         B = acos((a * a + c * c - b * b) / (2 * a * c));
 
-    let statement = `Determine the length of !$BC!$ and the angle !$ABC!$. <br\>`,
-        // Temp: !$a!$ = ${a} cm, !$b!$ = ${b} cm, !$c!$ = ${c} cm, !$A!$&nbsp;=&nbsp;${A}&deg;<br\>
-        // Note: don't overlay <i>a</i>.<br\>`,
+    let statement = `Determine the length of !$BC!$ and the angle !$ABC!$. <br\>
+        Temp: !$a!$ = ${a} cm, !$b!$ = ${b} cm, !$c!$ = ${c} cm, !$A!$&nbsp;=&nbsp;${A}&deg;<br\>`,
         img = `../../images/math02.png`,
         iV1 = ov({
             input: A + '&deg;',
@@ -57,7 +57,7 @@ QWIZM.question.qES00MR002 = (qNumber) => {
 
 
     return `<div class='statement width50'><h3>Q${qNumber}</h3>: ${statement}<br>
-    <!-- Ans: !$a!$ = ${a2} cm, !$ABC!$ = ${B}!$^\\circ!$ -->
+     Ans: !$a!$ = ${a2} cm, !$ABC!$ = ${B}!$^\\circ!$
     </div>
     <div id = '${qId}img' class='image width30'>
     <img src= ${img}>

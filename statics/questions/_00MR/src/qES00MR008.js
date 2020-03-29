@@ -17,10 +17,10 @@ QWIZM.question.qES00MR008 = (qNumber) => {
         lcrng = new utils.LCRNG(seed);
 
     //inputs
-    let theta = sd(lcrng.getNext(21, 24, 0.1), sigDigs),
-        phi = sd(lcrng.getNext(52, 60, 0.1), sigDigs),
-        W = sd(lcrng.getNext(100, 200, 5), sigDigs) * 9.81,
-        b1 = sd(W, sigDigs),
+    let theta = lcrng.getNext(21, 24, 0.1),
+        phi = lcrng.getNext(52, 60, 0.1),
+        W = stringify(lcrng.getNext(100, 200, 5) * 9.81),
+        b1 = W,
         b2 = 0;
 
     //calcs
@@ -31,8 +31,8 @@ QWIZM.question.qES00MR008 = (qNumber) => {
         D = a11 * a22 - a12 * a21,
         Dx = b1 * a22 - b2 * a12,
         Dy = a11 * b2 - a21 * b1,
-        x = stringify(Dx / D, sigDigs),
-        y = stringify(Dy / D, sigDigs);
+        x = stringify(Dx / D),
+        y = stringify(Dy / D);
 
 
 

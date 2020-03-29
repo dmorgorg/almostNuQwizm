@@ -6,7 +6,7 @@ QWIZM.quiz = {
   subtopic: "Exercise Set 01",
   sigDigs: 3,
   extraDigitForLeadingOne: true,
-  workingdigs: 7,
+  workingDigs: 8,
   questions: [
     QWIZM.question.qES00MR001,
     QWIZM.question.qES00MR002,

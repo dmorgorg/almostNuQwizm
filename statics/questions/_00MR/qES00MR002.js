@@ -19,18 +19,17 @@ QWIZM.question.qES00MR002 = function (qNumber) {
       ov = QWIZM.methods.overlayVariable,
       seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
       lcrng = new utils.LCRNG(seed); //inputs
+  // console.log(stringify(lcrng.getNext(2, 4, 0.025)))
 
-  var c = sd(lcrng.getNext(2, 4, 0.025), sigDigs),
-      a = sd(lcrng.getNext(1.5, 1.64, 0.01) * c, sigDigs),
-      b = sd(lcrng.getNext(1.95, 1.975, 0.01) * c, sigDigs),
-      A = sd(acos((b * b + c * c - a * a) / (2 * b * c)), sigDigs); //calcs
+  var c = stringify(lcrng.getNext(2, 4, 0.025)),
+      a = stringify(lcrng.getNext(1.5, 1.64, 0.01) * c),
+      b = stringify(lcrng.getNext(1.95, 1.975, 0.01) * c),
+      A = stringify(acos((b * b + c * c - a * a) / (2 * b * c))); //calcs
 
   var a2 = Math.sqrt(b * b + c * c - 2 * b * c * cos(A)),
       B = acos((a * a + c * c - b * b) / (2 * a * c));
-  var statement = "Determine the length of !$BC!$ and the angle !$ABC!$. <br>",
-      // Temp: !$a!$ = ${a} cm, !$b!$ = ${b} cm, !$c!$ = ${c} cm, !$A!$&nbsp;=&nbsp;${A}&deg;<br\>
-  // Note: don't overlay <i>a</i>.<br\>`,
-  img = "../../images/math02.png",
+  var statement = "Determine the length of !$BC!$ and the angle !$ABC!$. <br>\n        Temp: !$a!$ = ".concat(a, " cm, !$b!$ = ").concat(b, " cm, !$c!$ = ").concat(c, " cm, !$A!$&nbsp;=&nbsp;").concat(A, "&deg;<br>"),
+      img = "../../images/math02.png",
       iV1 = ov({
     input: A + '&deg;',
     left: 31,
@@ -53,5 +52,5 @@ QWIZM.question.qES00MR002 = function (qNumber) {
 
   a2 = stringify(a, sigDigs);
   B = stringify(B, sigDigs);
-  return "<div class='statement width50'><h3>Q".concat(qNumber, "</h3>: ").concat(statement, "<br>\n    <!-- Ans: !$a!$ = ").concat(a2, " cm, !$ABC!$ = ").concat(B, "!$^\\circ!$ -->\n    </div>\n    <div id = '").concat(qId, "img' class='image width30'>\n    <img src= ").concat(img, ">\n    ").concat(iV1, "\n    ").concat(iV2, "\n    ").concat(iV3, "\n    </div>");
+  return "<div class='statement width50'><h3>Q".concat(qNumber, "</h3>: ").concat(statement, "<br>\n     Ans: !$a!$ = ").concat(a2, " cm, !$ABC!$ = ").concat(B, "!$^\\circ!$\n    </div>\n    <div id = '").concat(qId, "img' class='image width30'>\n    <img src= ").concat(img, ">\n    ").concat(iV1, "\n    ").concat(iV2, "\n    ").concat(iV3, "\n    </div>");
 };

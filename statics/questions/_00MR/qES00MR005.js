@@ -15,24 +15,25 @@ QWIZM.question.qES00MR005 = function (qNumber) {
       acos = utils.acos,
       tan = utils.tan,
       atan = utils.atan,
-      sigDigs = QWIZM.quiz.sigDigs,
-      ov = QWIZM.methods.overlayVariable,
+      // sigDigs = QWIZM.quiz.sigDigs,
+  // workingDigs = QWIZM.quiz.workingDigs,
+  ov = QWIZM.methods.overlayVariable,
       seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
       lcrng = new utils.LCRNG(seed); //inputs
 
-  var AC = sd(lcrng.getNext(5, 15, 0.5), sigDigs),
+  var AC = sd(lcrng.getNext(5, 15, 0.5)),
       multiplier = lcrng.getNext(0.55, 0.75, 0.05),
-      AD = sd(AC * multiplier, sigDigs); //calcs
+      AD = sd(AC * multiplier); //calcs
 
   var CD = Math.sqrt(Math.pow(AC, 2) - Math.pow(AD, 2)),
       AB = AD * AC / CD,
       BC = AB * AD / AC; //stringify
 
-  AC = stringify(AC, sigDigs);
-  AD = stringify(AD, sigDigs);
-  CD = stringify(CD, sigDigs);
-  AB = stringify(AB, sigDigs);
-  BC = stringify(BC, sigDigs);
+  AC = stringify(AC);
+  AD = stringify(AD);
+  CD = stringify(CD);
+  AB = stringify(AB);
+  BC = stringify(BC);
   var statement = "Using the Pythagorean Theorem and the theory of similar triangles, determine the lengths of  !$AB!$, !$BD!$ and !$CD!$.\n    <!-- Inputs: AC = ".concat(AC, " cm, AD = ").concat(AD, " cm<p> -->"),
       img = "../../images/math05.png",
       iV1 = ov({
@@ -44,7 +45,7 @@ QWIZM.question.qES00MR005 = function (qNumber) {
   }),
       iV2 = ov({
     input: AD,
-    left: 23,
+    left: 24,
     top: 57,
     fontSize: 1.6,
     background: 'none',

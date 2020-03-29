@@ -20,13 +20,13 @@ QWIZM.question.qES00MR006 = function (qNumber) {
       seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
       lcrng = new utils.LCRNG(seed); //inputs
 
-  var OA = sd(lcrng.getNext(0.5, 2.5, 0.1), sigDigs),
+  var OA = stringify(lcrng.getNext(0.5, 2.5, 0.1)),
       multOB = lcrng.getNext(1.8, 2.2, 0.05),
-      OB = sd(Math.round(multOB * OA / 0.005) * 0.005, sigDigs),
+      OB = stringify(Math.round(multOB * OA / 0.005) * 0.005),
       multAC = lcrng.getNext(1, 1.4, 0.05),
-      AC = sd(Math.round(multAC * OA / 0.005) * 0.005, sigDigs),
+      AC = stringify(Math.round(multAC * OA / 0.005) * 0.005),
       multBC = lcrng.getNext(1.7, 1.9, 0.05),
-      BC = sd(Math.round(multBC * OA / 0.005) * 0.005, sigDigs); //calcs
+      BC = stringify(Math.round(multBC * OA / 0.005) * 0.005); //calcs
 
   var AB = Math.sqrt(Math.pow(OA, 2) + Math.pow(OB, 2)),
       angleACB = acos((Math.pow(AC, 2) + Math.pow(BC, 2) - Math.pow(AB, 2)) / (2 * AC * BC)),
@@ -34,16 +34,16 @@ QWIZM.question.qES00MR006 = function (qNumber) {
       angleOBC = atan(OA / OB),
       phi = angleABC + angleOBC,
       theta = 180 - phi - angleACB; //stringify
+  // OA = stringify(OA);
+  // OB = stringify(OB);
+  // AC = stringify(AC);
+  // AB = stringify(AB);
 
-  OA = stringify(OA, sigDigs);
-  OB = stringify(OB, sigDigs);
-  AC = stringify(AC, sigDigs);
-  AB = stringify(AB, sigDigs);
-  angleACB = stringify(angleACB, sigDigs);
-  angleABC = stringify(angleABC, sigDigs);
-  angleOBC = stringify(angleOBC, sigDigs);
-  phi = stringify(phi, sigDigs);
-  theta = stringify(theta, sigDigs);
+  angleACB = stringify(angleACB);
+  angleABC = stringify(angleABC);
+  angleOBC = stringify(angleOBC);
+  phi = stringify(phi);
+  theta = stringify(theta);
   var statement = "A typical question in Statics is to determine the tension in rods !$AC!$, !$BC!$ and !$CW!$.To solve this, we need to find the angles !$\\theta!$ and !$\\phi!$. Follow the steps outlined below to find these angles:\n    <ol>\n        <li>Determine length !$AB!$</li>\n        <li>Determine !$\\angle ACB!$</li>\n        <li>Determine !$ \\angle ABC!$</li>\n        <li>Determine !$\\angle OBA !$</li>\n        <li>Determine !$\\phi!$</li>\n        <li>Determine !$\\theta!$</li>\n    </ol>\n    <!-- Inputs: !$OA!$ = ".concat(OA, " m, !$OB!$ = ").concat(OB, " m, !$AC!$ = ").concat(AC, "&nbsp;m, !$BC%!$&nbsp;=&nbsp;").concat(BC, "&nbsp;m<p>    \n    <p> -->   \n   "),
       img = "../../images/math06.png",
       iV1 = ov({
@@ -56,7 +56,7 @@ QWIZM.question.qES00MR006 = function (qNumber) {
   }),
       iV2 = ov({
     input: BC + ' m',
-    left: 61,
+    left: 60.5,
     top: 38,
     rot: 56.25,
     fontSize: 1.5,
@@ -64,7 +64,7 @@ QWIZM.question.qES00MR006 = function (qNumber) {
   }),
       iV3 = ov({
     input: OA + ' m',
-    left: 12,
+    left: 11.5,
     top: 32,
     rot: 90,
     fontSize: 1.5,

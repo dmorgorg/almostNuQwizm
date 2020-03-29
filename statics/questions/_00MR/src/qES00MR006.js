@@ -18,13 +18,13 @@ QWIZM.question.qES00MR006 = (qNumber) => {
         lcrng = new utils.LCRNG(seed);
 
     //inputs
-    let OA = sd(lcrng.getNext(0.5, 2.5, 0.1), sigDigs),
+    let OA = stringify(lcrng.getNext(0.5, 2.5, 0.1)),
         multOB = lcrng.getNext(1.8, 2.2, 0.05),
-        OB = sd(Math.round(multOB * OA / 0.005) * 0.005, sigDigs),
+        OB = stringify(Math.round(multOB * OA / 0.005) * 0.005),
         multAC = lcrng.getNext(1, 1.4, 0.05),
-        AC = sd(Math.round(multAC * OA / 0.005) * 0.005, sigDigs),
+        AC = stringify(Math.round(multAC * OA / 0.005) * 0.005),
         multBC = lcrng.getNext(1.7, 1.9, 0.05),
-        BC = sd(Math.round(multBC * OA / 0.005) * 0.005, sigDigs);
+        BC = stringify(Math.round(multBC * OA / 0.005) * 0.005);
 
     //calcs
     let AB = Math.sqrt(OA ** 2 + OB ** 2),
@@ -35,15 +35,15 @@ QWIZM.question.qES00MR006 = (qNumber) => {
         theta = 180 - phi - angleACB;
 
     //stringify
-    OA = stringify(OA, sigDigs);
-    OB = stringify(OB, sigDigs);
-    AC = stringify(AC, sigDigs);
-    AB = stringify(AB, sigDigs);
-    angleACB = stringify(angleACB, sigDigs);
-    angleABC = stringify(angleABC, sigDigs);
-    angleOBC = stringify(angleOBC, sigDigs);
-    phi = stringify(phi, sigDigs);
-    theta = stringify(theta, sigDigs);
+    // OA = stringify(OA);
+    // OB = stringify(OB);
+    // AC = stringify(AC);
+    // AB = stringify(AB);
+    angleACB = stringify(angleACB);
+    angleABC = stringify(angleABC);
+    angleOBC = stringify(angleOBC);
+    phi = stringify(phi);
+    theta = stringify(theta);
 
 
 
@@ -70,7 +70,7 @@ QWIZM.question.qES00MR006 = (qNumber) => {
         }),
         iV2 = ov({
             input: BC + ' m',
-            left: 61,
+            left: 60.5,
             top: 38,
             rot: 56.25,
             fontSize: 1.5,
@@ -78,7 +78,7 @@ QWIZM.question.qES00MR006 = (qNumber) => {
         }),
         iV3 = ov({
             input: OA + ' m',
-            left: 12,
+            left: 11.5,
             top: 32,
             rot: 90,
             fontSize: 1.5,

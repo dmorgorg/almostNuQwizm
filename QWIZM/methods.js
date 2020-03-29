@@ -91,7 +91,8 @@ QWIZM.methods.writeClearView = function () {
   return html;
 };
 
-QWIZM.methods.stringify = function (number, sigDigs) {
+QWIZM.methods.stringify = function (number) {
+  var sigDigs = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : QWIZM.quiz.sigDigs;
   var delta = 1e-9,
       pre = '',
       temp = number + ''; //stringify
@@ -117,6 +118,7 @@ QWIZM.methods.stringify = function (number, sigDigs) {
   return number.toPrecision(sigDigs);
 };
 
-QWIZM.methods.toSigDigs = function (number, sigDigs) {
-  return Number(QWIZM.methods.stringify(number, sigDigs));
+QWIZM.methods.toSigDigs = function (number) {
+  var workingDigs = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : QWIZM.quiz.workingDigs;
+  return Number(QWIZM.methods.stringify(number, workingDigs = QWIZM.quiz.workingDigs));
 };

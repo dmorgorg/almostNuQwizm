@@ -12,15 +12,16 @@ QWIZM.question.qES00MR005 = (qNumber) => {
         acos = utils.acos,
         tan = utils.tan,
         atan = utils.atan,
-        sigDigs = QWIZM.quiz.sigDigs,
+        // sigDigs = QWIZM.quiz.sigDigs,
+        // workingDigs = QWIZM.quiz.workingDigs,
         ov = QWIZM.methods.overlayVariable,
         seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
         lcrng = new utils.LCRNG(seed);
 
     //inputs
-    let AC = sd(lcrng.getNext(5, 15, 0.5), sigDigs),
+    let AC = sd(lcrng.getNext(5, 15, 0.5)),
         multiplier = lcrng.getNext(0.55, 0.75, 0.05),
-        AD = sd(AC * multiplier, sigDigs);
+        AD = sd(AC * multiplier);
 
     //calcs
     let CD = Math.sqrt(AC ** 2 - AD ** 2),
@@ -29,11 +30,11 @@ QWIZM.question.qES00MR005 = (qNumber) => {
 
 
     //stringify
-    AC = stringify(AC, sigDigs);
-    AD = stringify(AD, sigDigs);
-    CD = stringify(CD, sigDigs);
-    AB = stringify(AB, sigDigs);
-    BC = stringify(BC, sigDigs);
+    AC = stringify(AC);
+    AD = stringify(AD);
+    CD = stringify(CD);
+    AB = stringify(AB);
+    BC = stringify(BC);
 
 
     let statement = `Using the Pythagorean Theorem and the theory of similar triangles, determine the lengths of  !$AB!$, !$BD!$ and !$CD!$.
@@ -48,7 +49,7 @@ QWIZM.question.qES00MR005 = (qNumber) => {
         }),
         iV2 = ov({
             input: AD,
-            left: 23,
+            left: 24,
             top: 57,
             fontSize: 1.6,
             background: 'none',

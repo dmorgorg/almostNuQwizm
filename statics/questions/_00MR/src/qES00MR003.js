@@ -13,32 +13,33 @@ QWIZM.question.qES00MR003 = (qNumber) => {
         tan = utils.tan,
         atan = utils.atan,
         sigDigs = QWIZM.quiz.sigDigs,
+        workingDigs = QWIZM.quiz.workingDigs,
         ov = QWIZM.methods.overlayVariable,
         seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
         lcrng = new utils.LCRNG(seed);
 
     //inputs
-    let topChord = sd(lcrng.getNext(30, 40, 0.5), sigDigs),
+    let topChord = sd(lcrng.getNext(30, 40, 0.5)),
         multiplier = tan(topChord),
-        x1 = sd(lcrng.getNext(2, 3.5, 0.1), sigDigs);
+        x1 = sd(lcrng.getNext(2, 3.5, 0.1));
 
 
 
     //calcs
-    let y = Math.round(sd(x1 * multiplier, sigDigs) * 5) / 5,
-        x = Math.round(sd(x1 * 2 / 3, sigDigs) * 5) / 5,
-        phi = sd(atan(y / (x / 2)), sigDigs),
-        theta = 90 - sd(atan(y / (1.5 * x)), sigDigs);
+    let y = stringify(Math.round(x1 * multiplier * 5) / 5),
+        x = stringify(Math.round(x1 * 2 / 3 * 5) / 5),
+        phi = stringify(atan(y / (x / 2))),
+        theta = 90 - stringify(atan(y / (1.5 * x)));
 
     //stringify
-    x = stringify(x, sigDigs);
-    y = stringify(y, sigDigs);
-    phi = stringify(phi, sigDigs);
-    theta = stringify(theta, sigDigs);
+    // x = stringify(x);
+    // y = stringify(y);
+    // phi = stringify(phi);
+    // theta = stringify(theta);
 
-    let statement = `Determine angles !$\\theta!$ and !$\\phi!$.`,
-        //  <br\>
-        // Temp: topChordAngle = ${topChord}!$^\\circ!$, mult = ${multiplier}, !$x_{AB} = ${x}!$ m, !$y!$&nbsp;=&nbsp;${y} m<br\>
+    let statement = `Determine angles !$\\theta!$ and !$\\phi!$.
+          <br\>
+        Temp: topChordAngle = ${topChord}!$^\\circ!$, mult = ${sd(multiplier)}, !$x_{AB} = ${x}!$ m, !$y!$&nbsp;=&nbsp;${y} m<br\>`,
         //    `,
         img = `../../images/math03.png`,
         iV1 = ov({
@@ -63,7 +64,7 @@ QWIZM.question.qES00MR003 = (qNumber) => {
         });
 
     return `<div class='statement width40'><h3>Q${qNumber}</h3>: ${statement}<br>
-    <!--  Ans: <i>&theta;</i> = ${theta}&deg;, <i>&phi;</i> = ${phi}&deg; -->
+    Ans: !$\\theta!$ = ${theta}&deg;, <i>&phi;</i> = ${phi}&deg;
     </div>
     <div class='image width60'><img src= ${img}>
     ${iV1}

@@ -16,15 +16,16 @@ QWIZM.question.qES00MR004 = function (qNumber) {
       tan = utils.tan,
       atan = utils.atan,
       sigDigs = QWIZM.quiz.sigDigs,
+      workingDigs = QWIZM.quiz.workingDigs,
       ov = QWIZM.methods.overlayVariable,
       seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
       lcrng = new utils.LCRNG(seed); //inputs
 
-  var AB = sd(lcrng.getNext(400, 600, 5), sigDigs),
-      BCmult = sd(lcrng.getNext(1.35, 1.65, 0.025), sigDigs),
-      CDmult = sd(lcrng.getNext(1.6, 1.9, 0.025), sigDigs),
-      DEmult = sd(lcrng.getNext(0.775, 0.975, 0.025), sigDigs),
-      BFmult = sd(lcrng.getNext(1.35, 1.65, 0.025), sigDigs),
+  var AB = stringify(lcrng.getNext(400, 600, 5)),
+      BCmult = sd(lcrng.getNext(1.35, 1.65, 0.025)),
+      CDmult = sd(lcrng.getNext(1.6, 1.9, 0.025)),
+      DEmult = sd(lcrng.getNext(0.775, 0.975, 0.025)),
+      BFmult = sd(lcrng.getNext(1.35, 1.65, 0.025)),
       BC = Math.round(AB * BCmult / 5) * 5,
       CD = Math.round(AB * CDmult / 5) * 5,
       DE = Math.round(AB * DEmult / 5) * 5,
@@ -36,9 +37,9 @@ QWIZM.question.qES00MR004 = function (qNumber) {
   var deltaBF = dA * BC / (AB + BC),
       deltaDE = -dA * CD / (AB + BC); //stringify
 
-  dA = stringify(dA, sigDigs);
-  deltaBF = stringify(deltaBF, sigDigs);
-  deltaDE = stringify(deltaDE, sigDigs);
+  dA = stringify(dA);
+  deltaBF = stringify(deltaBF);
+  deltaDE = stringify(deltaDE);
   var statement = "!$ABCD!$ is a rigid plate, able to rotate about a pinned connection at !$C!$. !$ABCD!$ is held in position by linkages !$BF!$ and !$DE!$. When force !$P!$ is applied at !$A!$, !$A!$ moves rightwards a distance of ".concat(dA, " mm as plate !$ABCD!$ rotates about !$C!$. !$BF!$ increases in length (deforms) but can be assumed to remain horizontal. !$DE!$ decreases in length (its deformation is negative) but remains vertical. <p>\n    Determine the deformation !$\\delta_{BF}!$ in !$BF!$ and the deformation !$\\delta_{DE}!$ in !$DE!$."),
       img = "../../images/math04.png",
       iV1 = ov({

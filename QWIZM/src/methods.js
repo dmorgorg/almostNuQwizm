@@ -149,7 +149,7 @@ QWIZM.methods.writeClearView = () => {
     return html;
 }
 
-QWIZM.methods.stringify = (number, sigDigs) => {
+QWIZM.methods.stringify = (number, sigDigs = QWIZM.quiz.sigDigs) => {
 
     let delta = 1e-9,
         pre = '',
@@ -175,6 +175,6 @@ QWIZM.methods.stringify = (number, sigDigs) => {
 
 };
 
-QWIZM.methods.toSigDigs = (number, sigDigs) => {
-    return Number(QWIZM.methods.stringify(number, sigDigs));
+QWIZM.methods.toSigDigs = (number, workingDigs = QWIZM.quiz.workingDigs) => {
+    return Number(QWIZM.methods.stringify(number, workingDigs = QWIZM.quiz.workingDigs));
 }
