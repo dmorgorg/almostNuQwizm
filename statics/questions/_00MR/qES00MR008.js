@@ -7,8 +7,8 @@ QWIZM.question.qES00MR008 = function (qNumber) {
   var qId = 1000133,
       // question ID number, unique to this question
   uId = QWIZM.state.uId,
-      sd = utils.toSigDigs,
-      stringify = utils.stringify,
+      sd = QWIZM.methods.toSigDigs,
+      stringify = QWIZM.methods.stringify,
       sin = utils.sin,
       cos = utils.cos,
       asin = utils.asin,

@@ -7,9 +7,15 @@ QWIZM.question.qES00MR001 = function (qNumber) {
   var qId = 1000003,
       // question ID number, unique to this question
   uId = QWIZM.state.uId,
-      sd = utils.toSigDigs,
-      stringify = utils.stringify,
+      sd = QWIZM.methods.toSigDigs,
+      stringify = QWIZM.methods.stringify,
       sigDigs = QWIZM.quiz.sigDigs,
+      sin = utils.sin,
+      cos = utils.cos,
+      asin = utils.asin,
+      acos = utils.acos,
+      tan = utils.tan,
+      atan = utils.atan,
       ov = QWIZM.methods.overlayVariable,
       seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
       lcrng = new utils.LCRNG(seed); //inputs
@@ -34,38 +40,38 @@ QWIZM.question.qES00MR001 = function (qNumber) {
   img = "../../images/math01.png",
       iV1 = ov({
     input: x + ' m',
-    left: 22.75,
-    top: 85.75 // background: 'orange'
+    left: 28,
+    top: 89 // background: 'orange'
 
   }),
       iV2 = ov({
     input: x + ' m',
-    left: 44.25,
-    top: 86 // background: 'violet'
+    left: 49,
+    top: 89 // background: 'violet'
 
   }),
       iV3 = ov({
     input: x + ' m',
-    left: 65.25,
-    top: 86 // background: 'yellow'
+    left: 70,
+    top: 89 // background: 'yellow'
 
   }),
       iV4 = ov({
     input: y1 + ' m',
-    left: 84,
-    top: 58.5 // background: 'pink'
+    left: 88,
+    top: 60 // background: 'pink'
 
   }),
       iV5 = ov({
     input: y2 + ' m',
-    left: 83.25,
-    top: 36.5 // background: 'yellow'
+    left: 88,
+    top: 39 // background: 'yellow'
 
   }),
       iV6 = ov({
     input: y2 + ' m',
-    left: 83.25,
-    top: 21.25
+    left: 88,
+    top: 24
   });
   return "<div class='statement width50'><h3>Q".concat(qNumber, "</h3>: \n    ").concat(statement, "\n    <!--Ans: !$BF!$ = ").concat(BF, ", !$CE!$ = ").concat(CE, " -->\n    </div>\n    <div id = '").concat(qId, "img' class='image width60'>\n    <img src= ").concat(img, ">\n    ").concat(iV1, "\n    ").concat(iV2, "\n    ").concat(iV3, "\n    ").concat(iV4, "\n    ").concat(iV5, "\n    ").concat(iV6, "\n    </div>\n    ");
 };

@@ -42,42 +42,6 @@ utils.LCRNG = function (seed) {
     }
 }
 
-utils.stringify = (number, sigDigs) => {
-
-    let delta = 1e-9,
-        pre = '',
-        temp = number + ''; //stringify
-
-    if (QWIZM.quiz.extraDigitForLeadingOne) {
-        //save 0, . and - from the front of the string before checking for leading 1 and extra sigDig
-        while (temp.charAt(0) === '0' || temp.charAt(0) === '.' || temp.charAt(0) === '-' || temp.charAt(0) === '+') {
-            pre += temp.charAt(0);
-            temp = temp.slice(1);
-        }
-
-        if (temp.charAt(0) === '1') { //if number begins with 1, increase the number of sig digs (generally from 3 to 4)
-            sigDigs += 1;
-        }
-    }
-
-
-    //in the case where a 5 is represented by 499999... i.e. 1.5575 as 1.55749999...., the toPrecision() method gives the correct answer for 1.55749999 (1.557) and not the correct answer for 1.5575 (1.558). To solve this, apply toPrecision() first with a larger number of sig digs
-    if (number < 0) {
-        delta *= -1;
-    }
-    // number = Number((number + delta).toPrecision(sigDigs));
-    number = Number((Math.round(number / delta) * delta).toPrecision(sigDigs));
-    return number.toPrecision(sigDigs);
-
-};
-
-utils.toSigDigs = (number, sigDigs) => {
-    return Number(utils.stringify(number, sigDigs));
-}
-
-
-
-
 utils.makeInputAlpha = (str) => {
     return str.replace(/[^A-Za-z_\-]+/, '');
 };

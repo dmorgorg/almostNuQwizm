@@ -4,8 +4,8 @@ QWIZM.question = QWIZM.question || {};
 QWIZM.question.qES00MR002 = (qNumber) => {
     let qId = 1000033, // question ID number, unique to this question
         uId = QWIZM.state.uId,
-        sd = utils.toSigDigs,
-        stringify = utils.stringify,
+        sd = QWIZM.methods.toSigDigs,
+        stringify = QWIZM.methods.stringify,
         sin = utils.sin,
         cos = utils.cos,
         asin = utils.asin,
@@ -33,19 +33,20 @@ QWIZM.question.qES00MR002 = (qNumber) => {
         img = `../../images/math02.png`,
         iV1 = ov({
             input: A + '&deg;',
-            left: 23,
-            top: 81,
+            left: 31,
+            top: 84,
             background: 'linen'
         }),
         iV2 = ov({
             input: c + ' cm',
-            left: 36,
-            top: 90
+            left: 50,
+            top: 93,
+            background: 'none'
         }),
         iV3 = ov({
             input: b + ' cm',
-            left: 32,
-            top: 48,
+            left: 46,
+            top: 49,
             rot: 55,
             background: 'none'
         });

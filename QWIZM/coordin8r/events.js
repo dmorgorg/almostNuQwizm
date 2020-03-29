@@ -24,13 +24,13 @@ $(document).ready(function () {
         str += `left: ${xper}%, top: ${yper}%`;
 
         $('.coords').text(str);
-        $('.label').text('123.4 mm');
+        // $('.label').text('123.4 mm');
 
         $('.command').text(labelW + ', ' + labelH);
-        $('.label').css({
-            left: relX + imageLeft - 20,
-            top: relY + imageTop - 20
-        });
+        // $('.label').css({
+        //     left: relX + imageLeft - 20,
+        //     top: relY + imageTop - 20
+        // });
     };
 
 
@@ -43,7 +43,8 @@ $(document).ready(function () {
         $('.label').show();
     });
     $('img').on('mouseleave', function (e) {
-        $('.label').hide();
+        // $('.label').hide();
+        $('.coords').text('Coords');
     });
     $('img').on('mousemove', label);
 

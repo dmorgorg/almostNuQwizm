@@ -23,9 +23,7 @@ QWIZM.methods.viewsLoad = function (o) {
       $('main').html(QWIZM.methods.loadViews());
       $('body').append(QWIZM.methods.writeFooter()); // set all views to display:none;. Do that here rather than initializing all views to hidden so that when they are shown, display: flex (or whatever) is maintained
 
-      $('.view').hide(); // don't know why instructions btn remains highlighted on refresh....
-      // $('#instructionsBtn').removeClass("active");
-
+      $('.view').hide();
       $('#' + QWIZM.state.currentView + 'Btn').addClass("active");
       $('#' + QWIZM.state.currentView).fadeIn();
     }
@@ -76,10 +74,12 @@ QWIZM.methods.overlayVariable = function (o) {
       left = o.left,
       top = o.top,
       rot = o.rot || 0,
-      fs = o.fontSize || 1.5,
-      bg = o.background || 'white'; // default value is 'white', use 'inherit' or 'none' for no background
+      // degrees, measured counterclockwise from positive x-axis
+  fs = o.fontSize || 1.5,
+      // units are in vw (view widths)
+  bg = o.background || 'white'; // default value is 'white', use 'inherit' or 'none' for no background
 
-  return "<div class='label' style=\"\n        transform: rotate(".concat(-rot, "deg);\n        top: ").concat(top, "%; \n        left: ").concat(left, "%;\n        background-color:").concat(bg, ";        \n        font-size: ").concat(fs, "vw\">\n        ").concat(input, "\n        </div>");
+  return "<div class='label' style=\"\n        \n        top: ".concat(top, "%; \n        left: ").concat(left, "%;\n        background-color:").concat(bg, ";        \n        font-size: ").concat(fs, "vw;\n        transform: translate(-50%, -50%) rotate(").concat(-rot, "deg); \">\n        ").concat(input, "\n        </div>");
 };
 
 QWIZM.methods.writeLoginForm = function () {
@@ -89,4 +89,34 @@ QWIZM.methods.writeLoginForm = function () {
 QWIZM.methods.writeClearView = function () {
   var html = "<h2>Warning!</h2>\n                <p> Clicking the <span class = \"highlight\"> Clear Quiz </span> button below will reset the quiz, requiring you to log in again.</p >\n                <p><span class=\"highlight\"> All your input answers, currently stored in the browser, will be lost!</span></p>\n                <p> Only click the <span class = \"highlight\"> Clear Quiz </span> button below if this is really what you intend.</p >\n                <p>(Generally, the only reason to clear the quiz from the browser is if you plan to enter a fictitious ID to practise the quiz with a different set of question values.)</p>\n                <button id=\"clear-button\" type=\"submit\">Clear Quiz</button>";
   return html;
+};
+
+QWIZM.methods.stringify = function (number, sigDigs) {
+  var delta = 1e-9,
+      pre = '',
+      temp = number + ''; //stringify
+
+  if (QWIZM.quiz.extraDigitForLeadingOne) {
+    //save 0, . and - from the front of the string before checking for leading 1 and extra sigDig
+    while (temp.charAt(0) === '0' || temp.charAt(0) === '.' || temp.charAt(0) === '-' || temp.charAt(0) === '+') {
+      pre += temp.charAt(0);
+      temp = temp.slice(1);
+    }
+
+    if (temp.charAt(0) === '1') {
+      //if number begins with 1, increase the number of sig digs (generally from 3 to 4)
+      sigDigs += 1;
+    }
+  }
+
+  if (number < 0) {
+    delta *= -1;
+  }
+
+  number = Number((Math.round(number / delta) * delta).toPrecision(sigDigs));
+  return number.toPrecision(sigDigs);
+};
+
+QWIZM.methods.toSigDigs = function (number, sigDigs) {
+  return Number(QWIZM.methods.stringify(number, sigDigs));
 };

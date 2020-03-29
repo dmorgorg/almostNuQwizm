@@ -1,6 +1,6 @@
 let QWIZM = QWIZM || {};
 
-$(document).ready(function () {
+$(document).ready(() => {
 
     QWIZM.builder = ((Qq) => {
         QWIZM.quiz.questions.unshift(''); // make arrays indices line up with question numbers

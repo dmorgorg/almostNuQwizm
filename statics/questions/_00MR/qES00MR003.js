@@ -7,8 +7,8 @@ QWIZM.question.qES00MR003 = function (qNumber) {
   var qId = 1000037,
       // question ID number, unique to this question
   uId = QWIZM.state.uId,
-      sd = utils.toSigDigs,
-      stringify = utils.stringify,
+      sd = QWIZM.methods.toSigDigs,
+      stringify = QWIZM.methods.stringify,
       sin = utils.sin,
       cos = utils.cos,
       asin = utils.asin,
@@ -40,23 +40,23 @@ QWIZM.question.qES00MR003 = function (qNumber) {
   img = "../../images/math03.png",
       iV1 = ov({
     input: x + ' m',
-    left: 21.75,
-    top: 82.25
+    left: 27,
+    top: 86
   }),
       iV2 = ov({
     input: x + ' m',
-    left: 46.75,
-    top: 82.25
+    left: 51.5,
+    top: 86
   }),
       iV3 = ov({
     input: x + ' m',
-    left: 70.75,
-    top: 82.25
+    left: 75.5,
+    top: 86
   }),
       iV4 = ov({
     input: y + ' m',
-    left: 2,
-    top: 33.5
+    left: 7,
+    top: 38
   });
   return "<div class='statement width40'><h3>Q".concat(qNumber, "</h3>: ").concat(statement, "<br>\n    <!--  Ans: <i>&theta;</i> = ").concat(theta, "&deg;, <i>&phi;</i> = ").concat(phi, "&deg; -->\n    </div>\n    <div class='image width60'><img src= ").concat(img, ">\n    ").concat(iV1, "\n    ").concat(iV2, "\n    ").concat(iV3, "\n    ").concat(iV4, "\n    </div>");
 };
