@@ -184,6 +184,44 @@ footer {
   text-align: right;
 }
 
+#instructions ul {
+  list-style: none;
+  margin-top: 1em;
+  margin-bottom: 2em;
+  margin-left: -1vw;
+}
+
+#instructions ul:last-of-type {
+  margin-bottom: 0;
+}
+
+#instructions ul li {
+  margin-bottom: 1em;
+  line-height: 1.25;
+}
+
+#instructions ul li::before {
+  display: inline-block;
+  width: 0.75em;
+  margin-left: -0.75em;
+  font-weight: bold;
+  content: '\2134';
+  font-size: 200%;
+  color: darkred;
+  line-height: 1;
+}
+
+#instructions h3 {
+  display: inline-block;
+  color: darkred;
+  margin-left: -0.75em;
+  font-family: 'Quicksand';
+  font-size: 140%;
+  font-weight: bold;
+  letter-spacing: 0.9;
+  text-decoration: underline;
+}
+
 .center {
   margin: 0 auto;
 }

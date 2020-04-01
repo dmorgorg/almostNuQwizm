@@ -45,7 +45,7 @@ QWIZM.methods.writeFooter = function () {
 QWIZM.methods.loadViews = function () {
   var len = QWIZM.quiz.questions.length,
       html = '';
-  html += "<div id='instructions' class='view' >".concat(QWIZM.quiz.instructions, "</div>\n            <div id='clear' class='card view' > ").concat(QWIZM.methods.writeClearView(), "</div>");
+  html += "<div id='instructions' class='view'><div class=\"statement width70 taleft\">".concat(QWIZM.quiz.instructions, "</div></div>\n            <div id='clear' class='card view' > ").concat(QWIZM.methods.writeClearView(), "</div>");
 
   for (var i = 1; i < len; i++) {
     html += "<div id='Q".concat(i, "' class='view'>\n            ").concat(QWIZM.quiz.questions[i](i), "</div>\n");

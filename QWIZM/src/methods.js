@@ -68,7 +68,7 @@ QWIZM.methods.loadViews = () => {
     let len = QWIZM.quiz.questions.length,
         html = '';
 
-    html += `<div id='instructions' class='view' >${QWIZM.quiz.instructions}</div>
+    html += `<div id='instructions' class='view'><div class="statement width70 taleft">${QWIZM.quiz.instructions}</div></div>
             <div id='clear' class='card view' > ${QWIZM.methods.writeClearView()}</div>`;
 
 

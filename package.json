@@ -1,0 +1,28 @@
+{
+  "name": "nu-qwizm",
+  "version": "1.0.0",
+  "description": "A refactoring of qwizm.org",
+  "main": "index.js",
+  "dependencies": {
+    "@babel/polyfill": "^7.7.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.3",
+    "@babel/core": "^7.8.3",
+    "@babel/preset-env": "^7.8.3"
+  },
+  "scripts": {
+    "build": "babel QWIZM/src -d QWIZM && babel statics/quizzes/quiz00MR01/src -d statics/quizzes/quiz00MR01 && babel statics/questions/_00MR/src -d statics/questions/_00MR"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dmorgorg/nuQwizm.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dmorgorg/nuQwizm/issues"
+  },
+  "homepage": "https://github.com/dmorgorg/nuQwizm#readme"
+}

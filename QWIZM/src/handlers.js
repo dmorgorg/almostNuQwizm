@@ -66,6 +66,10 @@ QWIZM.handlers.validateLogin = (e) => {
         QWIZM.state.uId = uId;
         QWIZM.state.currentView = 'instructions';
 
+        window.location.reload(true);
+
+
+
         // writeState early enough that it is complete before viewsLoad()
         QWIZM.methods.writeState(QWIZM.QUIZ_KEY, QWIZM.state);
         $('#login-card').fadeOut();

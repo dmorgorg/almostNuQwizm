@@ -186,6 +186,49 @@ $max_view: 1200;
   text-align: right;
 }
 
+#instructions {
+  & ul {
+    list-style: none;
+    margin-top: 1em;
+    margin-bottom: 2em;
+    margin-left: -1vw;
+
+    &:last-of-type {
+      margin-bottom: 0;
+      // border: 1px green solid;
+    }
+
+    & li {
+
+      &::before {
+        display: inline-block;
+        width: 0.75em;
+        margin-left: -0.75em;
+        font-weight: bold;
+        content: '\2134';
+        // content: '\263B';
+        font-size: 200%;
+        color: $PRIMARY;
+        line-height: 1;
+      }
+
+      margin-bottom: 1em;
+      line-height: 1.25;
+    }
+  }
+
+  & h3 {
+    display: inline-block; // to prevent indenting of wrapped header, don't know why...
+    color: $PRIMARY;
+    margin-left: -0.75em;
+    font-family: 'Quicksand';
+    font-size: 140%;
+    font-weight: bold;
+    letter-spacing: 0.9;
+    text-decoration: underline;
+  }
+}
+
 .center {
   margin: 0 auto;
 }
