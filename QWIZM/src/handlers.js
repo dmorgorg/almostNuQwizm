@@ -22,6 +22,12 @@ QWIZM.handlers.updateView = e => {
     }
 };
 
+QWIZM.handlers.reset = () => {
+    $('#clear').fadeOut();
+    localStorage.removeItem(QWIZM.QUIZ_KEY);
+    window.location.reload();
+};
+
 // event handler for clicking the login submit button
 QWIZM.handlers.validateLogin = (e) => {
     e.preventDefault();

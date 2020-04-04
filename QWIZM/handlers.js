@@ -19,6 +19,12 @@ QWIZM.handlers.updateView = function (e) {
     $('#' + QWIZM.state.currentView).fadeIn(QWIZM.DURATION);
     QWIZM.methods.writeState(QWIZM.QUIZ_KEY, QWIZM.state);
   }
+};
+
+QWIZM.handlers.reset = function () {
+  $('#clear').fadeOut();
+  localStorage.removeItem(QWIZM.QUIZ_KEY);
+  window.location.reload();
 }; // event handler for clicking the login submit button
 
 

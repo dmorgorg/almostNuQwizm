@@ -55,12 +55,6 @@ QWIZM.methods.loadViews = function () {
   return html;
 };
 
-QWIZM.methods.reset = function () {
-  $('#clear').fadeOut();
-  localStorage.removeItem(QWIZM.QUIZ_KEY);
-  window.location.reload();
-};
-
 QWIZM.methods.writeState = function (key, value) {
   localStorage.setItem(key, JSON.stringify(value));
 };

@@ -143,20 +143,6 @@ footer {
   }
 }
 
-$min_font: 8;
-$mid_font: 10; //font-size at media break
-$max_font: 16;
-$min_view: 300;
-$max_view: 1200;
-
-// maximum font for large window
-@media screen and (min-width: #{$max-view}px) {
-  html {
-    font-size: $max-font px;
-    // background-color: purple;
-  }
-}
-
 .katex {
   font-size: 105%;
   color: DarkRed;
@@ -173,6 +159,14 @@ $max_view: 1200;
     margin: 0;
   }
 }
+
+
+
+
+
+
+
+
 
 .taleft {
   text-align: left;
@@ -233,14 +227,6 @@ $max_view: 1200;
   margin: 0 auto;
 }
 
-// ul.center,
-// ol.center {
-//   display: inline-block;
-//   text-align: center;
-//   margin-left: 50%;
-//   margin-right: auto;
-// }
-
 .image {
   position: relative;
   // border: 3px solid yellow;
@@ -264,11 +250,26 @@ $max_view: 1200;
   }
 }
 
+$min_font: 8;
+$mid_font: 10; //font-size at media break
+$max_font: 16;
+$min_view: 300;
+$max_view: 1200;
+
+// maximum font for large window //////////////////////////////////////////////////////////////////////////////////////
+@media screen and (min-width: #{$max-view}px) {
+  html {
+    font-size: $max-font px;
+    // background-color: purple;
+  }
+}
+
 
 
 @media screen and (max-width: #{$max_view}px) {
   html {
-    font-size: calc(#{$min_font}px + (#{$max_font} - #{$min_font}) * ((100vw - #{$min_view}px) / (#{$max_view} - #{$min_view})));
+    // font-size: calc(#{$min_font}px + (#{$max_font} - #{$min_font}) * ((100vw - #{$min_view}px) / (#{$max_view} - #{$min_view})));
+    font-size: 1.5vw;
   }
 }
 
@@ -283,7 +284,6 @@ $max_view: 1200;
     display: flex;
     align-content: center;
     padding: 0 1em;
-    // font-size: calc(12px + 1vw); // there must be spaces around the arithmetical operator
     justify-content: space-between;
 
     &>* {

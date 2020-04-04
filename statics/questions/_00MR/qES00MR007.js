@@ -37,6 +37,6 @@ QWIZM.question.qES00MR007 = function (qNumber) {
       Dy = a11 * b2 - a21 * b1,
       x = stringify(Dx / D),
       y = stringify(Dy / D);
-  var statement = "Solve this system of equations for !$x!$ and !$y!$.        \n        $$\n        \\begin{aligned}\n            ".concat(a11b, "x + ").concat(a12b, "y &= ").concat(b1, " \\\\\n            ").concat(a21b, "x - ").concat(Math.abs(a22b), "y &= ").concat(b2, " \n        \\end{aligned}\n        $$");
+  var statement = "Solve this system of equations for !$x!$ and !$y!$.        \n        $$\n        \\begin{aligned}\n            ".concat(a11b, "x + ").concat(a12b, "y &= ").concat(b1, " \\\\\n            ").concat(a21b, "x - ").concat(a22b, "y &= ").concat(b2, " \n        \\end{aligned}\n        $$");
   return "<div class='statement width50'><h3>Q".concat(qNumber, "</h3>: ").concat(statement, "<p>\n    Temp: a11=").concat(a11, ", a12=").concat(a12, ", a21=").concat(a21, ", a22=").concat(a22, ", !$D!$=").concat(D, ", !$Dx=").concat(Dx, "!$, !$Dy!$=").concat(Dy, ";<p>\n    Ans: !$x!$ = ").concat(x, ", !$y!$ = ").concat(y, ".\n    </div>");
 };

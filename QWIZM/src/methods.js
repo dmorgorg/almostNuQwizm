@@ -83,11 +83,7 @@ QWIZM.methods.loadViews = () => {
 };
 
 
-QWIZM.methods.reset = () => {
-    $('#clear').fadeOut();
-    localStorage.removeItem(QWIZM.QUIZ_KEY);
-    window.location.reload();
-};
+
 
 QWIZM.methods.writeState = (key, value) => {
     localStorage.setItem(key, JSON.stringify(value));

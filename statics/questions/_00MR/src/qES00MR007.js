@@ -43,7 +43,7 @@ QWIZM.question.qES00MR007 = (qNumber) => {
         $$
         \\begin{aligned}
             ${a11b}x + ${a12b}y &= ${b1} \\\\
-            ${a21b}x - ${Math.abs(a22b)}y &= ${b2} 
+            ${a21b}x - ${a22b}y &= ${b2} 
         \\end{aligned}
         $$`;
 

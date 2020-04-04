@@ -87,7 +87,7 @@ QWIZM.question.qES00MR006 = (qNumber) => {
         iV4 = ov({
             input: OB + ' m',
             left: 49,
-            top: 9.5,
+            top: 10,
             fontSize: 1.5,
             background: '#cdc8b0'
         });

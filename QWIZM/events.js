@@ -9,4 +9,4 @@ $('body').on("keyup", "#uId", function (e) {
 });
 $('body').on("click", "#login-button", QWIZM.handlers.validateLogin);
 $('body').on("click", "li.nav-item", QWIZM.handlers.updateView);
-$('body').on("click", "#clear-button", QWIZM.methods.reset);
+$('body').on("click", "#clear-button", QWIZM.handlers.reset);
