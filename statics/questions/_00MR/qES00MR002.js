@@ -4,9 +4,8 @@ var QWIZM = QWIZM || {};
 QWIZM.question = QWIZM.question || {};
 
 QWIZM.question.qES00MR002 = function (qNumber) {
-  var qId = 1000033,
-      // question ID number, unique to this question
-  uId = QWIZM.state.uId,
+  // common for import?
+  var uId = QWIZM.state.uId,
       sd = QWIZM.methods.toSigDigs,
       stringify = QWIZM.methods.stringify,
       sin = utils.sin,
@@ -15,10 +14,16 @@ QWIZM.question.qES00MR002 = function (qNumber) {
       acos = utils.acos,
       tan = utils.tan,
       atan = utils.atan,
-      sigDigs = QWIZM.quiz.sigDigs,
+      thisQuiz = QWIZM.state.thisQuiz,
       ov = QWIZM.methods.overlayVariable,
-      seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
-      lcrng = new utils.LCRNG(seed); //inputs
+      qp = QWIZM.methods.questionPart;
+  var qId = 1000033,
+      // question ID number, unique to this question
+  seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
+      lcrng = new utils.LCRNG(seed);
+  thisQuiz[qNumber] = []; // thisQuiz is created at valid login so may cause errors when building new questions; reset and login should handle those.
+
+  var tQ = thisQuiz[qNumber]; //inputs
   // console.log(stringify(lcrng.getNext(2, 4, 0.025)))
 
   var c = stringify(lcrng.getNext(2, 4, 0.025)),
@@ -28,7 +33,7 @@ QWIZM.question.qES00MR002 = function (qNumber) {
 
   var a2 = Math.sqrt(b * b + c * c - 2 * b * c * cos(A)),
       B = acos((a * a + c * c - b * b) / (2 * a * c));
-  var statement = "Determine the length of !$BC!$ and the angle !$ABC!$. <br>\n        Temp: !$a!$ = ".concat(a, " cm, !$b!$ = ").concat(b, " cm, !$c!$ = ").concat(c, " cm, !$A!$&nbsp;=&nbsp;").concat(A, "&deg;<br>"),
+  var statement = "Determine the length of !$BC!$ and the angle !$ABC!$.",
       img = "../../images/math02.png",
       iV1 = ov({
     input: A + '&deg;',
@@ -50,7 +55,20 @@ QWIZM.question.qES00MR002 = function (qNumber) {
     background: 'none'
   }); //stringify
 
-  a2 = stringify(a, sigDigs);
-  B = stringify(B, sigDigs);
-  return "<div class='statement width50'><h3>Q".concat(qNumber, "</h3>: ").concat(statement, "<br>\n     Ans: !$a!$ = ").concat(a2, " cm, !$ABC!$ = ").concat(B, "!$^\\circ!$\n    </div>\n    <div id = '").concat(qId, "img' class='image width30'>\n    <img src= ").concat(img, ">\n    ").concat(iV1, "\n    ").concat(iV2, "\n    ").concat(iV3, "\n    </div>");
+  a2 = stringify(a);
+  B = stringify(B); // thisQuiz.push(questionPart)
+
+  tQ.push(qp({
+    partStatement: "!$ BC !$",
+    units: 'm',
+    marks: 5,
+    correctSoln: a2
+  }));
+  tQ.push(qp({
+    partStatement: " !$ \\angle ABC !$",
+    units: '!$^\\circ!$',
+    marks: 4,
+    correctSoln: B
+  }));
+  return "<div class='statement width50'><h3>Q".concat(qNumber, "</h3>: ").concat(statement, "<br>\n         </div>\n    <div id = '").concat(qId, "img' class='image width30'>\n    <img src= ").concat(img, ">\n    ").concat(iV1, "\n    ").concat(iV2, "\n    ").concat(iV3, "\n    </div>");
 };

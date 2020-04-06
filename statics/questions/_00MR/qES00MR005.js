@@ -4,9 +4,8 @@ var QWIZM = QWIZM || {};
 QWIZM.question = QWIZM.question || {};
 
 QWIZM.question.qES00MR005 = function (qNumber) {
-  var qId = 1000081,
-      // question ID number, unique to this question
-  uId = QWIZM.state.uId,
+  // common for import?
+  var uId = QWIZM.state.uId,
       sd = QWIZM.methods.toSigDigs,
       stringify = QWIZM.methods.stringify,
       sin = utils.sin,
@@ -15,11 +14,16 @@ QWIZM.question.qES00MR005 = function (qNumber) {
       acos = utils.acos,
       tan = utils.tan,
       atan = utils.atan,
-      // sigDigs = QWIZM.quiz.sigDigs,
-  // workingDigs = QWIZM.quiz.workingDigs,
-  ov = QWIZM.methods.overlayVariable,
-      seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
-      lcrng = new utils.LCRNG(seed); //inputs
+      thisQuiz = QWIZM.state.thisQuiz,
+      ov = QWIZM.methods.overlayVariable,
+      qp = QWIZM.methods.questionPart;
+  var qId = 1000081,
+      // question ID number, unique to this question        
+  seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
+      lcrng = new utils.LCRNG(seed);
+  thisQuiz[qNumber] = []; // thisQuiz is created at valid login so may cause errors when building new questions; reset and login should handle those.
+
+  var tQ = thisQuiz[qNumber]; //inputs
 
   var AC = sd(lcrng.getNext(5, 15, 0.5)),
       multiplier = lcrng.getNext(0.55, 0.75, 0.05),
@@ -33,7 +37,26 @@ QWIZM.question.qES00MR005 = function (qNumber) {
   AD = stringify(AD);
   CD = stringify(CD);
   AB = stringify(AB);
-  BC = stringify(BC);
+  BC = stringify(BC); // thisQuiz.push(questionPart)
+
+  tQ.push(qp({
+    partStatement: "!$ AB !$",
+    units: '',
+    marks: 3,
+    correctSoln: AB
+  }));
+  tQ.push(qp({
+    partStatement: "length: !$ BD !$",
+    units: '',
+    marks: 4,
+    correctSoln: AD
+  }));
+  tQ.push(qp({
+    partStatement: "length: !$ CD !$",
+    units: '',
+    marks: 3,
+    correctSoln: CD
+  }));
   var statement = "Using the Pythagorean Theorem and the theory of similar triangles, determine the lengths of  !$AB!$, !$BD!$ and !$CD!$.\n    <!-- Inputs: AC = ".concat(AC, " cm, AD = ").concat(AD, " cm<p> -->"),
       img = "../../images/math05.png",
       iV1 = ov({

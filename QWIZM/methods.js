@@ -1,11 +1,26 @@
 "use strict";
 
-var QWIZM = QWIZM || {};
+var QWIZM = QWIZM || {}; // QWIZM.state = QWIZM.state || {}; // an object to hold everything that goes in localStorage
+
 QWIZM.methods = QWIZM.methods || {}; // some constants
 
 QWIZM.DURATION = 400;
 QWIZM.NEGATIVE = -42;
-QWIZM.QUIZ_KEY = "quiz_" + QWIZM.quiz.id; // QWIZM.methods = function () {} // function constructor, doesn't need anything in it
+QWIZM.QUIZ_KEY = "quiz_" + QWIZM.quiz.id;
+QWIZM.DELTA = 1e-9; // QWIZM.methods = function () {} // function constructor, doesn't need anything in it
+
+QWIZM.methods.questionPart = function (o) {
+  return {
+    partStatement: o.partStatement,
+    units: o.units,
+    marks: o.marks,
+    // long: o.long,
+    correctSoln: o.correctSoln,
+    // userSoln: o.userSoln,
+    isAnswered: false,
+    isCorrect: false
+  };
+};
 
 QWIZM.methods.writeHeader = function (o) {
   return "<header>\n                <h1>".concat(o.subject, "</h1>\n                <div class='rightblock'>\n                    <h3>").concat(o.topic, "</h3>\n                    <h3>").concat(o.subtopic, "</h3>\n                </div>\n            </header>");
@@ -29,30 +44,45 @@ QWIZM.methods.viewsLoad = function (o) {
     }
 };
 
-QWIZM.methods.writeFooter = function () {
-  var state = QWIZM.methods.readState(QWIZM.QUIZ_KEY),
-      // number of questions in this quiz
-  len = QWIZM.quiz.questions.length,
-      html = "<footer>\n                <nav class='navbar'>\n                    <ul class='nav-links'>\n                        <li class = \"nav-item\" id=\"instructionsBtn\" > Instructions </li>\n                        <li class = \"nav-item\" id=\"clearBtn\" > Clear </li>";
-
-  for (var i = 1; i < len; i++) {
-    html += "<li class=\"nav-item\" id=\"Q".concat(i, "Btn\">Q").concat(i, "</li>");
-  }
-
-  return html + "<li class = \"nav-item\" id=\"summaryBtn\">Summary </li>\n                </ul>                                          \n                <div class='uname'>".concat(state.uname, "</div>                     \n            </nav>                     \n        </footer>");
-};
-
 QWIZM.methods.loadViews = function () {
   var len = QWIZM.quiz.questions.length,
       html = '';
-  html += "<div id='instructions' class='view'><div class=\"statement width70 taleft\">".concat(QWIZM.quiz.instructions, "</div></div>\n            <div id='clear' class='card view' > ").concat(QWIZM.methods.writeClearView(), "</div>");
+  html += "<div id='instructions' class='view'>\n    <div class=\"statement width70 taleft\">".concat(QWIZM.quiz.instructions, "</div></div>\n    <div id='clear' class='card view' > ").concat(QWIZM.methods.writeClearView(), "</div>");
 
   for (var i = 1; i < len; i++) {
-    html += "<div id='Q".concat(i, "' class='view'>\n            ").concat(QWIZM.quiz.questions[i](i), "</div>\n");
-  }
+    html += "<div id='Q".concat(i, "' class='view'>\n            ").concat(QWIZM.quiz.questions[i](i));
+    html += QWIZM.methods.questionParts(i); // html += `<div class='parts'>${QWIZM.state.thisQuiz[1][0].part}</div></div>`;
+
+    html += "</div>";
+  } // html += QWIZM.state.thisQuiz[1][0].part;
+
 
   html += "<div id='summary' class='view'>Summary</div>";
   return html;
+};
+
+QWIZM.methods.questionParts = function (qNumber) {
+  var html = "<form><div class='parts'>";
+
+  if (QWIZM.state.thisQuiz[qNumber]) {
+    var parts = QWIZM.state.thisQuiz[qNumber],
+        numberOfParts = parts.length;
+    console.log('number of parts ' + parts.length);
+
+    for (var i = 0; i < numberOfParts; i++) {
+      html += "<div class='questionPart'>";
+      html += "".concat(parts[i].partStatement, ": ");
+      html += "<input type='text' id='question".concat(qNumber, "part").concat(i + 1, "' class='partInput'>");
+      html += "<span class='units'>".concat(parts[i].units, "</span> ");
+      html += "<button id='".concat(qNumber, "part").concat(i + 1, "btn type='button' class='markButton'>Mark</button>");
+      html += i % 2 === 0 ? "<span class='cross' />" : "<span class='check' />";
+      html += "<span class='marks'>(".concat(parts[i].marks, " marks)</span>");
+      html += "<span class='feedback'> ".concat(parts[i].correctSoln, "</span>");
+      html += "</div>";
+    }
+  }
+
+  return html + "</div></form>";
 };
 
 QWIZM.methods.writeState = function (key, value) {
@@ -87,7 +117,7 @@ QWIZM.methods.writeClearView = function () {
 
 QWIZM.methods.stringify = function (number) {
   var sigDigs = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : QWIZM.quiz.sigDigs;
-  var delta = 1e-9,
+  var delta = QWIZM.DELTA,
       pre = '',
       temp = number + ''; //stringify
 
@@ -115,4 +145,17 @@ QWIZM.methods.stringify = function (number) {
 QWIZM.methods.toSigDigs = function (number) {
   var workingDigs = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : QWIZM.quiz.workingDigs;
   return Number(QWIZM.methods.stringify(number, workingDigs = QWIZM.quiz.workingDigs));
+};
+
+QWIZM.methods.writeFooter = function () {
+  var state = QWIZM.methods.readState(QWIZM.QUIZ_KEY),
+      // number of questions in this quiz
+  len = QWIZM.quiz.questions.length,
+      html = "<footer>\n                <nav class='navbar'>\n                    <ul class='nav-links'>\n                        <li class = \"nav-item\" id=\"instructionsBtn\" > Instructions </li>\n                        <li class = \"nav-item\" id=\"clearBtn\" > Clear </li>";
+
+  for (var i = 1; i < len; i++) {
+    html += "<li class=\"nav-item\" id=\"Q".concat(i, "Btn\">Q").concat(i, "</li>");
+  }
+
+  return html + "<li class = \"nav-item\" id=\"summaryBtn\">Summary </li>\n                </ul>                                          \n                <div class='uname'>".concat(state.uname, "</div>                     \n            </nav>                     \n        </footer>");
 };

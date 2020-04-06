@@ -8,6 +8,8 @@ $TOPIC_LIGHT: white;
 $TEXT: #333;
 $HEADER_TOPIC: "Quicksand";
 $HEADER_COURSE: "Tillana";
+$FONT_SIZE: 1.75vw;
+$CARD_BACKGROUND: #eee;
 
 html {
   height: 100%;
@@ -103,7 +105,6 @@ footer {
     text-align: center;
     // font-size: 90%;
 
-
     padding: 0;
     margin: 0.5em 0;
     margin-right: 1em;
@@ -148,25 +149,6 @@ footer {
   color: DarkRed;
   font-weight: 600;
 }
-
-.statement {
-  // border: 3px solid green;
-  margin: 0 auto;
-  text-align: center;
-
-  & h3 {
-    display: inline;
-    margin: 0;
-  }
-}
-
-
-
-
-
-
-
-
 
 .taleft {
   text-align: left;
@@ -227,9 +209,20 @@ footer {
   margin: 0 auto;
 }
 
+.statement {
+  border: 1px solid green;
+  margin: 0 auto;
+  text-align: left;
+
+  & h3 {
+    display: inline;
+    margin: 0;
+  }
+}
+
 .image {
   position: relative;
-  // border: 3px solid yellow;
+  border: 1px solid red;
   margin: 1em auto;
 
   & img {
@@ -246,9 +239,106 @@ footer {
     z-index: 100;
     padding: 0.25vw 0.5vw;
     // font-size: 1.5vw;
-    text-align: center;
+    // text-align: center;
   }
 }
+
+.questionPart {
+  border: 1px solid green;
+  margin-bottom: 0.25em;
+  padding: 0;
+
+  &:last-of-type {
+    margin-bottom: 0;
+    // border: 1px green solid;
+  }
+}
+
+.parts {
+  width: auto;
+  text-align: center;
+  position: relative;
+  border: 1px solid blue;
+  margin: 2em auto 1em auto;
+  vertical-align: middle;
+}
+
+.markButton {
+  background-color: $PRIMARY;
+  font-size: $FONT_SIZE;
+  color: white;
+
+  &.active {
+    position: relative;
+    top: 10px;
+    color: black;
+    background: $COURSE_LIGHT;
+  }
+
+  &:hover {
+    background: lighten($PRIMARY, 10);
+    color: black;
+    cursor: pointer;
+  }
+
+  &:focus {
+
+    outline: none;
+  }
+}
+
+input.partInput {
+  // background: $CARD_BACKGROUND;
+  border: 0.3vw solid darken($CARD_BACKGROUND, 10);
+  font-size: $FONT_SIZE;
+  margin: 0 .5vw;
+  width: 8vw;
+
+
+  &:focus {
+    border: 0.3vw solid darken($CARD_BACKGROUND, 25);
+  }
+}
+
+.cross:before {
+  color: maroon;
+  content: "\2718";
+  font-size: 150%;
+  padding: 0 0.5em;
+  font-weight: bold;
+  // border: 1px solid gray;
+  background: pink;
+}
+
+.check:before {
+  color: #080;
+  content: "\2714";
+  font-size: 150%;
+  padding: 0 0.5em;
+  font-weight: bold;
+  // border: 1px solid gray;
+  background: pink;
+}
+
+.units {
+  display: inline;
+  background: violet;
+  padding: 0 0.5em 0 0;
+  margin-right: 2em;
+}
+
+.marks {
+  display: inline;
+  background: palegreen;
+}
+
+.feedback {
+  position: relative;
+  background-color: lightblue;
+  // display: none;
+}
+
+
 
 $min_font: 8;
 $mid_font: 10; //font-size at media break
@@ -269,7 +359,7 @@ $max_view: 1200;
 @media screen and (max-width: #{$max_view}px) {
   html {
     // font-size: calc(#{$min_font}px + (#{$max_font} - #{$min_font}) * ((100vw - #{$min_view}px) / (#{$max_view} - #{$min_view})));
-    font-size: 1.5vw;
+    font-size: 1.75vw;
   }
 }
 
@@ -344,7 +434,7 @@ main {
     border: 1px solid #ccc;
     box-shadow: 0.1em 0.1em 0.275em 0.1em grey;
     flex-basis: 25em;
-    background-color: #eee;
+    background-color: $CARD_BACKGROUND;
 
     & p {
       margin: 0.5em 0;
@@ -439,7 +529,7 @@ main {
   & .view {
     // background: pink;
     width: 100%;
-    // border: 3px solid pink;
+    border: 3px solid pink;
   }
 
   // end main

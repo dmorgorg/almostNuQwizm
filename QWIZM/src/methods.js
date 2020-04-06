@@ -1,12 +1,27 @@
 let QWIZM = QWIZM || {};
+// QWIZM.state = QWIZM.state || {}; // an object to hold everything that goes in localStorage
 QWIZM.methods = QWIZM.methods || {};
 
 // some constants
 QWIZM.DURATION = 400;
 QWIZM.NEGATIVE = -42;
 QWIZM.QUIZ_KEY = "quiz_" + QWIZM.quiz.id;
+QWIZM.DELTA = 1e-9;
 
 // QWIZM.methods = function () {} // function constructor, doesn't need anything in it
+
+QWIZM.methods.questionPart = (o) => {
+    return {
+        partStatement: o.partStatement,
+        units: o.units,
+        marks: o.marks,
+        // long: o.long,
+        correctSoln: o.correctSoln,
+        // userSoln: o.userSoln,
+        isAnswered: false,
+        isCorrect: false
+    };
+}
 
 QWIZM.methods.writeHeader = o => {
     return `<header>
@@ -43,44 +58,52 @@ QWIZM.methods.viewsLoad = o => {
     }
 };
 
-QWIZM.methods.writeFooter = () => {
-    let state = QWIZM.methods.readState(QWIZM.QUIZ_KEY),
-        // number of questions in this quiz
-        len = QWIZM.quiz.questions.length,
-        html = `<footer>
-                <nav class='navbar'>
-                    <ul class='nav-links'>
-                        <li class = "nav-item" id="instructionsBtn" > Instructions </li>
-                        <li class = "nav-item" id="clearBtn" > Clear </li>`;
 
-    for (let i = 1; i < len; i++) {
-        html += `<li class="nav-item" id="Q${i}Btn">Q${i}</li>`;
-    }
-
-    return html + `<li class = "nav-item" id="summaryBtn">Summary </li>
-                </ul>                                          
-                <div class='uname'>${state.uname}</div>                     
-            </nav>                     
-        </footer>`;
-};
 
 QWIZM.methods.loadViews = () => {
     let len = QWIZM.quiz.questions.length,
         html = '';
 
-    html += `<div id='instructions' class='view'><div class="statement width70 taleft">${QWIZM.quiz.instructions}</div></div>
-            <div id='clear' class='card view' > ${QWIZM.methods.writeClearView()}</div>`;
+    html += `<div id='instructions' class='view'>
+    <div class="statement width70 taleft">${QWIZM.quiz.instructions}</div></div>
+    <div id='clear' class='card view' > ${QWIZM.methods.writeClearView()}</div>`;
 
 
     for (let i = 1; i < len; i++) {
         html += `<div id='Q${i}' class='view'>
-            ${QWIZM.quiz.questions[i](i)}</div>\n`;
+            ${QWIZM.quiz.questions[i](i)}`;
+        html += QWIZM.methods.questionParts(i);
+        // html += `<div class='parts'>${QWIZM.state.thisQuiz[1][0].part}</div></div>`;
+        html += `</div>`;
     }
+
+    // html += QWIZM.state.thisQuiz[1][0].part;
 
     html += `<div id='summary' class='view'>Summary</div>`;
 
     return html;
 };
+
+QWIZM.methods.questionParts = (qNumber) => {
+    let html = `<form><div class='parts'>`;
+    if (QWIZM.state.thisQuiz[qNumber]) {
+        let parts = QWIZM.state.thisQuiz[qNumber],
+            numberOfParts = parts.length;
+        console.log('number of parts ' + parts.length);
+        for (let i = 0; i < numberOfParts; i++) {
+            html += `<div class='questionPart'>`;
+            html += `${parts[i].partStatement}: `;
+            html += `<input type='text' id='question${qNumber}part${i+1}' class='partInput'>`;
+            html += `<span class='units'>${parts[i].units}</span> `;
+            html += `<button id='${qNumber}part${i+1}btn type='button' class='markButton'>Mark</button>`;
+            html += i % 2 === 0 ? "<span class='cross' />" : "<span class='check' />";
+            html += `<span class='marks'>(${parts[i].marks} marks)</span>`;
+            html += `<span class='feedback'> ${parts[i].correctSoln}</span>`;
+            html += `</div>`;
+        }
+    }
+    return html + `</div></form>`;
+}
 
 
 
@@ -147,7 +170,7 @@ QWIZM.methods.writeClearView = () => {
 
 QWIZM.methods.stringify = (number, sigDigs = QWIZM.quiz.sigDigs) => {
 
-    let delta = 1e-9,
+    let delta = QWIZM.DELTA,
         pre = '',
         temp = number + ''; //stringify
 
@@ -174,3 +197,24 @@ QWIZM.methods.stringify = (number, sigDigs = QWIZM.quiz.sigDigs) => {
 QWIZM.methods.toSigDigs = (number, workingDigs = QWIZM.quiz.workingDigs) => {
     return Number(QWIZM.methods.stringify(number, workingDigs = QWIZM.quiz.workingDigs));
 }
+
+QWIZM.methods.writeFooter = () => {
+    let state = QWIZM.methods.readState(QWIZM.QUIZ_KEY),
+        // number of questions in this quiz
+        len = QWIZM.quiz.questions.length,
+        html = `<footer>
+                <nav class='navbar'>
+                    <ul class='nav-links'>
+                        <li class = "nav-item" id="instructionsBtn" > Instructions </li>
+                        <li class = "nav-item" id="clearBtn" > Clear </li>`;
+
+    for (let i = 1; i < len; i++) {
+        html += `<li class="nav-item" id="Q${i}Btn">Q${i}</li>`;
+    }
+
+    return html + `<li class = "nav-item" id="summaryBtn">Summary </li>
+                </ul>                                          
+                <div class='uname'>${state.uname}</div>                     
+            </nav>                     
+        </footer>`;
+};

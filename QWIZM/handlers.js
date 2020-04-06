@@ -1,6 +1,8 @@
 "use strict";
 
 var QWIZM = QWIZM || {};
+QWIZM.state = QWIZM.state || {}; // an object to hold everything that goes in localStorage
+
 QWIZM.handlers = QWIZM.handlers || {}; // event handler for navigation button click
 
 QWIZM.handlers.updateView = function (e) {
@@ -68,6 +70,8 @@ QWIZM.handlers.validateLogin = function (e) {
     QWIZM.state.uname = uname;
     QWIZM.state.uId = uId;
     QWIZM.state.currentView = 'instructions';
+    QWIZM.state.thisQuiz = []; // to hold state of entered and processed submissions
+
     window.location.reload(true); // writeState early enough that it is complete before viewsLoad()
 
     QWIZM.methods.writeState(QWIZM.QUIZ_KEY, QWIZM.state);

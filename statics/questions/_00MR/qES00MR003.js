@@ -4,9 +4,8 @@ var QWIZM = QWIZM || {};
 QWIZM.question = QWIZM.question || {};
 
 QWIZM.question.qES00MR003 = function (qNumber) {
-  var qId = 1000037,
-      // question ID number, unique to this question
-  uId = QWIZM.state.uId,
+  // common for import?
+  var uId = QWIZM.state.uId,
       sd = QWIZM.methods.toSigDigs,
       stringify = QWIZM.methods.stringify,
       sin = utils.sin,
@@ -15,11 +14,16 @@ QWIZM.question.qES00MR003 = function (qNumber) {
       acos = utils.acos,
       tan = utils.tan,
       atan = utils.atan,
-      sigDigs = QWIZM.quiz.sigDigs,
-      workingDigs = QWIZM.quiz.workingDigs,
+      thisQuiz = QWIZM.state.thisQuiz,
       ov = QWIZM.methods.overlayVariable,
-      seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
-      lcrng = new utils.LCRNG(seed); //inputs
+      qp = QWIZM.methods.questionPart;
+  var qId = 1000037,
+      // question ID number, unique to this question        
+  seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
+      lcrng = new utils.LCRNG(seed);
+  thisQuiz[qNumber] = []; // thisQuiz is created at valid login so may cause errors when building new questions; reset and login should handle those.
+
+  var tQ = thisQuiz[qNumber]; //inputs
 
   var topChord = sd(lcrng.getNext(30, 40, 0.5)),
       multiplier = tan(topChord),
@@ -28,15 +32,9 @@ QWIZM.question.qES00MR003 = function (qNumber) {
   var y = stringify(Math.round(x1 * multiplier * 5) / 5),
       x = stringify(Math.round(x1 * 2 / 3 * 5) / 5),
       phi = stringify(atan(y / (x / 2))),
-      theta = 90 - stringify(atan(y / (1.5 * x))); //stringify
-  // x = stringify(x);
-  // y = stringify(y);
-  // phi = stringify(phi);
-  // theta = stringify(theta);
-
-  var statement = "Determine angles !$\\theta!$ and !$\\phi!$.\n          <br>\n        Temp: topChordAngle = ".concat(topChord, "!$^\\circ!$, mult = ").concat(sd(multiplier), ", !$x_{AB} = ").concat(x, "!$ m, !$y!$&nbsp;=&nbsp;").concat(y, " m<br>"),
-      //    `,
-  img = "../../images/math03.png",
+      theta = 90 - stringify(atan(y / (1.5 * x)));
+  var statement = "Determine angles !$\\theta!$ and !$\\phi!$.",
+      img = "../../images/math03.png",
       iV1 = ov({
     input: x + ' m',
     left: 27,
@@ -56,6 +54,19 @@ QWIZM.question.qES00MR003 = function (qNumber) {
     input: y + ' m',
     left: 7,
     top: 38
-  });
-  return "<div class='statement width40'><h3>Q".concat(qNumber, "</h3>: ").concat(statement, "<br>\n    Ans: !$\\theta!$ = ").concat(theta, "&deg;, <i>&phi;</i> = ").concat(phi, "&deg;\n    </div>\n    <div class='image width60'><img src= ").concat(img, ">\n    ").concat(iV1, "\n    ").concat(iV2, "\n    ").concat(iV3, "\n    ").concat(iV4, "\n    </div>");
+  }); // thisQuiz.push(questionPart)
+
+  tQ.push(qp({
+    partStatement: "!$ \\theta !$",
+    units: '!$^\\circ!$',
+    marks: 5,
+    correctSoln: theta
+  }));
+  tQ.push(qp({
+    partStatement: "!$ \\phi !$",
+    units: '!$^\\circ!$',
+    marks: 5,
+    correctSoln: phi
+  }));
+  return "<div class='statement width40'><h3>Q".concat(qNumber, "</h3>: ").concat(statement, "    \n    </div>\n    <div class='image width60'><img src= ").concat(img, ">\n    ").concat(iV1, "\n    ").concat(iV2, "\n    ").concat(iV3, "\n    ").concat(iV4, "\n    </div>");
 };

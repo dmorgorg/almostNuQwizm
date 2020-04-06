@@ -2,8 +2,8 @@ let QWIZM = QWIZM || {};
 QWIZM.question = QWIZM.question || {};
 
 QWIZM.question.qES00MR004 = (qNumber) => {
-    let qId = 1000039, // question ID number, unique to this question
-        uId = QWIZM.state.uId,
+    // common for import?
+    let uId = QWIZM.state.uId,
         sd = QWIZM.methods.toSigDigs,
         stringify = QWIZM.methods.stringify,
         sin = utils.sin,
@@ -12,12 +12,16 @@ QWIZM.question.qES00MR004 = (qNumber) => {
         acos = utils.acos,
         tan = utils.tan,
         atan = utils.atan,
-        sigDigs = QWIZM.quiz.sigDigs,
-        workingDigs = QWIZM.quiz.workingDigs,
+        thisQuiz = QWIZM.state.thisQuiz,
         ov = QWIZM.methods.overlayVariable,
+        qp = QWIZM.methods.questionPart;
+
+    let qId = 1000039, // question ID number, unique to this question        
         seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
         lcrng = new utils.LCRNG(seed);
 
+    thisQuiz[qNumber] = []; // thisQuiz is created at valid login so may cause errors when building new questions; reset and login should handle those.
+    let tQ = thisQuiz[qNumber];
 
     //inputs
     let AB = stringify(lcrng.getNext(400, 600, 5)),
@@ -31,7 +35,7 @@ QWIZM.question.qES00MR004 = (qNumber) => {
         BF = Math.round(AB * BFmult / 5) * 5,
         strain = lcrng.getNext(1.5, 2.0, 0.1),
         deltaDE1 = DE * strain / 1000,
-        dA = sd(deltaDE1 * (AB + BC) / CD, sigDigs);
+        dA = sd(deltaDE1 * (AB + BC) / CD);
 
     //calcs
     let deltaBF = dA * BC / (AB + BC),
@@ -61,6 +65,20 @@ QWIZM.question.qES00MR004 = (qNumber) => {
             left: 67,
             top: 80.25
         });
+
+    // thisQuiz.push(questionPart)
+    tQ.push(qp({
+        partStatement: `!$ \\delta_{BF} !$`,
+        units: 'mm',
+        marks: 5,
+        correctSoln: deltaBF
+    }));
+    tQ.push(qp({
+        partStatement: `length: !$ \\delta_{DE} !$`,
+        units: 'mm',
+        marks: 5,
+        correctSoln: deltaDE
+    }));
 
 
     return `<div class='statement width60 taleft'><h3>Q${qNumber}</h3>: ${statement}<br>

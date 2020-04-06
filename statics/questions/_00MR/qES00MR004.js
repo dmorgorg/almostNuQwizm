@@ -4,9 +4,8 @@ var QWIZM = QWIZM || {};
 QWIZM.question = QWIZM.question || {};
 
 QWIZM.question.qES00MR004 = function (qNumber) {
-  var qId = 1000039,
-      // question ID number, unique to this question
-  uId = QWIZM.state.uId,
+  // common for import?
+  var uId = QWIZM.state.uId,
       sd = QWIZM.methods.toSigDigs,
       stringify = QWIZM.methods.stringify,
       sin = utils.sin,
@@ -15,11 +14,16 @@ QWIZM.question.qES00MR004 = function (qNumber) {
       acos = utils.acos,
       tan = utils.tan,
       atan = utils.atan,
-      sigDigs = QWIZM.quiz.sigDigs,
-      workingDigs = QWIZM.quiz.workingDigs,
+      thisQuiz = QWIZM.state.thisQuiz,
       ov = QWIZM.methods.overlayVariable,
-      seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
-      lcrng = new utils.LCRNG(seed); //inputs
+      qp = QWIZM.methods.questionPart;
+  var qId = 1000039,
+      // question ID number, unique to this question        
+  seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
+      lcrng = new utils.LCRNG(seed);
+  thisQuiz[qNumber] = []; // thisQuiz is created at valid login so may cause errors when building new questions; reset and login should handle those.
+
+  var tQ = thisQuiz[qNumber]; //inputs
 
   var AB = stringify(lcrng.getNext(400, 600, 5)),
       BCmult = sd(lcrng.getNext(1.35, 1.65, 0.025)),
@@ -32,7 +36,7 @@ QWIZM.question.qES00MR004 = function (qNumber) {
       BF = Math.round(AB * BFmult / 5) * 5,
       strain = lcrng.getNext(1.5, 2.0, 0.1),
       deltaDE1 = DE * strain / 1000,
-      dA = sd(deltaDE1 * (AB + BC) / CD, sigDigs); //calcs
+      dA = sd(deltaDE1 * (AB + BC) / CD); //calcs
 
   var deltaBF = dA * BC / (AB + BC),
       deltaDE = -dA * CD / (AB + BC); //stringify
@@ -56,6 +60,19 @@ QWIZM.question.qES00MR004 = function (qNumber) {
     input: CD + ' mm',
     left: 67,
     top: 80.25
-  });
+  }); // thisQuiz.push(questionPart)
+
+  tQ.push(qp({
+    partStatement: "!$ \\delta_{BF} !$",
+    units: 'mm',
+    marks: 5,
+    correctSoln: deltaBF
+  }));
+  tQ.push(qp({
+    partStatement: "length: !$ \\delta_{DE} !$",
+    units: 'mm',
+    marks: 5,
+    correctSoln: deltaDE
+  }));
   return "<div class='statement width60 taleft'><h3>Q".concat(qNumber, "</h3>: ").concat(statement, "<br>\n    <!-- Ans: <i>&delta;<sub>DE</sub></i> = ").concat(deltaDE, " mm, <i>&delta;<sub>BF</sub></i> = ").concat(deltaBF, " mm; -->\n    </div>\n    <div class='image width45'><img src= ").concat(img, ">\n    ").concat(iV1, "\n    ").concat(iV2, "\n    ").concat(iV3, "\n    </div>");
 };

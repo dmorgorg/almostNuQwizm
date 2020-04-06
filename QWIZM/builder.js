@@ -9,5 +9,6 @@ $(document).ready(function () {
     $('body').append("<main></main>");
     QWIZM.methods.viewsLoad(Qq);
     katexify();
+    console.log(QWIZM.state);
   }(QWIZM.quiz);
 });

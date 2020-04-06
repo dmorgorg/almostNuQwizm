@@ -4,22 +4,26 @@ var QWIZM = QWIZM || {};
 QWIZM.question = QWIZM.question || {};
 
 QWIZM.question.qES00MR001 = function (qNumber) {
-  var qId = 1000003,
-      // question ID number, unique to this question
-  uId = QWIZM.state.uId,
+  // common for import?
+  var uId = QWIZM.state.uId,
       sd = QWIZM.methods.toSigDigs,
       stringify = QWIZM.methods.stringify,
-      // sigDigs = QWIZM.quiz.sigDigs,
-  // workingDigs = QWIZM.quiz.workingDigs,
-  sin = utils.sin,
+      sin = utils.sin,
       cos = utils.cos,
       asin = utils.asin,
       acos = utils.acos,
       tan = utils.tan,
       atan = utils.atan,
+      thisQuiz = QWIZM.state.thisQuiz,
       ov = QWIZM.methods.overlayVariable,
-      seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
-      lcrng = new utils.LCRNG(seed); //inputs - defaults to workingDigs
+      qp = QWIZM.methods.questionPart;
+  var qId = 1000003,
+      // question ID number, unique to this question        
+  seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
+      lcrng = new utils.LCRNG(seed);
+  thisQuiz[qNumber] = []; // thisQuiz is created at valid login so may cause errors when building new questions; reset and login should handle those.
+
+  var tQ = thisQuiz[qNumber]; //inputs - defaults to workingDigs
 
   var x = sd(lcrng.getNext(2, 4, 0.025)),
       y1 = sd(lcrng.getNext(0.7, 0.8, 0.01) * x),
@@ -73,6 +77,19 @@ QWIZM.question.qES00MR001 = function (qNumber) {
     input: y2 + ' m',
     left: 88,
     top: 24
-  });
-  return "<div class='statement width50'><h3>Q".concat(qNumber, "</h3>: \n    ").concat(statement, "\n    <!--Ans: !$BF!$ = ").concat(BF, ", !$CE!$ = ").concat(CE, " -->\n    </div>\n    <div id = '").concat(qId, "img' class='image width60'>\n    <img src= ").concat(img, ">\n    ").concat(iV1, "\n    ").concat(iV2, "\n    ").concat(iV3, "\n    ").concat(iV4, "\n    ").concat(iV5, "\n    ").concat(iV6, "\n    </div>\n    ");
+  }); // thisQuiz.push(questionPart)
+
+  tQ.push(qp({
+    partStatement: "!$ BF !$",
+    units: 'm',
+    marks: 5,
+    correctSoln: BF
+  }));
+  tQ.push(qp({
+    partStatement: "length: !$ CE !$",
+    units: 'm',
+    marks: 4,
+    correctSoln: CE
+  }));
+  return "<div class='statement width50'><h3>Q".concat(qNumber, "</h3>: \n    ").concat(statement, "</div>\n    <div id = '").concat(qId, "img' class='image width60'>\n    <img src= ").concat(img, ">\n    ").concat(iV1, "\n    ").concat(iV2, "\n    ").concat(iV3, "\n    ").concat(iV4, "\n    ").concat(iV5, "\n    ").concat(iV6, "\n    </div>\n    ");
 };

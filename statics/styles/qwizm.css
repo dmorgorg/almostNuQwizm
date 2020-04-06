@@ -156,16 +156,6 @@ footer {
   font-weight: 600;
 }
 
-.statement {
-  margin: 0 auto;
-  text-align: center;
-}
-
-.statement h3 {
-  display: inline;
-  margin: 0;
-}
-
 .taleft {
   text-align: left;
 }
@@ -220,8 +210,20 @@ footer {
   margin: 0 auto;
 }
 
+.statement {
+  border: 1px solid green;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.statement h3 {
+  display: inline;
+  margin: 0;
+}
+
 .image {
   position: relative;
+  border: 1px solid red;
   margin: 1em auto;
 }
 
@@ -234,7 +236,94 @@ footer {
   position: absolute;
   z-index: 100;
   padding: 0.25vw 0.5vw;
+}
+
+.questionPart {
+  border: 1px solid green;
+  margin-bottom: 0.25em;
+  padding: 0;
+}
+
+.questionPart:last-of-type {
+  margin-bottom: 0;
+}
+
+.parts {
+  width: auto;
   text-align: center;
+  position: relative;
+  border: 1px solid blue;
+  margin: 2em auto 1em auto;
+  vertical-align: middle;
+}
+
+.markButton {
+  background-color: darkred;
+  font-size: 1.75vw;
+  color: white;
+}
+
+.markButton.active {
+  position: relative;
+  top: 10px;
+  color: black;
+  background: white;
+}
+
+.markButton:hover {
+  background: #be0000;
+  color: black;
+  cursor: pointer;
+}
+
+.markButton:focus {
+  outline: none;
+}
+
+input.partInput {
+  border: 0.3vw solid #d5d5d5;
+  font-size: 1.75vw;
+  margin: 0 .5vw;
+  width: 8vw;
+}
+
+input.partInput:focus {
+  border: 0.3vw solid #aeaeae;
+}
+
+.cross:before {
+  color: maroon;
+  content: "\2718";
+  font-size: 150%;
+  padding: 0 0.5em;
+  font-weight: bold;
+  background: pink;
+}
+
+.check:before {
+  color: #080;
+  content: "\2714";
+  font-size: 150%;
+  padding: 0 0.5em;
+  font-weight: bold;
+  background: pink;
+}
+
+.units {
+  display: inline;
+  background: violet;
+  padding: 0 0.5em 0 0;
+  margin-right: 2em;
+}
+
+.marks {
+  display: inline;
+  background: palegreen;
+}
+
+.feedback {
+  position: relative;
+  background-color: lightblue;
 }
 
 @media screen and (min-width: 1200px) {
@@ -245,7 +334,7 @@ footer {
 
 @media screen and (max-width: 1200px) {
   html {
-    font-size: 1.5vw;
+    font-size: 1.75vw;
   }
 }
 
@@ -464,6 +553,7 @@ main .card .login-list li#unameError {
 
 main .view {
   width: 100%;
+  border: 3px solid pink;
 }
 
 .highlight {

@@ -2,8 +2,8 @@ let QWIZM = QWIZM || {};
 QWIZM.question = QWIZM.question || {};
 
 QWIZM.question.qES00MR002 = (qNumber) => {
-    let qId = 1000033, // question ID number, unique to this question
-        uId = QWIZM.state.uId,
+    // common for import?
+    let uId = QWIZM.state.uId,
         sd = QWIZM.methods.toSigDigs,
         stringify = QWIZM.methods.stringify,
         sin = utils.sin,
@@ -12,10 +12,16 @@ QWIZM.question.qES00MR002 = (qNumber) => {
         acos = utils.acos,
         tan = utils.tan,
         atan = utils.atan,
-        sigDigs = QWIZM.quiz.sigDigs,
+        thisQuiz = QWIZM.state.thisQuiz,
         ov = QWIZM.methods.overlayVariable,
+        qp = QWIZM.methods.questionPart;
+
+    let qId = 1000033, // question ID number, unique to this question
         seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
         lcrng = new utils.LCRNG(seed);
+
+    thisQuiz[qNumber] = []; // thisQuiz is created at valid login so may cause errors when building new questions; reset and login should handle those.
+    let tQ = thisQuiz[qNumber];
 
     //inputs
     // console.log(stringify(lcrng.getNext(2, 4, 0.025)))
@@ -28,8 +34,7 @@ QWIZM.question.qES00MR002 = (qNumber) => {
     let a2 = Math.sqrt(b * b + c * c - 2 * b * c * cos(A)),
         B = acos((a * a + c * c - b * b) / (2 * a * c));
 
-    let statement = `Determine the length of !$BC!$ and the angle !$ABC!$. <br\>
-        Temp: !$a!$ = ${a} cm, !$b!$ = ${b} cm, !$c!$ = ${c} cm, !$A!$&nbsp;=&nbsp;${A}&deg;<br\>`,
+    let statement = `Determine the length of !$BC!$ and the angle !$ABC!$.`,
         img = `../../images/math02.png`,
         iV1 = ov({
             input: A + '&deg;',
@@ -52,13 +57,26 @@ QWIZM.question.qES00MR002 = (qNumber) => {
         });
 
     //stringify
-    a2 = stringify(a, sigDigs);
-    B = stringify(B, sigDigs);
+    a2 = stringify(a);
+    B = stringify(B);
+
+    // thisQuiz.push(questionPart)
+    tQ.push(qp({
+        partStatement: `!$ BC !$`,
+        units: 'm',
+        marks: 5,
+        correctSoln: a2
+    }));
+    tQ.push(qp({
+        partStatement: ` !$ \\angle ABC !$`,
+        units: '!$^\\circ!$',
+        marks: 4,
+        correctSoln: B
+    }));
 
 
     return `<div class='statement width50'><h3>Q${qNumber}</h3>: ${statement}<br>
-     Ans: !$a!$ = ${a2} cm, !$ABC!$ = ${B}!$^\\circ!$
-    </div>
+         </div>
     <div id = '${qId}img' class='image width30'>
     <img src= ${img}>
     ${iV1}

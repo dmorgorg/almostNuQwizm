@@ -2,8 +2,8 @@ let QWIZM = QWIZM || {};
 QWIZM.question = QWIZM.question || {};
 
 QWIZM.question.qES00MR005 = (qNumber) => {
-    let qId = 1000081, // question ID number, unique to this question
-        uId = QWIZM.state.uId,
+    // common for import?
+    let uId = QWIZM.state.uId,
         sd = QWIZM.methods.toSigDigs,
         stringify = QWIZM.methods.stringify,
         sin = utils.sin,
@@ -12,11 +12,16 @@ QWIZM.question.qES00MR005 = (qNumber) => {
         acos = utils.acos,
         tan = utils.tan,
         atan = utils.atan,
-        // sigDigs = QWIZM.quiz.sigDigs,
-        // workingDigs = QWIZM.quiz.workingDigs,
+        thisQuiz = QWIZM.state.thisQuiz,
         ov = QWIZM.methods.overlayVariable,
+        qp = QWIZM.methods.questionPart;
+
+    let qId = 1000081, // question ID number, unique to this question        
         seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
         lcrng = new utils.LCRNG(seed);
+
+    thisQuiz[qNumber] = []; // thisQuiz is created at valid login so may cause errors when building new questions; reset and login should handle those.
+    let tQ = thisQuiz[qNumber];
 
     //inputs
     let AC = sd(lcrng.getNext(5, 15, 0.5)),
@@ -35,6 +40,27 @@ QWIZM.question.qES00MR005 = (qNumber) => {
     CD = stringify(CD);
     AB = stringify(AB);
     BC = stringify(BC);
+
+    // thisQuiz.push(questionPart)
+    tQ.push(qp({
+        partStatement: `!$ AB !$`,
+        units: '',
+        marks: 3,
+        correctSoln: AB
+    }));
+    tQ.push(qp({
+        partStatement: `length: !$ BD !$`,
+        units: '',
+        marks: 4,
+        correctSoln: AD
+    }));
+    tQ.push(qp({
+        partStatement: `length: !$ CD !$`,
+        units: '',
+        marks: 3,
+        correctSoln: CD
+    }));
+
 
 
     let statement = `Using the Pythagorean Theorem and the theory of similar triangles, determine the lengths of  !$AB!$, !$BD!$ and !$CD!$.
