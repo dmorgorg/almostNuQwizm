@@ -74,19 +74,18 @@ QWIZM.question.qES00MR004 = (qNumber) => {
         correctSoln: deltaBF
     }));
     tQ.push(qp({
-        partStatement: `length: !$ \\delta_{DE} !$`,
+        partStatement: `!$ \\delta_{DE} !$`,
         units: 'mm',
         marks: 5,
         correctSoln: deltaDE
     }));
 
 
-    return `<div class='statement width60 taleft'><h3>Q${qNumber}</h3>: ${statement}<br>
-    <!-- Ans: <i>&delta;<sub>DE</sub></i> = ${deltaDE} mm, <i>&delta;<sub>BF</sub></i> = ${deltaBF} mm; -->
-    </div>
+    return `<div class='statement width60 taleft'><h3>Q${qNumber}</h3>: ${statement}</div>
     <div class='image width45'><img src= ${img}>
     ${iV1}
     ${iV2}
     ${iV3}
-    </div>`
+    </div>
+    <form><div class='parts width40'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
 };

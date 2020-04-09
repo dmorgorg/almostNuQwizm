@@ -90,7 +90,7 @@ QWIZM.question.qES00MR001 = (qNumber) => {
         correctSoln: BF
     }));
     tQ.push(qp({
-        partStatement: `length: !$ CE !$`,
+        partStatement: `!$ CE !$`,
         units: 'm',
         marks: 4,
         correctSoln: CE
@@ -109,6 +109,7 @@ QWIZM.question.qES00MR001 = (qNumber) => {
     ${iV5}
     ${iV6}
     </div>
-    `;
+    <form><div class='parts width45'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
+
 
 };

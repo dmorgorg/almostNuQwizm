@@ -35,34 +35,32 @@ QWIZM.methods.viewsLoad = function (o) {
   } // if there is a quiz item, load the state of the quiz
   else {
       QWIZM.state = QWIZM.methods.readState(quizId);
-      $('main').html(QWIZM.methods.loadViews());
+      $('main').html(loadViews());
       $('body').append(QWIZM.methods.writeFooter()); // set all views to display:none;. Do that here rather than initializing all views to hidden so that when they are shown, display: flex (or whatever) is maintained
 
       $('.view').hide();
       $('#' + QWIZM.state.currentView + 'Btn').addClass("active");
       $('#' + QWIZM.state.currentView).fadeIn();
     }
-};
 
-QWIZM.methods.loadViews = function () {
-  var len = QWIZM.quiz.questions.length,
-      html = '';
-  html += "<div id='instructions' class='view'>\n    <div class=\"statement width70 taleft\">".concat(QWIZM.quiz.instructions, "</div></div>\n    <div id='clear' class='card view' > ").concat(QWIZM.methods.writeClearView(), "</div>");
+  function loadViews() {
+    var len = QWIZM.quiz.questions.length,
+        html = '';
+    html += "<div id='instructions' class='view'>\n                <div class=\"statement width70 taleft\">".concat(QWIZM.quiz.instructions, "</div></div>\n                <div id='clear' class='card view' > ").concat(QWIZM.methods.writeClearView(), "</div>");
 
-  for (var i = 1; i < len; i++) {
-    html += "<div id='Q".concat(i, "' class='view'>\n            ").concat(QWIZM.quiz.questions[i](i));
-    html += QWIZM.methods.questionParts(i); // html += `<div class='parts'>${QWIZM.state.thisQuiz[1][0].part}</div></div>`;
+    for (var i = 1; i < len; i++) {
+      html += "<div id='Q".concat(i, "' class='view'>\n            ").concat(QWIZM.quiz.questions[i](i)); // html += questionParts(i);
 
-    html += "</div>";
-  } // html += QWIZM.state.thisQuiz[1][0].part;
+      html += "</div>";
+    }
 
-
-  html += "<div id='summary' class='view'>Summary</div>";
-  return html;
+    html += "<div id='summary' class='view'>Summary</div>";
+    return html;
+  }
 };
 
 QWIZM.methods.questionParts = function (qNumber) {
-  var html = "<form><div class='parts'>";
+  var html = "";
 
   if (QWIZM.state.thisQuiz[qNumber]) {
     var parts = QWIZM.state.thisQuiz[qNumber],
@@ -70,19 +68,16 @@ QWIZM.methods.questionParts = function (qNumber) {
     console.log('number of parts ' + parts.length);
 
     for (var i = 0; i < numberOfParts; i++) {
-      html += "<div class='questionPart'>";
-      html += "".concat(parts[i].partStatement, ": ");
+      html += "<div class='partStatement'>".concat(parts[i].partStatement, ":</div> ");
       html += "<input type='text' id='question".concat(qNumber, "part").concat(i + 1, "' class='partInput'>");
       html += "<span class='units'>".concat(parts[i].units, "</span> ");
-      html += "<button id='".concat(qNumber, "part").concat(i + 1, "btn type='button' class='markButton'>Mark</button>");
+      html += "<button id='".concat(qNumber, "part").concat(i + 1, "btn type='button' class='markButton'>Enter</button>");
       html += i % 2 === 0 ? "<span class='cross' />" : "<span class='check' />";
-      html += "<span class='marks'>(".concat(parts[i].marks, " marks)</span>");
-      html += "<span class='feedback'> ".concat(parts[i].correctSoln, "</span>");
-      html += "</div>";
+      html += "<span class='marks'>(".concat(parts[i].marks, " marks)</span>"); //html += `<span class='feedback'> ${parts[i].correctSoln}</span>`;
     }
   }
 
-  return html + "</div></form>";
+  return html;
 };
 
 QWIZM.methods.writeState = function (key, value) {
@@ -103,16 +98,7 @@ QWIZM.methods.overlayVariable = function (o) {
       // units are in vw (view widths)
   bg = o.background || 'white'; // default value is 'white', use 'inherit' or 'none' for no background
 
-  return "<div class='label' style=\"\n        \n        top: ".concat(top, "%; \n        left: ").concat(left, "%;\n        background-color:").concat(bg, ";        \n        font-size: ").concat(fs, "vw;\n        transform: translate(-50%, -50%) rotate(").concat(-rot, "deg); \">\n        ").concat(input, "\n        </div>");
-};
-
-QWIZM.methods.writeLoginForm = function () {
-  $('main').append("<div id=\"login\" class=\"card view\">\n            <h2> Please Log In </h2>\n            <form>\n            <ul class = \"login-list\">\n                <li>\n                    <label for=\"uname\">Username:</label>\n                    <input type=\"text\" id=\"uname\" autocomplete=\"off\" placeholder=\"Alphabetical characters only, e.g. johnSmith\" />\n                </li> \n                <li id=\"unameError\"></li>\n                <li>\n                    <label for=\"uId\">ID number:</label>\n                    <input type = \"text\" id = \"uId\" autocomplete=\"off\" placeholder = \"Numerical characters only, e.g. 402235\" />\n                </li> \n                <li id = \"uIdError\"></li>\n                <li><button id=\"login-button\" type=\"submit\">Submit</button></li>\n            </ul>\n            </form>\n        </div>");
-};
-
-QWIZM.methods.writeClearView = function () {
-  var html = "<h2>Warning!</h2>\n                <p> Clicking the <span class = \"highlight\"> Clear Quiz </span> button below will reset the quiz, requiring you to log in again.</p >\n                <p><span class=\"highlight\"> All your input answers, currently stored in the browser, will be lost!</span></p>\n                <p> Only click the <span class = \"highlight\"> Clear Quiz </span> button below if this is really what you intend.</p >\n                <p>(Generally, the only reason to clear the quiz from the browser is if you plan to enter a fictitious ID to practise the quiz with a different set of question values.)</p>\n                <button id=\"clear-button\" type=\"submit\">Clear Quiz</button>";
-  return html;
+  return "<div class='label' style=\"        \n        top: ".concat(top, "%; \n        left: ").concat(left, "%;\n        background-color:").concat(bg, ";        \n        font-size: ").concat(fs, "vw;\n        transform: translate(-50%, -50%) rotate(").concat(-rot, "deg); \">\n        ").concat(input, "\n        </div>");
 };
 
 QWIZM.methods.stringify = function (number) {
@@ -158,4 +144,13 @@ QWIZM.methods.writeFooter = function () {
   }
 
   return html + "<li class = \"nav-item\" id=\"summaryBtn\">Summary </li>\n                </ul>                                          \n                <div class='uname'>".concat(state.uname, "</div>                     \n            </nav>                     \n        </footer>");
+};
+
+QWIZM.methods.writeClearView = function () {
+  var html = "<h2>Warning!</h2>\n                <p> Clicking the <span class = \"highlight\"> Clear Quiz </span> button below will reset the quiz, requiring you to log in again.</p >\n                <p><span class=\"highlight\"> All your input answers, currently stored in the browser, will be lost!</span></p>\n                <p> Only click the <span class = \"highlight\"> Clear Quiz </span> button below if this is really what you intend.</p >\n                <p>(Generally, the only reason to clear the quiz from the browser is if you plan to enter a fictitious ID to practise the quiz with a different set of question values.)</p>\n                <button id=\"clear-button\" type=\"submit\">Clear Quiz</button>";
+  return html;
+};
+
+QWIZM.methods.writeLoginForm = function () {
+  $('main').append("<div id=\"login\" class=\"card view\">\n            <h2> Please Log In </h2>\n            <form>\n            <ul class = \"login-list\">\n                <li>\n                    <label for=\"uname\">Username:</label>\n                    <input type=\"text\" id=\"uname\" autocomplete=\"off\" placeholder=\"Alphabetical characters only, e.g. johnSmith\" />\n                </li> \n                <li id=\"unameError\"></li>\n                <li>\n                    <label for=\"uId\">ID number:</label>\n                    <input type = \"text\" id = \"uId\" autocomplete=\"off\" placeholder = \"Numerical characters only, e.g. 402235\" />\n                </li> \n                <li id = \"uIdError\"></li>\n                <li><button id=\"login-button\" type=\"submit\">Submit</button></li>\n            </ul>\n            </form>\n        </div>");
 };

@@ -80,5 +80,7 @@ QWIZM.question.qES00MR003 = (qNumber) => {
     ${iV2}
     ${iV3}
     ${iV4}
-    </div>`;
+    </div>
+    <form><div class='parts width40'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
+
 };

@@ -69,10 +69,10 @@ QWIZM.question.qES00MR004 = function (qNumber) {
     correctSoln: deltaBF
   }));
   tQ.push(qp({
-    partStatement: "length: !$ \\delta_{DE} !$",
+    partStatement: "!$ \\delta_{DE} !$",
     units: 'mm',
     marks: 5,
     correctSoln: deltaDE
   }));
-  return "<div class='statement width60 taleft'><h3>Q".concat(qNumber, "</h3>: ").concat(statement, "<br>\n    <!-- Ans: <i>&delta;<sub>DE</sub></i> = ").concat(deltaDE, " mm, <i>&delta;<sub>BF</sub></i> = ").concat(deltaBF, " mm; -->\n    </div>\n    <div class='image width45'><img src= ").concat(img, ">\n    ").concat(iV1, "\n    ").concat(iV2, "\n    ").concat(iV3, "\n    </div>");
+  return "<div class='statement width60 taleft'><h3>Q".concat(qNumber, "</h3>: ").concat(statement, "</div>\n    <div class='image width45'><img src= ").concat(img, ">\n    ").concat(iV1, "\n    ").concat(iV2, "\n    ").concat(iV3, "\n    </div>\n    <form><div class='parts width40'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
 };

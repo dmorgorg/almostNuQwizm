@@ -81,8 +81,8 @@ QWIZM.question.qES00MR002 = (qNumber) => {
     <img src= ${img}>
     ${iV1}
     ${iV2}
-    ${iV3}
-    </div>`;
+    ${iV3}</div>
+    <form><div class='parts width45'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
 
 
 };

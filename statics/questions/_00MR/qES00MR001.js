@@ -86,10 +86,10 @@ QWIZM.question.qES00MR001 = function (qNumber) {
     correctSoln: BF
   }));
   tQ.push(qp({
-    partStatement: "length: !$ CE !$",
+    partStatement: "!$ CE !$",
     units: 'm',
     marks: 4,
     correctSoln: CE
   }));
-  return "<div class='statement width50'><h3>Q".concat(qNumber, "</h3>: \n    ").concat(statement, "</div>\n    <div id = '").concat(qId, "img' class='image width60'>\n    <img src= ").concat(img, ">\n    ").concat(iV1, "\n    ").concat(iV2, "\n    ").concat(iV3, "\n    ").concat(iV4, "\n    ").concat(iV5, "\n    ").concat(iV6, "\n    </div>\n    ");
+  return "<div class='statement width50'><h3>Q".concat(qNumber, "</h3>: \n    ").concat(statement, "</div>\n    <div id = '").concat(qId, "img' class='image width60'>\n    <img src= ").concat(img, ">\n    ").concat(iV1, "\n    ").concat(iV2, "\n    ").concat(iV3, "\n    ").concat(iV4, "\n    ").concat(iV5, "\n    ").concat(iV6, "\n    </div>\n    <form><div class='parts width45'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
 };

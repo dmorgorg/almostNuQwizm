@@ -2,8 +2,8 @@ let QWIZM = QWIZM || {};
 QWIZM.question = QWIZM.question || {};
 
 QWIZM.question.qES00MR006 = (qNumber) => {
-    let qId = 1000117, // question ID number, unique to this question
-        uId = QWIZM.state.uId,
+    // common for import?
+    let uId = QWIZM.state.uId,
         sd = QWIZM.methods.toSigDigs,
         stringify = QWIZM.methods.stringify,
         sin = utils.sin,
@@ -12,10 +12,16 @@ QWIZM.question.qES00MR006 = (qNumber) => {
         acos = utils.acos,
         tan = utils.tan,
         atan = utils.atan,
-        sigDigs = QWIZM.quiz.sigDigs,
+        thisQuiz = QWIZM.state.thisQuiz,
         ov = QWIZM.methods.overlayVariable,
+        qp = QWIZM.methods.questionPart;
+
+    let qId = 1000117, // question ID number, unique to this question        
         seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
         lcrng = new utils.LCRNG(seed);
+
+    thisQuiz[qNumber] = []; // thisQuiz is created at valid login so may cause errors when building new questions; reset and login should handle those.
+    let tQ = thisQuiz[qNumber];
 
     //inputs
     let OA = stringify(lcrng.getNext(0.5, 2.5, 0.1)),
@@ -28,44 +34,30 @@ QWIZM.question.qES00MR006 = (qNumber) => {
 
     //calcs
     let AB = Math.sqrt(OA ** 2 + OB ** 2),
-        angleACB = acos((AC ** 2 + BC ** 2 - AB ** 2) / (2 * AC * BC)),
-        angleABC = asin(AC * sin(angleACB) / AB),
-        angleOBC = atan(OA / OB),
-        phi = angleABC + angleOBC,
+        angleACB = sd(acos((AC ** 2 + BC ** 2 - AB ** 2) / (2 * AC * BC))),
+        angleABC = sd(asin(AC * sin(angleACB) / AB)),
+        angleOBA = sd(atan(OA / OB)),
+        phi = angleABC + angleOBA,
         theta = 180 - phi - angleACB;
 
     //stringify
-    // OA = stringify(OA);
-    // OB = stringify(OB);
-    // AC = stringify(AC);
-    // AB = stringify(AB);
+    AB = stringify(AB);
     angleACB = stringify(angleACB);
     angleABC = stringify(angleABC);
-    angleOBC = stringify(angleOBC);
+    angleOBA = stringify(angleOBA);
     phi = stringify(phi);
     theta = stringify(theta);
 
 
 
-    let statement = `A typical question in Statics is to determine the tension in rods !$AC!$, !$BC!$ and !$CW!$.To solve this, we need to find the angles !$\\theta!$ and !$\\phi!$. Follow the steps outlined below to find these angles:
-    <ol>
-        <li>Determine length !$AB!$</li>
-        <li>Determine !$\\angle ACB!$</li>
-        <li>Determine !$ \\angle ABC!$</li>
-        <li>Determine !$\\angle OBA !$</li>
-        <li>Determine !$\\phi!$</li>
-        <li>Determine !$\\theta!$</li>
-    </ol>
-    <!-- Inputs: !$OA!$ = ${OA} m, !$OB!$ = ${OB} m, !$AC!$ = ${AC}&nbsp;m, !$BC%!$&nbsp;=&nbsp;${BC}&nbsp;m<p>    
-    <p> -->   
-   `,
+    let statement = `A typical question in Statics is to determine the tension in rods !$AC!$, !$BC!$ and !$CW!$.To solve this, we need to find the angles !$\\theta!$ and !$\\phi!$. Follow the steps outlined below, in order, to find these angles:`,
         img = `../../images/math06.png`,
         iV1 = ov({
             input: AC + ' m',
             left: 35,
             top: 49,
             rot: -26.5,
-            fontSize: 1.5,
+            fontSize: 1.75,
             background: 'none'
         }),
         iV2 = ov({
@@ -73,7 +65,7 @@ QWIZM.question.qES00MR006 = (qNumber) => {
             left: 60.5,
             top: 38,
             rot: 56.25,
-            fontSize: 1.5,
+            fontSize: 1.75,
             background: 'none'
         }),
         iV3 = ov({
@@ -81,28 +73,65 @@ QWIZM.question.qES00MR006 = (qNumber) => {
             left: 11.5,
             top: 32,
             rot: 90,
-            fontSize: 1.5,
+            fontSize: 1.75,
             background: '#cdc8b0'
         }),
         iV4 = ov({
             input: OB + ' m',
             left: 49,
             top: 10,
-            fontSize: 1.5,
+            fontSize: 1.75,
             background: '#cdc8b0'
         });
 
+    // thisQuiz.push(questionPart)
+    tQ.push(qp({
+        partStatement: `Length of !$ AB !$`,
+        units: 'm',
+        marks: 5,
+        correctSoln: AB
+    }));
+    tQ.push(qp({
+        partStatement: `!$ \\angle ACB !$`,
+        units: '!$^\\circ!$',
+        marks: 4,
+        correctSoln: angleACB
+    }));
+    tQ.push(qp({
+        partStatement: `!$ \\angle ABC !$`,
+        units: '!$^\\circ!$',
+        marks: 4,
+        correctSoln: angleABC
+    }));
+    tQ.push(qp({
+        partStatement: `!$ \\angle OBA !$`,
+        units: '!$^\\circ!$',
+        marks: 4,
+        correctSoln: angleOBA
+    }));
+    tQ.push(qp({
+        partStatement: `!$ \\phi !$`,
+        units: '!$^\\circ!$',
+        marks: 4,
+        correctSoln: phi
+    }));
+    tQ.push(qp({
+        partStatement: `!$ \\theta !$`,
+        units: '!$^\\circ!$',
+        marks: 4,
+        correctSoln: theta
+    }));
+
 
     return `
-    <div class='statement width50 taleft'><h3>Q${qNumber}</h3>: ${statement}<br>
-    <!-- Ans: !$AB!$ = ${AB} cm, !$\\angle ACB!$ = ${angleACB}&deg;, !$\\angle ABC!$ = ${angleABC}&deg;, !$\\angle OBC!$ = ${angleOBC}&deg;, !$\\phi = ${phi}^\\circ !$, !$\\theta!$ = ${theta}&deg; -->
-    </div>
-    <div class='image width40'><img src= ${img}>
+    <div class='statement width50'><h3>Q${qNumber}</h3>: ${statement}</div>
+    <div class='image width50'><img src= ${img}>
     ${iV1}
     ${iV2}
     ${iV3}
     ${iV4}
-    </div>`;
+    </div>
+    <form><div class='parts width50'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
 
 
 };

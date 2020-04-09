@@ -2,8 +2,8 @@ let QWIZM = QWIZM || {};
 QWIZM.question = QWIZM.question || {};
 
 QWIZM.question.qES00MR008 = (qNumber) => {
-    let qId = 1000133, // question ID number, unique to this question
-        uId = QWIZM.state.uId,
+    // common for import?
+    let uId = QWIZM.state.uId,
         sd = QWIZM.methods.toSigDigs,
         stringify = QWIZM.methods.stringify,
         sin = utils.sin,
@@ -12,9 +12,17 @@ QWIZM.question.qES00MR008 = (qNumber) => {
         acos = utils.acos,
         tan = utils.tan,
         atan = utils.atan,
-        sigDigs = QWIZM.quiz.sigDigs,
+        thisQuiz = QWIZM.state.thisQuiz,
+        ov = QWIZM.methods.overlayVariable,
+        qp = QWIZM.methods.questionPart;
+
+    let qId = 1000133, // question ID number, unique to this question        
         seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
         lcrng = new utils.LCRNG(seed);
+
+    thisQuiz[qNumber] = []; // thisQuiz is created at valid login so may cause errors when building new questions; reset and login should handle those.
+    let tQ = thisQuiz[qNumber];
+
 
     //inputs
     let theta = lcrng.getNext(21, 24, 0.1),
@@ -45,12 +53,21 @@ QWIZM.question.qES00MR008 = (qNumber) => {
         \\end{aligned}
         $$`;
 
+    // thisQuiz.push(questionPart)
+    tQ.push(qp({
+        partStatement: `!$ x !$`,
+        units: '',
+        marks: 5,
+        correctSoln: x
+    }));
+    tQ.push(qp({
+        partStatement: `!$ y !$`,
+        units: '',
+        marks: 4,
+        correctSoln: y
+    }));
 
 
-    return `<div class='statement width50'><h3>Q${qNumber}</h3>: ${statement}<p>
-    Temp: !$ a_{11}=${a11} !$  , a12=${a12}, a21=${a21}, a22=${a22}, !$D!$=${D}, !$Dx=${Dx}!$, !$Dy!$=${Dy};<p>
-    Ans: !$FAC!$ = ${x}, !$FBC!$ = ${y}.
-    
-
-    </div>`;
+    return `<div class='statement width50'><h3>Q${qNumber}</h3>: ${statement}</div>
+    <form><div class='parts width45'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
 };

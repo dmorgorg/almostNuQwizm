@@ -31,13 +31,13 @@ QWIZM.question.qES00MR005 = function (qNumber) {
 
   var CD = Math.sqrt(Math.pow(AC, 2) - Math.pow(AD, 2)),
       AB = AD * AC / CD,
-      BC = AB * AD / AC; //stringify
+      BD = Math.sqrt(Math.pow(AB, 2) - Math.pow(AD, 2)); //stringify
 
   AC = stringify(AC);
   AD = stringify(AD);
   CD = stringify(CD);
   AB = stringify(AB);
-  BC = stringify(BC); // thisQuiz.push(questionPart)
+  BD = stringify(BD); // thisQuiz.push(questionPart)
 
   tQ.push(qp({
     partStatement: "!$ AB !$",
@@ -46,18 +46,18 @@ QWIZM.question.qES00MR005 = function (qNumber) {
     correctSoln: AB
   }));
   tQ.push(qp({
-    partStatement: "length: !$ BD !$",
+    partStatement: "!$ BD !$",
     units: '',
     marks: 4,
-    correctSoln: AD
+    correctSoln: BD
   }));
   tQ.push(qp({
-    partStatement: "length: !$ CD !$",
+    partStatement: "!$ CD !$",
     units: '',
     marks: 3,
     correctSoln: CD
   }));
-  var statement = "Using the Pythagorean Theorem and the theory of similar triangles, determine the lengths of  !$AB!$, !$BD!$ and !$CD!$.\n    <!-- Inputs: AC = ".concat(AC, " cm, AD = ").concat(AD, " cm<p> -->"),
+  var statement = "Using the Pythagorean Theorem and the theory of similar triangles, determine the lengths of  !$AB!$, !$BD!$ and !$CD!$.",
       img = "../../images/math05.png",
       iV1 = ov({
     input: AC,
@@ -74,5 +74,5 @@ QWIZM.question.qES00MR005 = function (qNumber) {
     background: 'none',
     rot: 53.5
   });
-  return "<div class='statement width45 taleft'><h3>Q".concat(qNumber, "</h3>: ").concat(statement, "\n    <!-- Ans: <i>CD</i> = ").concat(CD, " cm, <i>AB</i> = ").concat(AB, " cm, <i>BC</i> = ").concat(BC, " cm; -->\n    </div>\n    <div class='image width35'><img src= ").concat(img, ">\n    ").concat(iV1, "\n    ").concat(iV2, "\n    </div>");
+  return "<div class='statement width55 taLeft'><h3>Q".concat(qNumber, "</h3>: ").concat(statement, "</div>\n    <div class='image width35'><img src= ").concat(img, ">\n    ").concat(iV1, "\n    ").concat(iV2, "\n    </div>\n    <form><div class='parts width45'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
 };

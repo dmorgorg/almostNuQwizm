@@ -31,7 +31,7 @@ QWIZM.question.qES00MR005 = (qNumber) => {
     //calcs
     let CD = Math.sqrt(AC ** 2 - AD ** 2),
         AB = AD * AC / CD,
-        BC = AB * AD / AC;
+        BD = Math.sqrt(AB ** 2 - AD ** 2);
 
 
     //stringify
@@ -39,7 +39,7 @@ QWIZM.question.qES00MR005 = (qNumber) => {
     AD = stringify(AD);
     CD = stringify(CD);
     AB = stringify(AB);
-    BC = stringify(BC);
+    BD = stringify(BD);
 
     // thisQuiz.push(questionPart)
     tQ.push(qp({
@@ -49,13 +49,13 @@ QWIZM.question.qES00MR005 = (qNumber) => {
         correctSoln: AB
     }));
     tQ.push(qp({
-        partStatement: `length: !$ BD !$`,
+        partStatement: `!$ BD !$`,
         units: '',
         marks: 4,
-        correctSoln: AD
+        correctSoln: BD
     }));
     tQ.push(qp({
-        partStatement: `length: !$ CD !$`,
+        partStatement: `!$ CD !$`,
         units: '',
         marks: 3,
         correctSoln: CD
@@ -63,8 +63,7 @@ QWIZM.question.qES00MR005 = (qNumber) => {
 
 
 
-    let statement = `Using the Pythagorean Theorem and the theory of similar triangles, determine the lengths of  !$AB!$, !$BD!$ and !$CD!$.
-    <!-- Inputs: AC = ${AC} cm, AD = ${AD} cm<p> -->`,
+    let statement = `Using the Pythagorean Theorem and the theory of similar triangles, determine the lengths of  !$AB!$, !$BD!$ and !$CD!$.`,
         img = `../../images/math05.png`,
         iV1 = ov({
             input: AC,
@@ -83,11 +82,10 @@ QWIZM.question.qES00MR005 = (qNumber) => {
         });
 
 
-    return `<div class='statement width45 taleft'><h3>Q${qNumber}</h3>: ${statement}
-    <!-- Ans: <i>CD</i> = ${CD} cm, <i>AB</i> = ${AB} cm, <i>BC</i> = ${BC} cm; -->
-    </div>
+    return `<div class='statement width55 taLeft'><h3>Q${qNumber}</h3>: ${statement}</div>
     <div class='image width35'><img src= ${img}>
     ${iV1}
     ${iV2}
-    </div>`;
+    </div>
+    <form><div class='parts width45'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
 };

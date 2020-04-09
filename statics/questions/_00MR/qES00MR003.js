@@ -68,5 +68,5 @@ QWIZM.question.qES00MR003 = function (qNumber) {
     marks: 5,
     correctSoln: phi
   }));
-  return "<div class='statement width40'><h3>Q".concat(qNumber, "</h3>: ").concat(statement, "    \n    </div>\n    <div class='image width60'><img src= ").concat(img, ">\n    ").concat(iV1, "\n    ").concat(iV2, "\n    ").concat(iV3, "\n    ").concat(iV4, "\n    </div>");
+  return "<div class='statement width40'><h3>Q".concat(qNumber, "</h3>: ").concat(statement, "    \n    </div>\n    <div class='image width60'><img src= ").concat(img, ">\n    ").concat(iV1, "\n    ").concat(iV2, "\n    ").concat(iV3, "\n    ").concat(iV4, "\n    </div>\n    <form><div class='parts width40'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
 };
