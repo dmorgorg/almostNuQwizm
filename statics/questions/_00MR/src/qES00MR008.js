@@ -42,10 +42,7 @@ QWIZM.question.qES00MR008 = (qNumber) => {
         x = stringify(Dx / D),
         y = stringify(Dy / D);
 
-
-
-    let statement = `Solve this system of equations for !$F_{AC}!$ and !$F_{BC}!$.
-        
+    let statement = `Solve this system of equations for !$F_{AC}!$ and !$F_{BC}!$.        
         $$
         \\begin{aligned}
             F_{BC}\\cdot\\sin\\left(${phi}^\\circ\\right) +F_{AC}\\cdot\\sin\\left(${theta}^\\circ\\right)  &= ${W} \\\\
@@ -69,5 +66,5 @@ QWIZM.question.qES00MR008 = (qNumber) => {
 
 
     return `<div class='statement width50'><h3>Q${qNumber}</h3>: ${statement}</div>
-    <form><div class='parts width45'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
+    <form autocomplete="off"><div class='parts width45'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
 };

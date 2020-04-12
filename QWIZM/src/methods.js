@@ -11,27 +11,25 @@ QWIZM.DELTA = 1e-9;
 // QWIZM.methods = function () {} // function constructor, doesn't need anything in it
 
 QWIZM.methods.questionPart = (o) => {
+    // o.scored = 0;
+    // o.isAnswered = false;
+    // o.isCorrect = false;
+
     return {
         partStatement: o.partStatement,
         units: o.units,
         marks: o.marks,
+        //scored: o.scored,
         // long: o.long,
         correctSoln: o.correctSoln,
         // userSoln: o.userSoln,
-        isAnswered: false,
-        isCorrect: false
+        // isAnswered: false,
+        // isCorrect: false,
+
     };
 }
 
-QWIZM.methods.writeHeader = o => {
-    return `<header>
-                <h1>${o.subject}</h1>
-                <div class='rightblock'>
-                    <h3>${o.topic}</h3>
-                    <h3>${o.subtopic}</h3>
-                </div>
-            </header>`;
-};
+
 
 
 
@@ -45,10 +43,12 @@ QWIZM.methods.viewsLoad = o => {
     }
     // if there is a quiz item, load the state of the quiz
     else {
-
+        // get state from local storage
         QWIZM.state = QWIZM.methods.readState(quizId);
 
         $('main').html(loadViews());
+        // set handlers for all the question answer inputs
+        setHandlers();
 
         $('body').append(QWIZM.methods.writeFooter());
         // set all views to display:none;. Do that here rather than initializing all views to hidden so that when they are shown, display: flex (or whatever) is maintained
@@ -68,7 +68,6 @@ QWIZM.methods.viewsLoad = o => {
         for (let i = 1; i < len; i++) {
             html += `<div id='Q${i}' class='view'>
             ${QWIZM.quiz.questions[i](i)}`;
-            // html += questionParts(i);
             html += `</div>`;
         }
 
@@ -76,24 +75,55 @@ QWIZM.methods.viewsLoad = o => {
 
         return html;
     }
+
+    function setHandlers() {
+        let numberOfQuestions = QWIZM.quiz.questions.length - 1;
+        for (let qNumber = 1; qNumber <= numberOfQuestions; qNumber++) {
+            let numberOfParts = QWIZM.state.thisQuiz[qNumber].length - 1;
+            for (let partNumber = 1; partNumber <= numberOfParts; partNumber++) {
+                let partId = `q${qNumber}part${partNumber}btn`;
+                $('#' + partId).on('click', function (e) {
+                    // console.log(e.target.id);
+                    checkAnswer(qNumber, partNumber);
+                })
+            }
+
+        }
+    }
+
+    // q is the question number, p is the question part number
+    function checkAnswer(q, p) {
+        let inputId = `question${q}part${p}`,
+            userInput = $('#' + inputId).val(),
+            parsedInput = parseFloat(userInput), // string to float
+            qPartItem = QWIZM.state.thisQuiz[q][p];
+
+        console.log(parsedInput);
+        console.log(qPartItem);
+        console.log(QWIZM.state.thisQuiz[q][p].marks);
+
+    }
 };
 
 QWIZM.methods.questionParts = (qNumber) => {
     let html = ``;
-    if (QWIZM.state.thisQuiz[qNumber]) {
-        let parts = QWIZM.state.thisQuiz[qNumber],
-            numberOfParts = parts.length;
-        console.log('number of parts ' + parts.length);
-        for (let i = 0; i < numberOfParts; i++) {
-            html += `<div class='partStatement'>${parts[i].partStatement}:</div> `;
-            html += `<input type='text' id='question${qNumber}part${i+1}' class='partInput'>`;
-            html += `<span class='units'>${parts[i].units}</span> `;
-            html += `<button id='${qNumber}part${i+1}btn type='button' class='markButton'>Enter</button>`;
-            html += i % 2 === 0 ? "<span class='cross' />" : "<span class='check' />";
-            html += `<span class='marks'>(${parts[i].marks} marks)</span>`;
-            //html += `<span class='feedback'> ${parts[i].correctSoln}</span>`;
-        }
+    // if (QWIZM.state.thisQuiz[qNumber]) {
+    let parts = QWIZM.state.thisQuiz[qNumber],
+        numberOfParts = parts.length;
+    parts.unshift('');
+    // console.log('number of parts ' + parts.length);
+    for (let i = 1; i <= numberOfParts; i++) {
+        let partId = `q${qNumber}part${i}btn`
+        html += `<div class='partStatement'>${parts[i].partStatement}:</div> `;
+        html += `<input type='text' id='question${qNumber}part${i}' class='partInput'>`;
+        html += `<span class='units'>${parts[i].units}</span> `;
+        html += `<button id=${partId} type='button' class='markButton'>Enter</button>`;
+        html += i % 2 === 0 ? "<span class='cross' />" : "<span class='check' />";
+        html += `<span id='question${qNumber}part${i}marks' class='marks'>(${parts[i].marks} marks)</span>`;
+        //html += `<span class='feedback'> ${parts[i].correctSoln}</span>`;  
+        // console.log(partId);
     }
+    // }
     return html;
 }
 
@@ -156,6 +186,16 @@ QWIZM.methods.stringify = (number, sigDigs = QWIZM.quiz.sigDigs) => {
 QWIZM.methods.toSigDigs = (number, workingDigs = QWIZM.quiz.workingDigs) => {
     return Number(QWIZM.methods.stringify(number, workingDigs = QWIZM.quiz.workingDigs));
 }
+
+QWIZM.methods.writeHeader = o => {
+    return `<header>
+                <h1>${o.subject}</h1>
+                <div class='rightblock'>
+                    <h3>${o.topic}</h3>
+                    <h3>${o.subtopic}</h3>
+                </div>
+            </header>`;
+};
 
 QWIZM.methods.writeFooter = () => {
     let state = QWIZM.methods.readState(QWIZM.QUIZ_KEY),

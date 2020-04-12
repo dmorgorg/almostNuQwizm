@@ -74,5 +74,5 @@ QWIZM.question.qES00MR004 = function (qNumber) {
     marks: 5,
     correctSoln: deltaDE
   }));
-  return "<div class='statement width60 taleft'><h3>Q".concat(qNumber, "</h3>: ").concat(statement, "</div>\n    <div class='image width45'><img src= ").concat(img, ">\n    ").concat(iV1, "\n    ").concat(iV2, "\n    ").concat(iV3, "\n    </div>\n    <form><div class='parts width40'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
+  return "<div class='statement width60 taleft'><h3>Q".concat(qNumber, "</h3>: ").concat(statement, "</div>\n    <div class='image width45'><img src= ").concat(img, ">\n    ").concat(iV1, "\n    ").concat(iV2, "\n    ").concat(iV3, "\n    </div>\n    <form autocomplete=\"off\"> <div class='parts width40'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
 };

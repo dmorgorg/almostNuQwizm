@@ -40,7 +40,7 @@ QWIZM.question.qES00MR008 = function (qNumber) {
       Dy = a11 * b2 - a21 * b1,
       x = stringify(Dx / D),
       y = stringify(Dy / D);
-  var statement = "Solve this system of equations for !$F_{AC}!$ and !$F_{BC}!$.\n        \n        $$\n        \\begin{aligned}\n            F_{BC}\\cdot\\sin\\left(".concat(phi, "^\\circ\\right) +F_{AC}\\cdot\\sin\\left(").concat(theta, "^\\circ\\right)  &= ").concat(W, " \\\\\n            F_{BC}\\cdot\\cos\\left(").concat(phi, "^\\circ\\right) - F_{BC}\\cdot\\cos\\left(").concat(theta, "^\\circ\\right) &= 0 \n        \\end{aligned}\n        $$"); // thisQuiz.push(questionPart)
+  var statement = "Solve this system of equations for !$F_{AC}!$ and !$F_{BC}!$.        \n        $$\n        \\begin{aligned}\n            F_{BC}\\cdot\\sin\\left(".concat(phi, "^\\circ\\right) +F_{AC}\\cdot\\sin\\left(").concat(theta, "^\\circ\\right)  &= ").concat(W, " \\\\\n            F_{BC}\\cdot\\cos\\left(").concat(phi, "^\\circ\\right) - F_{BC}\\cdot\\cos\\left(").concat(theta, "^\\circ\\right) &= 0 \n        \\end{aligned}\n        $$"); // thisQuiz.push(questionPart)
 
   tQ.push(qp({
     partStatement: "!$ x !$",
@@ -54,5 +54,5 @@ QWIZM.question.qES00MR008 = function (qNumber) {
     marks: 4,
     correctSoln: y
   }));
-  return "<div class='statement width50'><h3>Q".concat(qNumber, "</h3>: ").concat(statement, "</div>\n    <form><div class='parts width45'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
+  return "<div class='statement width50'><h3>Q".concat(qNumber, "</h3>: ").concat(statement, "</div>\n    <form autocomplete=\"off\"><div class='parts width45'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
 };

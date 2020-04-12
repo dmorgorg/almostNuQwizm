@@ -50,13 +50,13 @@ QWIZM.question.qES00MR005 = (qNumber) => {
     }));
     tQ.push(qp({
         partStatement: `!$ BD !$`,
-        units: '',
+        units: 'cm',
         marks: 4,
         correctSoln: BD
     }));
     tQ.push(qp({
         partStatement: `!$ CD !$`,
-        units: '',
+        units: 'cm',
         marks: 3,
         correctSoln: CD
     }));
@@ -66,14 +66,14 @@ QWIZM.question.qES00MR005 = (qNumber) => {
     let statement = `Using the Pythagorean Theorem and the theory of similar triangles, determine the lengths of  !$AB!$, !$BD!$ and !$CD!$.`,
         img = `../../images/math05.png`,
         iV1 = ov({
-            input: AC,
+            input: AC + ' cm',
             left: 50,
             top: 90,
             fontSize: 1.6,
             background: 'none'
         }),
         iV2 = ov({
-            input: AD,
+            input: AD + ' cm',
             left: 24,
             top: 57,
             fontSize: 1.6,
@@ -87,5 +87,5 @@ QWIZM.question.qES00MR005 = (qNumber) => {
     ${iV1}
     ${iV2}
     </div>
-    <form><div class='parts width45'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
+    <form autocomplete="off"><div class='parts width45'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
 };

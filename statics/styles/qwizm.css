@@ -1,3 +1,30 @@
+/* tillana-600 - latin */
+@font-face {
+  font-family: "Tillana";
+  font-style: normal;
+  font-weight: 600;
+  src: local("Tillana SemiBold"), local("Tillana-SemiBold"), url("../../../QWIZM/fonts/tillana-v5-latin-600.woff2") format("woff2"), url("../../../QWIZM/fonts/tillana-v5-latin-600.woff") format("woff");
+  /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* quicksand-600 - latin */
+@font-face {
+  font-family: "Quicksand";
+  font-style: normal;
+  font-weight: 600;
+  src: local(""), url("../../../QWIZM/fonts/quicksand-v20-latin-600.woff2") format("woff2"), url("../../../QWIZM/fonts/quicksand-v20-latin-600.woff") format("woff");
+  /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* architects-daughter-regular - latin */
+@font-face {
+  font-family: "Architects Daughter";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Architects Daughter Regular"), local("ArchitectsDaughter-Regular"), url("../../../QWIZM/fonts/architects-daughter-v10-latin-regular.woff2") format("woff2"), url("../../../QWIZM/fonts/architects-daughter-v10-latin-regular.woff") format("woff");
+  /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
 html {
   height: 100%;
 }
@@ -77,7 +104,7 @@ header > .rightblock > h3 {
       -ms-flex: 1 auto;
           flex: 1 auto;
   font-family: "Quicksand";
-  color: whitesmoke;
+  color: white;
   text-shadow: 0.1vw 0.1vw 0.15vw black;
   line-height: 1em;
   letter-spacing: 0.075em;
@@ -129,16 +156,13 @@ footer {
 }
 
 .navbar > ul > li:hover {
-  background: -webkit-gradient(linear, left top, left bottom, from(#670000), color-stop(35%, #670000), color-stop(85%, maroon), to(maroon));
-  background: linear-gradient(to bottom, #670000, #670000 35%, maroon 85%, maroon);
-  color: whitesmoke;
   cursor: pointer;
 }
 
-.navbar > ul > li.active {
+.navbar > ul > li.active, .navbar > ul > li:hover {
   color: black;
-  background: -webkit-gradient(linear, left top, left bottom, from(whitesmoke), color-stop(35%, whitesmoke), color-stop(65%, #cfcfcf), to(#cfcfcf));
-  background: linear-gradient(to bottom, whitesmoke, whitesmoke 35%, #cfcfcf 65%, #cfcfcf);
+  background: -webkit-gradient(linear, left top, left bottom, from(white), color-stop(35%, white), color-stop(65%, #d9d9d9), to(#d9d9d9));
+  background: linear-gradient(to bottom, white, white 35%, #d9d9d9 65%, #d9d9d9);
 }
 
 .navbar > .uname {

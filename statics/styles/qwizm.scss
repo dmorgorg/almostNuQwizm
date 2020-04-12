@@ -1,10 +1,48 @@
+/* tillana-600 - latin */
+@font-face {
+  font-family: "Tillana";
+  font-style: normal;
+  font-weight: 600;
+  src: local("Tillana SemiBold"), local("Tillana-SemiBold"),
+    url("../../../QWIZM/fonts/tillana-v5-latin-600.woff2") format("woff2"),
+    /* Chrome 26+, Opera 23+, Firefox 39+ */
+      url("../../../QWIZM/fonts/tillana-v5-latin-600.woff") format("woff");
+  /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* quicksand-600 - latin */
+@font-face {
+  font-family: "Quicksand";
+  font-style: normal;
+  font-weight: 600;
+  src: local(""),
+    url("../../../QWIZM/fonts/quicksand-v20-latin-600.woff2") format("woff2"),
+    /* Chrome 26+, Opera 23+, Firefox 39+ */
+      url("../../../QWIZM/fonts/quicksand-v20-latin-600.woff") format("woff");
+  /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* architects-daughter-regular - latin */
+@font-face {
+  font-family: "Architects Daughter";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Architects Daughter Regular"), local("ArchitectsDaughter-Regular"),
+    url("../../../QWIZM/fonts/architects-daughter-v10-latin-regular.woff2")
+      format("woff2"),
+    /* Chrome 26+, Opera 23+, Firefox 39+ */
+      url("../../../QWIZM/fonts/architects-daughter-v10-latin-regular.woff")
+      format("woff");
+  /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
 // breakpoints
 $SMALL: "376px";
 
 $PRIMARY: maroon;
 $LOGIN_BTN_HOVER: darken($PRIMARY, 7);
 $COURSE_LIGHT: white;
-$TOPIC_LIGHT: whitesmoke;
+$TOPIC_LIGHT: white;
 $TEXT: #333;
 $HEADER_TOPIC: "Quicksand";
 $HEADER_COURSE: "Tillana";
@@ -143,15 +181,20 @@ footer {
       background: $BUTTON_GRADIENT;
 
       &:hover {
-        background: $BUTTON_GRADIENT_HOVER;
-        color: $TOPIC_LIGHT;
+        // background: $BUTTON_GRADIENT_HOVER;
+        // color: $TOPIC_LIGHT;
         cursor: pointer;
       }
 
-      &.active {
+      &.active,
+      &:hover {
         color: black;
         background: $ACTIVE_GRADIENT;
       }
+
+      // &.active + &:hover {
+      //   color: green;
+      // }
     }
   }
 

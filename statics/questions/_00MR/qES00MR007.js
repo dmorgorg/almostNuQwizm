@@ -56,5 +56,5 @@ QWIZM.question.qES00MR007 = function (qNumber) {
     marks: 3,
     correctSoln: y
   }));
-  return "<div class='statement width50'><h3>Q".concat(qNumber, "</h3>: ").concat(statement, "</div>\n    <form><div class='parts width45'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
+  return "<div class='statement width50'><h3>Q".concat(qNumber, "</h3>: ").concat(statement, "</div>\n    <form autocomplete=\"off\"><div class='parts width45'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
 };
