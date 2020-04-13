@@ -1,5 +1,4 @@
 let QWIZM = QWIZM || {};
-// QWIZM.state = QWIZM.state || {}; // an object to hold everything that goes in localStorage
 QWIZM.methods = QWIZM.methods || {};
 
 // some constants
@@ -11,27 +10,13 @@ QWIZM.DELTA = 1e-9;
 // QWIZM.methods = function () {} // function constructor, doesn't need anything in it
 
 QWIZM.methods.questionPart = (o) => {
-    // o.scored = 0;
-    // o.isAnswered = false;
-    // o.isCorrect = false;
-
     return {
         partStatement: o.partStatement,
         units: o.units,
         marks: o.marks,
-        //scored: o.scored,
-        // long: o.long,
-        correctSoln: o.correctSoln,
-        // userSoln: o.userSoln,
-        // isAnswered: false,
-        // isCorrect: false,
-
+        correctSoln: o.correctSoln
     };
 }
-
-
-
-
 
 QWIZM.methods.viewsLoad = o => {
     let quizId = `quiz_${o.id}`;
@@ -62,17 +47,20 @@ QWIZM.methods.viewsLoad = o => {
             html = '';
 
         html += `<div id='instructions' class='view'>
-                <div class="statement width70 taleft">${QWIZM.quiz.instructions}</div></div>
+                ${QWIZM.quiz.instructions}</div>
                 <div id='clear' class='card view' > ${QWIZM.methods.writeClearView()}</div>`;
 
         for (let i = 1; i < len; i++) {
-            html += `<div id='Q${i}' class='view'>
+            // QWIZM.quiz.questions[i] is a function where i is the question number
+            // We need to pass the question number into this function
+            html += `<div id='Q${i}' class='view'>            
             ${QWIZM.quiz.questions[i](i)}`;
             html += `</div>`;
+
+            // console.log(QWIZM.quiz.questions[i](i));
         }
 
         html += `<div id='summary' class='view'>Summary</div>`;
-
         return html;
     }
 
@@ -82,8 +70,8 @@ QWIZM.methods.viewsLoad = o => {
             let numberOfParts = QWIZM.state.thisQuiz[qNumber].length - 1;
             for (let partNumber = 1; partNumber <= numberOfParts; partNumber++) {
                 let partId = `q${qNumber}part${partNumber}btn`;
+                // get the question part that has been clicked on and check input for that part
                 $('#' + partId).on('click', function (e) {
-                    // console.log(e.target.id);
                     checkAnswer(qNumber, partNumber);
                 })
             }
@@ -93,37 +81,70 @@ QWIZM.methods.viewsLoad = o => {
 
     // q is the question number, p is the question part number
     function checkAnswer(q, p) {
-        let inputId = `question${q}part${p}`,
+        let qp = `q${q}part${p}`,
+            inputId = `${qp}input`,
+            feedbackId = `${qp}feedback`,
+            crosscheckId = `${qp}crosscheck`,
             userInput = $('#' + inputId).val(),
             parsedInput = parseFloat(userInput), // string to float
-            qPartItem = QWIZM.state.thisQuiz[q][p];
+            part = QWIZM.state.thisQuiz[q][p],
+            feedback = '',
+            str = QWIZM.methods.stringify;
 
-        console.log(parsedInput);
-        console.log(qPartItem);
-        console.log(QWIZM.state.thisQuiz[q][p].marks);
+        part.userInput = userInput;
+        part.feedback = '';
+        part.score = 0;
+
+        // console.log(userInput + ' ?=? ' + part.correctSoln);
+
+        if (isNaN(parsedInput)) {
+            if (userInput.length === 0) {
+                feedback = `No input! (0/${part.marks})`;
+            } else {
+                feedback = `Not numerical input! (0/${part.marks})`;
+            }
+            $('#' + crosscheckId).html('<span class="cross" />');
+        } else if (parsedInput == part.correctSoln) {
+            // this checks for trailing zeros for significant digits
+            if (userInput === (part.correctSoln).toString()) {
+                part.isCorrect = true;
+                feedback = `${part.marks}/${part.marks}`;
+                $('#' + crosscheckId).html('<span class="check" />');
+            } else {
+                part.isCorrect = true;
+                feedback = `Check significant digits. (${part.marks/2}/${part.marks})`;
+                $('#' + crosscheckId).html('');
+            }
+        } else {
+            part.isCorrect = false;
+            feedback = `Try again. (0/${part.marks})`;
+            $('#' + crosscheckId).html('<span class="cross" />');
+        }
+        $('#' + feedbackId).text(feedback);
+
+        // console.log(parsedInput);
+        console.log(QWIZM.state);
+        // console.log(QWIZM.state.thisQuiz[q][p].feedback);
+        //  QWIZM.methods.writeState(QWIZM.QUIZ_KEY, QWIZM.state);
 
     }
 };
 
-QWIZM.methods.questionParts = (qNumber) => {
-    let html = ``;
-    // if (QWIZM.state.thisQuiz[qNumber]) {
-    let parts = QWIZM.state.thisQuiz[qNumber],
+QWIZM.methods.questionParts = (qN) => {
+    let html = ``,
+        parts = QWIZM.state.thisQuiz[qN],
         numberOfParts = parts.length;
     parts.unshift('');
-    // console.log('number of parts ' + parts.length);
-    for (let i = 1; i <= numberOfParts; i++) {
-        let partId = `q${qNumber}part${i}btn`
-        html += `<div class='partStatement'>${parts[i].partStatement}:</div> `;
-        html += `<input type='text' id='question${qNumber}part${i}' class='partInput'>`;
-        html += `<span class='units'>${parts[i].units}</span> `;
+    for (let part = 1; part <= numberOfParts; part++) {
+        let partId = `q${qN}part${part}btn`
+        html += `<div class='partStatement'>${parts[part].partStatement}:</div> `;
+        html += `<input type='text' id='q${qN}part${part}input' class='partInput'>`;
+        html += `<div class='units'>${parts[part].units}</div> `;
         html += `<button id=${partId} type='button' class='markButton'>Enter</button>`;
-        html += i % 2 === 0 ? "<span class='cross' />" : "<span class='check' />";
-        html += `<span id='question${qNumber}part${i}marks' class='marks'>(${parts[i].marks} marks)</span>`;
-        //html += `<span class='feedback'> ${parts[i].correctSoln}</span>`;  
-        // console.log(partId);
+        // html += i % 2 === 0 ? "<span class='cross' />" : "<span class='check' />";
+        html += `<div id='q${qN}part${part}crosscheck' class='crosscheck'>&nbsp;</div>`;
+        html += `<div id='q${qN}part${part}feedback' class='feedback'>(${parts[part].marks} marks)</div>`;
     }
-    // }
     return html;
 }
 

@@ -92,6 +92,7 @@ body {
   flex-direction: column;
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
+  overflow-y: hidden;
 }
 
 header {
@@ -280,6 +281,10 @@ footer {
   margin: 0 auto;
   text-align: left;
 
+  & strong{
+    color: $PRIMARY;
+  }
+
   & h3 {
     display: inline;
     margin: 0;
@@ -307,19 +312,22 @@ footer {
 .parts {
   display: grid;
   // partStatement, input, units, button, check/cross, marks, feedback
-  grid-template-columns: auto auto auto 1fr 0.25fr auto; // 1fr;
-  grid-gap: 1vw 0;
-  grid-gap: 0.2em 0.11em;
+  grid-template-columns: 25% auto 3em 4em 1.5em 50%; // 1fr;
+  // grid-gap: 1vw 0;
+  grid-row-gap: 0.5em;
   // border: 1px solid blue;
   width: 60%;
   margin: 0 auto;
+  // padding-right: 2em;
   font-size: $FONT_SIZE;
 }
 
 .partStatement {
-  // align-self: center;
+  align-self: center;
   // justify-self: end;
-  place-self: center end;
+  text-align: right;
+  // place-self: center end;
+  overflow-x: visible;
 }
 
 .markButton {
@@ -341,7 +349,7 @@ footer {
 
   &.active {
     position: relative;
-    top: 10px;
+    // top: 10px;
     color: black;
     background: $COURSE_LIGHT;
     background: linear-gradient(
@@ -364,7 +372,7 @@ footer {
 
   &:focus {
     position: relative;
-    top: 1px;
+    // top: 1px;
     outline: none;
   }
 }
@@ -377,6 +385,7 @@ input.partInput {
   width: 8vw;
   height: 3vw;
   place-self: center center;
+  outline: none;
 
   &:focus {
     border: 0.3vw solid darken($CARD_BACKGROUND, 25);
@@ -386,15 +395,15 @@ input.partInput {
 .cross:before {
   color: maroon;
   content: "\2718";
-  // content: "&checkmark;";
-  font-size: 150%;
+  // content: "&#10008";
+  font-size: 125%;
   font-weight: bold;
 }
 
 .check:before {
   color: #080;
   content: "\2714";
-  font-size: 150%;
+  font-size: 125%;
   font-weight: bold;
   justify-self: start;
   align-self: center;
@@ -403,22 +412,21 @@ input.partInput {
 .units {
   // align-self: center;
   // justify-self: end;
-  place-self: center end;
+  place-self: center start;
   // background: pink;
 }
 
-.marks {
-  align-self: center;
-  justify-self: center;
-  // background: palegreen;
+.crosscheck {
+  place-self: center start;
 }
 
 .feedback {
-  position: relative;
-  background-color: lightblue;
-  // align-self: center;
-  // justify-self: end;
-  place-self: center center;
+  // border: 1px solid black;
+  align-self: center;
+  justify-self: start;
+  place-self: center start;
+  overflow-x: visible;
+  // background: palegreen;
 }
 
 $min_font: 8;

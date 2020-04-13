@@ -70,7 +70,7 @@ QWIZM.handlers.validateLogin = function (e) {
     QWIZM.state.uname = uname;
     QWIZM.state.uId = uId;
     QWIZM.state.currentView = 'instructions';
-    QWIZM.state.thisQuiz = []; // to hold state of entered and processed submissions
+    QWIZM.state.thisQuiz = []; // this will hold state of entered and processed submissions
 
     window.location.reload(true); // writeState early enough that it is complete before viewsLoad()
 

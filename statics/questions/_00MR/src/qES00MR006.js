@@ -88,7 +88,7 @@ QWIZM.question.qES00MR006 = (qNumber) => {
     tQ.push(qp({
         partStatement: `Length of !$ AB !$`,
         units: 'm',
-        marks: 5,
+        marks: 3,
         correctSoln: AB
     }));
     tQ.push(qp({
@@ -106,19 +106,19 @@ QWIZM.question.qES00MR006 = (qNumber) => {
     tQ.push(qp({
         partStatement: `!$ \\angle OBA !$`,
         units: '!$^\\circ!$',
-        marks: 4,
+        marks: 3,
         correctSoln: angleOBA
     }));
     tQ.push(qp({
         partStatement: `!$ \\phi !$`,
         units: '!$^\\circ!$',
-        marks: 4,
+        marks: 3,
         correctSoln: phi
     }));
     tQ.push(qp({
         partStatement: `!$ \\theta !$`,
         units: '!$^\\circ!$',
-        marks: 4,
+        marks: 3,
         correctSoln: theta
     }));
 

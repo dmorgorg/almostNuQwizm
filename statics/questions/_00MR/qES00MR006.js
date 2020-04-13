@@ -83,7 +83,7 @@ QWIZM.question.qES00MR006 = function (qNumber) {
   tQ.push(qp({
     partStatement: "Length of !$ AB !$",
     units: 'm',
-    marks: 5,
+    marks: 3,
     correctSoln: AB
   }));
   tQ.push(qp({
@@ -101,19 +101,19 @@ QWIZM.question.qES00MR006 = function (qNumber) {
   tQ.push(qp({
     partStatement: "!$ \\angle OBA !$",
     units: '!$^\\circ!$',
-    marks: 4,
+    marks: 3,
     correctSoln: angleOBA
   }));
   tQ.push(qp({
     partStatement: "!$ \\phi !$",
     units: '!$^\\circ!$',
-    marks: 4,
+    marks: 3,
     correctSoln: phi
   }));
   tQ.push(qp({
     partStatement: "!$ \\theta !$",
     units: '!$^\\circ!$',
-    marks: 4,
+    marks: 3,
     correctSoln: theta
   }));
   return "\n    <div class='statement width50'><h3>Q".concat(qNumber, "</h3>: ").concat(statement, "</div>\n    <div class='image width50'><img src= ").concat(img, ">\n    ").concat(iV1, "\n    ").concat(iV2, "\n    ").concat(iV3, "\n    ").concat(iV4, "\n    </div>\n    <form autocomplete=\"off\"><div class='parts width50'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");

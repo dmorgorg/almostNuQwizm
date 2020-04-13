@@ -41,7 +41,7 @@ QWIZM.question.qES00MR005 = function (qNumber) {
 
   tQ.push(qp({
     partStatement: "!$ AB !$",
-    units: '',
+    units: 'cm',
     marks: 3,
     correctSoln: AB
   }));

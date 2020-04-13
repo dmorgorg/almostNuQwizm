@@ -1,7 +1,6 @@
 "use strict";
 
-var QWIZM = QWIZM || {}; // QWIZM.state = QWIZM.state || {}; // an object to hold everything that goes in localStorage
-
+var QWIZM = QWIZM || {};
 QWIZM.methods = QWIZM.methods || {}; // some constants
 
 QWIZM.DURATION = 400;
@@ -10,19 +9,11 @@ QWIZM.QUIZ_KEY = "quiz_" + QWIZM.quiz.id;
 QWIZM.DELTA = 1e-9; // QWIZM.methods = function () {} // function constructor, doesn't need anything in it
 
 QWIZM.methods.questionPart = function (o) {
-  // o.scored = 0;
-  // o.isAnswered = false;
-  // o.isCorrect = false;
   return {
     partStatement: o.partStatement,
     units: o.units,
     marks: o.marks,
-    //scored: o.scored,
-    // long: o.long,
-    correctSoln: o.correctSoln // userSoln: o.userSoln,
-    // isAnswered: false,
-    // isCorrect: false,
-
+    correctSoln: o.correctSoln
   };
 };
 
@@ -49,11 +40,13 @@ QWIZM.methods.viewsLoad = function (o) {
   function loadViews() {
     var len = QWIZM.quiz.questions.length,
         html = '';
-    html += "<div id='instructions' class='view'>\n                <div class=\"statement width70 taleft\">".concat(QWIZM.quiz.instructions, "</div></div>\n                <div id='clear' class='card view' > ").concat(QWIZM.methods.writeClearView(), "</div>");
+    html += "<div id='instructions' class='view'>\n                ".concat(QWIZM.quiz.instructions, "</div>\n                <div id='clear' class='card view' > ").concat(QWIZM.methods.writeClearView(), "</div>");
 
     for (var i = 1; i < len; i++) {
-      html += "<div id='Q".concat(i, "' class='view'>\n            ").concat(QWIZM.quiz.questions[i](i));
-      html += "</div>";
+      // QWIZM.quiz.questions[i] is a function where i is the question number
+      // We need to pass the question number into this function
+      html += "<div id='Q".concat(i, "' class='view'>            \n            ").concat(QWIZM.quiz.questions[i](i));
+      html += "</div>"; // console.log(QWIZM.quiz.questions[i](i));
     }
 
     html += "<div id='summary' class='view'>Summary</div>";
@@ -67,9 +60,9 @@ QWIZM.methods.viewsLoad = function (o) {
       var numberOfParts = QWIZM.state.thisQuiz[qNumber].length - 1;
 
       var _loop2 = function _loop2(partNumber) {
-        var partId = "q".concat(qNumber, "part").concat(partNumber, "btn");
+        var partId = "q".concat(qNumber, "part").concat(partNumber, "btn"); // get the question part that has been clicked on and check input for that part
+
         $('#' + partId).on('click', function (e) {
-          // console.log(e.target.id);
           checkAnswer(qNumber, partNumber);
         });
       };
@@ -86,35 +79,69 @@ QWIZM.methods.viewsLoad = function (o) {
 
 
   function checkAnswer(q, p) {
-    var inputId = "question".concat(q, "part").concat(p),
+    var qp = "q".concat(q, "part").concat(p),
+        inputId = "".concat(qp, "input"),
+        feedbackId = "".concat(qp, "feedback"),
+        crosscheckId = "".concat(qp, "crosscheck"),
         userInput = $('#' + inputId).val(),
         parsedInput = parseFloat(userInput),
         // string to float
-    qPartItem = QWIZM.state.thisQuiz[q][p];
-    console.log(parsedInput);
-    console.log(qPartItem);
-    console.log(QWIZM.state.thisQuiz[q][p].marks);
+    part = QWIZM.state.thisQuiz[q][p],
+        feedback = '',
+        str = QWIZM.methods.stringify;
+    part.userInput = userInput;
+    part.feedback = '';
+    part.score = 0; // console.log(userInput + ' ?=? ' + part.correctSoln);
+
+    if (isNaN(parsedInput)) {
+      if (userInput.length === 0) {
+        feedback = "No input! (0/".concat(part.marks, ")");
+      } else {
+        feedback = "Not numerical input! (0/".concat(part.marks, ")");
+      }
+
+      $('#' + crosscheckId).html('<span class="cross" />');
+    } else if (parsedInput == part.correctSoln) {
+      // this checks for trailing zeros for significant digits
+      if (userInput === part.correctSoln.toString()) {
+        part.isCorrect = true;
+        feedback = "".concat(part.marks, "/").concat(part.marks);
+        $('#' + crosscheckId).html('<span class="check" />');
+      } else {
+        part.isCorrect = true;
+        feedback = "Check significant digits. (".concat(part.marks / 2, "/").concat(part.marks, ")");
+        $('#' + crosscheckId).html('');
+      }
+    } else {
+      part.isCorrect = false;
+      feedback = "Try again. (0/".concat(part.marks, ")");
+      $('#' + crosscheckId).html('<span class="cross" />');
+    }
+
+    $('#' + feedbackId).text(feedback); // console.log(parsedInput);
+
+    console.log(QWIZM.state); // console.log(QWIZM.state.thisQuiz[q][p].feedback);
+
+    QWIZM.methods.writeState(QWIZM.QUIZ_KEY, QWIZM.state);
   }
 };
 
-QWIZM.methods.questionParts = function (qNumber) {
-  var html = ""; // if (QWIZM.state.thisQuiz[qNumber]) {
-
-  var parts = QWIZM.state.thisQuiz[qNumber],
+QWIZM.methods.questionParts = function (qN) {
+  var html = "",
+      parts = QWIZM.state.thisQuiz[qN],
       numberOfParts = parts.length;
-  parts.unshift(''); // console.log('number of parts ' + parts.length);
+  parts.unshift('');
 
-  for (var i = 1; i <= numberOfParts; i++) {
-    var partId = "q".concat(qNumber, "part").concat(i, "btn");
-    html += "<div class='partStatement'>".concat(parts[i].partStatement, ":</div> ");
-    html += "<input type='text' id='question".concat(qNumber, "part").concat(i, "' class='partInput'>");
-    html += "<span class='units'>".concat(parts[i].units, "</span> ");
-    html += "<button id=".concat(partId, " type='button' class='markButton'>Enter</button>");
-    html += i % 2 === 0 ? "<span class='cross' />" : "<span class='check' />";
-    html += "<span id='question".concat(qNumber, "part").concat(i, "marks' class='marks'>(").concat(parts[i].marks, " marks)</span>"); //html += `<span class='feedback'> ${parts[i].correctSoln}</span>`;  
-    // console.log(partId);
-  } // }
+  for (var part = 1; part <= numberOfParts; part++) {
+    var partId = "q".concat(qN, "part").concat(part, "btn");
+    html += "<div class='partStatement'>".concat(parts[part].partStatement, ":</div> ");
+    html += "<input type='text' id='q".concat(qN, "part").concat(part, "input' class='partInput'>");
+    html += "<div class='units'>".concat(parts[part].units, "</div> ");
+    html += "<button id=".concat(partId, " type='button' class='markButton'>Enter</button>"); // html += i % 2 === 0 ? "<span class='cross' />" : "<span class='check' />";
 
+    html += "<div id='q".concat(qN, "part").concat(part, "crosscheck' class='crosscheck'>&nbsp;</div>");
+    html += "<div id='q".concat(qN, "part").concat(part, "feedback' class='feedback'>(").concat(parts[part].marks, " marks)</div>");
+  }
 
   return html;
 };

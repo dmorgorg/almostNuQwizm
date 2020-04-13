@@ -51,6 +51,7 @@ body {
           flex-direction: column;
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
+  overflow-y: hidden;
 }
 
 header {
@@ -230,6 +231,10 @@ footer {
   text-align: left;
 }
 
+.statement strong {
+  color: maroon;
+}
+
 .statement h3 {
   display: inline;
   margin: 0;
@@ -254,17 +259,20 @@ footer {
 .parts {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: auto auto auto 1fr 0.25fr auto;
-      grid-template-columns: auto auto auto 1fr 0.25fr auto;
-  grid-gap: 1vw 0;
-  grid-gap: 0.2em 0.11em;
+  -ms-grid-columns: 25% auto 3em 4em 1.5em 50%;
+      grid-template-columns: 25% auto 3em 4em 1.5em 50%;
+  grid-row-gap: 0.5em;
   width: 60%;
   margin: 0 auto;
   font-size: 1.75vw;
 }
 
 .partStatement {
-  place-self: center end;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  text-align: right;
+  overflow-x: visible;
 }
 
 .markButton {
@@ -287,7 +295,6 @@ footer {
 
 .markButton.active {
   position: relative;
-  top: 10px;
   color: black;
   background: white;
   background: -webkit-gradient(linear, left top, left bottom, from(#fefdfb), color-stop(45%, #fefdfb), color-stop(55%, linen), to(linen));
@@ -303,7 +310,6 @@ footer {
 
 .markButton:focus {
   position: relative;
-  top: 1px;
   outline: none;
 }
 
@@ -314,6 +320,7 @@ input.partInput {
   width: 8vw;
   height: 3vw;
   place-self: center center;
+  outline: none;
 }
 
 input.partInput:focus {
@@ -323,14 +330,14 @@ input.partInput:focus {
 .cross:before {
   color: maroon;
   content: "\2718";
-  font-size: 150%;
+  font-size: 125%;
   font-weight: bold;
 }
 
 .check:before {
   color: #080;
   content: "\2714";
-  font-size: 150%;
+  font-size: 125%;
   font-weight: bold;
   -ms-grid-column-align: start;
       justify-self: start;
@@ -340,21 +347,21 @@ input.partInput:focus {
 }
 
 .units {
-  place-self: center end;
+  place-self: center start;
 }
 
-.marks {
-  -ms-flex-item-align: center;
-      -ms-grid-row-align: center;
-      align-self: center;
-  -ms-grid-column-align: center;
-      justify-self: center;
+.crosscheck {
+  place-self: center start;
 }
 
 .feedback {
-  position: relative;
-  background-color: lightblue;
-  place-self: center center;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  -ms-grid-column-align: start;
+      justify-self: start;
+  place-self: center start;
+  overflow-x: visible;
 }
 
 @media screen and (min-width: 1200px) {
