@@ -166,7 +166,7 @@ footer {
   background: linear-gradient(to bottom, white, white 35%, #d9d9d9 65%, #d9d9d9);
 }
 
-.navbar > .uname {
+.navbar .uname {
   color: white;
   -ms-flex-item-align: center;
       -ms-grid-row-align: center;
@@ -177,6 +177,31 @@ footer {
   padding: 0;
   margin: 0;
   text-shadow: 0.12vw 0.12vw 0.25vw black;
+}
+
+#summary article.statement {
+  background-color: #ddd;
+  margin: 0 auto;
+}
+
+#summary article.statement h3 {
+  display: block;
+  background-color: maroon;
+  color: white;
+  font-family: Quicksand;
+  padding: 1vw 2vw;
+}
+
+#summary article.statement .uname {
+  color: white;
+  font-family: "Architects Daughter";
+  text-align: right;
+  text-shadow: 0.12vw 0.12vw 0.25vw black;
+  letter-spacing: 0.1vw;
+}
+
+.fright {
+  float: right;
 }
 
 .katex {
@@ -654,5 +679,8 @@ main .view {
 
 .width90 {
   width: 90%;
-  border: 3px green solid;
+}
+
+.width95 {
+  width: 95%;
 }

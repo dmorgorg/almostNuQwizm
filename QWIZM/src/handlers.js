@@ -11,7 +11,6 @@ QWIZM.handlers.updateView = e => {
     if (QWIZM.state.currentView + 'Btn' !== btnId) {
         // remove .active from previous view
         $('#' + QWIZM.state.currentView + 'Btn').removeClass("active");
-
         $('#' + QWIZM.state.currentView).hide();
         // set new view in the state
         QWIZM.state.currentView = btnId.replace('Btn', '');
@@ -26,7 +25,7 @@ QWIZM.handlers.updateView = e => {
 QWIZM.handlers.reset = () => {
     $('#clear').fadeOut();
     localStorage.removeItem(QWIZM.QUIZ_KEY);
-    window.location.reload();
+    window.location.reload(); //to show login again
 };
 
 // event handler for clicking the login submit button
@@ -74,7 +73,7 @@ QWIZM.handlers.validateLogin = (e) => {
         QWIZM.state.currentView = 'instructions';
         QWIZM.state.thisQuiz = []; // this will hold state of entered and processed submissions
 
-        window.location.reload(true);
+        window.location.reload(true); // not sure why but this helps katex
 
         // writeState early enough that it is complete before viewsLoad()
         QWIZM.methods.writeState(QWIZM.QUIZ_KEY, QWIZM.state);

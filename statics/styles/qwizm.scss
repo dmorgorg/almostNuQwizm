@@ -6,7 +6,7 @@
   src: local("Tillana SemiBold"), local("Tillana-SemiBold"),
     url("../../../QWIZM/fonts/tillana-v5-latin-600.woff2") format("woff2"),
     /* Chrome 26+, Opera 23+, Firefox 39+ */
-      url("../../../QWIZM/fonts/tillana-v5-latin-600.woff") format("woff");
+    url("../../../QWIZM/fonts/tillana-v5-latin-600.woff") format("woff");
   /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 
@@ -18,7 +18,7 @@
   src: local(""),
     url("../../../QWIZM/fonts/quicksand-v20-latin-600.woff2") format("woff2"),
     /* Chrome 26+, Opera 23+, Firefox 39+ */
-      url("../../../QWIZM/fonts/quicksand-v20-latin-600.woff") format("woff");
+    url("../../../QWIZM/fonts/quicksand-v20-latin-600.woff") format("woff");
   /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 
@@ -28,11 +28,9 @@
   font-style: normal;
   font-weight: 400;
   src: local("Architects Daughter Regular"), local("ArchitectsDaughter-Regular"),
-    url("../../../QWIZM/fonts/architects-daughter-v10-latin-regular.woff2")
-      format("woff2"),
+    url("../../../QWIZM/fonts/architects-daughter-v10-latin-regular.woff2") format("woff2"),
     /* Chrome 26+, Opera 23+, Firefox 39+ */
-      url("../../../QWIZM/fonts/architects-daughter-v10-latin-regular.woff")
-      format("woff");
+    url("../../../QWIZM/fonts/architects-daughter-v10-latin-regular.woff") format("woff");
   /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 
@@ -49,27 +47,21 @@ $HEADER_COURSE: "Tillana";
 $FONT_SIZE: 1.75vw;
 $CARD_BACKGROUND: #eee;
 $SHADOW: 0 0 0.2em 0 black;
-$BUTTON_GRADIENT: linear-gradient(
-  to bottom,
+$BUTTON_GRADIENT: linear-gradient(to bottom,
   $PRIMARY,
   $PRIMARY 35%,
   darken($PRIMARY, 5) 65%,
-  darken($PRIMARY, 5)
-);
-$BUTTON_GRADIENT_HOVER: linear-gradient(
-  to bottom,
+  darken($PRIMARY, 5));
+$BUTTON_GRADIENT_HOVER: linear-gradient(to bottom,
   darken($PRIMARY, 5),
   darken($PRIMARY, 5) 35%,
   $PRIMARY 85%,
-  $PRIMARY
-);
-$ACTIVE_GRADIENT: linear-gradient(
-  to bottom,
+  $PRIMARY);
+$ACTIVE_GRADIENT: linear-gradient(to bottom,
   $TOPIC_LIGHT,
   $TOPIC_LIGHT 35%,
   darken($TOPIC_LIGHT, 15) 65%,
-  darken($TOPIC_LIGHT, 15)
-);
+  darken($TOPIC_LIGHT, 15));
 
 html {
   height: 100%;
@@ -103,11 +95,11 @@ header {
   margin-bottom: 1em;
 
   /* For mobile, full width - without which 'text-align: center;' doesn't do anything */
-  & > * {
+  &>* {
     flex: 1 100%;
   }
 
-  & > h1 {
+  &>h1 {
     margin: 0;
     padding: 0.125em 0;
     color: $COURSE_LIGHT;
@@ -118,14 +110,14 @@ header {
     text-align: center;
   }
 
-  & > .rightblock {
+  &>.rightblock {
     display: flex;
     flex-flow: row wrap;
     margin: 0;
     padding: 0;
   }
 
-  & > .rightblock > h3 {
+  &>.rightblock>h3 {
     margin: 0;
     margin-bottom: 0.125em;
     padding: 0.0625em 0.5em 0.25em 0.5em;
@@ -136,7 +128,7 @@ header {
     line-height: 1em;
     letter-spacing: 0.075em;
 
-    & + h3 {
+    &+h3 {
       text-align: right;
     }
   }
@@ -153,11 +145,11 @@ footer {
   display: flex;
   padding: 0;
 
-  & > * {
+  &>* {
     flex: 1 auto;
   }
 
-  & > ul {
+  &>ul {
     // flex-grow: 0.125;
     // display: flex;
     // justify-content: space-between;
@@ -172,7 +164,7 @@ footer {
     list-style: none;
     color: whitesmoke;
 
-    & > li {
+    &>li {
       // align-self: center;
       padding: 0 0.5vw;
       display: inline-block;
@@ -199,7 +191,7 @@ footer {
     }
   }
 
-  & > .uname {
+  & .uname {
     color: white;
     align-self: center;
     font-family: "Architects Daughter";
@@ -209,6 +201,43 @@ footer {
     margin: 0;
     text-shadow: 0.12vw 0.12vw 0.25vw black;
   }
+}
+
+#summary {
+  // background-color: #ddd;
+  // position: relative;
+
+  & article.statement {
+    // position: absolute;
+    background-color: #ddd;
+    // height: 100%;
+    margin: 0 auto;
+    // border: 1px solid black;
+
+    & h3 {
+      display: block;
+      background-color: $PRIMARY;
+      color: white;
+      font-family: Quicksand;
+      padding: 1vw 2vw;
+      // vertical-align: middle;
+      // float: right;
+    }
+
+    & .uname {
+      // color: lighten($PRIMARY, 10);
+      color: white;
+      font-family: "Architects Daughter";
+      // font-size: 115%;
+      text-align: right;
+      text-shadow: 0.12vw 0.12vw 0.25vw black;
+      letter-spacing: 0.1vw;
+    }
+  }
+}
+
+.fright {
+  float: right;
 }
 
 .katex {
@@ -239,7 +268,7 @@ footer {
 
     &:last-of-type {
       margin-bottom: 0;
-      // border: 1px green solid;
+      // border: 1px solid black; green solid;
     }
 
     & li {
@@ -277,11 +306,11 @@ footer {
 }
 
 .statement {
-  // border: 1px solid green;
+  // border: 1px solid black; solid green;
   margin: 0 auto;
   text-align: left;
 
-  & strong{
+  & strong {
     color: $PRIMARY;
   }
 
@@ -293,7 +322,7 @@ footer {
 
 .image {
   position: relative;
-  // border: 1px solid red;
+  // border: 1px solid black; solid red;
   margin: 1em auto;
 
   & img {
@@ -315,7 +344,7 @@ footer {
   grid-template-columns: 25% auto 3em 4em 1.5em 50%; // 1fr;
   // grid-gap: 1vw 0;
   grid-row-gap: 0.5em;
-  // border: 1px solid blue;
+  // border: 1px solid black; solid blue;
   width: 60%;
   margin: 0 auto;
   // padding-right: 2em;
@@ -352,13 +381,11 @@ footer {
     // top: 10px;
     color: black;
     background: $COURSE_LIGHT;
-    background: linear-gradient(
-      to bottom,
-      lighten(linen, 5),
-      lighten(linen, 5) 45%,
-      linen 55%,
-      linen
-    );
+    background: linear-gradient(to bottom,
+        lighten(linen, 5),
+        lighten(linen, 5) 45%,
+        linen 55%,
+        linen);
   }
 
   &:hover {
@@ -372,7 +399,7 @@ footer {
 
   &:focus {
     position: relative;
-    // top: 1px;
+    // top: 1px solid black;;
     outline: none;
   }
 }
@@ -421,13 +448,22 @@ input.partInput {
 }
 
 .feedback {
-  // border: 1px solid black;
+  // border: 1px solid black; solid black;
   align-self: center;
   justify-self: start;
   place-self: center start;
   overflow-x: visible;
   // background: palegreen;
 }
+
+// article.summary {
+//   background: purple;
+//   color: pink;
+//   // margin: 0 auto;
+//   border: 1px solid black; solid black;
+//   // width: 30%;
+// }
+
 
 $min_font: 8;
 $mid_font: 10; //font-size at media break
@@ -459,18 +495,18 @@ $max_view: 1200;
     padding: 0 1em;
     justify-content: space-between;
 
-    & > * {
+    &>* {
       flex: 0 auto;
     }
 
-    & > h1 {
+    &>h1 {
       margin: 0;
       margin-right: 1em;
       margin-bottom: 0.125em;
       align-self: center;
     }
 
-    & > .rightblock {
+    &>.rightblock {
       display: flex;
       text-align: right;
       flex-direction: column;
@@ -478,7 +514,7 @@ $max_view: 1200;
       justify-content: center;
       align-content: flex-end;
 
-      & > h3 {
+      &>h3 {
         text-align: right;
         margin: 0.125em 0 0.25em 1.5em;
         padding-top: 0.25em;
@@ -561,7 +597,7 @@ main {
       padding: 0;
       margin: 0 auto;
       list-style-type: none;
-      // border: 1px solid black;
+      // border: 1px solid black; solid black;
       flex-basis: 20.5em;
 
       & li {
@@ -693,5 +729,11 @@ main {
 .width90 {
   // flex-basis: 90%;
   width: 90%;
-  border: 3px green solid;
+
+}
+
+.width95 {
+  // flex-basis: 90%;
+  width: 95%;
+
 }

@@ -26,7 +26,7 @@ QWIZM.handlers.updateView = function (e) {
 QWIZM.handlers.reset = function () {
   $('#clear').fadeOut();
   localStorage.removeItem(QWIZM.QUIZ_KEY);
-  window.location.reload();
+  window.location.reload(); //to show login again
 }; // event handler for clicking the login submit button
 
 
@@ -72,7 +72,8 @@ QWIZM.handlers.validateLogin = function (e) {
     QWIZM.state.currentView = 'instructions';
     QWIZM.state.thisQuiz = []; // this will hold state of entered and processed submissions
 
-    window.location.reload(true); // writeState early enough that it is complete before viewsLoad()
+    window.location.reload(true); // not sure why but this helps katex
+    // writeState early enough that it is complete before viewsLoad()
 
     QWIZM.methods.writeState(QWIZM.QUIZ_KEY, QWIZM.state);
     $('#login-card').fadeOut();

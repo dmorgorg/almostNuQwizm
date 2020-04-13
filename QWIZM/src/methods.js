@@ -46,21 +46,21 @@ QWIZM.methods.viewsLoad = o => {
         let len = QWIZM.quiz.questions.length,
             html = '';
 
-        html += `<div id='instructions' class='view'>
-                ${QWIZM.quiz.instructions}</div>
-                <div id='clear' class='card view' > ${QWIZM.methods.writeClearView()}</div>`;
+        html += `<section id='instructions' class='view'>
+                ${QWIZM.quiz.instructions}</section>
+                <section id='clear' class='card view' > ${QWIZM.methods.writeClearView()}</section>`;
 
         for (let i = 1; i < len; i++) {
             // QWIZM.quiz.questions[i] is a function where i is the question number
             // We need to pass the question number into this function
-            html += `<div id='Q${i}' class='view'>            
+            html += `<section id='Q${i}' class='view'>            
             ${QWIZM.quiz.questions[i](i)}`;
-            html += `</div>`;
+            html += `</section>`;
 
             // console.log(QWIZM.quiz.questions[i](i));
         }
 
-        html += `<div id='summary' class='view'>Summary</div>`;
+        html += `<section id='summary' class='view'>${QWIZM.summary.display()}</section>`;
         return html;
     }
 

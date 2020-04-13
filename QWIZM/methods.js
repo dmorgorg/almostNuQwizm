@@ -40,16 +40,16 @@ QWIZM.methods.viewsLoad = function (o) {
   function loadViews() {
     var len = QWIZM.quiz.questions.length,
         html = '';
-    html += "<div id='instructions' class='view'>\n                ".concat(QWIZM.quiz.instructions, "</div>\n                <div id='clear' class='card view' > ").concat(QWIZM.methods.writeClearView(), "</div>");
+    html += "<section id='instructions' class='view'>\n                ".concat(QWIZM.quiz.instructions, "</section>\n                <section id='clear' class='card view' > ").concat(QWIZM.methods.writeClearView(), "</section>");
 
     for (var i = 1; i < len; i++) {
       // QWIZM.quiz.questions[i] is a function where i is the question number
       // We need to pass the question number into this function
-      html += "<div id='Q".concat(i, "' class='view'>            \n            ").concat(QWIZM.quiz.questions[i](i));
-      html += "</div>"; // console.log(QWIZM.quiz.questions[i](i));
+      html += "<section id='Q".concat(i, "' class='view'>            \n            ").concat(QWIZM.quiz.questions[i](i));
+      html += "</section>"; // console.log(QWIZM.quiz.questions[i](i));
     }
 
-    html += "<div id='summary' class='view'>Summary</div>";
+    html += "<section id='summary' class='view'>".concat(QWIZM.summary.display(), "</section>");
     return html;
   }
 
@@ -121,8 +121,7 @@ QWIZM.methods.viewsLoad = function (o) {
     $('#' + feedbackId).text(feedback); // console.log(parsedInput);
 
     console.log(QWIZM.state); // console.log(QWIZM.state.thisQuiz[q][p].feedback);
-
-    QWIZM.methods.writeState(QWIZM.QUIZ_KEY, QWIZM.state);
+    //  QWIZM.methods.writeState(QWIZM.QUIZ_KEY, QWIZM.state);
   }
 };
 
