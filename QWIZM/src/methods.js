@@ -14,12 +14,17 @@ QWIZM.methods.questionPart = (o) => {
         partStatement: o.partStatement,
         units: o.units,
         marks: o.marks,
-        correctSoln: o.correctSoln
+        correctSoln: o.correctSoln,
+        isCorrect: false,
+        isAnswered: false,
+        score: 0
     };
 }
 
 QWIZM.methods.viewsLoad = o => {
     let quizId = `quiz_${o.id}`;
+
+    //FIRST TIME THROUGH, AFTER FRESH LOGIN, QWIZM.state is not yet defined
 
     // check whether there is a quiz item for this quiz in localStorage
     if (localStorage.getItem(quizId) === null) {
@@ -28,8 +33,22 @@ QWIZM.methods.viewsLoad = o => {
     }
     // if there is a quiz item, load the state of the quiz
     else {
-        // get state from local storage
-        QWIZM.state = QWIZM.methods.readState(quizId);
+        let temp;
+        console.log('reading localStorage');
+        console.log(JSON.parse(localStorage.getItem(quizId)));
+        temp = Object.assign(JSON.parse(localStorage.getItem(quizId)));
+        console.log('reading temp');
+        console.log(temp);
+
+        // setTimeout(function () {
+        //     temp = JSON.parse(localStorage.getItem(quizId));
+        //     console.log(temp);
+        // }, 3000);
+
+        QWIZM.state = temp;
+
+        // console.log('reading state');
+        // console.log(QWIZM.state);
 
         $('main').html(loadViews());
         // set handlers for all the question answer inputs
@@ -40,6 +59,8 @@ QWIZM.methods.viewsLoad = o => {
         $('.view').hide();
         $('#' + QWIZM.state.currentView + 'Btn').addClass("active");
         $('#' + QWIZM.state.currentView).fadeIn();
+
+
     }
 
     function loadViews() {
@@ -61,6 +82,8 @@ QWIZM.methods.viewsLoad = o => {
         }
 
         html += `<section id='summary' class='view'>${QWIZM.summary.display()}</section>`;
+
+
         return html;
     }
 
@@ -94,6 +117,8 @@ QWIZM.methods.viewsLoad = o => {
         part.userInput = userInput;
         part.feedback = '';
         part.score = 0;
+        part.isAnswered = false;
+        part.isCorrect = false;
 
         // console.log(userInput + ' ?=? ' + part.correctSoln);
 
@@ -104,29 +129,32 @@ QWIZM.methods.viewsLoad = o => {
                 feedback = `Not numerical input! (0/${part.marks})`;
             }
             $('#' + crosscheckId).html('<span class="cross" />');
-        } else if (parsedInput == part.correctSoln) {
-            // this checks for trailing zeros for significant digits
-            if (userInput === (part.correctSoln).toString()) {
-                part.isCorrect = true;
-                feedback = `${part.marks}/${part.marks}`;
-                $('#' + crosscheckId).html('<span class="check" />');
-            } else {
-                part.isCorrect = true;
-                feedback = `Check significant digits. (${part.marks/2}/${part.marks})`;
-                $('#' + crosscheckId).html('');
-            }
         } else {
-            part.isCorrect = false;
-            feedback = `Try again. (0/${part.marks})`;
-            $('#' + crosscheckId).html('<span class="cross" />');
+            part.isAnswered = true;
+            if (parsedInput == part.correctSoln) {
+                // this checks for trailing zeros for significant digits
+                if (userInput === (part.correctSoln).toString()) {
+                    part.isCorrect = true;
+                    feedback = `${part.marks}/${part.marks}`;
+                    $('#' + crosscheckId).html('<span class="check" />');
+                    part.score = part.marks;
+                } else {
+                    part.isCorrect = true;
+                    feedback = `Check significant digits. (${part.marks/2}/${part.marks})`;
+                    $('#' + crosscheckId).html('');
+                    part.score = part.marks / 2;
+                }
+            } else {
+                part.isCorrect = false;
+                feedback = `Try again. (0/${part.marks})`;
+                $('#' + crosscheckId).html('<span class="cross" />');
+            }
         }
         $('#' + feedbackId).text(feedback);
-
-        // console.log(parsedInput);
-        console.log(QWIZM.state);
-        // console.log(QWIZM.state.thisQuiz[q][p].feedback);
-        //  QWIZM.methods.writeState(QWIZM.QUIZ_KEY, QWIZM.state);
-
+        part.feedback = feedback;
+        QWIZM.methods.writeState(QWIZM.QUIZ_KEY, QWIZM.state);
+        $('#summary').html(QWIZM.summary.display());
+        // window.location.reload(true);
     }
 };
 
@@ -153,7 +181,15 @@ QWIZM.methods.writeState = (key, value) => {
 };
 
 QWIZM.methods.readState = (key) => {
-    return JSON.parse(localStorage.getItem(key));
+    // console.log('reading localStorage...');
+    // console.log(JSON.parse(localStorage.getItem(key)));
+    // QWIZM.state = JSON.parse(localStorage.getItem(key));
+    // console.log('reading state...');
+    // console.log(QWIZM.state);
+
+    let value = localStorage.getItem(key);
+
+    return value && JSON.parse(value);
 };
 
 QWIZM.methods.overlayVariable = (o) => {

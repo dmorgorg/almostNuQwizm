@@ -13,20 +13,35 @@ QWIZM.methods.questionPart = function (o) {
     partStatement: o.partStatement,
     units: o.units,
     marks: o.marks,
-    correctSoln: o.correctSoln
+    correctSoln: o.correctSoln,
+    isCorrect: false,
+    isAnswered: false,
+    score: 0
   };
 };
 
 QWIZM.methods.viewsLoad = function (o) {
-  var quizId = "quiz_".concat(o.id); // check whether there is a quiz item for this quiz in localStorage
+  var quizId = "quiz_".concat(o.id); //FIRST TIME THROUGH, AFTER FRESH LOGIN, QWIZM.state is not yet defined
+  // check whether there is a quiz item for this quiz in localStorage
 
   if (localStorage.getItem(quizId) === null) {
     QWIZM.methods.writeLoginForm();
     $('#uname').focus();
   } // if there is a quiz item, load the state of the quiz
   else {
-      // get state from local storage
-      QWIZM.state = QWIZM.methods.readState(quizId);
+      var temp;
+      console.log('reading localStorage');
+      console.log(JSON.parse(localStorage.getItem(quizId)));
+      temp = Object.assign(JSON.parse(localStorage.getItem(quizId)));
+      console.log('reading temp');
+      console.log(temp); // setTimeout(function () {
+      //     temp = JSON.parse(localStorage.getItem(quizId));
+      //     console.log(temp);
+      // }, 3000);
+
+      QWIZM.state = temp; // console.log('reading state');
+      // console.log(QWIZM.state);
+
       $('main').html(loadViews()); // set handlers for all the question answer inputs
 
       setHandlers();
@@ -91,7 +106,9 @@ QWIZM.methods.viewsLoad = function (o) {
         str = QWIZM.methods.stringify;
     part.userInput = userInput;
     part.feedback = '';
-    part.score = 0; // console.log(userInput + ' ?=? ' + part.correctSoln);
+    part.score = 0;
+    part.isAnswered = false;
+    part.isCorrect = false; // console.log(userInput + ' ?=? ' + part.correctSoln);
 
     if (isNaN(parsedInput)) {
       if (userInput.length === 0) {
@@ -101,27 +118,33 @@ QWIZM.methods.viewsLoad = function (o) {
       }
 
       $('#' + crosscheckId).html('<span class="cross" />');
-    } else if (parsedInput == part.correctSoln) {
-      // this checks for trailing zeros for significant digits
-      if (userInput === part.correctSoln.toString()) {
-        part.isCorrect = true;
-        feedback = "".concat(part.marks, "/").concat(part.marks);
-        $('#' + crosscheckId).html('<span class="check" />');
-      } else {
-        part.isCorrect = true;
-        feedback = "Check significant digits. (".concat(part.marks / 2, "/").concat(part.marks, ")");
-        $('#' + crosscheckId).html('');
-      }
     } else {
-      part.isCorrect = false;
-      feedback = "Try again. (0/".concat(part.marks, ")");
-      $('#' + crosscheckId).html('<span class="cross" />');
+      part.isAnswered = true;
+
+      if (parsedInput == part.correctSoln) {
+        // this checks for trailing zeros for significant digits
+        if (userInput === part.correctSoln.toString()) {
+          part.isCorrect = true;
+          feedback = "".concat(part.marks, "/").concat(part.marks);
+          $('#' + crosscheckId).html('<span class="check" />');
+          part.score = part.marks;
+        } else {
+          part.isCorrect = true;
+          feedback = "Check significant digits. (".concat(part.marks / 2, "/").concat(part.marks, ")");
+          $('#' + crosscheckId).html('');
+          part.score = part.marks / 2;
+        }
+      } else {
+        part.isCorrect = false;
+        feedback = "Try again. (0/".concat(part.marks, ")");
+        $('#' + crosscheckId).html('<span class="cross" />');
+      }
     }
 
-    $('#' + feedbackId).text(feedback); // console.log(parsedInput);
-
-    console.log(QWIZM.state); // console.log(QWIZM.state.thisQuiz[q][p].feedback);
-    //  QWIZM.methods.writeState(QWIZM.QUIZ_KEY, QWIZM.state);
+    $('#' + feedbackId).text(feedback);
+    part.feedback = feedback;
+    QWIZM.methods.writeState(QWIZM.QUIZ_KEY, QWIZM.state);
+    $('#summary').html(QWIZM.summary.display()); // window.location.reload(true);
   }
 };
 
@@ -150,7 +173,13 @@ QWIZM.methods.writeState = function (key, value) {
 };
 
 QWIZM.methods.readState = function (key) {
-  return JSON.parse(localStorage.getItem(key));
+  // console.log('reading localStorage...');
+  // console.log(JSON.parse(localStorage.getItem(key)));
+  // QWIZM.state = JSON.parse(localStorage.getItem(key));
+  // console.log('reading state...');
+  // console.log(QWIZM.state);
+  var value = localStorage.getItem(key);
+  return value && JSON.parse(value);
 };
 
 QWIZM.methods.overlayVariable = function (o) {

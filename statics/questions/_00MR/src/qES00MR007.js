@@ -69,5 +69,5 @@ QWIZM.question.qES00MR007 = (qNumber) => {
     }));
 
     return `<div class='statement width50'><h3>Q${qNumber}</h3>: ${statement}</div>
-    <form autocomplete="off"><div class='parts width45'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
+    <form autocomplete="off"><div class='parts width50'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
 };

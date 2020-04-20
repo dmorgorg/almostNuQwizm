@@ -62,6 +62,7 @@ $ACTIVE_GRADIENT: linear-gradient(to bottom,
   $TOPIC_LIGHT 35%,
   darken($TOPIC_LIGHT, 15) 65%,
   darken($TOPIC_LIGHT, 15));
+$SUMMARY_BORDER: 1px solid #888;
 
 html {
   height: 100%;
@@ -207,9 +208,9 @@ footer {
   // background-color: #ddd;
   // position: relative;
 
-  & article.statement {
+  & summary.statement {
     // position: absolute;
-    background-color: #ddd;
+    // background-color: #ddd;
     // height: 100%;
     margin: 0 auto;
     // border: 1px solid black;
@@ -218,7 +219,7 @@ footer {
       display: block;
       background-color: $PRIMARY;
       color: white;
-      font-family: Quicksand;
+      // font-family: Quicksand;
       padding: 1vw 2vw;
       // vertical-align: middle;
       // float: right;
@@ -234,6 +235,56 @@ footer {
       letter-spacing: 0.1vw;
     }
   }
+
+  & .table {
+    width: 100%;
+    border: $SUMMARY_BORDER;
+    border-top: none;
+
+    & .row {
+      padding: 0.5vw;
+      display: flex;
+
+      & .qNumber {
+        display: inline-block;
+        font-size: 115%;
+        width: 20%;
+        align-self: center;
+      }
+
+      & .items {
+        padding: 0;
+        display: inline-block;
+        display: flex;
+        flex-wrap: wrap;
+        border: 1px solid black;
+        width: 80%;
+        text-align: top;
+
+
+        & .item {
+          flex-basis: 25%;
+          // min-width: 10em;
+          flex-shrink: 0;
+          flex-grow: 0;
+          border: 1px solid green;
+        }
+      }
+
+      &:nth-child(2n + 1) {
+        background-color: #ccc;
+      }
+
+      &:nth-child(2n) {
+        background-color: #eee;
+      }
+    }
+
+    .row+.row {
+      border-top: 1px solid #aaa;
+    }
+  }
+
 }
 
 .fright {
@@ -378,7 +429,7 @@ footer {
 
   &.active {
     position: relative;
-    // top: 10px;
+    top: 2px;
     color: black;
     background: $COURSE_LIGHT;
     background: linear-gradient(to bottom,
@@ -646,6 +697,7 @@ main {
     }
   }
 
+
   & .view {
     // background: pink;
     width: 100%;
@@ -735,5 +787,11 @@ main {
 .width95 {
   // flex-basis: 90%;
   width: 95%;
+
+}
+
+.width100 {
+  // flex-basis: 90%;
+  width: 100%;
 
 }

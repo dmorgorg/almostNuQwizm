@@ -179,25 +179,81 @@ footer {
   text-shadow: 0.12vw 0.12vw 0.25vw black;
 }
 
-#summary article.statement {
-  background-color: #ddd;
+#summary summary.statement {
   margin: 0 auto;
 }
 
-#summary article.statement h3 {
+#summary summary.statement h3 {
   display: block;
   background-color: maroon;
   color: white;
-  font-family: Quicksand;
   padding: 1vw 2vw;
 }
 
-#summary article.statement .uname {
+#summary summary.statement .uname {
   color: white;
   font-family: "Architects Daughter";
   text-align: right;
   text-shadow: 0.12vw 0.12vw 0.25vw black;
   letter-spacing: 0.1vw;
+}
+
+#summary .table {
+  width: 100%;
+  border: 1px solid #888;
+  border-top: none;
+}
+
+#summary .table .row {
+  padding: 0.5vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+#summary .table .row .qNumber {
+  display: inline-block;
+  font-size: 115%;
+  width: 20%;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+#summary .table .row .items {
+  padding: 0;
+  display: inline-block;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  border: 1px solid black;
+  width: 80%;
+  text-align: top;
+}
+
+#summary .table .row .items .item {
+  -ms-flex-preferred-size: 25%;
+      flex-basis: 25%;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  -webkit-box-flex: 0;
+      -ms-flex-positive: 0;
+          flex-grow: 0;
+  border: 1px solid green;
+}
+
+#summary .table .row:nth-child(2n + 1) {
+  background-color: #ccc;
+}
+
+#summary .table .row:nth-child(2n) {
+  background-color: #eee;
+}
+
+#summary .table .row + .row {
+  border-top: 1px solid #aaa;
 }
 
 .fright {
@@ -320,6 +376,7 @@ footer {
 
 .markButton.active {
   position: relative;
+  top: 2px;
   color: black;
   background: white;
   background: -webkit-gradient(linear, left top, left bottom, from(#fefdfb), color-stop(45%, #fefdfb), color-stop(55%, linen), to(linen));
@@ -683,4 +740,8 @@ main .view {
 
 .width95 {
   width: 95%;
+}
+
+.width100 {
+  width: 100%;
 }
