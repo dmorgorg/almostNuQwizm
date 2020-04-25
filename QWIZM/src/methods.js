@@ -15,9 +15,7 @@ QWIZM.methods.questionPart = (o) => {
         units: o.units,
         marks: o.marks,
         correctSoln: o.correctSoln,
-        isCorrect: false,
-        isAnswered: false,
-        score: 0
+        // userInput: o.userInput
     };
 }
 
@@ -33,22 +31,10 @@ QWIZM.methods.viewsLoad = o => {
     }
     // if there is a quiz item, load the state of the quiz
     else {
-        let temp;
-        console.log('reading localStorage');
-        console.log(JSON.parse(localStorage.getItem(quizId)));
-        temp = Object.assign(JSON.parse(localStorage.getItem(quizId)));
-        console.log('reading temp');
-        console.log(temp);
+        // let temp
+        // temp = JSON.parse(localStorage.getItem(quizId));
 
-        // setTimeout(function () {
-        //     temp = JSON.parse(localStorage.getItem(quizId));
-        //     console.log(temp);
-        // }, 3000);
-
-        QWIZM.state = temp;
-
-        // console.log('reading state');
-        // console.log(QWIZM.state);
+        QWIZM.state = QWIZM.methods.readFromLocalStorage(quizId);
 
         $('main').html(loadViews());
         // set handlers for all the question answer inputs
@@ -152,7 +138,7 @@ QWIZM.methods.viewsLoad = o => {
         }
         $('#' + feedbackId).text(feedback);
         part.feedback = feedback;
-        QWIZM.methods.writeState(QWIZM.QUIZ_KEY, QWIZM.state);
+        QWIZM.methods.writeToLocalStorage(QWIZM.QUIZ_KEY, QWIZM.state);
         $('#summary').html(QWIZM.summary.display());
         // window.location.reload(true);
     }
@@ -169,26 +155,18 @@ QWIZM.methods.questionParts = (qN) => {
         html += `<input type='text' id='q${qN}part${part}input' class='partInput'>`;
         html += `<div class='units'>${parts[part].units}</div> `;
         html += `<button id=${partId} type='button' class='markButton'>Enter</button>`;
-        // html += i % 2 === 0 ? "<span class='cross' />" : "<span class='check' />";
         html += `<div id='q${qN}part${part}crosscheck' class='crosscheck'>&nbsp;</div>`;
         html += `<div id='q${qN}part${part}feedback' class='feedback'>(${parts[part].marks} marks)</div>`;
     }
     return html;
 }
 
-QWIZM.methods.writeState = (key, value) => {
+QWIZM.methods.writeToLocalStorage = (key, value) => {
     localStorage.setItem(key, JSON.stringify(value));
 };
 
-QWIZM.methods.readState = (key) => {
-    // console.log('reading localStorage...');
-    // console.log(JSON.parse(localStorage.getItem(key)));
-    // QWIZM.state = JSON.parse(localStorage.getItem(key));
-    // console.log('reading state...');
-    // console.log(QWIZM.state);
-
+QWIZM.methods.readFromLocalStorage = (key) => {
     let value = localStorage.getItem(key);
-
     return value && JSON.parse(value);
 };
 
@@ -255,7 +233,7 @@ QWIZM.methods.writeHeader = o => {
 };
 
 QWIZM.methods.writeFooter = () => {
-    let state = QWIZM.methods.readState(QWIZM.QUIZ_KEY),
+    let state = QWIZM.methods.readFromLocalStorage(QWIZM.QUIZ_KEY),
         // number of questions in this quiz
         len = QWIZM.quiz.questions.length,
         html = `<footer>

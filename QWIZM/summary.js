@@ -38,8 +38,8 @@ QWIZM.summary.display = function () {
   } // html += `</div>`;
 
 
-  html += "</summary>";
-  console.log("in summary");
-  console.log(QWIZM.state);
+  html += "</summary>"; // console.log("in summary");
+  // console.log(QWIZM.state);
+
   return html;
 };

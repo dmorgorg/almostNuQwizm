@@ -60,18 +60,18 @@ QWIZM.question.qES00MR003 = (qNumber) => {
         });
 
     // thisQuiz.push(questionPart)
-    tQ.push(qp({
+    tQ.push({
         partStatement: `!$ \\theta !$`,
         units: '!$^\\circ!$',
         marks: 5,
         correctSoln: theta
-    }));
-    tQ.push(qp({
+    });
+    tQ.push({
         partStatement: `!$ \\phi !$`,
         units: '!$^\\circ!$',
         marks: 5,
         correctSoln: phi
-    }));
+    });
 
     return `<div class='statement width40'><h3>Q${qNumber}</h3>: ${statement}    
     </div>

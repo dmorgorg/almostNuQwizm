@@ -46,7 +46,7 @@ QWIZM.summary.display = () => {
 
     html += `</summary>`;
 
-    console.log("in summary");
-    console.log(QWIZM.state);
+    // console.log("in summary");
+    // console.log(QWIZM.state);
     return html;
 }

@@ -228,20 +228,18 @@ footer {
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  border: 1px solid black;
   width: 80%;
   text-align: top;
 }
 
 #summary .table .row .items .item {
-  -ms-flex-preferred-size: 25%;
-      flex-basis: 25%;
+  -ms-flex-preferred-size: 33.3%;
+      flex-basis: 33.3%;
   -ms-flex-negative: 0;
       flex-shrink: 0;
   -webkit-box-flex: 0;
       -ms-flex-positive: 0;
           flex-grow: 0;
-  border: 1px solid green;
 }
 
 #summary .table .row:nth-child(2n + 1) {

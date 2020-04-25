@@ -13,6 +13,7 @@ QWIZM.question.qES00MR002 = (qNumber) => {
         tan = utils.tan,
         atan = utils.atan,
         thisQuiz = QWIZM.state.thisQuiz,
+        thisQuestion = thisQuiz[qNumber],
         ov = QWIZM.methods.overlayVariable,
         qp = QWIZM.methods.questionPart;
 
@@ -33,6 +34,8 @@ QWIZM.question.qES00MR002 = (qNumber) => {
     //calcs
     let a2 = Math.sqrt(b * b + c * c - 2 * b * c * cos(A)),
         B = acos((a * a + c * c - b * b) / (2 * a * c));
+
+
 
     let statement = `Determine the length of !$BC!$ and the angle !$ABC!$.`,
         img = `../../images/math02.png`,
@@ -60,19 +63,23 @@ QWIZM.question.qES00MR002 = (qNumber) => {
     a2 = stringify(a);
     B = stringify(B);
 
+    //console.log(thisQuestion[1]);
+
     // thisQuiz.push(questionPart)
-    tQ.push(qp({
+    tQ.push({
         partStatement: `!$ BC !$`,
         units: 'm',
         marks: 5,
-        correctSoln: a2
-    }));
-    tQ.push(qp({
+        correctSoln: a2,
+        userInput: (thisQuestion && thisQuestion[1].userInput) || '?'
+    });
+    tQ.push({
         partStatement: ` !$ \\angle ABC !$`,
         units: '!$^\\circ!$',
         marks: 4,
-        correctSoln: B
-    }));
+        correctSoln: B,
+        userInput: (thisQuestion && thisQuestion[2].userInput) || '?'
+    });
 
 
     return `<div class='statement width50'><h3>Q${qNumber}</h3>: ${statement}<br>

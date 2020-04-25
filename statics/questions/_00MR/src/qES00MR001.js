@@ -13,15 +13,13 @@ QWIZM.question.qES00MR001 = (qNumber) => {
         tan = utils.tan,
         atan = utils.atan,
         thisQuiz = QWIZM.state.thisQuiz,
+        thisQuestion = thisQuiz[qNumber],
         ov = QWIZM.methods.overlayVariable,
         qp = QWIZM.methods.questionPart;
 
     let qId = 1000003, // question ID number, unique to this question        
         seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
         lcrng = new utils.LCRNG(seed);
-
-    thisQuiz[qNumber] = []; // thisQuiz is created at valid login so may cause errors when building new questions; reset and login should handle those.
-    let tQ = thisQuiz[qNumber];
 
     //inputs - defaults to workingDigs
     let x = sd(lcrng.getNext(2, 4, 0.025)),
@@ -42,9 +40,6 @@ QWIZM.question.qES00MR001 = (qNumber) => {
     CE = stringify(CE);
 
     let statement = `Determine the lengths of truss members !$BF!$ and !$CE!$.`,
-        //  <br\>
-        // Temp: !$x!$ = ${x} m, !$y1!$ = ${y1} m, !$y2!$ = ${y2} m <br\>`;
-
         img = `../../images/math01.png`,
         iV1 = ov({
             input: x + ' m',
@@ -82,21 +77,33 @@ QWIZM.question.qES00MR001 = (qNumber) => {
             top: 24
         });
 
+
+    console.log(QWIZM.state.thisQuiz);
+
+
+
+    thisQuestion = [];
+
+    // console.log(QWIZM.state.thisQuiz);
+
     // thisQuiz.push(questionPart)
-    tQ.push(qp({
+    thisQuestion.push({
         partStatement: `!$ BF !$`,
         units: 'm',
         marks: 5,
-        correctSoln: BF
-    }));
-    tQ.push(qp({
+        correctSoln: BF,
+        userInput: (thisQuestion && thisQuestion[1].userInput) || '?'
+    });
+
+    // console.log(thisQuiz[qNumber][1]);
+
+    thisQuestion.push({
         partStatement: `!$ CE !$`,
         units: 'm',
         marks: 4,
-        correctSoln: CE
-    }));
-
-
+        correctSoln: CE,
+        userInput: (thisQuestion && thisQuestion[2].userInput) || '?'
+    });
 
     return `<div class='statement width50'><h3>Q${qNumber}</h3>: 
     ${statement}</div>

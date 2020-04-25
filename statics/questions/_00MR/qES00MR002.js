@@ -15,6 +15,7 @@ QWIZM.question.qES00MR002 = function (qNumber) {
       tan = utils.tan,
       atan = utils.atan,
       thisQuiz = QWIZM.state.thisQuiz,
+      thisQuestion = thisQuiz[qNumber],
       ov = QWIZM.methods.overlayVariable,
       qp = QWIZM.methods.questionPart;
   var qId = 1000033,
@@ -56,19 +57,22 @@ QWIZM.question.qES00MR002 = function (qNumber) {
   }); //stringify
 
   a2 = stringify(a);
-  B = stringify(B); // thisQuiz.push(questionPart)
+  B = stringify(B); //console.log(thisQuestion[1]);
+  // thisQuiz.push(questionPart)
 
-  tQ.push(qp({
+  tQ.push({
     partStatement: "!$ BC !$",
     units: 'm',
     marks: 5,
-    correctSoln: a2
-  }));
-  tQ.push(qp({
+    correctSoln: a2,
+    userInput: thisQuestion && thisQuestion[1].userInput || '?'
+  });
+  tQ.push({
     partStatement: " !$ \\angle ABC !$",
     units: '!$^\\circ!$',
     marks: 4,
-    correctSoln: B
-  }));
+    correctSoln: B,
+    userInput: thisQuestion && thisQuestion[2].userInput || '?'
+  });
   return "<div class='statement width50'><h3>Q".concat(qNumber, "</h3>: ").concat(statement, "<br>\n         </div>\n    <div id = '").concat(qId, "img' class='image width30'>\n    <img src= ").concat(img, ">\n    ").concat(iV1, "\n    ").concat(iV2, "\n    ").concat(iV3, "</div>\n    <form autocomplete=\"off\"><div class='parts width45'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
 };

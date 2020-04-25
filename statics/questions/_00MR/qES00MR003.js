@@ -56,17 +56,17 @@ QWIZM.question.qES00MR003 = function (qNumber) {
     top: 38
   }); // thisQuiz.push(questionPart)
 
-  tQ.push(qp({
+  tQ.push({
     partStatement: "!$ \\theta !$",
     units: '!$^\\circ!$',
     marks: 5,
     correctSoln: theta
-  }));
-  tQ.push(qp({
+  });
+  tQ.push({
     partStatement: "!$ \\phi !$",
     units: '!$^\\circ!$',
     marks: 5,
     correctSoln: phi
-  }));
+  });
   return "<div class='statement width40'><h3>Q".concat(qNumber, "</h3>: ").concat(statement, "    \n    </div>\n    <div class='image width60'><img src= ").concat(img, ">\n    ").concat(iV1, "\n    ").concat(iV2, "\n    ").concat(iV3, "\n    ").concat(iV4, "\n    </div>\n    <form autocomplete=\"off\"><div class='parts width40'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
 };

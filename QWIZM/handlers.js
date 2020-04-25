@@ -19,7 +19,7 @@ QWIZM.handlers.updateView = function (e) {
     $('#' + btnId).addClass("active"); //console.log(QWIZM.state.currentView);
 
     $('#' + QWIZM.state.currentView).fadeIn(QWIZM.DURATION);
-    QWIZM.methods.writeState(QWIZM.QUIZ_KEY, QWIZM.state);
+    QWIZM.methods.writeToLocalStorage(QWIZM.QUIZ_KEY, QWIZM.state);
   }
 };
 
@@ -73,7 +73,8 @@ QWIZM.handlers.validateLogin = function (e) {
     QWIZM.state.thisQuiz = []; // this will hold state of entered and processed submissions
     // writeState early enough that it is complete before viewsLoad()
 
-    QWIZM.methods.writeState(QWIZM.QUIZ_KEY, QWIZM.state); //window.location.reload(true); // not sure why but this helps katex
+    QWIZM.methods.writeToLocalStorage(QWIZM.QUIZ_KEY, QWIZM.state);
+    window.location.reload(true); // not sure why but this helps katex
 
     $('#login-card').fadeOut();
     QWIZM.methods.viewsLoad(QWIZM.quiz);
