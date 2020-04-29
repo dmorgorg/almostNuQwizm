@@ -21,6 +21,9 @@ QWIZM.question.qES00MR001 = (qNumber) => {
         seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
         lcrng = new utils.LCRNG(seed);
 
+    thisQuiz[qNumber] = []; // thisQuiz is created at valid login so may cause errors when building new questions; reset and login should handle those.
+    let tQ = thisQuiz[qNumber];
+
     //inputs - defaults to workingDigs
     let x = sd(lcrng.getNext(2, 4, 0.025)),
         y1 = sd(lcrng.getNext(0.7, 0.8, 0.01) * x),
@@ -78,31 +81,25 @@ QWIZM.question.qES00MR001 = (qNumber) => {
         });
 
 
-    console.log(QWIZM.state.thisQuiz);
 
-
-
-    thisQuestion = [];
 
     // console.log(QWIZM.state.thisQuiz);
 
     // thisQuiz.push(questionPart)
-    thisQuestion.push({
+    tQ.push({
         partStatement: `!$ BF !$`,
         units: 'm',
         marks: 5,
-        correctSoln: BF,
-        userInput: (thisQuestion && thisQuestion[1].userInput) || '?'
+        correctSoln: BF
     });
 
     // console.log(thisQuiz[qNumber][1]);
 
-    thisQuestion.push({
+    tQ.push({
         partStatement: `!$ CE !$`,
         units: 'm',
         marks: 4,
-        correctSoln: CE,
-        userInput: (thisQuestion && thisQuestion[2].userInput) || '?'
+        correctSoln: CE
     });
 
     return `<div class='statement width50'><h3>Q${qNumber}</h3>: 
