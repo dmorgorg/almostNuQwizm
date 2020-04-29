@@ -46,6 +46,8 @@ QWIZM.methods.viewsLoad = o => {
         $('#' + QWIZM.state.currentView + 'Btn').addClass("active");
         $('#' + QWIZM.state.currentView).fadeIn();
 
+        QWIZM.methods.writeToLocalStorage(QWIZM.QUIZ_KEY, QWIZM.state);
+
 
     }
 

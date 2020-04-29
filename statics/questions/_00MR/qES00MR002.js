@@ -64,15 +64,13 @@ QWIZM.question.qES00MR002 = function (qNumber) {
     partStatement: "!$ BC !$",
     units: 'm',
     marks: 5,
-    correctSoln: a2,
-    userInput: thisQuestion && thisQuestion[1].userInput || '?'
+    correctSoln: a2
   });
   tQ.push({
     partStatement: " !$ \\angle ABC !$",
     units: '!$^\\circ!$',
     marks: 4,
-    correctSoln: B,
-    userInput: thisQuestion && thisQuestion[2].userInput || '?'
+    correctSoln: B
   });
   return "<div class='statement width50'><h3>Q".concat(qNumber, "</h3>: ").concat(statement, "<br>\n         </div>\n    <div id = '").concat(qId, "img' class='image width30'>\n    <img src= ").concat(img, ">\n    ").concat(iV1, "\n    ").concat(iV2, "\n    ").concat(iV3, "</div>\n    <form autocomplete=\"off\"><div class='parts width45'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
 };
