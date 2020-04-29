@@ -1,8 +1,9 @@
 let QWIZM = QWIZM || {};
 QWIZM.summary = () => {}; //constructor, not sure why is need this
 QWIZM.summary.display = () => {
-    // console.log(`${QWIZM.state.thisQuiz[6][2]}`);
-    // console.log(QWIZM.state);
+
+    QWIZM.state = QWIZM.methods.readFromLocalStorage(QWIZM.QUIZ_KEY);
+
     let totalScore = 0,
         maxPossible = 0,
         qNumber,
@@ -24,9 +25,8 @@ QWIZM.summary.display = () => {
         thisQuestionMax = 0;
         qPartCount = QWIZM.state.thisQuiz[qNumber].length - 1;
         for (qPart = 1; qPart <= qPartCount; qPart++) {
-            let part = QWIZM.state.thisQuiz[qNumber][qPart],
-                text = `${part.partStatement}: ${part.userInput}`;
-            html += `<div class='item'>${part.partStatement}: ${part.userInput}`;
+            let part = QWIZM.state.thisQuiz[qNumber][qPart];
+            html += `<div class='item'>${part.partStatement}: ${part.userInput || 'a'}`;
             html += `</div>`;
 
             // console.log('in for: ' + QWIZM.state.thisQuiz[qNumber][qPart].userInput);
