@@ -3,7 +3,6 @@ QWIZM.methods = QWIZM.methods || {};
 
 // some constants
 QWIZM.DURATION = 400;
-QWIZM.NEGATIVE = -42;
 QWIZM.QUIZ_KEY = "quiz_" + QWIZM.quiz.id;
 QWIZM.DELTA = 1e-9;
 
@@ -14,15 +13,12 @@ QWIZM.methods.questionPart = (o) => {
         partStatement: o.partStatement,
         units: o.units,
         marks: o.marks,
-        correctSoln: o.correctSoln,
-        // userInput: o.userInput
+        correctSoln: o.correctSoln
     };
 }
 
 QWIZM.methods.viewsLoad = o => {
     let quizId = `quiz_${o.id}`;
-
-    //FIRST TIME THROUGH, AFTER FRESH LOGIN, QWIZM.state is not yet defined
 
     // check whether there is a quiz item for this quiz in localStorage
     if (localStorage.getItem(quizId) === null) {
@@ -33,6 +29,9 @@ QWIZM.methods.viewsLoad = o => {
     else {
 
         QWIZM.state = QWIZM.methods.readFromLocalStorage(quizId);
+
+        console.log('top of else');
+        console.log(QWIZM.state);
 
         $('main').html(loadViews());
         // set handlers for all the question answer inputs
@@ -53,6 +52,9 @@ QWIZM.methods.viewsLoad = o => {
         let len = QWIZM.quiz.questions.length,
             html = '';
 
+        // console.log('top of loadViews');
+        // console.log(QWIZM.state);
+
         html += `<section id='instructions' class='view'>
                 ${QWIZM.quiz.instructions}</section>
                 <section id='clear' class='card view' > ${QWIZM.methods.writeClearView()}</section>`;
@@ -63,12 +65,9 @@ QWIZM.methods.viewsLoad = o => {
             html += `<section id='Q${i}' class='view'>            
             ${QWIZM.quiz.questions[i](i)}`;
             html += `</section>`;
-
-            // console.log(QWIZM.quiz.questions[i](i));
         }
 
         html += `<section id='summary' class='view'>${QWIZM.summary.display()}</section>`;
-
 
         return html;
     }
@@ -97,16 +96,13 @@ QWIZM.methods.viewsLoad = o => {
             userInput = $('#' + inputId).val(),
             parsedInput = parseFloat(userInput), // string to float
             part = QWIZM.state.thisQuiz[q][p],
-            feedback = '',
-            str = QWIZM.methods.stringify;
+            feedback = '';
 
         part.userInput = userInput;
         part.feedback = '';
         part.score = 0;
         part.isAnswered = false;
         part.isCorrect = false;
-
-        // console.log(userInput + ' ?=? ' + part.correctSoln);
 
         if (isNaN(parsedInput)) {
             if (userInput.length === 0) {
@@ -125,7 +121,7 @@ QWIZM.methods.viewsLoad = o => {
                     $('#' + crosscheckId).html('<span class="check" />');
                     part.score = part.marks;
                 } else {
-                    part.isCorrect = true;
+                    part.half = true;
                     feedback = `Check significant digits. (${part.marks/2}/${part.marks})`;
                     $('#' + crosscheckId).html('');
                     part.score = part.marks / 2;
@@ -138,9 +134,12 @@ QWIZM.methods.viewsLoad = o => {
         }
         $('#' + feedbackId).text(feedback);
         part.feedback = feedback;
-        QWIZM.methods.writeToLocalStorage(QWIZM.QUIZ_KEY, QWIZM.state);
-        $('#summary').html(QWIZM.summary.display());
-        // window.location.reload(true);
+        QWIZM.state.thisQuiz[q][p] = part;
+        QWIZM.methods.writeToLocalStorage(QWIZM.QUIZ_KEY, QWIZM.state); //changes made to state so save it
+        // $('#summary').html(QWIZM.summary.display());
+        console.log('bottom of check answer');
+        console.log(QWIZM.state);
+        console.log(QWIZM.methods.readFromLocalStorage(QWIZM.QUIZ_KEY));
     }
 };
 

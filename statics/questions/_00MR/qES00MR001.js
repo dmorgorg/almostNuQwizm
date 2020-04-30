@@ -17,10 +17,7 @@ QWIZM.question.qES00MR001 = function (qNumber) {
       thisQuiz = QWIZM.state.thisQuiz,
       thisQuestion = thisQuiz[qNumber],
       ov = QWIZM.methods.overlayVariable,
-      qp = QWIZM.methods.questionPart; // if (JSON.stringify(QWIZM.state.thisQuiz) === JSON.stringify(state.thisQuiz)) {
-  //     console.log('same same');
-  // }
-
+      qp = QWIZM.methods.questionPart;
   var qId = 1000003,
       // question ID number, unique to this question        
   seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
@@ -79,16 +76,14 @@ QWIZM.question.qES00MR001 = function (qNumber) {
     input: y2 + ' m',
     left: 88,
     top: 24
-  }); // console.log(QWIZM.state.thisQuiz);
-  // thisQuiz.push(questionPart)
+  }); // thisQuiz.push(questionPart)
 
   tQ.push({
     partStatement: "!$ BF !$",
     units: 'm',
     marks: 5,
     correctSoln: BF
-  }); // console.log(thisQuiz[qNumber][1]);
-
+  });
   tQ.push({
     partStatement: "!$ CE !$",
     units: 'm',

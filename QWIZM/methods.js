@@ -4,7 +4,6 @@ var QWIZM = QWIZM || {};
 QWIZM.methods = QWIZM.methods || {}; // some constants
 
 QWIZM.DURATION = 400;
-QWIZM.NEGATIVE = -42;
 QWIZM.QUIZ_KEY = "quiz_" + QWIZM.quiz.id;
 QWIZM.DELTA = 1e-9; // QWIZM.methods = function () {} // function constructor, doesn't need anything in it
 
@@ -13,14 +12,12 @@ QWIZM.methods.questionPart = function (o) {
     partStatement: o.partStatement,
     units: o.units,
     marks: o.marks,
-    correctSoln: o.correctSoln // userInput: o.userInput
-
+    correctSoln: o.correctSoln
   };
 };
 
 QWIZM.methods.viewsLoad = function (o) {
-  var quizId = "quiz_".concat(o.id); //FIRST TIME THROUGH, AFTER FRESH LOGIN, QWIZM.state is not yet defined
-  // check whether there is a quiz item for this quiz in localStorage
+  var quizId = "quiz_".concat(o.id); // check whether there is a quiz item for this quiz in localStorage
 
   if (localStorage.getItem(quizId) === null) {
     QWIZM.methods.writeLoginForm();
@@ -28,6 +25,8 @@ QWIZM.methods.viewsLoad = function (o) {
   } // if there is a quiz item, load the state of the quiz
   else {
       QWIZM.state = QWIZM.methods.readFromLocalStorage(quizId);
+      console.log('top of else');
+      console.log(QWIZM.state);
       $('main').html(loadViews()); // set handlers for all the question answer inputs
 
       setHandlers();
@@ -41,14 +40,16 @@ QWIZM.methods.viewsLoad = function (o) {
 
   function loadViews() {
     var len = QWIZM.quiz.questions.length,
-        html = '';
+        html = ''; // console.log('top of loadViews');
+    // console.log(QWIZM.state);
+
     html += "<section id='instructions' class='view'>\n                ".concat(QWIZM.quiz.instructions, "</section>\n                <section id='clear' class='card view' > ").concat(QWIZM.methods.writeClearView(), "</section>");
 
     for (var i = 1; i < len; i++) {
       // QWIZM.quiz.questions[i] is a function where i is the question number
       // We need to pass the question number into this function
       html += "<section id='Q".concat(i, "' class='view'>            \n            ").concat(QWIZM.quiz.questions[i](i));
-      html += "</section>"; // console.log(QWIZM.quiz.questions[i](i));
+      html += "</section>";
     }
 
     html += "<section id='summary' class='view'>".concat(QWIZM.summary.display(), "</section>");
@@ -89,13 +90,12 @@ QWIZM.methods.viewsLoad = function (o) {
         parsedInput = parseFloat(userInput),
         // string to float
     part = QWIZM.state.thisQuiz[q][p],
-        feedback = '',
-        str = QWIZM.methods.stringify;
+        feedback = '';
     part.userInput = userInput;
     part.feedback = '';
     part.score = 0;
     part.isAnswered = false;
-    part.isCorrect = false; // console.log(userInput + ' ?=? ' + part.correctSoln);
+    part.isCorrect = false;
 
     if (isNaN(parsedInput)) {
       if (userInput.length === 0) {
@@ -130,8 +130,13 @@ QWIZM.methods.viewsLoad = function (o) {
 
     $('#' + feedbackId).text(feedback);
     part.feedback = feedback;
-    QWIZM.methods.writeToLocalStorage(QWIZM.QUIZ_KEY, QWIZM.state);
-    $('#summary').html(QWIZM.summary.display()); // window.location.reload(true);
+    QWIZM.state.thisQuiz[q][p] = part;
+    QWIZM.methods.writeToLocalStorage(QWIZM.QUIZ_KEY, QWIZM.state); //changes made to state so save it
+    // $('#summary').html(QWIZM.summary.display());
+
+    console.log('bottom of check answer');
+    console.log(QWIZM.state);
+    console.log(QWIZM.methods.readFromLocalStorage(QWIZM.QUIZ_KEY));
   }
 };
 

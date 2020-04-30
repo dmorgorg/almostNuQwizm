@@ -2,9 +2,7 @@ let QWIZM = QWIZM || {};
 QWIZM.summary = () => {}; //constructor, not sure why is need this
 QWIZM.summary.display = () => {
 
-    let state = QWIZM.methods.readFromLocalStorage(QWIZM.QUIZ_KEY);
-
-    // console.log(state);
+    // console.log('in summary');
     // console.log(QWIZM.state);
 
     let totalScore = 0,
@@ -14,6 +12,7 @@ QWIZM.summary.display = () => {
         qPartCount = 0,
         thisQuestionScore = 0,
         thisQuestionMax = 0,
+        state = QWIZM.state,
         questionCount = state.thisQuiz.length,
         html = `<summary class="statement width95">`;
 
@@ -31,25 +30,12 @@ QWIZM.summary.display = () => {
             let part = state.thisQuiz[qNumber][qPart];
             html += `<div class='item'>${part.partStatement}: ${part.userInput || 'a'}`;
             html += `</div>`;
-
-            // console.log('in for: ' + QWIZM.state.thisQuiz[qNumber][qPart].userInput);
         }
 
         html += `</div></section>`;
 
 
     }
-
-    // html += `</div>`;
-
-
-
-
-
-
     html += `</summary>`;
-
-    // console.log("in summary");
-    // console.log(QWIZM.state);
     return html;
 }

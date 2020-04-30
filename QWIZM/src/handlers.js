@@ -35,9 +35,6 @@ QWIZM.handlers.validateLogin = (e) => {
         uId = $('#uId')[0].value,
         valid = false;
 
-    // convert uId to positive integer, if it exists
-    uId = uId.length > 0 ? parseInt(uId) : QWIZM.NEGATIVE;
-
     // reset error messages to empty string by default; don't persist messages from a previous submit
     $('#unameError').text("");
     $('#uIdError').text("");
@@ -74,9 +71,9 @@ QWIZM.handlers.validateLogin = (e) => {
         QWIZM.state.thisQuiz = []; // this will hold state of entered and processed submissions
         // writeState early enough that it is complete before viewsLoad()
         QWIZM.methods.writeToLocalStorage(QWIZM.QUIZ_KEY, QWIZM.state);
-
-        window.location.reload(true); // not sure why but this helps katex
         $('#login-card').fadeOut();
-        QWIZM.methods.viewsLoad(QWIZM.quiz);
+        window.location.reload(true); // not sure why but this helps katex
+
+        // QWIZM.methods.viewsLoad(QWIZM.quiz);
     }
 }
