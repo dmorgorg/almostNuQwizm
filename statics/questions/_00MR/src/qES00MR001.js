@@ -18,10 +18,6 @@ QWIZM.question.qES00MR001 = (qNumber) => {
         ov = QWIZM.methods.overlayVariable,
         qp = QWIZM.methods.questionPart;
 
-    // if (JSON.stringify(QWIZM.state.thisQuiz) === JSON.stringify(state.thisQuiz)) {
-    //     console.log('same same');
-    // }
-
     let qId = 1000003, // question ID number, unique to this question        
         seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
         lcrng = new utils.LCRNG(seed);
@@ -85,11 +81,6 @@ QWIZM.question.qES00MR001 = (qNumber) => {
             top: 24
         });
 
-
-
-
-    // console.log(QWIZM.state.thisQuiz);
-
     // thisQuiz.push(questionPart)
     tQ.push({
         partStatement: `!$ BF !$`,
@@ -97,8 +88,6 @@ QWIZM.question.qES00MR001 = (qNumber) => {
         marks: 5,
         correctSoln: BF
     });
-
-    // console.log(thisQuiz[qNumber][1]);
 
     tQ.push({
         partStatement: `!$ CE !$`,
