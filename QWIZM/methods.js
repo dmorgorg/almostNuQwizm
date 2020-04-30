@@ -96,6 +96,7 @@ QWIZM.methods.viewsLoad = function (o) {
     part.score = 0;
     part.isAnswered = false;
     part.isCorrect = false;
+    part.half = false;
 
     if (isNaN(parsedInput)) {
       if (userInput.length === 0) {
@@ -116,8 +117,8 @@ QWIZM.methods.viewsLoad = function (o) {
           $('#' + crosscheckId).html('<span class="check" />');
           part.score = part.marks;
         } else {
-          part.isCorrect = true;
-          feedback = "Check significant digits. (".concat(part.marks / 2, "/").concat(part.marks, ")");
+          part.half = true;
+          feedback = "SigDigs! (".concat(part.marks / 2, "/").concat(part.marks, ")");
           $('#' + crosscheckId).html('');
           part.score = part.marks / 2;
         }

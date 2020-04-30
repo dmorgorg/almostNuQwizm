@@ -27,7 +27,7 @@ QWIZM.methods.viewsLoad = o => {
     }
     // if there is a quiz item, load the state of the quiz
     else {
-
+        // User has a login and site is reloading. Get state from localStorage.
         QWIZM.state = QWIZM.methods.readFromLocalStorage(quizId);
 
         console.log('top of else');
@@ -44,8 +44,6 @@ QWIZM.methods.viewsLoad = o => {
         $('#' + QWIZM.state.currentView).fadeIn();
 
         QWIZM.methods.writeToLocalStorage(QWIZM.QUIZ_KEY, QWIZM.state);
-
-
     }
 
     function loadViews() {
@@ -103,6 +101,7 @@ QWIZM.methods.viewsLoad = o => {
         part.score = 0;
         part.isAnswered = false;
         part.isCorrect = false;
+        part.half = false;
 
         if (isNaN(parsedInput)) {
             if (userInput.length === 0) {
@@ -122,7 +121,7 @@ QWIZM.methods.viewsLoad = o => {
                     part.score = part.marks;
                 } else {
                     part.half = true;
-                    feedback = `Check significant digits. (${part.marks/2}/${part.marks})`;
+                    feedback = `SigDigs! (${part.marks/2}/${part.marks})`;
                     $('#' + crosscheckId).html('');
                     part.score = part.marks / 2;
                 }

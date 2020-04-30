@@ -46,7 +46,7 @@ QWIZM.question.qES00MR006 = function (qNumber) {
   angleOBA = stringify(angleOBA);
   phi = stringify(phi);
   theta = stringify(theta);
-  var statement = "A typical question in Statics is to determine the tension in rods !$AC!$, !$BC!$ and !$CW!$.To solve this, we need to find the angles !$\\theta!$ and !$\\phi!$. Follow the steps outlined below, in order, to find these angles:",
+  var statement = "A typical question in Statics is to determine the tension in rods !$AC!$, !$BC!$ and !$CW!$.To solve this, we need to find the angles !$\\theta!$ and !$\\phi!$. Follow the steps outlined below in order, starting with the length of !$ AB !$, to find these angles:",
       img = "../../images/math06.png",
       iV1 = ov({
     input: AC + ' m',
@@ -81,7 +81,7 @@ QWIZM.question.qES00MR006 = function (qNumber) {
   }); // thisQuiz.push(questionPart)
 
   tQ.push(qp({
-    partStatement: "Length of !$ AB !$",
+    partStatement: "!$ \\left| AB\\right| !$",
     units: 'm',
     marks: 3,
     correctSoln: AB
