@@ -5,7 +5,10 @@ QWIZM.question = QWIZM.question || {};
 
 QWIZM.question.qES00MR001 = function (qNumber) {
   // common for import?
-  var uId = QWIZM.state.uId,
+  // console.log(QWIZM.state);
+  // console.log(QWIZM.methods.readFromLocalStorage(QWIZM.QUIZ_KEY));
+  var state = QWIZM.methods.readFromLocalStorage(QWIZM.QUIZ_KEY),
+      uId = state.uId,
       sd = QWIZM.methods.toSigDigs,
       stringify = QWIZM.methods.stringify,
       sin = utils.sin,
@@ -18,6 +21,11 @@ QWIZM.question.qES00MR001 = function (qNumber) {
       thisQuestion = thisQuiz[qNumber],
       ov = QWIZM.methods.overlayVariable,
       qp = QWIZM.methods.questionPart;
+
+  if (JSON.stringify(QWIZM.state.thisQuiz) === JSON.stringify(state.thisQuiz)) {
+    console.log('same same');
+  }
+
   var qId = 1000003,
       // question ID number, unique to this question        
   seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,

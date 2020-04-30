@@ -2,7 +2,10 @@ let QWIZM = QWIZM || {};
 QWIZM.summary = () => {}; //constructor, not sure why is need this
 QWIZM.summary.display = () => {
 
-    QWIZM.state = QWIZM.methods.readFromLocalStorage(QWIZM.QUIZ_KEY);
+    let state = QWIZM.methods.readFromLocalStorage(QWIZM.QUIZ_KEY);
+
+    // console.log(state);
+    // console.log(QWIZM.state);
 
     let totalScore = 0,
         maxPossible = 0,
@@ -11,10 +14,10 @@ QWIZM.summary.display = () => {
         qPartCount = 0,
         thisQuestionScore = 0,
         thisQuestionMax = 0,
-        questionCount = QWIZM.state.thisQuiz.length,
+        questionCount = state.thisQuiz.length,
         html = `<summary class="statement width95">`;
 
-    html += `<h3 class='width100'>Quiz Summary Table for user <span class="uname">${QWIZM.state.uname}</span>
+    html += `<h3 class='width100'>Quiz Summary Table for user <span class="uname">${state.uname}</span>
     <span class="fright">(Total Score 0/42)</span></h3>`;
     html += `<div class="table">`;
 
@@ -23,9 +26,9 @@ QWIZM.summary.display = () => {
         html += `<div class='items'>`;
         thisQuestionScore = 0;
         thisQuestionMax = 0;
-        qPartCount = QWIZM.state.thisQuiz[qNumber].length - 1;
+        qPartCount = state.thisQuiz[qNumber].length - 1;
         for (qPart = 1; qPart <= qPartCount; qPart++) {
-            let part = QWIZM.state.thisQuiz[qNumber][qPart];
+            let part = state.thisQuiz[qNumber][qPart];
             html += `<div class='item'>${part.partStatement}: ${part.userInput || 'a'}`;
             html += `</div>`;
 

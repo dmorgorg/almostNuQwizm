@@ -27,8 +27,6 @@ QWIZM.methods.viewsLoad = function (o) {
     $('#uname').focus();
   } // if there is a quiz item, load the state of the quiz
   else {
-      // let temp
-      // temp = JSON.parse(localStorage.getItem(quizId));
       QWIZM.state = QWIZM.methods.readFromLocalStorage(quizId);
       $('main').html(loadViews()); // set handlers for all the question answer inputs
 
