@@ -5,10 +5,10 @@ QWIZM.handlers = QWIZM.handlers || {}; // event handler for navigation button cl
 
 QWIZM.handlers.updateView = function (e) {
   // get the button just clicked
-  var btnId = e.target.id;
-  console.log('update view');
-  console.log(QWIZM.state);
-  console.log(QWIZM.methods.readFromLocalStorage(QWIZM.QUIZ_KEY));
+  var btnId = e.target.id; // console.log('update view');
+  // console.log(QWIZM.state);
+  // console.log(QWIZM.methods.readFromLocalStorage(QWIZM.QUIZ_KEY));
+
   QWIZM.state = QWIZM.methods.readFromLocalStorage(QWIZM.QUIZ_KEY); // if the view corresponding to the click is not currently visible...
 
   if (QWIZM.state.currentView + 'Btn' !== btnId) {

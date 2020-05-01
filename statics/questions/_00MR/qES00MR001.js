@@ -24,7 +24,7 @@ QWIZM.question.qES00MR001 = function (qNumber) {
       lcrng = new utils.LCRNG(seed);
   thisQuiz[qNumber] = []; // thisQuiz is created at valid login so may cause errors when building new questions; reset and login should handle those.
 
-  thisQuestion = thisQuiz[qNumber]; //inputs - defaults to workingDigs
+  var tQ = thisQuiz[qNumber]; //inputs - defaults to workingDigs
 
   var x = sd(lcrng.getNext(2, 4, 0.025)),
       y1 = sd(lcrng.getNext(0.7, 0.8, 0.01) * x),
@@ -78,13 +78,13 @@ QWIZM.question.qES00MR001 = function (qNumber) {
     top: 24
   }); // thisQuiz.push(questionPart)
 
-  thisQuestion[arrayCount++] = {
+  tQ[arrayCount++] = {
     partStatement: "!$ BF !$",
     units: 'm',
     marks: 5,
     correctSoln: BF
   };
-  thisQuestion[arrayCount++] = {
+  tQ[arrayCount++] = {
     partStatement: "!$ CE !$",
     units: 'm',
     marks: 4,

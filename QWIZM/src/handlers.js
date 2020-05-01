@@ -6,9 +6,9 @@ QWIZM.handlers.updateView = e => {
     // get the button just clicked
     let btnId = e.target.id;
 
-    console.log('update view');
-    console.log(QWIZM.state);
-    console.log(QWIZM.methods.readFromLocalStorage(QWIZM.QUIZ_KEY));
+    // console.log('update view');
+    // console.log(QWIZM.state);
+    // console.log(QWIZM.methods.readFromLocalStorage(QWIZM.QUIZ_KEY));
 
     QWIZM.state = QWIZM.methods.readFromLocalStorage(QWIZM.QUIZ_KEY);
 
