@@ -16,7 +16,6 @@ QWIZM.question.qES00MR001 = (qNumber) => {
         thisQuiz = QWIZM.state.thisQuiz,
         thisQuestion = thisQuiz[qNumber],
         ov = QWIZM.methods.overlayVariable,
-        qp = QWIZM.methods.questionPart,
         arrayCount = 0;
 
     let qId = 1000003, // question ID number, unique to this question        
@@ -24,7 +23,7 @@ QWIZM.question.qES00MR001 = (qNumber) => {
         lcrng = new utils.LCRNG(seed);
 
     thisQuiz[qNumber] = []; // thisQuiz is created at valid login so may cause errors when building new questions; reset and login should handle those.
-    let tQ = thisQuiz[qNumber];
+    thisQuestion = thisQuiz[qNumber];
 
     //inputs - defaults to workingDigs
     let x = sd(lcrng.getNext(2, 4, 0.025)),
@@ -83,14 +82,14 @@ QWIZM.question.qES00MR001 = (qNumber) => {
         });
 
     // thisQuiz.push(questionPart)
-    tQ[arrayCount++] = {
+    thisQuestion[arrayCount++] = {
         partStatement: `!$ BF !$`,
         units: 'm',
         marks: 5,
         correctSoln: BF
     };
 
-    tQ[arrayCount++] = {
+    thisQuestion[arrayCount++] = {
         partStatement: `!$ CE !$`,
         units: 'm',
         marks: 4,
