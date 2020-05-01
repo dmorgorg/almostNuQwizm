@@ -24,6 +24,7 @@ QWIZM.methods.viewsLoad = function (o) {
     $('#uname').focus();
   } // if there is a quiz item, load the state of the quiz
   else {
+      // User has a login and site is reloading. Get state from localStorage.
       QWIZM.state = QWIZM.methods.readFromLocalStorage(quizId);
       console.log('top of else');
       console.log(QWIZM.state);
@@ -34,7 +35,9 @@ QWIZM.methods.viewsLoad = function (o) {
 
       $('.view').hide();
       $('#' + QWIZM.state.currentView + 'Btn').addClass("active");
-      $('#' + QWIZM.state.currentView).fadeIn();
+      $('#' + QWIZM.state.currentView).fadeIn(); // console.log('bottom of viewsLoad');
+      // console.log(QWIZM.state);
+
       QWIZM.methods.writeToLocalStorage(QWIZM.QUIZ_KEY, QWIZM.state);
     }
 
@@ -52,7 +55,9 @@ QWIZM.methods.viewsLoad = function (o) {
       html += "</section>";
     }
 
-    html += "<section id='summary' class='view'>".concat(QWIZM.summary.display(), "</section>");
+    html += "<section id='summary' class='view'>".concat(QWIZM.summary.display(), "</section>"); // console.log('bottom of loadViews');
+    // console.log(QWIZM.state);
+
     return html;
   }
 
@@ -91,12 +96,6 @@ QWIZM.methods.viewsLoad = function (o) {
         // string to float
     part = QWIZM.state.thisQuiz[q][p],
         feedback = '';
-    part.userInput = userInput;
-    part.feedback = '';
-    part.score = 0;
-    part.isAnswered = false;
-    part.isCorrect = false;
-    part.half = false;
 
     if (isNaN(parsedInput)) {
       if (userInput.length === 0) {
@@ -133,8 +132,8 @@ QWIZM.methods.viewsLoad = function (o) {
     part.feedback = feedback;
     QWIZM.state.thisQuiz[q][p] = part;
     QWIZM.methods.writeToLocalStorage(QWIZM.QUIZ_KEY, QWIZM.state); //changes made to state so save it
-    // $('#summary').html(QWIZM.summary.display());
 
+    $('#summary').html(QWIZM.summary.display());
     console.log('bottom of check answer');
     console.log(QWIZM.state);
     console.log(QWIZM.methods.readFromLocalStorage(QWIZM.QUIZ_KEY));
@@ -155,7 +154,9 @@ QWIZM.methods.questionParts = function (qN) {
     html += "<button id=".concat(partId, " type='button' class='markButton'>Enter</button>");
     html += "<div id='q".concat(qN, "part").concat(part, "crosscheck' class='crosscheck'>&nbsp;</div>");
     html += "<div id='q".concat(qN, "part").concat(part, "feedback' class='feedback'>(").concat(parts[part].marks, " marks)</div>");
-  }
+  } // don't think we need this, not mutating anything...
+  //QWIZM.methods.writeToLocalStorage(QWIZM.QUIZ_KEY, QWIZM.state); //changes made to state so save it
+
 
   return html;
 };

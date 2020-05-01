@@ -43,6 +43,9 @@ QWIZM.methods.viewsLoad = o => {
         $('#' + QWIZM.state.currentView + 'Btn').addClass("active");
         $('#' + QWIZM.state.currentView).fadeIn();
 
+        // console.log('bottom of viewsLoad');
+        // console.log(QWIZM.state);
+
         QWIZM.methods.writeToLocalStorage(QWIZM.QUIZ_KEY, QWIZM.state);
     }
 
@@ -66,6 +69,9 @@ QWIZM.methods.viewsLoad = o => {
         }
 
         html += `<section id='summary' class='view'>${QWIZM.summary.display()}</section>`;
+
+        // console.log('bottom of loadViews');
+        // console.log(QWIZM.state);
 
         return html;
     }
@@ -95,13 +101,6 @@ QWIZM.methods.viewsLoad = o => {
             parsedInput = parseFloat(userInput), // string to float
             part = QWIZM.state.thisQuiz[q][p],
             feedback = '';
-
-        part.userInput = userInput;
-        part.feedback = '';
-        part.score = 0;
-        part.isAnswered = false;
-        part.isCorrect = false;
-        part.half = false;
 
         if (isNaN(parsedInput)) {
             if (userInput.length === 0) {
@@ -135,7 +134,8 @@ QWIZM.methods.viewsLoad = o => {
         part.feedback = feedback;
         QWIZM.state.thisQuiz[q][p] = part;
         QWIZM.methods.writeToLocalStorage(QWIZM.QUIZ_KEY, QWIZM.state); //changes made to state so save it
-        // $('#summary').html(QWIZM.summary.display());
+        $('#summary').html(QWIZM.summary.display());
+
         console.log('bottom of check answer');
         console.log(QWIZM.state);
         console.log(QWIZM.methods.readFromLocalStorage(QWIZM.QUIZ_KEY));
@@ -156,6 +156,9 @@ QWIZM.methods.questionParts = (qN) => {
         html += `<div id='q${qN}part${part}crosscheck' class='crosscheck'>&nbsp;</div>`;
         html += `<div id='q${qN}part${part}feedback' class='feedback'>(${parts[part].marks} marks)</div>`;
     }
+    // don't think we need this, not mutating anything...
+    //QWIZM.methods.writeToLocalStorage(QWIZM.QUIZ_KEY, QWIZM.state); //changes made to state so save it
+
     return html;
 }
 

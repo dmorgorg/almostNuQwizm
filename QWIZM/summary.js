@@ -6,8 +6,9 @@ QWIZM.summary = function () {}; //constructor, not sure why is need this
 
 
 QWIZM.summary.display = function () {
-  // console.log('in summary');
-  // console.log(QWIZM.state);
+  console.log('in summary');
+  console.log(QWIZM.state);
+  console.log(QWIZM.methods.readFromLocalStorage(QWIZM.QUIZ_KEY));
   var totalScore = 0,
       maxPossible = 0,
       qNumber,
@@ -18,7 +19,7 @@ QWIZM.summary.display = function () {
       state = QWIZM.state,
       questionCount = state.thisQuiz.length,
       html = "<summary class=\"statement width95\">";
-  html += "<h3 class='width100'>Quiz Summary Table for user <span class=\"uname\">".concat(state.uname, "</span>\n    <span class=\"fright\">(Total Score 0/42)</span></h3>");
+  html += "<h3 class='width100'>Quiz Summary Table for user <span class=\"uname\">".concat(state.uname, "</span>\n    <span class=\"fright\">(Total Score ").concat(totalScore, "/").concat(maxPossible, ")</span></h3>");
   html += "<div class=\"table\">";
 
   for (qNumber = 1; qNumber < questionCount; qNumber++) {

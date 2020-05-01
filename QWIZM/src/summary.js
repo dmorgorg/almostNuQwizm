@@ -2,8 +2,9 @@ let QWIZM = QWIZM || {};
 QWIZM.summary = () => {}; //constructor, not sure why is need this
 QWIZM.summary.display = () => {
 
-    // console.log('in summary');
-    // console.log(QWIZM.state);
+    console.log('in summary');
+    console.log(QWIZM.state);
+    console.log(QWIZM.methods.readFromLocalStorage(QWIZM.QUIZ_KEY));
 
     let totalScore = 0,
         maxPossible = 0,
@@ -17,7 +18,7 @@ QWIZM.summary.display = () => {
         html = `<summary class="statement width95">`;
 
     html += `<h3 class='width100'>Quiz Summary Table for user <span class="uname">${state.uname}</span>
-    <span class="fright">(Total Score 0/42)</span></h3>`;
+    <span class="fright">(Total Score ${totalScore}/${maxPossible})</span></h3>`;
     html += `<div class="table">`;
 
     for (qNumber = 1; qNumber < questionCount; qNumber++) {

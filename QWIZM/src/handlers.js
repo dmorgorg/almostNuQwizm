@@ -1,12 +1,17 @@
 let QWIZM = QWIZM || {};
-QWIZM.state = QWIZM.state || {}; // an object to hold everything that goes in localStorage
 QWIZM.handlers = QWIZM.handlers || {};
-
 
 // event handler for navigation button click
 QWIZM.handlers.updateView = e => {
     // get the button just clicked
     let btnId = e.target.id;
+
+    console.log('update view');
+    console.log(QWIZM.state);
+    console.log(QWIZM.methods.readFromLocalStorage(QWIZM.QUIZ_KEY));
+
+    QWIZM.state = QWIZM.methods.readFromLocalStorage(QWIZM.QUIZ_KEY);
+
     // if the view corresponding to the click is not currently visible...
     if (QWIZM.state.currentView + 'Btn' !== btnId) {
         // remove .active from previous view
@@ -16,7 +21,6 @@ QWIZM.handlers.updateView = e => {
         QWIZM.state.currentView = btnId.replace('Btn', '');
         // show that the newly clicked button is active
         $('#' + btnId).addClass("active");
-        //console.log(QWIZM.state.currentView);
         $('#' + QWIZM.state.currentView).fadeIn(QWIZM.DURATION);
         QWIZM.methods.writeToLocalStorage(QWIZM.QUIZ_KEY, QWIZM.state);
     }
@@ -65,6 +69,7 @@ QWIZM.handlers.validateLogin = (e) => {
     }
 
     if (valid) {
+        QWIZM.state = {};
         QWIZM.state.uname = uname;
         QWIZM.state.uId = uId;
         QWIZM.state.currentView = 'instructions';
