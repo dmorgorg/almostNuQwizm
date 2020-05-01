@@ -16,7 +16,8 @@ QWIZM.question.qES00MR001 = (qNumber) => {
         thisQuiz = QWIZM.state.thisQuiz,
         thisQuestion = thisQuiz[qNumber],
         ov = QWIZM.methods.overlayVariable,
-        qp = QWIZM.methods.questionPart;
+        qp = QWIZM.methods.questionPart,
+        arrayCount = 0;
 
     let qId = 1000003, // question ID number, unique to this question        
         seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
@@ -82,19 +83,19 @@ QWIZM.question.qES00MR001 = (qNumber) => {
         });
 
     // thisQuiz.push(questionPart)
-    tQ.push({
+    tQ[arrayCount++] = {
         partStatement: `!$ BF !$`,
         units: 'm',
         marks: 5,
         correctSoln: BF
-    });
+    };
 
-    tQ.push({
+    tQ[arrayCount++] = {
         partStatement: `!$ CE !$`,
         units: 'm',
         marks: 4,
         correctSoln: CE
-    });
+    };
 
     return `<div class='statement width50'><h3>Q${qNumber}</h3>: 
     ${statement}</div>

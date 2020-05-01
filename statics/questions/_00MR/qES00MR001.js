@@ -17,7 +17,8 @@ QWIZM.question.qES00MR001 = function (qNumber) {
       thisQuiz = QWIZM.state.thisQuiz,
       thisQuestion = thisQuiz[qNumber],
       ov = QWIZM.methods.overlayVariable,
-      qp = QWIZM.methods.questionPart;
+      qp = QWIZM.methods.questionPart,
+      arrayCount = 0;
   var qId = 1000003,
       // question ID number, unique to this question        
   seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
@@ -78,17 +79,17 @@ QWIZM.question.qES00MR001 = function (qNumber) {
     top: 24
   }); // thisQuiz.push(questionPart)
 
-  tQ.push({
+  tQ[arrayCount++] = {
     partStatement: "!$ BF !$",
     units: 'm',
     marks: 5,
     correctSoln: BF
-  });
-  tQ.push({
+  };
+  tQ[arrayCount++] = {
     partStatement: "!$ CE !$",
     units: 'm',
     marks: 4,
     correctSoln: CE
-  });
+  };
   return "<div class='statement width50'><h3>Q".concat(qNumber, "</h3>: \n    ").concat(statement, "</div>\n    <div id = '").concat(qId, "img' class='image width60'>\n    <img src= ").concat(img, ">\n    ").concat(iV1, "\n    ").concat(iV2, "\n    ").concat(iV3, "\n    ").concat(iV4, "\n    ").concat(iV5, "\n    ").concat(iV6, "\n    </div>\n    <form autocomplete=\"off\"><div class='parts width45'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
 };
