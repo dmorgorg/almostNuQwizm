@@ -179,6 +179,37 @@ footer {
   text-shadow: 0.12vw 0.12vw 0.25vw black;
 }
 
+.cross:before {
+  color: maroon;
+  content: "\2718";
+  font-size: 125%;
+  font-weight: bold;
+}
+
+.check:before {
+  color: #080;
+  content: "\2714";
+  font-size: 125%;
+  font-weight: bold;
+  -ms-grid-column-align: start;
+      justify-self: start;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+.qm:before {
+  color: #666;
+  content: "\003F";
+  font-size: 125%;
+  font-weight: bold;
+  -ms-grid-column-align: start;
+      justify-self: start;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
 #summary summary.statement {
   margin: 0 auto;
 }
@@ -193,9 +224,11 @@ footer {
 #summary summary.statement .uname {
   color: white;
   font-family: "Architects Daughter";
+  font-size: 125%;
   text-align: right;
   text-shadow: 0.12vw 0.12vw 0.25vw black;
   letter-spacing: 0.1vw;
+  padding-left: 1vw;
 }
 
 #summary .table {
@@ -240,6 +273,37 @@ footer {
   -webkit-box-flex: 0;
       -ms-flex-positive: 0;
           flex-grow: 0;
+}
+
+#summary .table .row .items .item .check:before {
+  color: #080;
+  content: "\2714";
+  font-size: 100%;
+  font-weight: bold;
+  -ms-grid-column-align: start;
+      justify-self: start;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+#summary .table .row .items .item .cross:before {
+  color: maroon;
+  content: "\2718";
+  font-size: 100%;
+  font-weight: bold;
+}
+
+#summary .table .row .items .item .qm:before {
+  color: #666;
+  content: "\003F";
+  font-size: 100%;
+  font-weight: bold;
+  -ms-grid-column-align: start;
+      justify-self: start;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
 }
 
 #summary .table .row:nth-child(2n + 1) {
@@ -405,25 +469,6 @@ input.partInput {
 
 input.partInput:focus {
   border: 0.3vw solid #aeaeae;
-}
-
-.cross:before {
-  color: maroon;
-  content: "\2718";
-  font-size: 125%;
-  font-weight: bold;
-}
-
-.check:before {
-  color: #080;
-  content: "\2714";
-  font-size: 125%;
-  font-weight: bold;
-  -ms-grid-column-align: start;
-      justify-self: start;
-  -ms-flex-item-align: center;
-      -ms-grid-row-align: center;
-      align-self: center;
 }
 
 .units {

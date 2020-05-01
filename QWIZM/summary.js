@@ -19,7 +19,7 @@ QWIZM.summary.display = function () {
       state = QWIZM.state,
       questionCount = state.thisQuiz.length,
       html = "<summary class=\"statement width95\">";
-  html += "<h3 class='width100'>Quiz Summary Table for user <span class=\"uname\">".concat(state.uname, "</span>\n    <span class=\"fright\">(Total Score ").concat(totalScore, "/").concat(maxPossible, ")</span></h3>");
+  html += "<h3 class='width100'>Quiz Summary Table for user: <span class=\"uname\">".concat(state.uname, "</span>\n    <span class=\"fright\">(Total Score ").concat(totalScore, "/").concat(maxPossible, ")</span></h3>");
   html += "<div class=\"table\">";
 
   for (qNumber = 1; qNumber < questionCount; qNumber++) {
@@ -31,7 +31,7 @@ QWIZM.summary.display = function () {
 
     for (qPart = 1; qPart <= qPartCount; qPart++) {
       var part = state.thisQuiz[qNumber][qPart];
-      html += "<div class='item'>".concat(part.partStatement, ": ").concat(part.userInput || 'a');
+      html += "<div class='item'>".concat(part.partStatement, ": ").concat(part.userInput || '<span class="qm" />');
       html += "</div>";
     }
 

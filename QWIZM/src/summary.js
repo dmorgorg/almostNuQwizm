@@ -17,7 +17,7 @@ QWIZM.summary.display = () => {
         questionCount = state.thisQuiz.length,
         html = `<summary class="statement width95">`;
 
-    html += `<h3 class='width100'>Quiz Summary Table for user <span class="uname">${state.uname}</span>
+    html += `<h3 class='width100'>Quiz Summary Table for user: <span class="uname">${state.uname}</span>
     <span class="fright">(Total Score ${totalScore}/${maxPossible})</span></h3>`;
     html += `<div class="table">`;
 
@@ -29,7 +29,7 @@ QWIZM.summary.display = () => {
         qPartCount = state.thisQuiz[qNumber].length - 1;
         for (qPart = 1; qPart <= qPartCount; qPart++) {
             let part = state.thisQuiz[qNumber][qPart];
-            html += `<div class='item'>${part.partStatement}: ${part.userInput || 'a'}`;
+            html += `<div class='item'>${part.partStatement}: ${part.userInput || '<span class="qm" />'}`;
             html += `</div>`;
         }
 

@@ -204,6 +204,32 @@ footer {
   }
 }
 
+.cross:before {
+  color: maroon;
+  content: "\2718";
+  // content: "&#10008";
+  font-size: 125%;
+  font-weight: bold;
+}
+
+.check:before {
+  color: #080;
+  content: "\2714";
+  font-size: 125%;
+  font-weight: bold;
+  justify-self: start;
+  align-self: center;
+}
+
+.qm:before {
+  color: #666;
+  content: "\003F";
+  font-size: 125%;
+  font-weight: bold;
+  justify-self: start;
+  align-self: center;
+}
+
 #summary {
   // background-color: #ddd;
   // position: relative;
@@ -226,13 +252,13 @@ footer {
     }
 
     & .uname {
-      // color: lighten($PRIMARY, 10);
       color: white;
       font-family: "Architects Daughter";
-      // font-size: 115%;
+      font-size: 125%;
       text-align: right;
       text-shadow: 0.12vw 0.12vw 0.25vw black;
       letter-spacing: 0.1vw;
+      padding-left: 1vw;
     }
   }
 
@@ -268,6 +294,31 @@ footer {
           flex-shrink: 0;
           flex-grow: 0;
           // border: 1px solid green;
+
+          .check:before {
+            color: #080;
+            content: "\2714";
+            font-size: 100%;
+            font-weight: bold;
+            justify-self: start;
+            align-self: center;
+          }
+
+          .cross:before {
+            color: maroon;
+            content: "\2718";
+            font-size: 100%;
+            font-weight: bold;
+          }
+
+          .qm:before {
+            color: #666;
+            content: "\003F";
+            font-size: 100%;
+            font-weight: bold;
+            justify-self: start;
+            align-self: center;
+          }
         }
       }
 
@@ -470,22 +521,7 @@ input.partInput {
   }
 }
 
-.cross:before {
-  color: maroon;
-  content: "\2718";
-  // content: "&#10008";
-  font-size: 125%;
-  font-weight: bold;
-}
 
-.check:before {
-  color: #080;
-  content: "\2714";
-  font-size: 125%;
-  font-weight: bold;
-  justify-self: start;
-  align-self: center;
-}
 
 .units {
   // align-self: center;
