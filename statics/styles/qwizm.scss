@@ -231,34 +231,35 @@ footer {
 }
 
 #summary {
-  // background-color: #ddd;
-  // position: relative;
 
   & summary.statement {
-    // position: absolute;
-    // background-color: #ddd;
-    // height: 100%;
     margin: 0 auto;
-    // border: 1px solid black;
 
     & h3 {
-      display: block;
+      display: inline-block;
       background-color: $PRIMARY;
       color: white;
       // font-family: Quicksand;
       padding: 1vw 2vw;
-      // vertical-align: middle;
-      // float: right;
-    }
-
-    & .uname {
-      color: white;
-      font-family: "Architects Daughter";
+      vertical-align: bottom;
+      // font-weight: 500;
+      font-weight: normal;
       font-size: 125%;
-      text-align: right;
-      text-shadow: 0.12vw 0.12vw 0.25vw black;
-      letter-spacing: 0.1vw;
-      padding-left: 1vw;
+
+      & .total {
+        padding-top: 0.5vw;
+        // color: green;
+      }
+
+      & .uname {
+        color: white;
+        font-family: "Architects Daughter";
+        font-size: 125%;
+        text-align: right;
+        text-shadow: 0.12vw 0.12vw 0.25vw black;
+        letter-spacing: 0.1vw;
+        // padding-left: 0.5vw;
+      }
     }
   }
 
@@ -274,8 +275,20 @@ footer {
       & .qNumber {
         display: inline-block;
         font-size: 115%;
-        width: 20%;
+        width: 16%;
         align-self: start;
+        // border: solid 1px green;
+        padding: 0;
+        // height: 100%;
+        // border-right: 1px solid #aaa;
+
+        .questionMarks {
+          color: #666;
+          margin-left: 0.2vw;
+          font-size: 90%;
+          padding: 0;
+          align-self: center;
+        }
       }
 
       & .items {
@@ -284,7 +297,7 @@ footer {
         display: flex;
         flex-wrap: wrap;
         // border: 1px solid black;
-        width: 80%;
+        width: 84%;
         text-align: top;
 
 
@@ -293,30 +306,53 @@ footer {
           // min-width: 10em;
           flex-shrink: 0;
           flex-grow: 0;
-          // border: 1px solid green;
+          display: flex;
+          align-items: center;
+          // border: 1px solid black;
 
-          .check:before {
+          & .ps {
+            text-align: right;
+            flex-basis: 30%;
+          }
+
+          & .ui {
+            flex-basis: 25%;
+            text-align: center;
+          }
+
+          & .symb {
+            flex-basis: 8%;
+            text-align: left;
+            // border: 1px solid blue;
+          }
+
+          & .marked {
+            flex-basis: 15%;
+            // border: 1px solid yellow;
+            text-align: center;
+          }
+
+          & .check:before {
             color: #080;
             content: "\2714";
-            font-size: 100%;
+            font-size: 120%;
             font-weight: bold;
-            justify-self: start;
-            align-self: center;
           }
 
-          .cross:before {
+          & .cross:before {
             color: maroon;
             content: "\2718";
-            font-size: 100%;
+            font-size: 120%;
             font-weight: bold;
           }
 
-          .qm:before {
+          & .qm:before {
             color: #666;
-            content: "\003F";
+            content: "\003f";
+            // font-size: 220%;
             font-size: 100%;
-            font-weight: bold;
-            justify-self: start;
+            font-weight: 600;
+
             align-self: center;
           }
         }

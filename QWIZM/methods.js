@@ -130,6 +130,7 @@ QWIZM.methods.viewsLoad = function (o) {
 
     $('#' + feedbackId).text(feedback);
     part.feedback = feedback;
+    part.userInput = userInput;
     QWIZM.state.thisQuiz[q][p] = part;
     QWIZM.methods.writeToLocalStorage(QWIZM.QUIZ_KEY, QWIZM.state); //changes made to state so save it
 
