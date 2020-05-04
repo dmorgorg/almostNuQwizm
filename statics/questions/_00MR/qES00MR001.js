@@ -4,6 +4,8 @@ var QWIZM = QWIZM || {};
 QWIZM.question = QWIZM.question || {};
 
 QWIZM.question.qES00MR001 = function (qNumber) {
+  var qId = 1000003; // question ID number, unique to this question    
+
   var //state = QWIZM.methods.readFromLocalStorage(QWIZM.QUIZ_KEY),
   uId = QWIZM.state.uId,
       sd = QWIZM.methods.toSigDigs,
@@ -15,16 +17,11 @@ QWIZM.question.qES00MR001 = function (qNumber) {
       tan = utils.tan,
       atan = utils.atan,
       thisQuiz = QWIZM.state.thisQuiz,
-      thisQuestion = thisQuiz[qNumber],
-      ov = QWIZM.methods.overlayVariable,
-      arrayCount = 0;
-  var qId = 1000003,
-      // question ID number, unique to this question        
-  seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
-      lcrng = new utils.LCRNG(seed);
-  thisQuiz[qNumber] = []; // thisQuiz is created at valid login so may cause errors when building new questions; reset and login should handle those.
-
-  var tQ = thisQuiz[qNumber]; //inputs - defaults to workingDigs
+      // thisQuestion = thisQuiz[qNumber],
+  ov = QWIZM.methods.overlayVariable,
+      arrayCount = 0,
+      seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
+      lcrng = new utils.LCRNG(seed); //inputs - defaults to workingDigs
 
   var x = sd(lcrng.getNext(2, 4, 0.025)),
       y1 = sd(lcrng.getNext(0.7, 0.8, 0.01) * x),
@@ -76,7 +73,9 @@ QWIZM.question.qES00MR001 = function (qNumber) {
     input: y2 + ' m',
     left: 88,
     top: 24
-  }); // thisQuiz.push(questionPart)
+  });
+  thisQuiz[qNumber] = [];
+  var tQ = thisQuiz[qNumber]; // thisQuiz.push(questionPart)
 
   tQ[arrayCount++] = {
     partStatement: "!$ BF !$",
