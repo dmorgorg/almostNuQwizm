@@ -36,7 +36,7 @@ QWIZM.summary.display = () => {
         <span class = "fright total" > Total Score: &nbsp; ${quizScore}&thinsp;/&thinsp;${quizPossible}</span></h3>`;
     html += `<div class="table">`;
 
-    for (qNumber = 1; qNumber < questionCount; qNumber++) {
+    for (qNumber = 1; qNumber <= questionCount; qNumber++) {
 
         qPartCount = state.thisQuiz[qNumber].length - 1;
         questionScore = 0;

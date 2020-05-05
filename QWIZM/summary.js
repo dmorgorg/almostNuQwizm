@@ -39,7 +39,7 @@ QWIZM.summary.display = function () {
   html += "<h3 class='width100'>Quiz Summary Table for <span class=\"uname\">".concat(state.uname, "</span>\n        <span class = \"fright total\" > Total Score: &nbsp; ").concat(quizScore, "&thinsp;/&thinsp;").concat(quizPossible, "</span></h3>");
   html += "<div class=\"table\">";
 
-  for (qNumber = 1; qNumber < questionCount; qNumber++) {
+  for (qNumber = 1; qNumber <= questionCount; qNumber++) {
     qPartCount = state.thisQuiz[qNumber].length - 1;
     questionScore = 0;
     questionPossible = 0; // get questionScore and questionPossible
