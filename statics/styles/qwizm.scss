@@ -245,6 +245,7 @@ footer {
       // font-weight: 500;
       font-weight: normal;
       font-size: 125%;
+      border: $PRIMARY;
 
       & .total {
         padding-top: 0.5vw;
@@ -265,27 +266,34 @@ footer {
 
   & .table {
     width: 100%;
-    border: $SUMMARY_BORDER;
-    border-top: none;
+    background: #888;
+
 
     & .row {
       padding: 0.5vw;
+      // padding-bottom: 0;
       display: flex;
+      // margin-bottom: 0;
+      // padding-bottom: 0;
+      border: $SUMMARY_BORDER;
+      border-top: none;
 
       & .qNumber {
         display: inline-block;
         font-size: 115%;
         width: 16%;
         align-self: start;
+        font-weight: bold;
         // border: solid 1px green;
         padding: 0;
         // height: 100%;
         // border-right: 1px solid #aaa;
 
         .questionMarks {
-          color: #666;
+          // color: #666;
           margin-left: 0.2vw;
           font-size: 90%;
+          font-weight: normal;
           padding: 0;
           align-self: center;
         }
@@ -368,7 +376,7 @@ footer {
     }
 
     .row+.row {
-      border-top: 1px solid #aaa;
+      // border-top: 1px solid #aaa;
     }
   }
 
