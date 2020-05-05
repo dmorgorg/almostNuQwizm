@@ -20,7 +20,10 @@ QWIZM.handlers.updateView = function (e) {
 
     $('#' + btnId).addClass("active");
     $('#' + QWIZM.state.currentView).fadeIn(QWIZM.DURATION);
-    QWIZM.methods.writeToLocalStorage(QWIZM.QUIZ_KEY, QWIZM.state);
+    QWIZM.methods.writeToLocalStorage(QWIZM.QUIZ_KEY, QWIZM.state); // if (QWIZM.state.currentView == 'summary') {
+    //     console.log('going to summary');
+    //     window.location.reload(true);
+    // }
   }
 };
 

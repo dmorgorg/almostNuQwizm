@@ -30,8 +30,8 @@ QWIZM.methods.viewsLoad = o => {
         // User has a login and site is reloading. Get state from localStorage.
         QWIZM.state = QWIZM.methods.readFromLocalStorage(quizId);
 
-        console.log('top of else');
-        console.log(QWIZM.state);
+        // console.log('top of else');
+        // console.log(QWIZM.state);
 
         $('main').html(loadViews());
         // set handlers for all the question answer inputs
@@ -137,9 +137,9 @@ QWIZM.methods.viewsLoad = o => {
         QWIZM.methods.writeToLocalStorage(QWIZM.QUIZ_KEY, QWIZM.state); //changes made to state so save it
         $('#summary').html(QWIZM.summary.display());
 
-        console.log('bottom of check answer');
-        console.log(QWIZM.state);
-        console.log(QWIZM.methods.readFromLocalStorage(QWIZM.QUIZ_KEY));
+        // console.log('bottom of check answer');
+        // console.log(QWIZM.state);
+        // console.log(QWIZM.methods.readFromLocalStorage(QWIZM.QUIZ_KEY));
     }
 };
 

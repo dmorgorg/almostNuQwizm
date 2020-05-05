@@ -17,8 +17,8 @@ QWIZM.question.qES00MR001 = function (qNumber) {
       tan = utils.tan,
       atan = utils.atan,
       thisQuiz = QWIZM.state.thisQuiz,
-      // thisQuestion = thisQuiz[qNumber],
-  ov = QWIZM.methods.overlayVariable,
+      thisQuestion,
+      ov = QWIZM.methods.overlayVariable,
       arrayCount = 0,
       seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
       lcrng = new utils.LCRNG(seed); //inputs - defaults to workingDigs
@@ -75,15 +75,15 @@ QWIZM.question.qES00MR001 = function (qNumber) {
     top: 24
   });
   thisQuiz[qNumber] = [];
-  var tQ = thisQuiz[qNumber]; // thisQuiz.push(questionPart)
+  thisQuestion = thisQuiz[qNumber]; // thisQuiz.push(questionPart)
 
-  tQ[arrayCount++] = {
+  thisQuestion[arrayCount++] = {
     partStatement: "!$ BF !$",
     units: 'm',
     marks: 5,
     correctSoln: BF
   };
-  tQ[arrayCount++] = {
+  thisQuestion[arrayCount++] = {
     partStatement: "!$ CE !$",
     units: 'm',
     marks: 4,
