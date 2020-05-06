@@ -80,25 +80,31 @@ QWIZM.question.qES00MR001 = (qNumber) => {
             top: 24
         });
 
+    if (!thisQuiz[qNumber]) {
+        thisQuiz[qNumber] = [];
+        thisQuestion = thisQuiz[qNumber];
 
-    thisQuiz[qNumber] = [];
-    thisQuestion = thisQuiz[qNumber];
+        // thisQuiz.push(questionPart)
+        thisQuestion[arrayCount++] = '';
+        thisQuestion[arrayCount++] = {
+            partStatement: `!$ BF !$`,
+            units: 'm',
+            marks: 5,
+            correctSoln: BF
+        };
 
-    // thisQuiz.push(questionPart)
-    thisQuestion[arrayCount++] = '';
-    thisQuestion[arrayCount++] = {
-        partStatement: `!$ BF !$`,
-        units: 'm',
-        marks: 5,
-        correctSoln: BF
-    };
+        thisQuestion[arrayCount++] = {
+            partStatement: `!$ CE !$`,
+            units: 'm',
+            marks: 4,
+            correctSoln: CE
+        };
+    }
 
-    thisQuestion[arrayCount++] = {
-        partStatement: `!$ CE !$`,
-        units: 'm',
-        marks: 4,
-        correctSoln: CE
-    };
+
+
+
+
 
     return `<div class='statement width50'><h3>Q${qNumber}</h3>: 
     ${statement}</div>

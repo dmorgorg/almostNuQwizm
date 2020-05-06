@@ -29,13 +29,6 @@ QWIZM.methods.viewsLoad = o => {
     else {
         // User has a login and site is reloading. Get state from localStorage.
         QWIZM.state = QWIZM.methods.readFromLocalStorage(quizId);
-        // alert('whoa');
-        // console.log(QWIZM.state);
-        // alert('whoa2');
-
-
-        console.log('top of else');
-        console.log(QWIZM.state);
 
         $('main').html(loadViews());
         // set handlers for all the question answer inputs
@@ -47,18 +40,12 @@ QWIZM.methods.viewsLoad = o => {
         $('#' + QWIZM.state.currentView + 'Btn').addClass("active");
         $('#' + QWIZM.state.currentView).fadeIn();
 
-        // console.log('bottom of viewsLoad');
-        // console.log(QWIZM.state);
-
         QWIZM.methods.writeToLocalStorage(QWIZM.QUIZ_KEY, QWIZM.state);
     }
 
     function loadViews() {
         let len = QWIZM.quiz.questions.length,
             html = '';
-
-        // console.log('top of loadViews');
-        // console.log(QWIZM.state);
 
         html += `<section id='instructions' class='view'>
                 ${QWIZM.quiz.instructions}</section>
@@ -73,9 +60,6 @@ QWIZM.methods.viewsLoad = o => {
         }
 
         html += `<section id='summary' class='view'>${QWIZM.summary.display()}</section>`;
-
-        // console.log('bottom of loadViews');
-        // console.log(QWIZM.state);
 
         return html;
     }
@@ -105,6 +89,7 @@ QWIZM.methods.viewsLoad = o => {
             parsedInput = parseFloat(userInput), // string to float
             part = QWIZM.state.thisQuiz[q][p],
             feedback = '';
+        part.score = 0;
 
         if (isNaN(parsedInput)) {
             if (userInput.length === 0) {
@@ -133,6 +118,7 @@ QWIZM.methods.viewsLoad = o => {
                 part.isCorrect = false;
                 feedback = `Try again. (0/${part.marks})`;
                 $('#' + crosscheckId).html('<span class="cross" />');
+                part.score = 0;
             }
         }
         $('#' + feedbackId).text(feedback);
@@ -142,9 +128,6 @@ QWIZM.methods.viewsLoad = o => {
         QWIZM.methods.writeToLocalStorage(QWIZM.QUIZ_KEY, QWIZM.state); //changes made to state so save it
         $('#summary').html(QWIZM.summary.display());
 
-        // console.log('bottom of check answer');
-        // console.log(QWIZM.state);
-        // console.log(QWIZM.methods.readFromLocalStorage(QWIZM.QUIZ_KEY));
     }
 };
 
@@ -156,11 +139,11 @@ QWIZM.methods.questionParts = (qN) => {
     for (let part = 1; part < numberOfParts; part++) {
         let partId = `q${qN}part${part}btn`
         html += `<div class='partStatement'>${parts[part].partStatement}:</div> `;
-        html += `<input type='text' id='q${qN}part${part}input' class='partInput'>`;
+        html += `<input type='text' id='q${qN}part${part}input' class='partInput' value=${parts[part].userInput || ''}>`;
         html += `<div class='units'>${parts[part].units}</div> `;
         html += `<button id=${partId} type='button' class='markButton'>Enter</button>`;
         html += `<div id='q${qN}part${part}crosscheck' class='crosscheck'>&nbsp;</div>`;
-        html += `<div id='q${qN}part${part}feedback' class='feedback'>(${parts[part].marks} marks)</div>`;
+        html += `<div id='q${qN}part${part}feedback' class='feedback'>(${parts[part].score}/${parts[part].marks} marks)</div>`;
     }
     // don't think we need this, not mutating anything...
     //QWIZM.methods.writeToLocalStorage(QWIZM.QUIZ_KEY, QWIZM.state); //changes made to state so save it

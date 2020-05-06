@@ -25,12 +25,7 @@ QWIZM.methods.viewsLoad = function (o) {
   } // if there is a quiz item, load the state of the quiz
   else {
       // User has a login and site is reloading. Get state from localStorage.
-      QWIZM.state = QWIZM.methods.readFromLocalStorage(quizId); // alert('whoa');
-      // console.log(QWIZM.state);
-      // alert('whoa2');
-
-      console.log('top of else');
-      console.log(QWIZM.state);
+      QWIZM.state = QWIZM.methods.readFromLocalStorage(quizId);
       $('main').html(loadViews()); // set handlers for all the question answer inputs
 
       setHandlers();
@@ -38,17 +33,13 @@ QWIZM.methods.viewsLoad = function (o) {
 
       $('.view').hide();
       $('#' + QWIZM.state.currentView + 'Btn').addClass("active");
-      $('#' + QWIZM.state.currentView).fadeIn(); // console.log('bottom of viewsLoad');
-      // console.log(QWIZM.state);
-
+      $('#' + QWIZM.state.currentView).fadeIn();
       QWIZM.methods.writeToLocalStorage(QWIZM.QUIZ_KEY, QWIZM.state);
     }
 
   function loadViews() {
     var len = QWIZM.quiz.questions.length,
-        html = ''; // console.log('top of loadViews');
-    // console.log(QWIZM.state);
-
+        html = '';
     html += "<section id='instructions' class='view'>\n                ".concat(QWIZM.quiz.instructions, "</section>\n                <section id='clear' class='card view' > ").concat(QWIZM.methods.writeClearView(), "</section>");
 
     for (var i = 1; i < len; i++) {
@@ -58,9 +49,7 @@ QWIZM.methods.viewsLoad = function (o) {
       html += "</section>";
     }
 
-    html += "<section id='summary' class='view'>".concat(QWIZM.summary.display(), "</section>"); // console.log('bottom of loadViews');
-    // console.log(QWIZM.state);
-
+    html += "<section id='summary' class='view'>".concat(QWIZM.summary.display(), "</section>");
     return html;
   }
 
@@ -99,6 +88,7 @@ QWIZM.methods.viewsLoad = function (o) {
         // string to float
     part = QWIZM.state.thisQuiz[q][p],
         feedback = '';
+    part.score = 0;
 
     if (isNaN(parsedInput)) {
       if (userInput.length === 0) {
@@ -129,6 +119,7 @@ QWIZM.methods.viewsLoad = function (o) {
         part.isCorrect = false;
         feedback = "Try again. (0/".concat(part.marks, ")");
         $('#' + crosscheckId).html('<span class="cross" />');
+        part.score = 0;
       }
     }
 
@@ -138,9 +129,7 @@ QWIZM.methods.viewsLoad = function (o) {
     QWIZM.state.thisQuiz[q][p] = part;
     QWIZM.methods.writeToLocalStorage(QWIZM.QUIZ_KEY, QWIZM.state); //changes made to state so save it
 
-    $('#summary').html(QWIZM.summary.display()); // console.log('bottom of check answer');
-    // console.log(QWIZM.state);
-    // console.log(QWIZM.methods.readFromLocalStorage(QWIZM.QUIZ_KEY));
+    $('#summary').html(QWIZM.summary.display());
   }
 };
 
@@ -152,11 +141,11 @@ QWIZM.methods.questionParts = function (qN) {
   for (var part = 1; part < numberOfParts; part++) {
     var partId = "q".concat(qN, "part").concat(part, "btn");
     html += "<div class='partStatement'>".concat(parts[part].partStatement, ":</div> ");
-    html += "<input type='text' id='q".concat(qN, "part").concat(part, "input' class='partInput'>");
+    html += "<input type='text' id='q".concat(qN, "part").concat(part, "input' class='partInput' value=").concat(parts[part].userInput || '', ">");
     html += "<div class='units'>".concat(parts[part].units, "</div> ");
     html += "<button id=".concat(partId, " type='button' class='markButton'>Enter</button>");
     html += "<div id='q".concat(qN, "part").concat(part, "crosscheck' class='crosscheck'>&nbsp;</div>");
-    html += "<div id='q".concat(qN, "part").concat(part, "feedback' class='feedback'>(").concat(parts[part].marks, " marks)</div>");
+    html += "<div id='q".concat(qN, "part").concat(part, "feedback' class='feedback'>(").concat(parts[part].score, "/").concat(parts[part].marks, " marks)</div>");
   } // don't think we need this, not mutating anything...
   //QWIZM.methods.writeToLocalStorage(QWIZM.QUIZ_KEY, QWIZM.state); //changes made to state so save it
 
