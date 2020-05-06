@@ -135,7 +135,7 @@ QWIZM.methods.questionParts = (qN) => {
     let html = ``,
         parts = QWIZM.state.thisQuiz[qN],
         numberOfParts = parts.length;
-    // parts.unshift('');
+
     for (let part = 1; part < numberOfParts; part++) {
         let partId = `q${qN}part${part}btn`
         html += `<div class='partStatement'>${parts[part].partStatement}:</div> `;

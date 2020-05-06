@@ -6,8 +6,7 @@ QWIZM.question = QWIZM.question || {};
 QWIZM.question.qES00MR001 = function (qNumber) {
   var qId = 1000003; // question ID number, unique to this question    
 
-  var //state = QWIZM.methods.readFromLocalStorage(QWIZM.QUIZ_KEY),
-  uId = QWIZM.state.uId,
+  var uId = QWIZM.state.uId,
       sd = QWIZM.methods.toSigDigs,
       stringify = QWIZM.methods.stringify,
       sin = utils.sin,

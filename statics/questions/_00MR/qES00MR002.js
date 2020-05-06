@@ -4,7 +4,8 @@ var QWIZM = QWIZM || {};
 QWIZM.question = QWIZM.question || {};
 
 QWIZM.question.qES00MR002 = function (qNumber) {
-  // common for import?
+  var qId = 1000033; // question ID number, unique to this question
+
   var uId = QWIZM.state.uId,
       sd = QWIZM.methods.toSigDigs,
       stringify = QWIZM.methods.stringify,
@@ -15,16 +16,11 @@ QWIZM.question.qES00MR002 = function (qNumber) {
       tan = utils.tan,
       atan = utils.atan,
       thisQuiz = QWIZM.state.thisQuiz,
-      thisQuestion = thisQuiz[qNumber],
+      thisQuestion,
       ov = QWIZM.methods.overlayVariable,
-      qp = QWIZM.methods.questionPart;
-  var qId = 1000033,
-      // question ID number, unique to this question
-  seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
-      lcrng = new utils.LCRNG(seed);
-  thisQuiz[qNumber] = []; // thisQuiz is created at valid login so may cause errors when building new questions; reset and login should handle those.
-
-  var tQ = thisQuiz[qNumber]; //inputs
+      arrayCount = 0,
+      seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
+      lcrng = new utils.LCRNG(seed); //inputs
   // console.log(stringify(lcrng.getNext(2, 4, 0.025)))
 
   var c = stringify(lcrng.getNext(2, 4, 0.025)),
@@ -57,20 +53,26 @@ QWIZM.question.qES00MR002 = function (qNumber) {
   }); //stringify
 
   a2 = stringify(a);
-  B = stringify(B); //console.log(thisQuestion[1]);
-  // thisQuiz.push(questionPart)
+  B = stringify(B);
 
-  tQ.push({
-    partStatement: "!$ BC !$",
-    units: 'm',
-    marks: 5,
-    correctSoln: a2
-  });
-  tQ.push({
-    partStatement: " !$ \\angle ABC !$",
-    units: '!$^\\circ!$',
-    marks: 4,
-    correctSoln: B
-  });
+  if (!thisQuiz[qNumber]) {
+    thisQuiz[qNumber] = [];
+    thisQuestion = thisQuiz[qNumber]; // thisQuiz.push(questionPart)
+
+    thisQuestion[arrayCount++] = '';
+    thisQuestion.push({
+      partStatement: "!$ BC !$",
+      units: 'm',
+      marks: 5,
+      correctSoln: a2
+    });
+    thisQuestion.push({
+      partStatement: " !$ \\angle ABC !$",
+      units: '!$^\\circ!$',
+      marks: 4,
+      correctSoln: B
+    });
+  }
+
   return "<div class='statement width50'><h3>Q".concat(qNumber, "</h3>: ").concat(statement, "<br>\n         </div>\n    <div id = '").concat(qId, "img' class='image width30'>\n    <img src= ").concat(img, ">\n    ").concat(iV1, "\n    ").concat(iV2, "\n    ").concat(iV3, "</div>\n    <form autocomplete=\"off\"><div class='parts width45'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
 };

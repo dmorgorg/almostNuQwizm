@@ -559,6 +559,9 @@ input.partInput {
   height: 3vw;
   place-self: center center;
   outline: none;
+  padding-left: 0.5vw;
+  padding-top: 0.35vw;
+  // vertical-align: middle;
 
   &:focus {
     border: 0.3vw solid darken($CARD_BACKGROUND, 25);

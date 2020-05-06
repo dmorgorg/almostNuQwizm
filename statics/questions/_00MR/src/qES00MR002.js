@@ -2,7 +2,8 @@ let QWIZM = QWIZM || {};
 QWIZM.question = QWIZM.question || {};
 
 QWIZM.question.qES00MR002 = (qNumber) => {
-    // common for import?
+    let qId = 1000033; // question ID number, unique to this question
+
     let uId = QWIZM.state.uId,
         sd = QWIZM.methods.toSigDigs,
         stringify = QWIZM.methods.stringify,
@@ -13,16 +14,11 @@ QWIZM.question.qES00MR002 = (qNumber) => {
         tan = utils.tan,
         atan = utils.atan,
         thisQuiz = QWIZM.state.thisQuiz,
-        thisQuestion = thisQuiz[qNumber],
+        thisQuestion,
         ov = QWIZM.methods.overlayVariable,
-        qp = QWIZM.methods.questionPart;
-
-    let qId = 1000033, // question ID number, unique to this question
+        arrayCount = 0,
         seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
         lcrng = new utils.LCRNG(seed);
-
-    thisQuiz[qNumber] = []; // thisQuiz is created at valid login so may cause errors when building new questions; reset and login should handle those.
-    let tQ = thisQuiz[qNumber];
 
     //inputs
     // console.log(stringify(lcrng.getNext(2, 4, 0.025)))
@@ -63,21 +59,25 @@ QWIZM.question.qES00MR002 = (qNumber) => {
     a2 = stringify(a);
     B = stringify(B);
 
-    //console.log(thisQuestion[1]);
+    if (!thisQuiz[qNumber]) {
+        thisQuiz[qNumber] = [];
+        thisQuestion = thisQuiz[qNumber];
 
-    // thisQuiz.push(questionPart)
-    tQ.push({
-        partStatement: `!$ BC !$`,
-        units: 'm',
-        marks: 5,
-        correctSoln: a2
-    });
-    tQ.push({
-        partStatement: ` !$ \\angle ABC !$`,
-        units: '!$^\\circ!$',
-        marks: 4,
-        correctSoln: B
-    });
+        // thisQuiz.push(questionPart)
+        thisQuestion[arrayCount++] = '';
+        thisQuestion.push({
+            partStatement: `!$ BC !$`,
+            units: 'm',
+            marks: 5,
+            correctSoln: a2
+        });
+        thisQuestion.push({
+            partStatement: ` !$ \\angle ABC !$`,
+            units: '!$^\\circ!$',
+            marks: 4,
+            correctSoln: B
+        });
+    }
 
 
     return `<div class='statement width50'><h3>Q${qNumber}</h3>: ${statement}<br>
