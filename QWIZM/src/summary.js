@@ -19,7 +19,7 @@ QWIZM.summary.display = () => {
         html = `<summary class="statement width95">`;
 
     // get quizScore and quizPossible for header
-    for (let qNumber = 1; qNumber < questionCount; qNumber++) {
+    for (let qNumber = 1; qNumber <= questionCount; qNumber++) {
         let qPartCount = state.thisQuiz[qNumber].length - 1;
         questionScore = 0;
         questionPossible = 0;

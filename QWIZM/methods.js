@@ -25,9 +25,12 @@ QWIZM.methods.viewsLoad = function (o) {
   } // if there is a quiz item, load the state of the quiz
   else {
       // User has a login and site is reloading. Get state from localStorage.
-      QWIZM.state = QWIZM.methods.readFromLocalStorage(quizId); // console.log('top of else');
+      QWIZM.state = QWIZM.methods.readFromLocalStorage(quizId); // alert('whoa');
       // console.log(QWIZM.state);
+      // alert('whoa2');
 
+      console.log('top of else');
+      console.log(QWIZM.state);
       $('main').html(loadViews()); // set handlers for all the question answer inputs
 
       setHandlers();
@@ -105,6 +108,7 @@ QWIZM.methods.viewsLoad = function (o) {
       }
 
       $('#' + crosscheckId).html('<span class="cross" />');
+      userInput = '';
     } else {
       part.isAnswered = true;
 
@@ -143,10 +147,9 @@ QWIZM.methods.viewsLoad = function (o) {
 QWIZM.methods.questionParts = function (qN) {
   var html = "",
       parts = QWIZM.state.thisQuiz[qN],
-      numberOfParts = parts.length;
-  parts.unshift('');
+      numberOfParts = parts.length; // parts.unshift('');
 
-  for (var part = 1; part <= numberOfParts; part++) {
+  for (var part = 1; part < numberOfParts; part++) {
     var partId = "q".concat(qN, "part").concat(part, "btn");
     html += "<div class='partStatement'>".concat(parts[part].partStatement, ":</div> ");
     html += "<input type='text' id='q".concat(qN, "part").concat(part, "input' class='partInput'>");

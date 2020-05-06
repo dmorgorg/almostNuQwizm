@@ -85,6 +85,7 @@ QWIZM.question.qES00MR001 = (qNumber) => {
     thisQuestion = thisQuiz[qNumber];
 
     // thisQuiz.push(questionPart)
+    thisQuestion[arrayCount++] = '';
     thisQuestion[arrayCount++] = {
         partStatement: `!$ BF !$`,
         units: 'm',

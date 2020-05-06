@@ -29,9 +29,13 @@ QWIZM.methods.viewsLoad = o => {
     else {
         // User has a login and site is reloading. Get state from localStorage.
         QWIZM.state = QWIZM.methods.readFromLocalStorage(quizId);
-
-        // console.log('top of else');
+        // alert('whoa');
         // console.log(QWIZM.state);
+        // alert('whoa2');
+
+
+        console.log('top of else');
+        console.log(QWIZM.state);
 
         $('main').html(loadViews());
         // set handlers for all the question answer inputs
@@ -109,6 +113,7 @@ QWIZM.methods.viewsLoad = o => {
                 feedback = `Not numerical input! (0/${part.marks})`;
             }
             $('#' + crosscheckId).html('<span class="cross" />');
+            userInput = '';
         } else {
             part.isAnswered = true;
             if (parsedInput == part.correctSoln) {
@@ -147,8 +152,8 @@ QWIZM.methods.questionParts = (qN) => {
     let html = ``,
         parts = QWIZM.state.thisQuiz[qN],
         numberOfParts = parts.length;
-    parts.unshift('');
-    for (let part = 1; part <= numberOfParts; part++) {
+    // parts.unshift('');
+    for (let part = 1; part < numberOfParts; part++) {
         let partId = `q${qN}part${part}btn`
         html += `<div class='partStatement'>${parts[part].partStatement}:</div> `;
         html += `<input type='text' id='q${qN}part${part}input' class='partInput'>`;
