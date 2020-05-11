@@ -49,3 +49,7 @@ utils.makeInputAlpha = (str) => {
 utils.makeInputInteger = (str) => {
     return str.replace(/[^\d]+/, '');
 };
+
+utils.encode = (number, seed) => {
+
+}

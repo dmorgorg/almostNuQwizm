@@ -2,6 +2,9 @@ let QWIZM = QWIZM || {};
 QWIZM.question = QWIZM.question || {};
 
 QWIZM.question.qES00MR005 = (qNumber) => {
+
+    let qId = 1000081; // question ID number, unique to this question 
+
     // common for import?
     let uId = QWIZM.state.uId,
         sd = QWIZM.methods.toSigDigs,
@@ -13,15 +16,13 @@ QWIZM.question.qES00MR005 = (qNumber) => {
         tan = utils.tan,
         atan = utils.atan,
         thisQuiz = QWIZM.state.thisQuiz,
+        thisQuestion,
         ov = QWIZM.methods.overlayVariable,
-        qp = QWIZM.methods.questionPart;
-
-    let qId = 1000081, // question ID number, unique to this question        
+        arrayCount = 0,
         seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
         lcrng = new utils.LCRNG(seed);
 
-    thisQuiz[qNumber] = []; // thisQuiz is created at valid login so may cause errors when building new questions; reset and login should handle those.
-    let tQ = thisQuiz[qNumber];
+
 
     //inputs
     let AC = sd(lcrng.getNext(5, 15, 0.5)),
@@ -41,26 +42,31 @@ QWIZM.question.qES00MR005 = (qNumber) => {
     AB = stringify(AB);
     BD = stringify(BD);
 
-    // thisQuiz.push(questionPart)
-    tQ.push(qp({
-        partStatement: `!$ AB !$`,
-        units: 'cm',
-        marks: 3,
-        correctSoln: AB
-    }));
-    tQ.push(qp({
-        partStatement: `!$ BD !$`,
-        units: 'cm',
-        marks: 4,
-        correctSoln: BD
-    }));
-    tQ.push(qp({
-        partStatement: `!$ CD !$`,
-        units: 'cm',
-        marks: 3,
-        correctSoln: CD
-    }));
 
+    if (!thisQuiz[qNumber]) {
+        thisQuiz[qNumber] = [];
+        thisQuestion = thisQuiz[qNumber];
+        // thisQuiz.push(questionPart)
+        thisQuestion[arrayCount++] = '';
+        thisQuestion[arrayCount++] = {
+            partStatement: `!$ AB !$`,
+            units: 'cm',
+            marks: 3,
+            correctSoln: AB
+        };
+        thisQuestion[arrayCount++] = {
+            partStatement: `!$ BD !$`,
+            units: 'cm',
+            marks: 4,
+            correctSoln: BD
+        };
+        thisQuestion[arrayCount++] = {
+            partStatement: `!$ CD !$`,
+            units: 'cm',
+            marks: 3,
+            correctSoln: CD
+        };
+    }
 
 
     let statement = `Using the Pythagorean Theorem and the theory of similar triangles, determine the lengths of  !$AB!$, !$BD!$ and !$CD!$.`,

@@ -10,12 +10,12 @@ QWIZM.quiz = {
   questions: [
     QWIZM.question.qES00MR001,
     QWIZM.question.qES00MR002,
-    // QWIZM.question.qES00MR003,
-    // QWIZM.question.qES00MR004,
-    // QWIZM.question.qES00MR005,
-    // QWIZM.question.qES00MR006,
-    // QWIZM.question.qES00MR007,
-    // QWIZM.question.qES00MR008
+    QWIZM.question.qES00MR003,
+    QWIZM.question.qES00MR004,
+    QWIZM.question.qES00MR005,
+    QWIZM.question.qES00MR006,
+    QWIZM.question.qES00MR007,
+    QWIZM.question.qES00MR008
   ],
   // Instructions can be modified on a per quiz basis here. Not usually necessary.
   instructions: `<div class="statement width70 ">
@@ -23,7 +23,7 @@ QWIZM.quiz = {
       <ul>
         <li>All intermediate calculations should be accurate to at least five (5) significant digits to prevent the accumulation of rounding errors. (If you prefer, you may store intermediate results in your calculator and use the full precision that your calculator allows.)</li>
 
-        <li>Final solutions (those entered into the quiz) should be accurate to exactly three (3) significant digits (unless the leading digit is a 1, in which case you should use four (4) significant digits).</li>
+        <li>Final solutions (those entered into the quiz) should be accurate to exactly three (3) significant digits (unless the leading digit is a 1, in which case you should use four (4) significant digits). Answers between -1 and 1 should have a 0 before the decimal point. E.g., 0.1234 and not .1234!</li>
 
         <li>After you have entered a solution into an input box, press the <strong>Enter</strong> button to check your solution. If not correct, you may attempt the question part again.
 

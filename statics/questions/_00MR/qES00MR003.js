@@ -4,7 +4,9 @@ var QWIZM = QWIZM || {};
 QWIZM.question = QWIZM.question || {};
 
 QWIZM.question.qES00MR003 = function (qNumber) {
+  var qId = 1000037; // question ID number, unique to this question 
   // common for import?
+
   var uId = QWIZM.state.uId,
       sd = QWIZM.methods.toSigDigs,
       stringify = QWIZM.methods.stringify,
@@ -15,15 +17,11 @@ QWIZM.question.qES00MR003 = function (qNumber) {
       tan = utils.tan,
       atan = utils.atan,
       thisQuiz = QWIZM.state.thisQuiz,
+      thisQuestion,
       ov = QWIZM.methods.overlayVariable,
-      qp = QWIZM.methods.questionPart;
-  var qId = 1000037,
-      // question ID number, unique to this question        
-  seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
-      lcrng = new utils.LCRNG(seed);
-  thisQuiz[qNumber] = []; // thisQuiz is created at valid login so may cause errors when building new questions; reset and login should handle those.
-
-  var tQ = thisQuiz[qNumber]; //inputs
+      arrayCount = 0,
+      seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
+      lcrng = new utils.LCRNG(seed); //inputs
 
   var topChord = sd(lcrng.getNext(30, 40, 0.5)),
       multiplier = tan(topChord),
@@ -54,19 +52,26 @@ QWIZM.question.qES00MR003 = function (qNumber) {
     input: y + ' m',
     left: 7,
     top: 38
-  }); // thisQuiz.push(questionPart)
+  });
 
-  tQ.push({
-    partStatement: "!$ \\theta !$",
-    units: '!$^\\circ!$',
-    marks: 5,
-    correctSoln: theta
-  });
-  tQ.push({
-    partStatement: "!$ \\phi !$",
-    units: '!$^\\circ!$',
-    marks: 5,
-    correctSoln: phi
-  });
+  if (!thisQuiz[qNumber]) {
+    thisQuiz[qNumber] = [];
+    thisQuestion = thisQuiz[qNumber]; // thisQuiz.push(questionPart)
+
+    thisQuestion[arrayCount++] = '';
+    thisQuestion[arrayCount++] = {
+      partStatement: "!$ \\theta !$",
+      units: '!$^\\circ!$',
+      marks: 5,
+      correctSoln: theta
+    };
+    thisQuestion[arrayCount++] = {
+      partStatement: "!$ \\phi !$",
+      units: '!$^\\circ!$',
+      marks: 5,
+      correctSoln: phi
+    };
+  }
+
   return "<div class='statement width40'><h3>Q".concat(qNumber, "</h3>: ").concat(statement, "    \n    </div>\n    <div class='image width60'><img src= ").concat(img, ">\n    ").concat(iV1, "\n    ").concat(iV2, "\n    ").concat(iV3, "\n    ").concat(iV4, "\n    </div>\n    <form autocomplete=\"off\"><div class='parts width40'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
 };

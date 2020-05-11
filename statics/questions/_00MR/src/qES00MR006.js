@@ -2,6 +2,9 @@ let QWIZM = QWIZM || {};
 QWIZM.question = QWIZM.question || {};
 
 QWIZM.question.qES00MR006 = (qNumber) => {
+
+    let qId = 1000117; // question ID number, unique to this question   
+
     // common for import?
     let uId = QWIZM.state.uId,
         sd = QWIZM.methods.toSigDigs,
@@ -13,15 +16,11 @@ QWIZM.question.qES00MR006 = (qNumber) => {
         tan = utils.tan,
         atan = utils.atan,
         thisQuiz = QWIZM.state.thisQuiz,
+        thisQuestion,
         ov = QWIZM.methods.overlayVariable,
-        qp = QWIZM.methods.questionPart;
-
-    let qId = 1000117, // question ID number, unique to this question        
+        arrayCount = 0,
         seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
         lcrng = new utils.LCRNG(seed);
-
-    thisQuiz[qNumber] = []; // thisQuiz is created at valid login so may cause errors when building new questions; reset and login should handle those.
-    let tQ = thisQuiz[qNumber];
 
     //inputs
     let OA = stringify(lcrng.getNext(0.5, 2.5, 0.1)),
@@ -82,43 +81,49 @@ QWIZM.question.qES00MR006 = (qNumber) => {
             background: '#cdc8b0'
         });
 
-    // thisQuiz.push(questionPart)
-    tQ.push(qp({
-        partStatement: `!$ \\left| AB\\right| !$`,
-        units: 'm',
-        marks: 3,
-        correctSoln: AB
-    }));
-    tQ.push(qp({
-        partStatement: `!$ \\angle ACB !$`,
-        units: '!$^\\circ!$',
-        marks: 4,
-        correctSoln: angleACB
-    }));
-    tQ.push(qp({
-        partStatement: `!$ \\angle ABC !$`,
-        units: '!$^\\circ!$',
-        marks: 4,
-        correctSoln: angleABC
-    }));
-    tQ.push(qp({
-        partStatement: `!$ \\angle OBA !$`,
-        units: '!$^\\circ!$',
-        marks: 3,
-        correctSoln: angleOBA
-    }));
-    tQ.push(qp({
-        partStatement: `!$ \\phi !$`,
-        units: '!$^\\circ!$',
-        marks: 3,
-        correctSoln: phi
-    }));
-    tQ.push(qp({
-        partStatement: `!$ \\theta !$`,
-        units: '!$^\\circ!$',
-        marks: 3,
-        correctSoln: theta
-    }));
+
+    if (!thisQuiz[qNumber]) {
+        thisQuiz[qNumber] = [];
+        thisQuestion = thisQuiz[qNumber];
+        // thisQuiz.push(questionPart)
+        thisQuestion[arrayCount++] = '';
+        thisQuestion[arrayCount++] = {
+            partStatement: `!$ \\left| AB\\right| !$`,
+            units: 'm',
+            marks: 3,
+            correctSoln: AB
+        };
+        thisQuestion[arrayCount++] = {
+            partStatement: `!$ \\angle ACB !$`,
+            units: '!$^\\circ!$',
+            marks: 4,
+            correctSoln: angleACB
+        };
+        thisQuestion[arrayCount++] = {
+            partStatement: `!$ \\angle ABC !$`,
+            units: '!$^\\circ!$',
+            marks: 4,
+            correctSoln: angleABC
+        };
+        thisQuestion[arrayCount++] = {
+            partStatement: `!$ \\angle OBA !$`,
+            units: '!$^\\circ!$',
+            marks: 3,
+            correctSoln: angleOBA
+        };
+        thisQuestion[arrayCount++] = {
+            partStatement: `!$ \\phi !$`,
+            units: '!$^\\circ!$',
+            marks: 3,
+            correctSoln: phi
+        };
+        thisQuestion[arrayCount++] = {
+            partStatement: `!$ \\theta !$`,
+            units: '!$^\\circ!$',
+            marks: 3,
+            correctSoln: theta
+        };
+    }
 
 
     return `

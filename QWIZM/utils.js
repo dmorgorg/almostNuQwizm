@@ -74,3 +74,5 @@ utils.makeInputAlpha = function (str) {
 utils.makeInputInteger = function (str) {
   return str.replace(/[^\d]+/, '');
 };
+
+utils.encode = function (number, seed) {};

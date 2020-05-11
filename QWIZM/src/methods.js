@@ -8,14 +8,14 @@ QWIZM.DELTA = 1e-9;
 
 // QWIZM.methods = function () {} // function constructor, doesn't need anything in it
 
-QWIZM.methods.questionPart = (o) => {
-    return {
-        partStatement: o.partStatement,
-        units: o.units,
-        marks: o.marks,
-        correctSoln: o.correctSoln
-    };
-}
+// QWIZM.methods.questionPart = (o) => {
+//     return {
+//         partStatement: o.partStatement,
+//         units: o.units,
+//         marks: o.marks,
+//         correctSoln: o.correctSoln
+//     };
+// }
 
 QWIZM.methods.viewsLoad = o => {
     let quizId = `quiz_${o.id}`;
@@ -90,14 +90,20 @@ QWIZM.methods.viewsLoad = o => {
             part = QWIZM.state.thisQuiz[q][p],
             feedback = '';
         part.score = 0;
+        part.isAnswered = false;
+        part.isCorrect = false;
 
         if (isNaN(parsedInput)) {
             if (userInput.length === 0) {
-                feedback = `No input! (0/${part.marks})`;
+                feedback = `No input! 0/${part.marks}`;
             } else {
-                feedback = `Not numerical input! (0/${part.marks})`;
+                feedback = `Not numerical input! 0/${part.marks}`;
             }
             $('#' + crosscheckId).html('<span class="cross" />');
+            part.isAnswered = false;
+            part.isCorrect = false;
+            part.half = false;
+            part.score = 0;
             userInput = '';
         } else {
             part.isAnswered = true;
@@ -110,15 +116,17 @@ QWIZM.methods.viewsLoad = o => {
                     part.score = part.marks;
                 } else {
                     part.half = true;
-                    feedback = `SigDigs! (${part.marks/2}/${part.marks})`;
-                    $('#' + crosscheckId).html('');
+                    part.isCorrect = false;
+                    feedback = `Check digits! ${part.marks/2}/${part.marks}`;
+                    $('#' + crosscheckId).html(`<span class='qm' />`);
                     part.score = part.marks / 2;
                 }
             } else {
                 part.isCorrect = false;
-                feedback = `Try again. (0/${part.marks})`;
+                feedback = `Try again. 0/${part.marks}`;
                 $('#' + crosscheckId).html('<span class="cross" />');
                 part.score = 0;
+                part.half = false;
             }
         }
         $('#' + feedbackId).text(feedback);
@@ -133,20 +141,45 @@ QWIZM.methods.viewsLoad = o => {
 
 QWIZM.methods.questionParts = (qN) => {
     let html = ``,
-        parts = QWIZM.state.thisQuiz[qN],
-        numberOfParts = parts.length;
+        numberOfParts = QWIZM.state.thisQuiz[qN].length, // includes the empty first element
+        icon,
+        score = 0;
 
     for (let part = 1; part < numberOfParts; part++) {
-        let partId = `q${qN}part${part}btn`
-        html += `<div class='partStatement'>${parts[part].partStatement}:</div> `;
-        html += `<input type='text' id='q${qN}part${part}input' class='partInput' value=${parts[part].userInput || ''}>`;
-        html += `<div class='units'>${parts[part].units}</div> `;
+        let partId = `q${qN}part${part}btn`,
+            pt = QWIZM.state.thisQuiz[qN][part],
+            feedback = '';
+
+        // part statement
+        html += `<div class='partStatement'>${pt.partStatement}:</div> `;
+        // user input
+        html += `<input type='text' id='q${qN}part${part}input' class='partInput' value=${pt.userInput || ''}>`;
+        // units
+        html += `<div class='units'>${pt.units}</div> `;
+        // 'Enter' button
         html += `<button id=${partId} type='button' class='markButton'>Enter</button>`;
-        html += `<div id='q${qN}part${part}crosscheck' class='crosscheck'>&nbsp;</div>`;
-        html += `<div id='q${qN}part${part}feedback' class='feedback'>(${parts[part].score}/${parts[part].marks} marks)</div>`;
+        // feedback icon
+        if (pt.isAnswered) {
+            if (pt.isCorrect) {
+                icon = `<span class='check' />`;
+                feedback = `${pt.score}/${pt.marks}`;
+            } else if (pt.half) {
+                icon = `<span class='qm' />`;
+                feedback = `Check Digits! ${pt.score}/${pt.marks}`;
+            } else {
+                // console.log('wrong')
+                icon = `<span class='cross' />`;
+                feedback = `${pt.score}/${pt.marks}`;
+            }
+        } else {
+            icon = '';
+            feedback = `${pt.marks} marks`;
+        }
+        html += `<div id='q${qN}part${part}crosscheck' class='crosscheck'>${icon}</div>`;
+        // feedback
+        html += `<div id='q${qN}part${part}feedback' class='feedback'>${feedback}</div>`;
     }
-    // don't think we need this, not mutating anything...
-    //QWIZM.methods.writeToLocalStorage(QWIZM.QUIZ_KEY, QWIZM.state); //changes made to state so save it
+
 
     return html;
 }

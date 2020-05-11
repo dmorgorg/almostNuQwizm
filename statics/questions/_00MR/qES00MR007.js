@@ -4,7 +4,9 @@ var QWIZM = QWIZM || {};
 QWIZM.question = QWIZM.question || {};
 
 QWIZM.question.qES00MR007 = function (qNumber) {
+  var qId = 1000121; // question ID number, unique to this question
   // common for import?
+
   var uId = QWIZM.state.uId,
       sd = QWIZM.methods.toSigDigs,
       stringify = QWIZM.methods.stringify,
@@ -15,15 +17,11 @@ QWIZM.question.qES00MR007 = function (qNumber) {
       tan = utils.tan,
       atan = utils.atan,
       thisQuiz = QWIZM.state.thisQuiz,
+      thisQuestion,
       ov = QWIZM.methods.overlayVariable,
-      qp = QWIZM.methods.questionPart;
-  var qId = 1000121,
-      // question ID number, unique to this question        
-  seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
-      lcrng = new utils.LCRNG(seed);
-  thisQuiz[qNumber] = []; // thisQuiz is created at valid login so may cause errors when building new questions; reset and login should handle those.
-
-  var tQ = thisQuiz[qNumber]; //inputs - don't stringify these, use 6y instead of 6.00y
+      arrayCount = 0,
+      seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
+      lcrng = new utils.LCRNG(seed); //inputs - don't stringify these, use 6y instead of 6.00y
 
   var a11 = sd(lcrng.getNext(1, 8, 1)),
       a12 = sd(lcrng.getNext(1, 8, 1)),
@@ -42,19 +40,26 @@ QWIZM.question.qES00MR007 = function (qNumber) {
       Dy = a11 * b2 - a21 * b1,
       x = stringify(Dx / D),
       y = stringify(Dy / D);
-  var statement = "Solve this system of equations for !$x!$ and !$y!$.        \n        $$\n        \\begin{aligned}\n            ".concat(a11b, "x + ").concat(a12b, "y &= ").concat(b1, " \\\\\n            ").concat(a21b, "x - ").concat(a22b, "y &= ").concat(b2, " \n        \\end{aligned}\n        $$"); // thisQuiz.push(questionPart)
+  var statement = "Solve this system of equations for !$x!$ and !$y!$.        \n        $$\n        \\begin{aligned}\n            ".concat(a11b, "x + ").concat(a12b, "y &= ").concat(b1, " \\\\\n            ").concat(a21b, "x - ").concat(a22b, "y &= ").concat(b2, " \n        \\end{aligned}\n        $$");
 
-  tQ.push(qp({
-    partStatement: "!$ x !$",
-    units: '',
-    marks: 3,
-    correctSoln: x
-  }));
-  tQ.push(qp({
-    partStatement: "!$ y !$",
-    units: '',
-    marks: 3,
-    correctSoln: y
-  }));
+  if (!thisQuiz[qNumber]) {
+    thisQuiz[qNumber] = [];
+    thisQuestion = thisQuiz[qNumber]; // thisQuiz.push(questionPart)
+
+    thisQuestion[arrayCount++] = '';
+    thisQuestion[arrayCount++] = {
+      partStatement: "!$ x !$",
+      units: '',
+      marks: 3,
+      correctSoln: x
+    };
+    thisQuestion[arrayCount++] = {
+      partStatement: "!$ y !$",
+      units: '',
+      marks: 3,
+      correctSoln: y
+    };
+  }
+
   return "<div class='statement width50'><h3>Q".concat(qNumber, "</h3>: ").concat(statement, "</div>\n    <form autocomplete=\"off\"><div class='parts width50'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
 };

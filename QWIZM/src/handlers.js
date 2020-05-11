@@ -24,10 +24,12 @@ QWIZM.handlers.updateView = e => {
         $('#' + QWIZM.state.currentView).fadeIn(QWIZM.DURATION);
         QWIZM.methods.writeToLocalStorage(QWIZM.QUIZ_KEY, QWIZM.state);
 
-        // if (QWIZM.state.currentView == 'summary') {
-        //     console.log('going to summary');
-        //     window.location.reload(true);
-        // }
+        console.log(QWIZM.state.currentView);
+
+        if (QWIZM.state.currentView == 'summary') {
+            console.log('going to summary');
+            window.location.reload(true);
+        }
     }
 };
 

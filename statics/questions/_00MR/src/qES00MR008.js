@@ -2,6 +2,8 @@ let QWIZM = QWIZM || {};
 QWIZM.question = QWIZM.question || {};
 
 QWIZM.question.qES00MR008 = (qNumber) => {
+
+    let qId = 1000133; // question ID number, unique to this question  
     // common for import?
     let uId = QWIZM.state.uId,
         sd = QWIZM.methods.toSigDigs,
@@ -13,15 +15,11 @@ QWIZM.question.qES00MR008 = (qNumber) => {
         tan = utils.tan,
         atan = utils.atan,
         thisQuiz = QWIZM.state.thisQuiz,
+        thisQuestion,
         ov = QWIZM.methods.overlayVariable,
-        qp = QWIZM.methods.questionPart;
-
-    let qId = 1000133, // question ID number, unique to this question        
+        arrayCount = 0,
         seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
         lcrng = new utils.LCRNG(seed);
-
-    thisQuiz[qNumber] = []; // thisQuiz is created at valid login so may cause errors when building new questions; reset and login should handle those.
-    let tQ = thisQuiz[qNumber];
 
 
     //inputs
@@ -42,29 +40,35 @@ QWIZM.question.qES00MR008 = (qNumber) => {
         x = stringify(Dx / D),
         y = stringify(Dy / D);
 
-    let statement = `Solve this system of equations for !$F_{AC}!$ and !$F_{BC}!$.        
+    let statement = `Solve this system of equations for !$F_{AC}!$ and !$F_{BC}!$. <br/><br/>       
         $$
         \\begin{aligned}
             F_{BC}\\cdot\\sin\\left(${phi}^\\circ\\right) +F_{AC}\\cdot\\sin\\left(${theta}^\\circ\\right)  &= ${W} \\\\
             F_{BC}\\cdot\\cos\\left(${phi}^\\circ\\right) - F_{BC}\\cdot\\cos\\left(${theta}^\\circ\\right) &= 0 
         \\end{aligned}
-        $$`;
+        $$<br/>`;
 
-    // thisQuiz.push(questionPart)
-    tQ.push(qp({
-        partStatement: `!$ x !$`,
-        units: '',
-        marks: 5,
-        correctSoln: x
-    }));
-    tQ.push(qp({
-        partStatement: `!$ y !$`,
-        units: '',
-        marks: 4,
-        correctSoln: y
-    }));
+    if (!thisQuiz[qNumber]) {
+        thisQuiz[qNumber] = [];
+        thisQuestion = thisQuiz[qNumber];
+        // thisQuiz.push(questionPart)
+        thisQuestion[arrayCount++] = '';
+        thisQuestion[arrayCount++] = {
+            partStatement: `!$ x !$`,
+            units: '',
+            marks: 5,
+            correctSoln: x
+        };
+        thisQuestion[arrayCount++] = {
+            partStatement: `!$ y !$`,
+            units: '',
+            marks: 4,
+            correctSoln: y
+        };
+    }
 
 
-    return `<div class='statement width50'><h3>Q${qNumber}</h3>: ${statement}</div>
-    <form autocomplete="off"><div class='parts width45'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
+
+    return `<div class='statement width40'><h3>Q${qNumber}</h3>: ${statement}</div><br/>
+    <form autocomplete="off"><div class='parts width50'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
 };
