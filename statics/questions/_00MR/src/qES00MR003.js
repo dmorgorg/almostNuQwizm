@@ -23,9 +23,13 @@ QWIZM.question.qES00MR003 = (qNumber) => {
         lcrng = new utils.LCRNG(seed);
 
     //inputs
-    let topChord = sd(lcrng.getNext(30, 40, 0.5)),
-        multiplier = tan(topChord),
-        x1 = sd(lcrng.getNext(2, 3.5, 0.1));
+    let topChordAngle = (lcrng.getNext(30, 40, 0.5)),
+        multiplier = tan(topChordAngle),
+        x1 = stringify(lcrng.getNext(2, 3.5, 0.1));
+
+    // convert to number equivalents of string inputs to avoid string concatenation
+    // instead of addition!!
+    x1 = sd(x1);
 
     //calcs
     let y = stringify(Math.round(x1 * multiplier * 5) / 5),

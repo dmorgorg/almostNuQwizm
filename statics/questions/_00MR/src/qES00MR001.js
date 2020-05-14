@@ -8,6 +8,7 @@ QWIZM.question.qES00MR001 = (qNumber) => {
     let uId = QWIZM.state.uId,
         sd = QWIZM.methods.toSigDigs,
         stringify = QWIZM.methods.stringify,
+        wd = QWIZM.quiz.workingDigs,
         sin = utils.sin,
         cos = utils.cos,
         asin = utils.asin,
@@ -24,9 +25,15 @@ QWIZM.question.qES00MR001 = (qNumber) => {
 
 
     //inputs - defaults to workingDigs
-    let x = sd(lcrng.getNext(2, 4, 0.025)),
-        y1 = sd(lcrng.getNext(0.7, 0.8, 0.01) * x),
-        y2 = sd(lcrng.getNext(0.45, 0.55, 0.01) * y1);
+    let x = stringify(lcrng.getNext(2, 4, 0.025)),
+        y1 = stringify(lcrng.getNext(0.7, 0.8, 0.01) * x),
+        y2 = stringify(lcrng.getNext(0.45, 0.55, 0.01) * y1);
+
+    // convert to number equivalents of string inputs to avoid string concatenation
+    // instead of addition!!
+    x = sd(x);
+    y1 = sd(y1);
+    y2 = sd(y2);
 
     y2 = Math.round(y2 * 100) / 100; // make last (4th) digit a zero
 

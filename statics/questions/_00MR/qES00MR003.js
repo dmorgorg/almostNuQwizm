@@ -23,9 +23,12 @@ QWIZM.question.qES00MR003 = function (qNumber) {
       seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
       lcrng = new utils.LCRNG(seed); //inputs
 
-  var topChord = sd(lcrng.getNext(30, 40, 0.5)),
-      multiplier = tan(topChord),
-      x1 = sd(lcrng.getNext(2, 3.5, 0.1)); //calcs
+  var topChordAngle = lcrng.getNext(30, 40, 0.5),
+      multiplier = tan(topChordAngle),
+      x1 = stringify(lcrng.getNext(2, 3.5, 0.1)); // convert to number equivalents of string inputs to avoid string concatenation
+  // instead of addition!!
+
+  x1 = sd(x1); //calcs
 
   var y = stringify(Math.round(x1 * multiplier * 5) / 5),
       x = stringify(Math.round(x1 * 2 / 3 * 5) / 5),

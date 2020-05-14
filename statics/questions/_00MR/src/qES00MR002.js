@@ -7,6 +7,7 @@ QWIZM.question.qES00MR002 = (qNumber) => {
     let uId = QWIZM.state.uId,
         sd = QWIZM.methods.toSigDigs,
         stringify = QWIZM.methods.stringify,
+        wd = QWIZM.quiz.workingDigs,
         sin = utils.sin,
         cos = utils.cos,
         asin = utils.asin,
@@ -27,11 +28,16 @@ QWIZM.question.qES00MR002 = (qNumber) => {
         b = stringify(lcrng.getNext(1.95, 1.975, 0.01) * c),
         A = stringify(acos((b * b + c * c - a * a) / (2 * b * c)));
 
+    // convert to number equivalents of string inputs to avoid chance of string concatenation
+    // instead of addition!!
+    c = sd(c);
+    a = sd(a);
+    b = sd(b);
+    A = sd(A);
+
     //calcs
-    let a2 = Math.sqrt(b * b + c * c - 2 * b * c * cos(A)),
-        B = acos((a * a + c * c - b * b) / (2 * a * c));
-
-
+    let a2 = sd(Math.sqrt(b * b + c * c - 2 * b * c * cos(A)), wd),
+        B = sd(acos((a2 * a2 + c * c - b * b) / (2 * a2 * c)), wd);
 
     let statement = `Determine the length of !$BC!$ and the angle !$ABC!$.`,
         img = `../../images/math02.png`,
@@ -56,7 +62,7 @@ QWIZM.question.qES00MR002 = (qNumber) => {
         });
 
     //stringify
-    a2 = stringify(a);
+    a2 = stringify(a2);
     B = stringify(B);
 
     if (!thisQuiz[qNumber]) {
