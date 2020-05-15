@@ -1,3 +1,12 @@
+/** Summary. 
+ *  
+ *  Functions used by Qwizm and specific to Qwizm
+ * 
+ *  @author Dave Morgan
+ * 
+ *  @since 1.0.0
+ */
+
 let QWIZM = QWIZM || {};
 QWIZM.methods = QWIZM.methods || {};
 
@@ -6,17 +15,13 @@ QWIZM.DURATION = 400;
 QWIZM.QUIZ_KEY = "quiz_" + QWIZM.quiz.id;
 QWIZM.DELTA = 1e-9;
 
-// QWIZM.methods = function () {} // function constructor, doesn't need anything in it
-
-// QWIZM.methods.questionPart = (o) => {
-//     return {
-//         partStatement: o.partStatement,
-//         units: o.units,
-//         marks: o.marks,
-//         correctSoln: o.correctSoln
-//     };
-// }
-
+/** Checks whether user has visited the site previously by looking for a quiz id 
+ *      in localStorage. If no id exists, user goes to a log in view. If id exists, 
+ *      question views are loaded and hidden. The last view from previous visit is visible   
+ *  @param {obj} o A state object containing quizId, userId, currentView, and an
+ *      array containing questions and submitted answers 
+ *  @returns {void}
+ */
 QWIZM.methods.viewsLoad = o => {
     let quizId = `quiz_${o.id}`;
 
@@ -43,6 +48,10 @@ QWIZM.methods.viewsLoad = o => {
         QWIZM.methods.writeToLocalStorage(QWIZM.QUIZ_KEY, QWIZM.state);
     }
 
+    /** Nested function inside viewsLoad. Writes the html for page views:
+     *  Instructions, Clear, Q1, Q2, ..., Summary
+     *  @returns {string} - the html for page views
+     */
     function loadViews() {
         let len = QWIZM.quiz.questions.length,
             html = '';
@@ -64,6 +73,10 @@ QWIZM.methods.viewsLoad = o => {
         return html;
     }
 
+    /** Nested function inside viewsLoad. Sets event handlers for button clicks
+     *  for each and every question part
+     *  @returns {void}
+     */
     function setHandlers() {
         let numberOfQuestions = QWIZM.quiz.questions.length - 1;
         for (let qNumber = 1; qNumber <= numberOfQuestions; qNumber++) {
@@ -79,7 +92,12 @@ QWIZM.methods.viewsLoad = o => {
         }
     }
 
-    // q is the question number, p is the question part number
+    /** Nested function inside viewsLoad. Marks the specified question part for correctness.
+     *  Writes result to QWIZM.state, to the summary view and to localStorage
+     *  @param {number} q - The question number in the quiz
+     *  @param {number} p - The part number for the question
+     *  @returns {void}
+     */
     function checkAnswer(q, p) {
         let qp = `q${q}part${p}`,
             inputId = `${qp}input`,
@@ -139,6 +157,10 @@ QWIZM.methods.viewsLoad = o => {
     }
 };
 
+/** Writes the html for the question parts
+ *  @param {number} qN - The question number
+ *  @returns {string} the html for page views
+ */
 QWIZM.methods.questionParts = (qN) => {
     let html = ``,
         numberOfParts = QWIZM.state.thisQuiz[qN].length, // includes the empty first element
@@ -179,20 +201,72 @@ QWIZM.methods.questionParts = (qN) => {
         // feedback
         html += `<div id='q${qN}part${part}feedback' class='feedback'>${feedback}</div>`;
     }
-
-
     return html;
 }
 
+/** Encodes a number (or numerical string) to a string of lower case 
+ *      alphabetical characters
+ *  @param {number} number The number to be encoded
+ *  @param {number} number The seed for the random number generator that 'predictably'
+ *      generates the offset from the numerical character to the encoded alphabetical character.
+ *  @returns {string} An encoded alphabetical string
+ */
+QWIZM.methods.encode = (number, seed) => {
+    let strArray = number.toString(10).split(''),
+        length = strArray.length,
+        lcrng = new utils.LCRNG(seed),
+        encodedStr = '';
+
+    for (let i = 0; i < length; i++) {
+        encodedStr += String.fromCharCode(strArray[i].charCodeAt(0) + lcrng.getNext(52, 65));
+    }
+
+    return encodedStr;
+}
+
+/** Decodes a previously encoded string of alphabetical characters to a string 
+ *      representing the initial number that was encoded
+ *  @param {string} str - The alphabetical string to be decoded
+ *  @param {number} number The seed for the random number generator that 'predictably'
+ *      generates the offset to reverse the operations performed by encode previously.
+ *  @returns {string} A decoded string of numerical character (including - and .)
+ */
+QWIZM.methods.decode = (str, seed) => {
+    let strArray = str.split(''),
+        length = strArray.length,
+        lcrng = new utils.LCRNG(seed),
+        decodedStr = '';
+
+    for (let i = 0; i < length; i++) {
+        decodedStr += String.fromCharCode(strArray[i].charCodeAt(0) - lcrng.getNext(52, 65));
+    }
+
+    return codedStr;
+}
+
+/** Writes a value to local storage
+ *  @param {string} key - The identifier for storage location
+ *  @param {string} value - The value to be stored
+ *  @returns {void}
+ */
 QWIZM.methods.writeToLocalStorage = (key, value) => {
     localStorage.setItem(key, JSON.stringify(value));
 };
 
+/** Retrieves a value from local storage
+ *  @param {string} key The identifier for storage location
+ *  @returns {string} The value retrieved
+ */
 QWIZM.methods.readFromLocalStorage = (key) => {
     let value = localStorage.getItem(key);
     return value && JSON.parse(value);
 };
 
+/** Writes a string to a specified position and rotation in an image div
+ *  @param {object} o - Object containing fields for the string, its position and 
+ *      rotation, its fontsize (in vw units) and its background color
+ *  @returns {string} A string of html including CSS styling for position, etc.
+ */
 QWIZM.methods.overlayVariable = (o) => {
     let input = o.input,
         left = o.left,
@@ -211,10 +285,13 @@ QWIZM.methods.overlayVariable = (o) => {
         </div>`;
 }
 
-
-
-
-
+/** Writes a number to a string with the specified number of significant digits. 
+ *      If specified in the quiz, the significant digits will be incremented by 1 if
+ *      the leading non-zero digit is a 1
+ *  @param {number} number The number to be stringified
+ *  @param {number}[sigDigs] Specified number of significant digits
+ *  @returns {string} Stringified version of number
+ */
 QWIZM.methods.stringify = (number, sigDigs = QWIZM.quiz.sigDigs) => {
 
     let delta = QWIZM.DELTA,
@@ -241,10 +318,21 @@ QWIZM.methods.stringify = (number, sigDigs = QWIZM.quiz.sigDigs) => {
 
 };
 
+/** Writes a number to a string with the specified number of significant digits. 
+ *      If specified in the quiz, the significant digits will be incremented by 1 if
+ *      the leading non-zero digit is a 1
+ *  @param {number} number The number to be modified
+ *  @param {number}[workingDigs] Specified number of significant digits
+ *  @returns {number} Number adjusted to the specified number of significant digits
+ */
 QWIZM.methods.toSigDigs = (number, workingDigs = QWIZM.quiz.workingDigs) => {
     return Number(QWIZM.methods.stringify(number, workingDigs = QWIZM.quiz.workingDigs));
 }
 
+/** Writes page header
+ *  @param {object} o - The object containing name name, topic and sub-topic
+ *  @returns {string} html string for page header
+ */
 QWIZM.methods.writeHeader = o => {
     return `<header>
                 <h1>${o.subject}</h1>
@@ -255,6 +343,9 @@ QWIZM.methods.writeHeader = o => {
             </header>`;
 };
 
+/** Writes page footer, retrieving state from localStorage
+ *  @returns {string} html string for page header
+ */
 QWIZM.methods.writeFooter = () => {
     let state = QWIZM.methods.readFromLocalStorage(QWIZM.QUIZ_KEY),
         // number of questions in this quiz
@@ -276,6 +367,10 @@ QWIZM.methods.writeFooter = () => {
         </footer>`;
 };
 
+/** Writes clear view which provides the option to clear localStorage and 
+ *      return to the login view
+ *  @returns {string} html string for clear view
+ */
 QWIZM.methods.writeClearView = () => {
     let html = `<h2>Warning!</h2>
                 <p> Clicking the <span class = "highlight"> Clear Quiz </span> button below will reset the quiz, requiring you to log in again.</p >
@@ -285,7 +380,9 @@ QWIZM.methods.writeClearView = () => {
                 <button id="clear-button" type="submit">Clear Quiz</button>`;
     return html;
 }
-
+/** Writes login page
+ *  @returns {string} html string for login page
+ */
 QWIZM.methods.writeLoginForm = () => {
     $('main').append(`<div id="login" class="card view">
             <h2> Please Log In </h2>

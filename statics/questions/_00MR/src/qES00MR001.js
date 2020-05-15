@@ -22,9 +22,7 @@ QWIZM.question.qES00MR001 = (qNumber) => {
         seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
         lcrng = new utils.LCRNG(seed);
 
-
-
-    //inputs - defaults to workingDigs
+    //inputs - defaults to sigDigs
     let x = stringify(lcrng.getNext(2, 4, 0.025)),
         y1 = stringify(lcrng.getNext(0.7, 0.8, 0.01) * x),
         y2 = stringify(lcrng.getNext(0.45, 0.55, 0.01) * y1);
@@ -107,11 +105,6 @@ QWIZM.question.qES00MR001 = (qNumber) => {
         };
     }
 
-
-
-
-
-
     return `<div class='statement width50'><h3>Q${qNumber}</h3>: 
     ${statement}</div>
     <div id = '${qId}img' class='image width60'>
@@ -124,6 +117,5 @@ QWIZM.question.qES00MR001 = (qNumber) => {
     ${iV6}
     </div>
     <form autocomplete="off"><div class='parts width45'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
-
 
 };

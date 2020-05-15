@@ -185,6 +185,32 @@ QWIZM.methods.questionParts = function (qN) {
   return html;
 };
 
+QWIZM.methods.encode = function (number, seed) {
+  var strArray = number.toString(10).split(''),
+      length = strArray.length,
+      lcrng = new utils.LCRNG(seed),
+      encodedStr = '';
+
+  for (var i = 0; i < length; i++) {
+    encodedStr += String.fromCharCode(strArray[i].charCodeAt(0) + lcrng.getNext(52, 65));
+  }
+
+  return encodedStr;
+};
+
+QWIZM.methods.decode = function (str, seed) {
+  var strArray = str.split(''),
+      length = strArray.length,
+      lcrng = new utils.LCRNG(seed),
+      decodedStr = '';
+
+  for (var i = 0; i < length; i++) {
+    decodedStr += String.fromCharCode(strArray[i].charCodeAt(0) - lcrng.getNext(52, 65));
+  }
+
+  return codedStr;
+};
+
 QWIZM.methods.writeToLocalStorage = function (key, value) {
   localStorage.setItem(key, JSON.stringify(value));
 };

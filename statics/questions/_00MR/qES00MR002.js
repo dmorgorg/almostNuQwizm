@@ -35,7 +35,7 @@ QWIZM.question.qES00MR002 = function (qNumber) {
   b = sd(b);
   A = sd(A); //calcs
 
-  var a2 = sd(Math.sqrt(b * b + c * c - 2 * b * c * cos(A)), wd),
+  var a2 = stringify(sd(Math.sqrt(b * b + c * c - 2 * b * c * cos(A))), wd),
       B = sd(acos((a2 * a2 + c * c - b * b) / (2 * a2 * c)), wd);
   var statement = "Determine the length of !$BC!$ and the angle !$ABC!$.",
       img = "../../images/math02.png",
