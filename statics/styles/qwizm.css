@@ -3,38 +3,26 @@ html {
 }
 
 * {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 *:before,
 *:after {
-  -webkit-box-sizing: inherit;
-          box-sizing: inherit;
+  box-sizing: inherit;
 }
 
 body {
   height: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  flex-direction: column;
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
   overflow-y: hidden;
 }
 
 header {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-flow: row wrap;
-          flex-flow: row wrap;
+  flex-flow: row wrap;
   background-color: maroon;
   padding: 0;
   margin-bottom: 1em;
@@ -42,9 +30,7 @@ header {
 }
 
 header > * {
-  -webkit-box-flex: 1;
-      -ms-flex: 1 100%;
-          flex: 1 100%;
+  flex: 1 100%;
 }
 
 header > h1 {
@@ -59,13 +45,8 @@ header > h1 {
 }
 
 header > .rightblock {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-flow: row wrap;
-          flex-flow: row wrap;
+  flex-flow: row wrap;
   margin: 0;
   padding: 0;
 }
@@ -74,9 +55,7 @@ header > .rightblock > h3 {
   margin: 0;
   margin-bottom: 0.125em;
   padding: 0.0625em 0.5em 0.25em 0.5em;
-  -webkit-box-flex: 1;
-      -ms-flex: 1 auto;
-          flex: 1 auto;
+  flex: 1 auto;
   font-family: "Quicksand", sans-serif;
   color: white;
   text-shadow: 0.1vw 0.1vw 0.15vw black;
@@ -96,17 +75,13 @@ footer {
 
 .navbar {
   height: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   padding: 0;
   font-size: 1.5vw;
 }
 
 .navbar > * {
-  -webkit-box-flex: 1;
-      -ms-flex: 1 auto;
-          flex: 1 auto;
+  flex: 1 auto;
 }
 
 .navbar > ul {
@@ -123,10 +98,8 @@ footer {
   padding: 0 0.5vw;
   display: inline-block;
   margin: 0.25em 0.375em;
-  -webkit-box-shadow: 0 0 0.2em 0 black;
-          box-shadow: 0 0 0.2em 0 black;
+  box-shadow: 0 0 0.2em 0 black;
   background: #670000;
-  background: -webkit-gradient(linear, left top, left bottom, from(maroon), color-stop(35%, maroon), color-stop(65%, #670000), to(#670000));
   background: linear-gradient(to bottom, maroon, maroon 35%, #670000 65%, #670000);
 }
 
@@ -136,15 +109,12 @@ footer {
 
 .navbar > ul > li.active, .navbar > ul > li:hover {
   color: black;
-  background: -webkit-gradient(linear, left top, left bottom, from(white), color-stop(35%, white), color-stop(65%, #d9d9d9), to(#d9d9d9));
   background: linear-gradient(to bottom, white, white 35%, #d9d9d9 65%, #d9d9d9);
 }
 
 .navbar .uname {
   color: white;
-  -ms-flex-item-align: center;
-      -ms-grid-row-align: center;
-      align-self: center;
+  align-self: center;
   font-family: "Architects Daughter", cursive;
   font-size: 115%;
   text-align: right;
@@ -161,15 +131,13 @@ footer {
 }
 
 .check:before {
+  position: relative;
   color: #080;
   content: "\2714";
-  font-size: 125%;
+  font-size: 115%;
   font-weight: bold;
-  -ms-grid-column-align: start;
-      justify-self: start;
-  -ms-flex-item-align: center;
-      -ms-grid-row-align: center;
-      align-self: center;
+  justify-self: start;
+  align-self: start;
 }
 
 .qm:before {
@@ -177,11 +145,8 @@ footer {
   content: "\003F";
   font-size: 125%;
   font-weight: bold;
-  -ms-grid-column-align: start;
-      justify-self: start;
-  -ms-flex-item-align: center;
-      -ms-grid-row-align: center;
-      align-self: center;
+  justify-self: start;
+  align-self: center;
 }
 
 #summary summary.statement {
@@ -196,7 +161,6 @@ footer {
   vertical-align: bottom;
   font-weight: normal;
   font-size: 125%;
-  border: maroon;
 }
 
 #summary summary.statement h3 .total {
@@ -212,115 +176,8 @@ footer {
   letter-spacing: 0.1vw;
 }
 
-#summary .table {
-  width: 100%;
-  background: #888;
-}
-
 #summary .table .row {
-  padding: 0.5vw;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  border: 1px solid #888;
-  border-top: none;
-}
-
-#summary .table .row .qNumber {
-  display: inline-block;
-  font-size: 115%;
-  width: 16%;
-  -ms-flex-item-align: start;
-      -ms-grid-row-align: start;
-      align-self: start;
-  font-weight: bold;
-  padding: 0;
-}
-
-#summary .table .row .qNumber .questionMarks {
-  margin-left: 0.2vw;
-  font-size: 90%;
-  font-weight: normal;
-  padding: 0;
-  -ms-flex-item-align: center;
-      -ms-grid-row-align: center;
-      align-self: center;
-}
-
-#summary .table .row .items {
-  padding: 0;
-  display: inline-block;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  width: 84%;
-  text-align: top;
-}
-
-#summary .table .row .items .item {
-  -ms-flex-preferred-size: 33.3%;
-      flex-basis: 33.3%;
-  -ms-flex-negative: 0;
-      flex-shrink: 0;
-  -webkit-box-flex: 0;
-      -ms-flex-positive: 0;
-          flex-grow: 0;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-#summary .table .row .items .item .ps {
-  text-align: right;
-  -ms-flex-preferred-size: 30%;
-      flex-basis: 30%;
-}
-
-#summary .table .row .items .item .ui {
-  -ms-flex-preferred-size: 25%;
-      flex-basis: 25%;
-  text-align: center;
-}
-
-#summary .table .row .items .item .symb {
-  -ms-flex-preferred-size: 8%;
-      flex-basis: 8%;
-  text-align: left;
-}
-
-#summary .table .row .items .item .marked {
-  -ms-flex-preferred-size: 15%;
-      flex-basis: 15%;
-  text-align: center;
-}
-
-#summary .table .row .items .item .check:before {
-  color: #080;
-  content: "\2714";
-  font-size: 120%;
-  font-weight: bold;
-}
-
-#summary .table .row .items .item .cross:before {
-  color: maroon;
-  content: "\2718";
-  font-size: 120%;
-  font-weight: bold;
-}
-
-#summary .table .row .items .item .qm:before {
-  color: #666;
-  content: "\003f";
-  font-size: 100%;
-  font-weight: 600;
-  -ms-flex-item-align: center;
-      -ms-grid-row-align: center;
-      align-self: center;
+  border: 1px solid #aaa;
 }
 
 #summary .table .row:nth-child(2n + 1) {
@@ -331,13 +188,75 @@ footer {
   background-color: #eee;
 }
 
+#summary .table .row .qNumber {
+  vertical-align: top;
+  width: 15%;
+  font-weight: bold;
+  font-size: 120%;
+  display: inline-block;
+  padding: 0.2vw;
+  margin: 0.2vw 0 0.2vw auto;
+}
+
+#summary .table .row .qNumber .questionMarks {
+  font-weight: normal;
+  font-size: normal;
+  margin-left: 1vw;
+}
+
+#summary .table .row .items {
+  width: 85%;
+  display: inline-block;
+  margin: 0.2vw 0 0.2vw auto;
+}
+
+#summary .table .row .items .item {
+  vertical-align: bottom;
+  border: 0.5px solid #aaa;
+  display: inline-block;
+  width: 24.375%;
+  margin: 0.2vw;
+  height: 1.75em;
+}
+
+#summary .table .row .items .item .ps {
+  width: 30%;
+  display: inline-block;
+  text-align: right;
+  vertical-align: middle;
+}
+
+#summary .table .row .items .item .ui {
+  width: 27%;
+  display: inline-block;
+  text-align: center;
+}
+
+#summary .table .row .items .item .symb {
+  position: relative;
+  width: 15%;
+  font-size: 90%;
+  display: inline-block;
+  text-align: center;
+}
+
+#summary .table .row .items .item .marked {
+  width: 26%;
+  display: inline-block;
+  text-align: center;
+}
+
+#summary .table .row + .row {
+  border-top: none;
+}
+
 .fright {
   float: right;
 }
 
 .katex {
-  font-size: 105%;
-  font-weight: 600;
+  font-size: 120%;
+  font-weight: 500;
 }
 
 #instructions ul {
@@ -414,54 +333,36 @@ footer {
 }
 
 .parts {
-  display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 20% 22% 5em 4em 1.5em 30%;
-      grid-template-columns: 20% 22% 5em 4em 1.5em 30%;
+  grid-template-columns: 15% 20% 15% 12% 10% 30%;
   grid-row-gap: 0.3vw;
-  width: 65%;
   margin: 0 auto;
-  font-size: 1.5vw;
+  font-size: 80%;
 }
 
 .partStatement {
-  -ms-flex-item-align: center;
-      -ms-grid-row-align: center;
-      align-self: center;
+  align-self: center;
   text-align: right;
   overflow-x: visible;
 }
 
 .markButton {
   background-color: #670000;
-  background: -webkit-gradient(linear, left top, left bottom, from(maroon), color-stop(35%, maroon), color-stop(65%, #670000), to(#670000));
   background: linear-gradient(to bottom, maroon, maroon 35%, #670000 65%, #670000);
   font-size: 1.5vw;
   color: white;
   margin-right: 2vw;
   height: 1.75em;
-  width: 4em;
   border: none;
-  padding: 0.25vw;
+  padding: 0.25vw 0.75vw;
   font-size: 1.5vw;
   text-decoration: none;
-  -webkit-box-shadow: 0 0 0.2em 0 black;
-          box-shadow: 0 0 0.2em 0 black;
+  box-shadow: 0 0 0.2em 0 black;
   place-self: center end;
-}
-
-.markButton.active {
-  position: relative;
-  top: 2px;
-  color: black;
-  background: white;
-  background: -webkit-gradient(linear, left top, left bottom, from(#fefdfb), color-stop(45%, #fefdfb), color-stop(55%, linen), to(linen));
-  background: linear-gradient(to bottom, #fefdfb, #fefdfb 45%, linen 55%, linen);
 }
 
 .markButton:hover {
   background-color: maroon;
-  background: -webkit-gradient(linear, left top, left bottom, from(#670000), color-stop(35%, #670000), color-stop(85%, maroon), to(maroon));
   background: linear-gradient(to bottom, #670000, #670000 35%, maroon 85%, maroon);
   cursor: pointer;
 }
@@ -492,15 +393,14 @@ input.partInput:focus {
 }
 
 .crosscheck {
+  font-size: 140%;
   place-self: center start;
+  padding-left: 0;
 }
 
 .feedback {
-  -ms-flex-item-align: center;
-      -ms-grid-row-align: center;
-      align-self: center;
-  -ms-grid-column-align: start;
-      justify-self: start;
+  align-self: center;
+  justify-self: start;
   place-self: center start;
   overflow-x: visible;
 }
@@ -519,47 +419,28 @@ input.partInput:focus {
 
 @media screen and (min-width: 376px) {
   header {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -ms-flex-line-pack: center;
-        align-content: center;
+    align-content: center;
     padding: 0 1em;
-    -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
+    justify-content: space-between;
     font-size: 1.5vw;
   }
   header > * {
-    -webkit-box-flex: 0;
-        -ms-flex: 0 auto;
-            flex: 0 auto;
+    flex: 0 auto;
   }
   header > h1 {
     margin: 0;
     margin-right: 1em;
     margin-bottom: 0.125em;
-    -ms-flex-item-align: center;
-        -ms-grid-row-align: center;
-        align-self: center;
+    align-self: center;
   }
   header > .rightblock {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
     text-align: right;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    -webkit-box-flex: 1;
-        -ms-flex: 1 0 0px;
-            flex: 1 0 0;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    -ms-flex-line-pack: end;
-        align-content: flex-end;
+    flex-direction: column;
+    flex: 1 0 0;
+    justify-content: center;
+    align-content: flex-end;
   }
   header > .rightblock > h3 {
     text-align: right;
@@ -570,21 +451,12 @@ input.partInput:focus {
 }
 
 main {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  flex: 1;
+  align-items: center;
+  flex-wrap: wrap;
   overflow-y: auto;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  justify-content: center;
   padding: 0 1em;
 }
 
@@ -598,19 +470,12 @@ main #login {
 
 main .card {
   font-size: 95%;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-flow: row wrap;
-          flex-flow: row wrap;
+  flex-flow: row wrap;
   padding: 1em 2em;
   border: 1px solid #ccc;
-  -webkit-box-shadow: 0.1em 0.1em 0.275em 0.1em grey;
-          box-shadow: 0.1em 0.1em 0.275em 0.1em grey;
-  -ms-flex-preferred-size: 25em;
-      flex-basis: 25em;
+  box-shadow: 0.1em 0.1em 0.275em 0.1em grey;
+  flex-basis: 25em;
   background-color: #eee;
 }
 
@@ -622,24 +487,19 @@ main .card h2 {
   margin-top: 0.25em;
   color: maroon;
   text-align: center;
-  -webkit-box-flex: 1;
-      -ms-flex: 1 100%;
-          flex: 1 100%;
+  flex: 1 100%;
   font-family: "Quicksand";
   font-weight: 700;
   font-size: 175%;
 }
 
 main .card button {
-  -webkit-box-flex: 1;
-      -ms-flex: 1 100%;
-          flex: 1 100%;
+  flex: 1 100%;
   border: none;
   padding: 0.5em 0.25em;
   font-size: 125%;
   font-weight: 600;
   font-family: "Quicksand";
-  background: -webkit-gradient(linear, left top, left bottom, from(maroon), color-stop(35%, maroon), color-stop(65%, #670000), to(#670000));
   background: linear-gradient(to bottom, maroon, maroon 35%, #670000 65%, #670000);
   color: white;
   margin-top: 1em;
@@ -648,7 +508,6 @@ main .card button {
 }
 
 main .card button:hover {
-  background: -webkit-gradient(linear, left top, left bottom, from(#670000), color-stop(35%, #670000), color-stop(85%, maroon), to(maroon));
   background: linear-gradient(to bottom, #670000, #670000 35%, maroon 85%, maroon);
   cursor: pointer;
 }
@@ -661,19 +520,13 @@ main .card .login-list {
   padding: 0;
   margin: 0 auto;
   list-style-type: none;
-  -ms-flex-preferred-size: 20.5em;
-      flex-basis: 20.5em;
+  flex-basis: 20.5em;
 }
 
 main .card .login-list li {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
 main .card .login-list li label {
@@ -684,31 +537,11 @@ main .card .login-list li label {
 
 main .card .login-list li input {
   font-size: 120%;
-  -webkit-box-flex: 1;
-      -ms-flex: 1 100%;
-          flex: 1 100%;
+  flex: 1 100%;
   color: maroon;
   border: 1px solid #ccc;
   padding: 0.5em;
   margin-bottom: 0.5em;
-}
-
-main .card .login-list li input::-webkit-input-placeholder {
-  font-size: 80%;
-  color: maroon;
-  opacity: 0.5;
-}
-
-main .card .login-list li input:-ms-input-placeholder {
-  font-size: 80%;
-  color: maroon;
-  opacity: 0.5;
-}
-
-main .card .login-list li input::-ms-input-placeholder {
-  font-size: 80%;
-  color: maroon;
-  opacity: 0.5;
 }
 
 main .card .login-list li input::placeholder {
@@ -804,4 +637,16 @@ main .view {
 
 .width100 {
   width: 100%;
+}
+
+.paddingLeft5 {
+  padding-left: 5%;
+}
+
+.paddingLeft10 {
+  padding-left: 10%;
+}
+
+.paddingLeft15 {
+  padding-left: 15%;
 }

@@ -32,7 +32,7 @@ $ACTIVE_GRADIENT: linear-gradient(
   darken($TOPIC_LIGHT, 15) 65%,
   darken($TOPIC_LIGHT, 15)
 );
-$SUMMARY_BORDER: 1px solid #888;
+$SUMMARY_SHADOW: 0 0 0.2em 0 #888;
 
 html {
   height: 100%;
@@ -122,13 +122,8 @@ footer {
   }
 
   & > ul {
-    // flex-grow: 0.125;
-    // display: flex;
-    // justify-content: space-between;
-    // flex-wrap: wrap;
     display: inline;
     text-align: center;
-    // font-size: 90%;
 
     padding: 0;
     margin: 0.5em 0;
@@ -137,7 +132,6 @@ footer {
     color: whitesmoke;
 
     & > li {
-      // align-self: center;
       padding: 0 0.5vw;
       display: inline-block;
       margin: 0.25em 0.375em;
@@ -146,8 +140,6 @@ footer {
       background: $BUTTON_GRADIENT;
 
       &:hover {
-        // background: $BUTTON_GRADIENT_HOVER;
-        // color: $TOPIC_LIGHT;
         cursor: pointer;
       }
 
@@ -156,10 +148,6 @@ footer {
         color: black;
         background: $ACTIVE_GRADIENT;
       }
-
-      // &.active + &:hover {
-      //   color: green;
-      // }
     }
   }
 
@@ -178,18 +166,18 @@ footer {
 .cross:before {
   color: maroon;
   content: "\2718";
-  // content: "&#10008";
   font-size: 125%;
   font-weight: bold;
 }
 
 .check:before {
+  position: relative;
   color: #080;
   content: "\2714";
-  font-size: 125%;
+  font-size: 115%;
   font-weight: bold;
   justify-self: start;
-  align-self: center;
+  align-self: start;
 }
 
 .qm:before {
@@ -209,17 +197,13 @@ footer {
       display: inline-block;
       background-color: $PRIMARY;
       color: white;
-      // font-family: Quicksand;
       padding: 1vw 2vw;
       vertical-align: bottom;
-      // font-weight: 500;
       font-weight: normal;
       font-size: 125%;
-      border: $PRIMARY;
 
       & .total {
         padding-top: 0.5vw;
-        // color: green;
       }
 
       & .uname {
@@ -229,110 +213,13 @@ footer {
         text-align: right;
         text-shadow: 0.12vw 0.12vw 0.25vw black;
         letter-spacing: 0.1vw;
-        // padding-left: 0.5vw;
       }
     }
   }
 
-  & .table {
-    width: 100%;
-    background: #888;
-
-    & .row {
-      padding: 0.5vw;
-      // padding-bottom: 0;
-      display: flex;
-      // margin-bottom: 0;
-      // padding-bottom: 0;
-      border: $SUMMARY_BORDER;
-      border-top: none;
-
-      & .qNumber {
-        display: inline-block;
-        font-size: 115%;
-        width: 16%;
-        align-self: start;
-        font-weight: bold;
-        // border: solid 1px green;
-        padding: 0;
-        // height: 100%;
-        // border-right: 1px solid #aaa;
-
-        .questionMarks {
-          // color: #666;
-          margin-left: 0.2vw;
-          font-size: 90%;
-          font-weight: normal;
-          padding: 0;
-          align-self: center;
-        }
-      }
-
-      & .items {
-        padding: 0;
-        display: inline-block;
-        display: flex;
-        flex-wrap: wrap;
-        // border: 1px solid black;
-        width: 84%;
-        text-align: top;
-
-        & .item {
-          flex-basis: 33.3%;
-          // min-width: 10em;
-          flex-shrink: 0;
-          flex-grow: 0;
-          display: flex;
-          align-items: center;
-          // border: 1px solid black;
-
-          & .ps {
-            text-align: right;
-            flex-basis: 30%;
-          }
-
-          & .ui {
-            flex-basis: 25%;
-            text-align: center;
-          }
-
-          & .symb {
-            flex-basis: 8%;
-            text-align: left;
-            // border: 1px solid blue;
-          }
-
-          & .marked {
-            flex-basis: 15%;
-            // border: 1px solid yellow;
-            text-align: center;
-          }
-
-          & .check:before {
-            color: #080;
-            content: "\2714";
-            font-size: 120%;
-            font-weight: bold;
-          }
-
-          & .cross:before {
-            color: maroon;
-            content: "\2718";
-            font-size: 120%;
-            font-weight: bold;
-          }
-
-          & .qm:before {
-            color: #666;
-            content: "\003f";
-            // font-size: 220%;
-            font-size: 100%;
-            font-weight: 600;
-
-            align-self: center;
-          }
-        }
-      }
+  .table {
+    .row {
+      border: 1px solid #aaa;
 
       &:nth-child(2n + 1) {
         background-color: #ccc;
@@ -341,10 +228,64 @@ footer {
       &:nth-child(2n) {
         background-color: #eee;
       }
-    }
 
-    .row + .row {
-      // border-top: 1px solid #aaa;
+      & .qNumber {
+        vertical-align: top;
+        width: 15%;
+        font-weight: bold;
+        font-size: 120%;
+        display: inline-block;
+        padding: 0.2vw;
+        margin: 0.2vw 0 0.2vw auto;
+
+        & .questionMarks {
+          font-weight: normal;
+          font-size: normal;
+          margin-left: 1vw;
+        }
+      }
+
+      & .items {
+        width: 85%;
+        display: inline-block;
+        margin: 0.2vw 0 0.2vw auto;
+
+        & .item {
+          vertical-align: bottom;
+          border: 0.5px solid #aaa;
+          display: inline-block;
+          width: 24.375%;
+          margin: 0.2vw;
+          height: 1.75em;
+
+          & .ps {
+            width: 30%;
+            display: inline-block;
+            text-align: right;
+            vertical-align: middle;
+          }
+          & .ui {
+            width: 27%;
+            display: inline-block;
+            text-align: center;
+          }
+          & .symb {
+            position: relative;
+            width: 15%;
+            font-size: 90%;
+            display: inline-block;
+            text-align: center;
+          }
+          & .marked {
+            width: 26%;
+            display: inline-block;
+            text-align: center;
+          }
+        }
+      }
+    }
+    & .row + .row {
+      border-top: none;
     }
   }
 }
@@ -354,23 +295,9 @@ footer {
 }
 
 .katex {
-  font-size: 105%;
-  // color: DarkRed;
-  font-weight: 600;
+  font-size: 120%;
+  font-weight: 500;
 }
-
-// .taLeft {
-//   text-align: left;
-//   color: blue;
-// }
-
-// .taCenter {
-//   text-align: center;
-// }
-
-// .taRight {
-//   text-align: right;
-// }
 
 #instructions {
   & ul {
@@ -381,7 +308,6 @@ footer {
 
     &:last-of-type {
       margin-bottom: 0;
-      // border: 1px solid black; green solid;
     }
 
     & li {
@@ -391,7 +317,6 @@ footer {
         margin-left: -0.75em;
         font-weight: bold;
         content: "\2134";
-        // content: '\263B';
         font-size: 200%;
         color: $PRIMARY;
         line-height: 1;
@@ -419,7 +344,6 @@ footer {
 }
 
 .statement {
-  // border: 1px solid black; solid green;
   margin: 0 auto;
   text-align: left;
   font-size: $FONT_SIZE;
@@ -455,21 +379,19 @@ footer {
 .parts {
   display: grid;
   // partStatement, input, units, button, check/cross, marks, feedback
-  grid-template-columns: 20% 22% 5em 4em 1.5em 30%; // 1fr;
+  grid-template-columns: 15% 20% 15% 12% 10% 30%; // 1fr;
   // grid-gap: 1vw 0;
   grid-row-gap: 0.3vw;
-  // border: 1px solid blue;
-  width: 65%;
+  // width: 5%;
   margin: 0 auto;
   // padding-right: 2em;
-  font-size: $FONT_SIZE;
+  // font-size: $FONT_SIZE;
+  font-size: 80%;
 }
 
 .partStatement {
   align-self: center;
-  // justify-self: end;
   text-align: right;
-  // place-self: center end;
   overflow-x: visible;
 }
 
@@ -480,48 +402,40 @@ footer {
   color: white;
   margin-right: 2vw;
   height: 1.75em;
-  width: 4em;
   border: none;
-  padding: 0.25vw;
+  padding: 0.25vw 0.75vw;
   font-size: 1.5vw;
   text-decoration: none;
   box-shadow: $SHADOW;
-  // align-self: center;
-  // justify-self: end;
   place-self: center end;
 
-  &.active {
-    position: relative;
-    top: 2px;
-    color: black;
-    background: $COURSE_LIGHT;
-    background: linear-gradient(
-      to bottom,
-      lighten(linen, 5),
-      lighten(linen, 5) 45%,
-      linen 55%,
-      linen
-    );
-  }
+  // &.active {
+  // position: relative;
+  // // top: 2px;
+  // color: black;
+  // background: $COURSE_LIGHT;
+  // background: linear-gradient(
+  //   to bottom,
+  //   lighten(linen, 5),
+  //   lighten(linen, 5) 45%,
+  //   linen 55%,
+  //   linen
+  // );
+  // }
 
   &:hover {
-    // position: relative;
-    // top: 10px;
     background-color: $PRIMARY;
     background: $BUTTON_GRADIENT_HOVER;
-    // color: black;
     cursor: pointer;
   }
 
   &:focus {
     position: relative;
-    // top: 1px solid black;;
     outline: none;
   }
 }
 
 input.partInput {
-  // background: $CARD_BACKGROUND;
   border: 0.2vw solid darken($CARD_BACKGROUND, 10);
   font-size: $FONT_SIZE;
   margin: 0 0.5vw;
@@ -538,32 +452,21 @@ input.partInput {
 }
 
 .units {
-  // align-self: center;
-  // justify-self: end;
   place-self: center start;
-  // background: pink;
 }
 
 .crosscheck {
+  font-size: 140%;
   place-self: center start;
+  padding-left: 0;
 }
 
 .feedback {
-  // border: 1px solid black; solid black;
   align-self: center;
   justify-self: start;
   place-self: center start;
   overflow-x: visible;
-  // background: palegreen;
 }
-
-// article.summary {
-//   background: purple;
-//   color: pink;
-//   // margin: 0 auto;
-//   border: 1px solid black; solid black;
-//   // width: 30%;
-// }
 
 $min_font: 8;
 $mid_font: 10; //font-size at media break
@@ -840,4 +743,14 @@ main {
 .width100 {
   // flex-basis: 90%;
   width: 100%;
+}
+
+.paddingLeft5 {
+  padding-left: 5%;
+}
+.paddingLeft10 {
+  padding-left: 10%;
+}
+.paddingLeft15 {
+  padding-left: 15%;
 }

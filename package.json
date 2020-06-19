@@ -12,7 +12,7 @@
     "@babel/preset-env": "^7.8.3"
   },
   "scripts": {
-    "build": "babel QWIZM/src -d QWIZM && babel statics/quizzes/quiz00MR01/src -d statics/quizzes/quiz00MR01 && babel statics/questions/_00MR/src -d statics/questions/_00MR"
+    "build": "babel nuQWIZM/src -d nuQWIZM && babel statics/quizzes/quiz09CF01/src -d statics/quizzes/quiz09CF01 && babel statics/questions/09CF/src -d statics/questions/09CF"
   },
   "repository": {
     "type": "git",
