@@ -3,7 +3,7 @@
 var QWIZM = QWIZM || {};
 QWIZM.question = QWIZM.question || {};
 
-QWIZM.question.qES09CF007a = function (qNumber) {
+QWIZM.question.qES09CF07a = function (qNumber) {
   var qId = 1000183; // question ID number, unique to this question    
 
   var uId = QWIZM.state.uId,
@@ -22,6 +22,7 @@ QWIZM.question.qES09CF007a = function (qNumber) {
       arrayCount = 0,
       seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
       lcrng = new utils.LCRNG(seed),
+      partMarks = 0,
       debug = false; //inputs - defaults to sigDigs
   // sd to convert to number equivalents of string inputs to avoid string concatenation
 
@@ -46,30 +47,27 @@ QWIZM.question.qES09CF007a = function (qNumber) {
   RB = stringify(RB * 1000);
   RA = stringify(RA);
   MA = stringify(MA);
-  var statement = "There is a fixed connection at !$A!$, a pinned connection at !$B!$ and a rocker at !$C!$. Determine the magnitude of the reactions at !$A, B!$ and !$C!$, and the reacting moment !$M_A!$ at !$A!$, due to the uniformly varying load shown.<br>".concat(RC),
+  var statement = "There is a fixed connection at !$A!$, a pinned connection at !$B!$ and a roller at !$C!$. Determine the magnitude of the reactions at !$A, B!$ and !$C!$, and the reacting moment !$M_A!$ at !$A!$, due to the uniformly varying load shown.",
       img = "../../images/09CF/09CF07a.png",
-      iV1 = ov({
+      inputs = QWIZM.getInputOverlays([{
     input: AB + ' m',
     left: 37,
-    top: 83.5
-  }),
-      iV2 = ov({
+    top: 83
+  }, {
     input: BC + ' m',
     left: 74,
-    top: 83.5 //background: 'yellow'
+    top: 83 //background: 'yellow'
 
-  }),
-      iV3 = ov({
+  }, {
     input: DL + ' kN/m',
     left: 23.5,
     top: 16,
     background: 'none'
-  });
+  }]);
 
   if (!thisQuiz[qNumber] || debug) {
     thisQuiz[qNumber] = [];
-    thisQuestion = thisQuiz[qNumber]; // thisQuiz.push(questionPart)
-
+    thisQuestion = thisQuiz[qNumber];
     thisQuestion[arrayCount++] = '';
     thisQuestion[arrayCount++] = {
       partStatement: "!$ R_C !$",
@@ -95,7 +93,14 @@ QWIZM.question.qES09CF007a = function (qNumber) {
       marks: 4,
       correctSoln: MA
     };
+
+    for (var i = 1; i < thisQuestion.length; i++) {
+      partMarks += thisQuestion[i].marks;
+    } // store question total marks in the empty first element of the array
+
+
+    thisQuestion[0] = partMarks;
   }
 
-  return "<div class='statement width50'><h3>Q".concat(qNumber, "</h3>: \n    ").concat(statement, "</div>\n    <div id = '").concat(qId, "img' class='image width55'>\n        <img src= ").concat(img, ">\n        ").concat(iV1, "\n        ").concat(iV2, "\n        ").concat(iV3, "\n    </div>\n    <form autocomplete=\"off\"><div class='parts paddingLeft5 width55'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
+  return "<div class='statement width50'><h3>Q".concat(qNumber, "</h3> (").concat(thisQuiz[qNumber][0], " marks): \n        ").concat(statement, "</div>\n        <div id = '").concat(qId, "img' class='image width55'>\n            <img src= ").concat(img, ">\n            ").concat(inputs, "\n            </div>\n        <form autocomplete=\"off\"><div class='parts paddingLeft5 width55'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
 };

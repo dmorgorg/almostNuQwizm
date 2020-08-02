@@ -1,7 +1,7 @@
 let QWIZM = QWIZM || {};
 QWIZM.question = QWIZM.question || {};
 
-QWIZM.question.qES09CF001b = (qNumber) => {
+QWIZM.question.qES09CF01b = (qNumber) => {
 
     let qId = 1000193; // question ID number, unique to this question    
 
@@ -21,6 +21,7 @@ QWIZM.question.qES09CF001b = (qNumber) => {
         arrayCount = 0,
         seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
         lcrng = new utils.LCRNG(seed),
+        partMarks = 0,
         debug = false;
 
 
@@ -63,9 +64,6 @@ QWIZM.question.qES09CF001b = (qNumber) => {
         By = sd(Q * sin(theta) + Cy),
         RB = sd((Bx ** 2 + By ** 2) ** 0.5);
 
-
-
-
     //stringify - defaults to sigDigs
     ACx = stringify(ACx);
     CQx = stringify(CQx);
@@ -86,56 +84,56 @@ QWIZM.question.qES09CF001b = (qNumber) => {
 
     let statement = `!$ABC!$ is a frame comprised of two structural members !$AB!$ and !$BC!$, pinned at !$C!$ and loaded as shown. Determine the magnitudes of the reactions at !$A, B!$ and !$C!$.`,
         img = `../../images/09CF/09CF01b.png`,
-        iV1 = ov({
-            input: ACx + ' m',
-            left: 32,
-            top: 89
-        }),
-        iV2 = ov({
-            input: CQx + ' m',
-            left: 55,
-            top: 89
-        }),
-        iV3 = ov({
-            input: BQx + ' m',
-            left: 77,
-            top: 89
-        }),
-        iV4 = ov({
-            input: APy + ' m',
-            left: 8,
-            top: 47
-        }),
-        iV5 = ov({
-            input: CPy + ' m',
-            left: 8,
-            top: 21.5
-        }),
-        iV6 = ov({
-            input: P + ' kN',
-            left: 21,
-            top: 27,
-            color: '#a00',
-            fontSize: 1.6,
-            fontWeight: 'bold',
-            background: 'none'
-        }),
-        iV7 = ov({
-            input: Q + ' kN',
-            left: 80,
-            top: 21,
-            color: '#a00',
-            fontSize: 1.6,
-            fontWeight: 'bold',
-            background: 'none'
-        }),
-        iV8 = ov({
-            input: theta + '&deg;',
-            left: 78.5,
-            top: 33.5,
-            // rot: -36,
-            // background: 'none'
-        });
+        inputs = QWIZM.getInputOverlays([{
+                input: ACx + ' m',
+                left: 32,
+                top: 88.5
+            },
+            {
+                input: CQx + ' m',
+                left: 55,
+                top: 88.5
+            },
+            {
+                input: BQx + ' m',
+                left: 77,
+                top: 88.5
+            },
+            {
+                input: APy + ' m',
+                left: 8,
+                top: 47
+            },
+            {
+                input: CPy + ' m',
+                left: 8,
+                top: 21.5
+            },
+            {
+                input: P + ' kN',
+                left: 21,
+                top: 27,
+                color: '#a00',
+                fontSize: 1.6,
+                fontWeight: 'bold',
+                background: 'none'
+            },
+            {
+                input: Q + ' kN',
+                left: 80,
+                top: 21,
+                color: '#a00',
+                fontSize: 1.6,
+                fontWeight: 'bold',
+                background: 'none'
+            },
+            {
+                input: theta + '&deg;',
+                left: 78.5,
+                top: 33.5,
+            }
+        ]);
+
 
     if (!thisQuiz[qNumber] || debug) {
         thisQuiz[qNumber] = [];
@@ -165,22 +163,21 @@ QWIZM.question.qES09CF001b = (qNumber) => {
             correctSoln: RB
         };
 
+        for (let i = 1; i < thisQuestion.length; i++) {
+            partMarks += thisQuestion[i].marks;
+        }
+        // store question total marks in the empty first element of the array
+        thisQuestion[0] = partMarks;
+
 
     }
 
-    return `<div class='statement width60'><h3>Q${qNumber}</h3>: 
+    return `<div class='statement width60'><h3>Q${qNumber}</h3> (${thisQuiz[qNumber][0]} marks): 
     ${statement}</div>
     <div id = '${qId}img' class='image width55'>
         <img src= ${img}>        
-        ${iV1}
-        ${iV2}
-        ${iV3}
-        ${iV4}
-        ${iV5}
-        ${iV6}
-        ${iV7}
-        ${iV8}
-    </div>
-    <form autocomplete="off"><div class='parts paddingLeft5 width55'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
+        ${inputs}
+        </div>
+    <form autocomplete="off"><div class='parts width55'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
 
 };

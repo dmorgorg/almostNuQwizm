@@ -1,7 +1,7 @@
 let QWIZM = QWIZM || {};
 QWIZM.question = QWIZM.question || {};
 
-QWIZM.question.qES09CF007a = (qNumber) => {
+QWIZM.question.qES09CF07a = (qNumber) => {
 
     let qId = 1000183; // question ID number, unique to this question    
 
@@ -21,6 +21,7 @@ QWIZM.question.qES09CF007a = (qNumber) => {
         arrayCount = 0,
         seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
         lcrng = new utils.LCRNG(seed),
+        partMarks = 0,
         debug = false;
 
 
@@ -52,31 +53,31 @@ QWIZM.question.qES09CF007a = (qNumber) => {
     MA = stringify(MA);
 
 
-    let statement = `There is a fixed connection at !$A!$, a pinned connection at !$B!$ and a rocker at !$C!$. Determine the magnitude of the reactions at !$A, B!$ and !$C!$, and the reacting moment !$M_A!$ at !$A!$, due to the uniformly varying load shown.<br>${RC}`,
+    let statement = `There is a fixed connection at !$A!$, a pinned connection at !$B!$ and a roller at !$C!$. Determine the magnitude of the reactions at !$A, B!$ and !$C!$, and the reacting moment !$M_A!$ at !$A!$, due to the uniformly varying load shown.`,
         img = `../../images/09CF/09CF07a.png`,
-        iV1 = ov({
-            input: AB + ' m',
-            left: 37,
-            top: 83.5
-        }),
-        iV2 = ov({
-            input: BC + ' m',
-            left: 74,
-            top: 83.5,
-            //background: 'yellow'
-        }),
-        iV3 = ov({
-            input: DL + ' kN/m',
-            left: 23.5,
-            top: 16,
-            background: 'none'
-        });
+        inputs = QWIZM.getInputOverlays([{
+                input: AB + ' m',
+                left: 37,
+                top: 83
+            },
+            {
+                input: BC + ' m',
+                left: 74,
+                top: 83
+                //background: 'yellow'
+            },
+            {
+                input: DL + ' kN/m',
+                left: 23.5,
+                top: 16,
+                background: 'none'
+            }
+        ]);
 
     if (!thisQuiz[qNumber] || debug) {
         thisQuiz[qNumber] = [];
         thisQuestion = thisQuiz[qNumber];
 
-        // thisQuiz.push(questionPart)
         thisQuestion[arrayCount++] = '';
 
         thisQuestion[arrayCount++] = {
@@ -107,16 +108,20 @@ QWIZM.question.qES09CF007a = (qNumber) => {
             correctSoln: MA
         };
 
+        for (let i = 1; i < thisQuestion.length; i++) {
+            partMarks += thisQuestion[i].marks;
+        }
+        // store question total marks in the empty first element of the array
+        thisQuestion[0] = partMarks;
+
     }
 
-    return `<div class='statement width50'><h3>Q${qNumber}</h3>: 
-    ${statement}</div>
-    <div id = '${qId}img' class='image width55'>
-        <img src= ${img}>
-        ${iV1}
-        ${iV2}
-        ${iV3}
-    </div>
-    <form autocomplete="off"><div class='parts paddingLeft5 width55'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
+    return `<div class='statement width50'><h3>Q${qNumber}</h3> (${thisQuiz[qNumber][0]} marks): 
+        ${statement}</div>
+        <div id = '${qId}img' class='image width55'>
+            <img src= ${img}>
+            ${inputs}
+            </div>
+        <form autocomplete="off"><div class='parts paddingLeft5 width55'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
 
 };

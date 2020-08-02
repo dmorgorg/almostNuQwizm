@@ -3,7 +3,7 @@
 var QWIZM = QWIZM || {};
 QWIZM.question = QWIZM.question || {};
 
-QWIZM.question.qES09CF006a = function (qNumber) {
+QWIZM.question.qES09CF06a = function (qNumber) {
   var qId = 1000183; // question ID number, unique to this question    
 
   var uId = QWIZM.state.uId,
@@ -22,6 +22,7 @@ QWIZM.question.qES09CF006a = function (qNumber) {
       arrayCount = 0,
       seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
       lcrng = new utils.LCRNG(seed),
+      partMarks = 0,
       debug = false; //inputs - defaults to sigDigs
 
   var CEy = sd(stringify(lcrng.getNext(300, 600, 5))),
@@ -69,46 +70,39 @@ QWIZM.question.qES09CF006a = function (qNumber) {
   P = stringify(P);
   var statement = "!$A!$ is a fixed connection with a reaction and reacting moment, !$B!$ is a pin in a frictionless  slot, !$D!$ is a pinned connection and there is a small, smooth pulley at !$E!$. Determine the reactions (both magnitude and direction !$\\theta!$, measured relative to the positive !$x!$-axis and where !$-180^\\circ\\!<\\theta\\le \\!180^\\circ!$) at !$A, B, C, D!$ and !$E!$ due to the applied force of ".concat(P, " kN. Then determine !$M_A!$, the reacting moment at !$A!$."),
       img = "../../images/09CF/09CF06a.png",
-      iV1 = ov({
+      inputs = QWIZM.getInputOverlays([{
     input: CEy + ' mm',
     left: 83,
     top: 23,
     fontSize: 1.4
-  }),
-      iV2 = ov({
+  }, {
     input: BEy + ' mm',
     left: 83,
     top: 36
-  }),
-      iV3 = ov({
+  }, {
     input: BDy + ' mm',
     left: 83,
-    top: 51 //background: 'yellow'
-
-  }),
-      iV4 = ov({
+    top: 51
+  }, {
     input: ADx + ' mm',
     left: 32.25,
     top: 88.5
-  }),
-      iV5 = ov({
+  }, {
     input: AEx + ' mm',
     left: 54,
     top: 88.5
-  }),
-      iV6 = ov({
+  }, {
     input: ADy + ' mm',
     left: 83,
     top: 64
-  }),
-      iV7 = ov({
+  }, {
     input: P + ' kN',
     left: 65.5,
     top: 52,
     color: '#a00',
     fontSize: 1.6,
     fontWeight: 'bold'
-  });
+  }]);
 
   if (!thisQuiz[qNumber] || debug) {
     thisQuiz[qNumber] = [];
@@ -181,7 +175,14 @@ QWIZM.question.qES09CF006a = function (qNumber) {
       marks: 4,
       correctSoln: MA
     };
+
+    for (var i = 1; i < thisQuestion.length; i++) {
+      partMarks += thisQuestion[i].marks;
+    } // store question total marks in the empty first element of the array
+
+
+    thisQuestion[0] = partMarks;
   }
 
-  return "<div class='statement width55'><h3>Q".concat(qNumber, "</h3>: \n    ").concat(statement, "</div>\n    <div id = '").concat(qId, "img' class='image width50'>\n    <img src= ").concat(img, ">\n    ").concat(iV1, "\n    ").concat(iV2, "\n    ").concat(iV3, "\n    ").concat(iV4, "\n    ").concat(iV5, "\n    ").concat(iV6, "\n    ").concat(iV7, "   \n    </div>\n    <form autocomplete=\"off\"><div class='parts paddingLeft10 width55'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
+  return "<div class='statement width55'><h3>Q".concat(qNumber, "</h3> (").concat(thisQuiz[qNumber][0], " marks): \n    ").concat(statement, "</div>\n    <div id = '").concat(qId, "img' class='image width50'>\n        <img src= ").concat(img, ">\n        ").concat(inputs, "\n    </div>\n    <form autocomplete=\"off\"><div class='parts paddingLeft10 width65'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
 };

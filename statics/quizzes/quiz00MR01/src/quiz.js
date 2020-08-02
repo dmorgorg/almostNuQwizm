@@ -29,6 +29,8 @@ QWIZM.quiz = {
 
         <li>Enter only numeric values in the input box for each question. <br>E.g., If the question asks for the solution in metres, enter the numeric answer for metres without an 'm.'</li>
 
+        <li>Tension is positive, compression is negative. </li>
+
       <!-- <li>Unless temperature is specified, use the value of !$\\gamma = 9.81 \\mathsf{kN/m^3}!$ for the specific weight of water.</li> -->
       </ul>
 

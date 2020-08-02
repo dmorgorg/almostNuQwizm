@@ -1,7 +1,7 @@
 let QWIZM = QWIZM || {};
 QWIZM.question = QWIZM.question || {};
 
-QWIZM.question.qES09CF006a = (qNumber) => {
+QWIZM.question.qES09CF06a = (qNumber) => {
 
     let qId = 1000183; // question ID number, unique to this question    
 
@@ -21,6 +21,7 @@ QWIZM.question.qES09CF006a = (qNumber) => {
         arrayCount = 0,
         seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
         lcrng = new utils.LCRNG(seed),
+        partMarks = 0,
         debug = false;
 
 
@@ -53,7 +54,7 @@ QWIZM.question.qES09CF006a = (qNumber) => {
         RAx = sd(RB * sin(BDtheta) + P * cos(CEtheta)),
         RA = sd(Math.sqrt(RAy ** 2 + RAx ** 2)),
         RAtheta = sd(atan(RAy / RAx)),
-        MA = sd(((ADy + BDy + BEy + CEy) * P * cos(CEtheta) - (ADy + BDy) * RB * sin(BDtheta))/1000);
+        MA = sd(((ADy + BDy + BEy + CEy) * P * cos(CEtheta) - (ADy + BDy) * RB * sin(BDtheta)) / 1000);
 
     RB = Math.abs(RB);
 
@@ -72,48 +73,48 @@ QWIZM.question.qES09CF006a = (qNumber) => {
     MA = stringify(MA);
     P = stringify(P);
 
-    let statement = `!$A!$ is a fixed connection with a reaction and reacting moment, !$B!$ is a pin in a frictionless  slot, !$D!$ is a pinned connection and there is a small, smooth pulley at !$E!$. Determine the reactions (both magnitude and direction !$\\theta!$, measured relative to the positive !$x!$-axis and where !$-180^\\circ\\!<\\theta\\le \\!180^\\circ!$) at !$A, B, C, D!$ and !$E!$ due to the applied force of ${P} kN. Then determine !$M_A!$, the reacting moment at !$A!$.`, 
+    let statement = `!$A!$ is a fixed connection with a reaction and reacting moment, !$B!$ is a pin in a frictionless  slot, !$D!$ is a pinned connection and there is a small, smooth pulley at !$E!$. Determine the reactions (both magnitude and direction !$\\theta!$, measured relative to the positive !$x!$-axis and where !$-180^\\circ\\!<\\theta\\le \\!180^\\circ!$) at !$A, B, C, D!$ and !$E!$ due to the applied force of ${P} kN. Then determine !$M_A!$, the reacting moment at !$A!$.`,
         img = `../../images/09CF/09CF06a.png`,
-        iV1 = ov({
-            input: CEy + ' mm',
-            left: 83,
-            top: 23,
-            fontSize: 1.4
-        }),
-        iV2 = ov({
-            input: BEy + ' mm',
-            left: 83,
-            top: 36
-        }),
-        iV3 = ov({
-            input: BDy + ' mm',
-            left: 83,
-            top: 51
-            //background: 'yellow'
-        }),
-        iV4 = ov({
-            input: ADx + ' mm',
-            left: 32.25,
-            top: 88.5,
-        }),
-        iV5 = ov({
-            input: AEx + ' mm',
-            left: 54,
-            top: 88.5,
-        }),
-        iV6 = ov({
-            input: ADy + ' mm',
-            left: 83,
-            top: 64,
-        }),
-        iV7 = ov({
-            input: P + ' kN',
-            left: 65.5,
-            top: 52,
-            color: '#a00',
-            fontSize: 1.6,
-            fontWeight: 'bold'
-        });
+        inputs = QWIZM.getInputOverlays([{
+                input: CEy + ' mm',
+                left: 83,
+                top: 23,
+                fontSize: 1.4
+            },
+            {
+                input: BEy + ' mm',
+                left: 83,
+                top: 36
+            },
+            {
+                input: BDy + ' mm',
+                left: 83,
+                top: 51
+            },
+            {
+                input: ADx + ' mm',
+                left: 32.25,
+                top: 88.5,
+            },
+            {
+                input: AEx + ' mm',
+                left: 54,
+                top: 88.5,
+            },
+            {
+                input: ADy + ' mm',
+                left: 83,
+                top: 64,
+            },
+            {
+                input: P + ' kN',
+                left: 65.5,
+                top: 52,
+                color: '#a00',
+                fontSize: 1.6,
+                fontWeight: 'bold'
+            }
+        ]);
 
     if (!thisQuiz[qNumber] || debug) {
         thisQuiz[qNumber] = [];
@@ -154,7 +155,7 @@ QWIZM.question.qES09CF006a = (qNumber) => {
             partStatement: `!$ R_B !$`,
             units: RB < 1 ? 'N' : 'kN',
             marks: 5,
-            correctSoln: RB < 1 ? RB*1000 : RB
+            correctSoln: RB < 1 ? RB * 1000 : RB
         };
 
         thisQuestion[arrayCount++] = {
@@ -198,20 +199,20 @@ QWIZM.question.qES09CF006a = (qNumber) => {
             marks: 4,
             correctSoln: MA
         };
+
+        for (let i = 1; i < thisQuestion.length; i++) {
+            partMarks += thisQuestion[i].marks;
+        }
+        // store question total marks in the empty first element of the array
+        thisQuestion[0] = partMarks;
     }
 
-    return `<div class='statement width55'><h3>Q${qNumber}</h3>: 
+    return `<div class='statement width55'><h3>Q${qNumber}</h3> (${thisQuiz[qNumber][0]} marks): 
     ${statement}</div>
     <div id = '${qId}img' class='image width50'>
-    <img src= ${img}>
-    ${iV1}
-    ${iV2}
-    ${iV3}
-    ${iV4}
-    ${iV5}
-    ${iV6}
-    ${iV7}   
+        <img src= ${img}>
+        ${inputs}
     </div>
-    <form autocomplete="off"><div class='parts paddingLeft10 width55'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
+    <form autocomplete="off"><div class='parts paddingLeft10 width65'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
 
 };

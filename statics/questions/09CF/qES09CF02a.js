@@ -3,7 +3,7 @@
 var QWIZM = QWIZM || {};
 QWIZM.question = QWIZM.question || {};
 
-QWIZM.question.qES09CF002a = function (qNumber) {
+QWIZM.question.qES09CF02a = function (qNumber) {
   var qId = 1000187; // question ID number, unique to this question    
 
   var uId = QWIZM.state.uId,
@@ -18,10 +18,11 @@ QWIZM.question.qES09CF002a = function (qNumber) {
       atan = utils.atan,
       thisQuiz = QWIZM.state.thisQuiz,
       thisQuestion,
-      ov = QWIZM.methods.overlayVariable,
-      arrayCount = 0,
+      // ov = QWIZM.methods.overlayVariable,
+  arrayCount = 0,
       seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
       lcrng = new utils.LCRNG(seed),
+      partMarks = 0,
       debug = false; //inputs - defaults to sigDigs
   // sd to convert to number equivalents of string inputs to avoid string concatenation
 
@@ -70,38 +71,32 @@ QWIZM.question.qES09CF002a = function (qNumber) {
   RAtheta = stringify(RAtheta);
   RC = stringify(RC);
   RCtheta = stringify(RCtheta);
-  var statement = "!$ABC!$ is a frame comprised of two structural members !$AB!$ and !$BC!$, pinned at !$B!$ and loaded as shown. Determine the force !$R_B!$ (magnitude and direction !$\\theta!$, where <br> !$0\\!\\le\\!\\theta\\!<360!$, measured counterclockwise from the positive !$x!$-axis) that frame member !$AB!$ exerts on frame member !$BC!$. Then determine the reactions at the pinned connections !$A!$ and !$C!$.",
+  var statement = "!$ABC!$ is a frame comprised of two structural members !$AB!$ and !$BC!$, pinned at !$B!$ and loaded as shown. Determine the force !$F_B!$ (both magnitude and direction !$\\theta!$, where !$0^\\circ\\!\\le\\!\\theta\\!<360^\\circ!$, measured counterclockwise from the positive !$x!$-axis) that frame member !$AB!$ exerts on frame member !$BC!$. Then determine the reactions at the pinned connections !$A!$ and !$C!$.",
       img = "../../images/09CF/09CF02a.png",
-      iV1 = ov({
+      inputs = QWIZM.getInputOverlays([{
     input: ABx + ' m',
     left: 40,
-    top: 90
-  }),
-      iV2 = ov({
+    top: 89.75
+  }, {
     input: BCx + ' m',
     left: 68,
-    top: 90 //background: 'yellow'
-
-  }),
-      iV3 = ov({
+    top: 89.75
+  }, {
     input: ABy + ' m',
     left: 10,
-    top: 50 // background: 'none'
-
-  }),
-      iV4 = ov({
+    top: 50
+  }, {
     input: ABDL + ' kN/m',
     left: 15,
     top: 22.5,
     background: 'none'
-  }),
-      iV5 = ov({
+  }, {
     input: BCDL + ' kN/m',
     left: 78.5,
     top: 25.5,
     rot: -36,
     background: 'none'
-  });
+  }]);
 
   if (!thisQuiz[qNumber] || debug) {
     thisQuiz[qNumber] = [];
@@ -109,13 +104,13 @@ QWIZM.question.qES09CF002a = function (qNumber) {
 
     thisQuestion[arrayCount++] = '';
     thisQuestion[arrayCount++] = {
-      partStatement: "!$ R_B !$",
+      partStatement: "!$ F_B !$",
       units: 'kN',
       marks: 10,
       correctSoln: RB
     };
     thisQuestion[arrayCount++] = {
-      partStatement: "!$ R_B\\theta !$",
+      partStatement: "!$ F_B\\theta !$",
       units: '&deg;',
       marks: 2,
       correctSoln: RBtheta
@@ -144,7 +139,14 @@ QWIZM.question.qES09CF002a = function (qNumber) {
       marks: 2,
       correctSoln: RCtheta
     };
+
+    for (var i = 1; i < thisQuestion.length; i++) {
+      partMarks += thisQuestion[i].marks;
+    } // store question total marks in the empty first element of the array
+
+
+    thisQuestion[0] = partMarks;
   }
 
-  return "<div class='statement width60'><h3>Q".concat(qNumber, "</h3>: \n    ").concat(statement, "</div>\n    <div id = '").concat(qId, "img' class='image width55'>\n        <img src= ").concat(img, ">\n        ").concat(iV1, "\n        ").concat(iV2, "\n        ").concat(iV3, "\n        ").concat(iV4, "\n        ").concat(iV5, "\n    </div>\n    <form autocomplete=\"off\"><div class='parts paddingLeft5 width55'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
+  return "<div class='statement width60'><h3>Q".concat(qNumber, "</h3> (").concat(thisQuiz[qNumber][0], " marks): \n    ").concat(statement, "</div>\n    <div id = '").concat(qId, "img' class='image width55'>\n        <img src= ").concat(img, ">\n        ").concat(inputs, "\n    </div>\n    <form autocomplete=\"off\"><div class='parts paddingLeft5 width55'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
 };

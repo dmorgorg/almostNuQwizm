@@ -283,17 +283,30 @@ QWIZM.methods.readFromLocalStorage = function (key) {
 QWIZM.methods.overlayVariable = function (o) {
   var input = o.input,
       left = o.left,
-      pad = o.padding || 0.15,
       top = o.top,
-      rot = o.rot || 0,
+      rot = o.rot || o.rotate || 0,
       // degrees, measured counterclockwise from positive x-axis
-  fs = o.fontSize || 1.4,
+  fs = o.fs || o.fontSize || 1.4,
       // units are in vw (view widths)
-  fw = o.fontWeight || 'normal',
-      color = o.color || 'black',
-      bg = o.background || 'white'; // default value is 'white', use 'inherit' or 'transparent' or 'none' for no background
+  fw = o.fontWeight || o.fw || 'normal',
+      pad = o.pad == 0 ? 0.001 : o.pad || o.padding == 0 ? 0.001 : o.padding || 0.15,
+      //because if 0 is passed, it is falsy and the default of 0.15 is returned.
+  color = o.color || 'black',
+      bg = o.background || o.bg || 'white'; // default value is 'white', use 'inherit' or 'transparent' or 'none' for no background
 
-  return "<div class='label' style=\"  \n        top: ".concat(top, "%; \n        left: ").concat(left, "%;\n        color: ").concat(color, ";\n        padding: ").concat(pad, "vw;\n        background-color:").concat(bg, ";        \n        font-size: ").concat(fs, "vw;\n        font-weight: ").concat(fw, ";\n        transform: translate(-50%, -50%) rotate(").concat(-rot, "deg); \">\n        ").concat(input, "\n        </div>");
+  return "<div class='label' style=\" \n        top: ".concat(top, "%; \n        left: ").concat(left, "%;\n        color: ").concat(color, ";\n        padding: ").concat(pad, "vw;\n        background-color:").concat(bg, ";        \n        font-size: ").concat(fs, "vw;\n        font-weight: ").concat(fw, ";\n        line-height: 1;\n        transform: translate(-50%, -50%) rotate(").concat(-rot, "deg); \">\n        ").concat(input, "\n        </div>");
+};
+
+QWIZM.getInputOverlays = function (arr) {
+  var output = "",
+      len = arr.length;
+
+  for (var index = 0; index < len; index++) {
+    output += QWIZM.methods.overlayVariable(arr[index]);
+  } //console.log(output);
+
+
+  return output;
 };
 /** Writes a number to a string with the specified number of significant digits. 
  *      If specified in the quiz, the significant digits will be incremented by 1 if

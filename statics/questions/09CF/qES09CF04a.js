@@ -3,7 +3,7 @@
 var QWIZM = QWIZM || {};
 QWIZM.question = QWIZM.question || {};
 
-QWIZM.question.qES09CF004a = function (qNumber) {
+QWIZM.question.qES09CF04a = function (qNumber) {
   var qId = 1000159; // question ID number, unique to this question    
 
   var uId = QWIZM.state.uId,
@@ -22,6 +22,7 @@ QWIZM.question.qES09CF004a = function (qNumber) {
       arrayCount = 0,
       seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
       lcrng = new utils.LCRNG(seed),
+      partMarks = 0,
       debug = false; //inputs - defaults to sigDigs
 
   var AD = stringify(lcrng.getNext(1.5, 3, 0.05)),
@@ -66,29 +67,25 @@ QWIZM.question.qES09CF004a = function (qNumber) {
 
   var statement = "There are pinned connections at !$A!$ and !$D!$, a rocker at !$C!$ and a frictionless collar at !$B!$. Determine the reactions (both magnitude and direction !$\\theta!$, where !$-180^\\circ<\\theta\\le 180^\\circ!$) at !$A, B, C!$ and !$D!$ due to the uniformly distributed load shown.<br>",
       img = "../../images/09CF/09CF04a.png",
-      iV1 = ov({
+      inputs = QWIZM.getInputOverlays([{
     input: AD + ' m',
     left: 8,
     top: 43
-  }),
-      iV2 = ov({
+  }, {
     input: AB + ' m',
     left: 46,
     top: 83
-  }),
-      iV3 = ov({
+  }, {
     input: BC + ' m',
     left: 72,
-    top: 83 //background: 'yellow'
-
-  }),
-      iV4 = ov({
+    top: 83
+  }, {
     input: DL + ' kN/m',
     left: 65,
     top: 26.75,
     rot: -54.46,
     background: 'none'
-  });
+  }]);
 
   if (!thisQuiz[qNumber] || debug) {
     thisQuiz[qNumber] = [];
@@ -143,7 +140,14 @@ QWIZM.question.qES09CF004a = function (qNumber) {
       marks: 2,
       correctSoln: RDtheta
     };
+
+    for (var i = 1; i < thisQuestion.length; i++) {
+      partMarks += thisQuestion[i].marks;
+    } // store question total marks in the empty first element of the array
+
+
+    thisQuestion[0] = partMarks;
   }
 
-  return "<div class='statement width50'><h3>Q".concat(qNumber, "</h3>: \n    ").concat(statement, "</div>\n    <div id = '").concat(qId, "img' class='image width50'>\n    <img src= ").concat(img, ">\n    ").concat(iV1, "\n    ").concat(iV2, "\n    ").concat(iV3, "\n    ").concat(iV4, "\n    </div>\n    <form autocomplete=\"off\"><div class='parts paddingLeft10 width55'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
+  return "<div class='statement width50'><h3>Q".concat(qNumber, "</h3> (").concat(thisQuiz[qNumber][0], " marks): \n    ").concat(statement, "</div>\n    <div id = '").concat(qId, "img' class='image width50'>\n    <img src= ").concat(img, ">\n    ").concat(inputs, "\n    </div>\n    <form autocomplete=\"off\"><div class='parts paddingLeft5 width55'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
 };

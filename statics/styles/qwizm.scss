@@ -166,7 +166,7 @@ footer {
 .cross:before {
   color: maroon;
   content: "\2718";
-  font-size: 125%;
+  font-size: 105%;
   font-weight: bold;
 }
 
@@ -174,7 +174,7 @@ footer {
   position: relative;
   color: #080;
   content: "\2714";
-  font-size: 115%;
+  font-size: 105%;
   font-weight: bold;
   justify-self: start;
   align-self: start;
@@ -268,6 +268,7 @@ footer {
             width: 27%;
             display: inline-block;
             text-align: center;
+            vertical-align: middle;
           }
           & .symb {
             position: relative;
@@ -295,8 +296,8 @@ footer {
 }
 
 .katex {
-  font-size: 120%;
-  font-weight: 500;
+  font-size: 100%;
+  font-weight: 600;
 }
 
 #instructions {
@@ -355,12 +356,13 @@ footer {
   & h3 {
     display: inline;
     margin: 0;
+    margin-right: 0.25em;
+    vertical-align: bottom;
   }
 }
 
 .image {
   position: relative;
-  // border: 1px solid black; solid red;
   margin: 1em auto;
 
   & img {
@@ -437,11 +439,11 @@ footer {
 
 input.partInput {
   border: 0.2vw solid darken($CARD_BACKGROUND, 10);
-  font-size: $FONT_SIZE;
+  font-size: 100%;
   margin: 0 0.5vw;
   width: 8vw;
   height: 3vw;
-  place-self: center center;
+  place-self: center start;
   outline: none;
   padding-left: 0.5vw;
   padding-top: 0.35vw;

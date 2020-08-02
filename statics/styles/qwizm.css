@@ -126,7 +126,7 @@ footer {
 .cross:before {
   color: maroon;
   content: "\2718";
-  font-size: 125%;
+  font-size: 105%;
   font-weight: bold;
 }
 
@@ -134,7 +134,7 @@ footer {
   position: relative;
   color: #080;
   content: "\2714";
-  font-size: 115%;
+  font-size: 105%;
   font-weight: bold;
   justify-self: start;
   align-self: start;
@@ -230,6 +230,7 @@ footer {
   width: 27%;
   display: inline-block;
   text-align: center;
+  vertical-align: middle;
 }
 
 #summary .table .row .items .item .symb {
@@ -255,8 +256,8 @@ footer {
 }
 
 .katex {
-  font-size: 120%;
-  font-weight: 500;
+  font-size: 100%;
+  font-weight: 600;
 }
 
 #instructions ul {
@@ -314,6 +315,8 @@ footer {
 .statement h3 {
   display: inline;
   margin: 0;
+  margin-right: 0.25em;
+  vertical-align: bottom;
 }
 
 .image {
@@ -374,11 +377,11 @@ footer {
 
 input.partInput {
   border: 0.2vw solid #d5d5d5;
-  font-size: 1.5vw;
+  font-size: 100%;
   margin: 0 0.5vw;
   width: 8vw;
   height: 3vw;
-  place-self: center center;
+  place-self: center start;
   outline: none;
   padding-left: 0.5vw;
   padding-top: 0.35vw;

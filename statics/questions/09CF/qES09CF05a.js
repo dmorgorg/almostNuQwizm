@@ -3,7 +3,7 @@
 var QWIZM = QWIZM || {};
 QWIZM.question = QWIZM.question || {};
 
-QWIZM.question.qES09CF005a = function (qNumber) {
+QWIZM.question.qES09CF05a = function (qNumber) {
   var qId = 1000199; // question ID number, unique to this question    
 
   var uId = QWIZM.state.uId,
@@ -22,6 +22,7 @@ QWIZM.question.qES09CF005a = function (qNumber) {
       arrayCount = 0,
       seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
       lcrng = new utils.LCRNG(seed),
+      partMarks = 0,
       debug = false; //inputs - defaults to sigDigs
   // sd to convert to number equivalents of string inputs to avoid string concatenation
 
@@ -41,6 +42,8 @@ QWIZM.question.qES09CF005a = function (qNumber) {
       R = utils.twoByTwoSolver(-sin(theta), sin(phi), cos(theta), cos(phi), 0, w),
       RF = sd(R[0]),
       RG = sd(R[1]),
+      RFtheta = 90 + theta,
+      RGtheta = 90 - phi,
       alpha = sd((theta + phi) / 2),
       BF = sd(diam / 2 * tan(alpha)),
       AB = sd(Math.pow(Math.pow(ABx, 2) + Math.pow(ABy, 2), 0.5)),
@@ -51,11 +54,11 @@ QWIZM.question.qES09CF005a = function (qNumber) {
       Bx = sd(B[0]),
       By = sd(B[1]),
       RB = sd(Math.pow(Math.pow(Bx, 2) + Math.pow(By, 2), 0.5)),
-      Ax = -Bx - RF * sin(theta),
-      Ay = -By + RF * cos(theta),
+      Ax = sd(-Bx - RF * sin(theta)),
+      Ay = sd(-By + RF * cos(theta)),
       RA = sd(Math.pow(Math.pow(Ax, 2) + Math.pow(Ay, 2), 0.5)),
-      Dx = Bx + RG * sin(phi),
-      Dy = By + RG * cos(phi),
+      Dx = sd(Bx + RG * sin(phi)),
+      Dy = sd(By + RG * cos(phi)),
       RD = sd(Math.pow(Math.pow(Dx, 2) + Math.pow(Dy, 2), 0.5)); //stringify - defaults to sigDigs
 
   diam = stringify(diam);
@@ -69,38 +72,33 @@ QWIZM.question.qES09CF005a = function (qNumber) {
   RB = stringify(RB);
   RA = stringify(RA);
   RD = stringify(RD);
-  var statement = "!$ABCDE!$ is a frame comprised of two structural members !$ABC!$ and !$DBE!$, pinned at !$B!$. The frame supports a ".concat(mass, " kg section of smooth pipe with diameter ").concat(diam, "&nbsp;mm. Determine the magnitude and direction of each reaction at !$F!$ and !$G!$, due to the pipe. Then, using the lengths !$BF!$ and !$BG!$ (which are the same), determine the magnitudes of the reactions at the pinned connections !$A, B!$ and !$C!$."),
+  RFtheta = stringify(RFtheta);
+  RGtheta = stringify(RGtheta);
+  var statement = "!$ABCDE!$ is a frame comprised of two structural members !$ABC!$ and !$DBE!$, pinned at !$B!$. The frame supports a ".concat(mass, " kg section of smooth pipe with diameter ").concat(diam, "&nbsp;mm. Determine the magnitude and direction of each reaction at !$F!$ and !$G!$, due to the pipe. Then, using the lengths !$BF!$ and !$BG!$ (which are the same), determine the magnitudes of the reactions at the pinned connections !$A, B!$ and !$D!$."),
       img = "../../images/09CF/09CF05a.png",
-      iV1 = ov({
+      inputs = QWIZM.getInputOverlays([{
     input: diam + ' mm',
-    left: 33.5,
-    top: 19
-  }),
-      iV2 = ov({
+    left: 31.5,
+    top: 20.5
+  }, {
     input: mass + ' kg',
     left: 34,
-    top: 3,
+    top: 3.5,
     fontWeight: 'bold',
     background: 'none'
-  }),
-      iV3 = ov({
+  }, {
     input: ABx + ' mm',
-    left: 29.75,
-    top: 88.75 // background: 'none'
-
-  }),
-      iV4 = ov({
+    left: 27.5,
+    top: 91
+  }, {
     input: ABy + ' mm',
-    left: 12,
-    top: 55 // background: 'none'
-
-  }),
-      iV5 = ov({
+    left: 9,
+    top: 57
+  }, {
     input: BDx + ' mm',
-    left: 61,
-    top: 88.75 // background: 'none'
-
-  });
+    left: 60,
+    top: 91
+  }]);
 
   if (!thisQuiz[qNumber] || debug) {
     thisQuiz[qNumber] = [];
@@ -114,10 +112,22 @@ QWIZM.question.qES09CF005a = function (qNumber) {
       correctSoln: RF
     };
     thisQuestion[arrayCount++] = {
+      partStatement: "!$ R_F\\theta !$",
+      units: '&deg;',
+      marks: 2,
+      correctSoln: RFtheta
+    };
+    thisQuestion[arrayCount++] = {
       partStatement: "!$ R_G !$",
       units: 'kN',
       marks: 5,
       correctSoln: RG
+    };
+    thisQuestion[arrayCount++] = {
+      partStatement: "!$ R_G\\theta !$",
+      units: '&deg;',
+      marks: 2,
+      correctSoln: RGtheta
     };
     thisQuestion[arrayCount++] = {
       partStatement: "!$ BF !$",
@@ -143,7 +153,14 @@ QWIZM.question.qES09CF005a = function (qNumber) {
       marks: 5,
       correctSoln: RD
     };
+
+    for (var i = 1; i < thisQuestion.length; i++) {
+      partMarks += thisQuestion[i].marks;
+    } // store question total marks in the empty first element of the array
+
+
+    thisQuestion[0] = partMarks;
   }
 
-  return "<div class='statement width60'><h3>Q".concat(qNumber, "</h3>: \n    ").concat(statement, "</div>\n    <div id = '").concat(qId, "img' class='image width55'>\n        <img src= ").concat(img, ">\n        ").concat(iV1, "\n        ").concat(iV2, "\n        ").concat(iV3, "\n        ").concat(iV4, "\n        ").concat(iV5, "\n    </div>\n    <form autocomplete=\"off\"><div class='parts paddingLeft5 width55'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
+  return "<div class='statement width60'><h3>Q".concat(qNumber, "</h3> (").concat(thisQuiz[qNumber][0], " marks): \n    ").concat(statement, "</div>\n    <div id = '").concat(qId, "img' class='image width55'>\n        <img src= ").concat(img, ">\n        ").concat(inputs, "\n    </div>\n    <form autocomplete=\"off\"><div class='parts paddingLeft5 width55'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
 };

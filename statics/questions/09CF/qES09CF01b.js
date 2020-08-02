@@ -3,7 +3,7 @@
 var QWIZM = QWIZM || {};
 QWIZM.question = QWIZM.question || {};
 
-QWIZM.question.qES09CF001b = function (qNumber) {
+QWIZM.question.qES09CF01b = function (qNumber) {
   var qId = 1000193; // question ID number, unique to this question    
 
   var uId = QWIZM.state.uId,
@@ -22,6 +22,7 @@ QWIZM.question.qES09CF001b = function (qNumber) {
       arrayCount = 0,
       seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
       lcrng = new utils.LCRNG(seed),
+      partMarks = 0,
       debug = false; //inputs - defaults to sigDigs
   // sd to convert to number equivalents of string inputs to avoid string concatenation
 
@@ -75,32 +76,27 @@ QWIZM.question.qES09CF001b = function (qNumber) {
   RB = stringify(RB);
   var statement = "!$ABC!$ is a frame comprised of two structural members !$AB!$ and !$BC!$, pinned at !$C!$ and loaded as shown. Determine the magnitudes of the reactions at !$A, B!$ and !$C!$.",
       img = "../../images/09CF/09CF01b.png",
-      iV1 = ov({
+      inputs = QWIZM.getInputOverlays([{
     input: ACx + ' m',
     left: 32,
-    top: 89
-  }),
-      iV2 = ov({
+    top: 88.5
+  }, {
     input: CQx + ' m',
     left: 55,
-    top: 89
-  }),
-      iV3 = ov({
+    top: 88.5
+  }, {
     input: BQx + ' m',
     left: 77,
-    top: 89
-  }),
-      iV4 = ov({
+    top: 88.5
+  }, {
     input: APy + ' m',
     left: 8,
     top: 47
-  }),
-      iV5 = ov({
+  }, {
     input: CPy + ' m',
     left: 8,
     top: 21.5
-  }),
-      iV6 = ov({
+  }, {
     input: P + ' kN',
     left: 21,
     top: 27,
@@ -108,8 +104,7 @@ QWIZM.question.qES09CF001b = function (qNumber) {
     fontSize: 1.6,
     fontWeight: 'bold',
     background: 'none'
-  }),
-      iV7 = ov({
+  }, {
     input: Q + ' kN',
     left: 80,
     top: 21,
@@ -117,14 +112,11 @@ QWIZM.question.qES09CF001b = function (qNumber) {
     fontSize: 1.6,
     fontWeight: 'bold',
     background: 'none'
-  }),
-      iV8 = ov({
+  }, {
     input: theta + '&deg;',
     left: 78.5,
-    top: 33.5 // rot: -36,
-    // background: 'none'
-
-  });
+    top: 33.5
+  }]);
 
   if (!thisQuiz[qNumber] || debug) {
     thisQuiz[qNumber] = [];
@@ -149,7 +141,14 @@ QWIZM.question.qES09CF001b = function (qNumber) {
       marks: 6,
       correctSoln: RB
     };
+
+    for (var i = 1; i < thisQuestion.length; i++) {
+      partMarks += thisQuestion[i].marks;
+    } // store question total marks in the empty first element of the array
+
+
+    thisQuestion[0] = partMarks;
   }
 
-  return "<div class='statement width60'><h3>Q".concat(qNumber, "</h3>: \n    ").concat(statement, "</div>\n    <div id = '").concat(qId, "img' class='image width55'>\n        <img src= ").concat(img, ">        \n        ").concat(iV1, "\n        ").concat(iV2, "\n        ").concat(iV3, "\n        ").concat(iV4, "\n        ").concat(iV5, "\n        ").concat(iV6, "\n        ").concat(iV7, "\n        ").concat(iV8, "\n    </div>\n    <form autocomplete=\"off\"><div class='parts paddingLeft5 width55'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
+  return "<div class='statement width60'><h3>Q".concat(qNumber, "</h3> (").concat(thisQuiz[qNumber][0], " marks): \n    ").concat(statement, "</div>\n    <div id = '").concat(qId, "img' class='image width55'>\n        <img src= ").concat(img, ">        \n        ").concat(inputs, "\n        </div>\n    <form autocomplete=\"off\"><div class='parts width55'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
 };

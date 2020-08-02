@@ -1,7 +1,7 @@
 let QWIZM = QWIZM || {};
 QWIZM.question = QWIZM.question || {};
 
-QWIZM.question.qES09CF005a = (qNumber) => {
+QWIZM.question.qES09CF05a = (qNumber) => {
 
     let qId = 1000199; // question ID number, unique to this question    
 
@@ -21,6 +21,7 @@ QWIZM.question.qES09CF005a = (qNumber) => {
         arrayCount = 0,
         seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
         lcrng = new utils.LCRNG(seed),
+        partMarks = 0,
         debug = false;
 
 
@@ -43,6 +44,8 @@ QWIZM.question.qES09CF005a = (qNumber) => {
         R = utils.twoByTwoSolver(-sin(theta), sin(phi), cos(theta), cos(phi), 0, w),
         RF = sd(R[0]),
         RG = sd(R[1]),
+        RFtheta = 90 + theta,
+        RGtheta = 90 - phi,
         alpha = sd((theta + phi) / 2),
         BF = sd(diam / 2 * tan(alpha)),
         AB = sd((ABx ** 2 + ABy ** 2) ** 0.5),
@@ -53,11 +56,11 @@ QWIZM.question.qES09CF005a = (qNumber) => {
         Bx = sd(B[0]),
         By = sd(B[1]),
         RB = sd((Bx ** 2 + By ** 2) ** 0.5),
-        Ax = -Bx - RF * sin(theta),
-        Ay = -By + RF * cos(theta),
+        Ax = sd(-Bx - RF * sin(theta)),
+        Ay = sd(-By + RF * cos(theta)),
         RA = sd((Ax ** 2 + Ay ** 2) ** 0.5),
-        Dx = Bx + RG * sin(phi),
-        Dy = By + RG * cos(phi),
+        Dx = sd(Bx + RG * sin(phi)),
+        Dy = sd(By + RG * cos(phi)),
         RD = sd((Dx ** 2 + Dy ** 2) ** 0.5);
 
     //stringify - defaults to sigDigs
@@ -72,40 +75,38 @@ QWIZM.question.qES09CF005a = (qNumber) => {
     RB = stringify(RB);
     RA = stringify(RA);
     RD = stringify(RD);
+    RFtheta = stringify(RFtheta);
+    RGtheta = stringify(RGtheta);
 
-    let statement = `!$ABCDE!$ is a frame comprised of two structural members !$ABC!$ and !$DBE!$, pinned at !$B!$. The frame supports a ${mass} kg section of smooth pipe with diameter ${diam}&nbsp;mm. Determine the magnitude and direction of each reaction at !$F!$ and !$G!$, due to the pipe. Then, using the lengths !$BF!$ and !$BG!$ (which are the same), determine the magnitudes of the reactions at the pinned connections !$A, B!$ and !$C!$.`,
+    let statement = `!$ABCDE!$ is a frame comprised of two structural members !$ABC!$ and !$DBE!$, pinned at !$B!$. The frame supports a ${mass} kg section of smooth pipe with diameter ${diam}&nbsp;mm. Determine the magnitude and direction of each reaction at !$F!$ and !$G!$, due to the pipe. Then, using the lengths !$BF!$ and !$BG!$ (which are the same), determine the magnitudes of the reactions at the pinned connections !$A, B!$ and !$D!$.`,
         img = `../../images/09CF/09CF05a.png`,
-        iV1 = ov({
-            input: diam + ' mm',
-            left: 33.5,
-            top: 19
-        }),
-        iV2 = ov({
-            input: mass + ' kg',
-            left: 34,
-            top: 3,
-            fontWeight: 'bold',
-            background: 'none'
-        }),
-        iV3 = ov({
-            input: ABx + ' mm',
-            left: 29.75,
-            top: 88.75,
-            // background: 'none'
-        }),
-        iV4 = ov({
-            input: ABy + ' mm',
-            left: 12,
-            top: 55,
-            // background: 'none'
-        }),
-        iV5 = ov({
-            input: BDx + ' mm',
-            left: 61,
-            top: 88.75,
-            // background: 'none'
-        });
-
+        inputs = QWIZM.getInputOverlays([{
+                input: diam + ' mm',
+                left: 31.5,
+                top: 20.5
+            },
+            {
+                input: mass + ' kg',
+                left: 34,
+                top: 3.5,
+                fontWeight: 'bold',
+                background: 'none'
+            },
+            {
+                input: ABx + ' mm',
+                left: 27.5,
+                top: 91,
+            },
+            {
+                input: ABy + ' mm',
+                left: 9,
+                top: 57,
+            }, {
+                input: BDx + ' mm',
+                left: 60,
+                top: 91,
+            }
+        ]);
 
     if (!thisQuiz[qNumber] || debug) {
         thisQuiz[qNumber] = [];
@@ -120,12 +121,23 @@ QWIZM.question.qES09CF005a = (qNumber) => {
             marks: 5,
             correctSoln: RF
         };
-
+        thisQuestion[arrayCount++] = {
+            partStatement: `!$ R_F\\theta !$`,
+            units: '&deg;',
+            marks: 2,
+            correctSoln: RFtheta
+        };
         thisQuestion[arrayCount++] = {
             partStatement: `!$ R_G !$`,
             units: 'kN',
             marks: 5,
             correctSoln: RG
+        };
+        thisQuestion[arrayCount++] = {
+            partStatement: `!$ R_G\\theta !$`,
+            units: '&deg;',
+            marks: 2,
+            correctSoln: RGtheta
         };
         thisQuestion[arrayCount++] = {
             partStatement: `!$ BF !$`,
@@ -152,19 +164,19 @@ QWIZM.question.qES09CF005a = (qNumber) => {
             correctSoln: RD
         };
 
-
+        for (let i = 1; i < thisQuestion.length; i++) {
+            partMarks += thisQuestion[i].marks;
+        }
+        // store question total marks in the empty first element of the array
+        thisQuestion[0] = partMarks;
 
     }
 
-    return `<div class='statement width60'><h3>Q${qNumber}</h3>: 
+    return `<div class='statement width60'><h3>Q${qNumber}</h3> (${thisQuiz[qNumber][0]} marks): 
     ${statement}</div>
     <div id = '${qId}img' class='image width55'>
         <img src= ${img}>
-        ${iV1}
-        ${iV2}
-        ${iV3}
-        ${iV4}
-        ${iV5}
+        ${inputs}
     </div>
     <form autocomplete="off"><div class='parts paddingLeft5 width55'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
 

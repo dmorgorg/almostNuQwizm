@@ -1,7 +1,7 @@
 let QWIZM = QWIZM || {};
 QWIZM.question = QWIZM.question || {};
 
-QWIZM.question.qES09CF002a = (qNumber) => {
+QWIZM.question.qES09CF02a = (qNumber) => {
 
     let qId = 1000187; // question ID number, unique to this question    
 
@@ -17,10 +17,11 @@ QWIZM.question.qES09CF002a = (qNumber) => {
         atan = utils.atan,
         thisQuiz = QWIZM.state.thisQuiz,
         thisQuestion,
-        ov = QWIZM.methods.overlayVariable,
+        // ov = QWIZM.methods.overlayVariable,
         arrayCount = 0,
         seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
         lcrng = new utils.LCRNG(seed),
+        partMarks = 0,
         debug = false;
 
 
@@ -78,38 +79,37 @@ QWIZM.question.qES09CF002a = (qNumber) => {
 
 
 
-    let statement = `!$ABC!$ is a frame comprised of two structural members !$AB!$ and !$BC!$, pinned at !$B!$ and loaded as shown. Determine the force !$R_B!$ (magnitude and direction !$\\theta!$, where <br> !$0\\!\\le\\!\\theta\\!<360!$, measured counterclockwise from the positive !$x!$-axis) that frame member !$AB!$ exerts on frame member !$BC!$. Then determine the reactions at the pinned connections !$A!$ and !$C!$.`,
+    let statement = `!$ABC!$ is a frame comprised of two structural members !$AB!$ and !$BC!$, pinned at !$B!$ and loaded as shown. Determine the force !$F_B!$ (both magnitude and direction !$\\theta!$, where !$0^\\circ\\!\\le\\!\\theta\\!<360^\\circ!$, measured counterclockwise from the positive !$x!$-axis) that frame member !$AB!$ exerts on frame member !$BC!$. Then determine the reactions at the pinned connections !$A!$ and !$C!$.`,
         img = `../../images/09CF/09CF02a.png`,
-        iV1 = ov({
-            input: ABx + ' m',
-            left: 40,
-            top: 90
-        }),
-        iV2 = ov({
-            input: BCx + ' m',
-            left: 68,
-            top: 90,
-            //background: 'yellow'
-        }),
-        iV3 = ov({
-            input: ABy + ' m',
-            left: 10,
-            top: 50,
-            // background: 'none'
-        }),
-        iV4 = ov({
-            input: ABDL + ' kN/m',
-            left: 15,
-            top: 22.5,
-            background: 'none'
-        }),
-        iV5 = ov({
-            input: BCDL + ' kN/m',
-            left: 78.5,
-            top: 25.5,
-            rot: -36,
-            background: 'none'
-        });
+        inputs = QWIZM.getInputOverlays([{
+                input: ABx + ' m',
+                left: 40,
+                top: 89.75
+            },
+            {
+                input: BCx + ' m',
+                left: 68,
+                top: 89.75,
+            },
+            {
+                input: ABy + ' m',
+                left: 10,
+                top: 50,
+            },
+            {
+                input: ABDL + ' kN/m',
+                left: 15,
+                top: 22.5,
+                background: 'none'
+            },
+            {
+                input: BCDL + ' kN/m',
+                left: 78.5,
+                top: 25.5,
+                rot: -36,
+                background: 'none'
+            }
+        ]);
 
     if (!thisQuiz[qNumber] || debug) {
         thisQuiz[qNumber] = [];
@@ -119,14 +119,14 @@ QWIZM.question.qES09CF002a = (qNumber) => {
         thisQuestion[arrayCount++] = '';
 
         thisQuestion[arrayCount++] = {
-            partStatement: `!$ R_B !$`,
+            partStatement: `!$ F_B !$`,
             units: 'kN',
             marks: 10,
             correctSoln: RB
         };
 
         thisQuestion[arrayCount++] = {
-            partStatement: `!$ R_B\\theta !$`,
+            partStatement: `!$ F_B\\theta !$`,
             units: '&deg;',
             marks: 2,
             correctSoln: RBtheta
@@ -160,17 +160,19 @@ QWIZM.question.qES09CF002a = (qNumber) => {
             correctSoln: RCtheta
         };
 
+        for (let i = 1; i < thisQuestion.length; i++) {
+            partMarks += thisQuestion[i].marks;
+        }
+        // store question total marks in the empty first element of the array
+        thisQuestion[0] = partMarks;
+
     }
 
-    return `<div class='statement width60'><h3>Q${qNumber}</h3>: 
+    return `<div class='statement width60'><h3>Q${qNumber}</h3> (${thisQuiz[qNumber][0]} marks): 
     ${statement}</div>
     <div id = '${qId}img' class='image width55'>
         <img src= ${img}>
-        ${iV1}
-        ${iV2}
-        ${iV3}
-        ${iV4}
-        ${iV5}
+        ${inputs}
     </div>
     <form autocomplete="off"><div class='parts paddingLeft5 width55'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
 

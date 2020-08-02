@@ -271,15 +271,15 @@ QWIZM.methods.readFromLocalStorage = (key) => {
 QWIZM.methods.overlayVariable = (o) => {
     let input = o.input,
         left = o.left,
-        pad = o.padding || 0.15,
         top = o.top,
-        rot = o.rot || 0, // degrees, measured counterclockwise from positive x-axis
-        fs = o.fontSize || 1.4, // units are in vw (view widths)
-        fw = o.fontWeight || 'normal',
+        rot = o.rot || o.rotate || 0, // degrees, measured counterclockwise from positive x-axis
+        fs = o.fs || o.fontSize || 1.4, // units are in vw (view widths)
+        fw = o.fontWeight || o.fw || 'normal',
+        pad = o.pad == 0 ? 0.001 : o.pad || o.padding == 0 ? 0.001 : o.padding || 0.15, //because if 0 is passed, it is falsy and the default of 0.15 is returned.
         color = o.color || 'black',
-        bg = o.background || 'white'; // default value is 'white', use 'inherit' or 'transparent' or 'none' for no background
+        bg = o.background || o.bg || 'white'; // default value is 'white', use 'inherit' or 'transparent' or 'none' for no background
 
-    return `<div class='label' style="  
+    return `<div class='label' style=" 
         top: ${top}%; 
         left: ${left}%;
         color: ${color};
@@ -287,9 +287,20 @@ QWIZM.methods.overlayVariable = (o) => {
         background-color:${bg};        
         font-size: ${fs}vw;
         font-weight: ${fw};
+        line-height: 1;
         transform: translate(-50%, -50%) rotate(${-rot}deg); ">
         ${input}
         </div>`;
+}
+
+QWIZM.getInputOverlays = (arr) => {
+    let output = ``,
+        len = arr.length;
+    for (let index = 0; index < len; index++) {
+        output += QWIZM.methods.overlayVariable(arr[index]);
+    }
+    //console.log(output);
+    return output;
 }
 
 /** Writes a number to a string with the specified number of significant digits. 
