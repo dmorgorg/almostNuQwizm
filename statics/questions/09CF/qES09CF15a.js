@@ -22,7 +22,8 @@ QWIZM.question.qES09CF15a = function (qNumber) {
       arrayCount = 0,
       seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
       lcrng = new utils.LCRNG(seed),
-      debug = true; //inputs 
+      partMarks = 0,
+      debug = false; //inputs 
 
   var ABx = lcrng.getNext(1.05, 1.35, 0.05),
       BCx = ABx,
@@ -46,17 +47,17 @@ QWIZM.question.qES09CF15a = function (qNumber) {
       BEy = ABy + AFy - EFy,
       ACx = ABx + BCx,
       BEtheta = sd(atan(BEy / (BCx + CDx + DEx))),
-      det = utils.twoByTwoSolver(ACy, -(ABy * cos(BEtheta) + ABx * sin(BEtheta)), -DFy, EFy * cos(BEtheta - EFx * sin(BEtheta)), ACx * W / 2, -DFx * W / 2),
+      det = utils.twoByTwoSolver(ACy, -(ABy * cos(BEtheta) + ABx * sin(BEtheta)), -DFy, EFy * cos(BEtheta) - EFx * sin(BEtheta), ACx * W / 2, -DFx * W / 2),
       TBE = sd(det[1]),
       Dx = sd(det[0]),
-      RC = sd(Math.pow(Math.pow(Dx, 2) + Math.pow(Dy, 2), 2)),
+      RC = sd(Math.pow(Math.pow(Dx, 2) + Math.pow(Dy, 2), 0.5)),
       RD = RC,
       Ax = sd(Dx - TBE * cos(BEtheta)),
-      Ay = sd(Dy - TBE * sin(BEtheta)),
-      RA = sd(Math.pow(Math.pow(Ax, 2) + Math.pow(Ay, 2), 2)),
+      Ay = sd(Dy + TBE * sin(BEtheta)),
+      RA = sd(Math.pow(Math.pow(Ax, 2) + Math.pow(Ay, 2), 0.5)),
       Fx = sd(TBE * cos(BEtheta) - Dx),
       Fy = sd(Dy - TBE * sin(BEtheta)),
-      RF = sd(Math.pow(Math.pow(Fx, 2) + Math.pow(Fy, 2), 2)),
+      RF = sd(Math.pow(Math.pow(Fx, 2) + Math.pow(Fy, 2), 0.5)),
       Ay2 = sd(W * (CDx / 2 + DEx + EFx) / (ABx + BCx + CDx + DEx + EFx)),
       TBE2 = sd(Ay2 * (ABx + BCx) / (BCy * cos(BEtheta) + BCx * sin(BEtheta))); //stringify - defaults to sigDigs
 
@@ -76,9 +77,9 @@ QWIZM.question.qES09CF15a = function (qNumber) {
   RA = stringify(RA);
   RF = stringify(RF);
   TBE2 = stringify(TBE2);
-  var statement = "!$A,C,D!$ and !$F!$ are pinned connections. Determine the angle !$\\theta!$ between cable !$BE!$ and the horizontal and then determine the tension !$T_{BE}!$ in cable !$BE!$. Calculate the magnitude of the reactions in the four pinned connections. If the pinned connection at !$A!$ were replaced with a frictionless roller, what would the tension !$T_{BE}(2)!$ become?\n    <br> ".concat(TBE, ", ").concat(Dx),
-      img = "../../images/09CF/09CF15a.png";
-  var inputs = QWIZM.getInputOverlays([{
+  var statement = "!$A,C,D!$ and !$F!$ are pinned connections. Determine the angle !$\\theta!$ between cable !$BE!$ and the horizontal and then determine the tension !$T_{BE}!$ in cable !$BE!$. Calculate the magnitude of the reactions in the four pinned connections. If the pinned connection at !$A!$ were replaced with a frictionless roller, what would the tension !$T_{BE}(2)!$ become?",
+      img = "../../images/09CF/09CF15a.png",
+      inputs = QWIZM.getInputOverlays([{
     input: ABx + ' m',
     left: 22.875,
     top: 92.25,
@@ -130,7 +131,7 @@ QWIZM.question.qES09CF15a = function (qNumber) {
     thisQuestion[arrayCount++] = {
       partStatement: "!$ T_{BE} !$",
       units: 'kN',
-      marks: 6,
+      marks: 10,
       correctSoln: TBE
     };
     thisQuestion[arrayCount++] = {
@@ -163,7 +164,14 @@ QWIZM.question.qES09CF15a = function (qNumber) {
       marks: 4,
       correctSoln: TBE2
     };
+
+    for (var i = 1; i < thisQuestion.length; i++) {
+      partMarks += thisQuestion[i].marks;
+    } // store question total marks in the empty first element of the array
+
+
+    thisQuestion[0] = partMarks;
   }
 
-  return "<div class='statement width60'><h3>Q".concat(qNumber, "</h3>: \n    ").concat(statement, "</div>\n    <div id = '").concat(qId, "img' class='image width75'>\n        <img src= ").concat(img, ">\n        ").concat(inputs, "\n    </div>\n    <form autocomplete=\"off\"><div class='parts paddingLeft5 width55'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
+  return "<div class='statement width60'><h3>Q".concat(qNumber, "</h3>(").concat(thisQuiz[qNumber][0], " marks): \n    ").concat(statement, "</div>\n    <div id = '").concat(qId, "img' class='image width75'>\n        <img src= ").concat(img, ">\n        ").concat(inputs, "\n    </div>\n    <form autocomplete=\"off\"><div class='parts paddingLeft5 width55'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
 };

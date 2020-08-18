@@ -22,7 +22,7 @@ QWIZM.question.qES09CF12a = (qNumber) => {
         seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
         lcrng = new utils.LCRNG(seed),
         partMarks = 0,
-        debug = true;
+        debug = false;
 
 
     //inputs - dFGaults to sigDigs

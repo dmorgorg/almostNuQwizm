@@ -21,7 +21,8 @@ QWIZM.question.qES09CF15a = (qNumber) => {
         arrayCount = 0,
         seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
         lcrng = new utils.LCRNG(seed),
-        debug = true;
+        partMarks = 0,
+        debug = false;
 
 
     //inputs 
@@ -50,17 +51,17 @@ QWIZM.question.qES09CF15a = (qNumber) => {
         BEy = ABy + AFy - EFy,
         ACx = ABx + BCx,
         BEtheta = sd(atan(BEy / (BCx + CDx + DEx))),
-        det = utils.twoByTwoSolver(ACy, -(ABy * cos(BEtheta) + ABx * sin(BEtheta)), -DFy, EFy * (cos(BEtheta - EFx * sin(BEtheta))), ACx * W / 2, -DFx * W / 2),
+        det = utils.twoByTwoSolver(ACy, -(ABy * cos(BEtheta) + ABx * sin(BEtheta)), -DFy, EFy * cos(BEtheta) - EFx * sin(BEtheta), ACx * W / 2, -DFx * W / 2),
         TBE = sd(det[1]),
         Dx = sd(det[0]),
-        RC = sd((Dx ** 2 + Dy ** 2) ** 2),
+        RC = sd((Dx ** 2 + Dy ** 2) ** 0.5),
         RD = RC,
         Ax = sd(Dx - TBE * cos(BEtheta)),
-        Ay = sd(Dy - TBE * sin(BEtheta)),
-        RA = sd((Ax ** 2 + Ay ** 2) ** 2),
+        Ay = sd(Dy + TBE * sin(BEtheta)),
+        RA = sd((Ax ** 2 + Ay ** 2) ** 0.5),
         Fx = sd(TBE * cos(BEtheta) - Dx),
         Fy = sd(Dy - TBE * sin(BEtheta)),
-        RF = sd((Fx ** 2 + Fy ** 2) ** 2),
+        RF = sd((Fx ** 2 + Fy ** 2) ** 0.5),
         Ay2 = sd(W * (CDx / 2 + DEx + EFx) / (ABx + BCx + CDx + DEx + EFx)),
         TBE2 = sd(Ay2 * (ABx + BCx) / (BCy * cos(BEtheta) + BCx * sin(BEtheta)));
 
@@ -85,11 +86,9 @@ QWIZM.question.qES09CF15a = (qNumber) => {
     TBE2 = stringify(TBE2);
 
 
-    let statement = `!$A,C,D!$ and !$F!$ are pinned connections. Determine the angle !$\\theta!$ between cable !$BE!$ and the horizontal and then determine the tension !$T_{BE}!$ in cable !$BE!$. Calculate the magnitude of the reactions in the four pinned connections. If the pinned connection at !$A!$ were replaced with a frictionless roller, what would the tension !$T_{BE}(2)!$ become?
-    <br> ${TBE}, ${Dx}`,
-        img = `../../images/09CF/09CF15a.png`;
-
-    let inputs = QWIZM.getInputOverlays([{
+    let statement = `!$A,C,D!$ and !$F!$ are pinned connections. Determine the angle !$\\theta!$ between cable !$BE!$ and the horizontal and then determine the tension !$T_{BE}!$ in cable !$BE!$. Calculate the magnitude of the reactions in the four pinned connections. If the pinned connection at !$A!$ were replaced with a frictionless roller, what would the tension !$T_{BE}(2)!$ become?`,
+        img = `../../images/09CF/09CF15a.png`,
+        inputs = QWIZM.getInputOverlays([{
             input: ABx + ' m',
             left: 22.875,
             top: 92.25,
@@ -154,7 +153,7 @@ QWIZM.question.qES09CF15a = (qNumber) => {
         thisQuestion[arrayCount++] = {
             partStatement: `!$ T_{BE} !$`,
             units: 'kN',
-            marks: 6,
+            marks: 10,
             correctSoln: TBE
         };
         thisQuestion[arrayCount++] = {
@@ -188,10 +187,16 @@ QWIZM.question.qES09CF15a = (qNumber) => {
             correctSoln: TBE2
         };
 
+        for (let i = 1; i < thisQuestion.length; i++) {
+            partMarks += thisQuestion[i].marks;
+        }
+        // store question total marks in the empty first element of the array
+        thisQuestion[0] = partMarks;
+
 
     }
 
-    return `<div class='statement width60'><h3>Q${qNumber}</h3>: 
+    return `<div class='statement width60'><h3>Q${qNumber}</h3>(${thisQuiz[qNumber][0]} marks): 
     ${statement}</div>
     <div id = '${qId}img' class='image width75'>
         <img src= ${img}>

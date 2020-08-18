@@ -21,7 +21,8 @@ QWIZM.question.qES09CF14a = (qNumber) => {
         arrayCount = 0,
         seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
         lcrng = new utils.LCRNG(seed),
-        debug = true;
+        partMarks = 0,
+        debug = false;
 
 
     //inputs - defaults to sigDigs
@@ -35,14 +36,14 @@ QWIZM.question.qES09CF14a = (qNumber) => {
         y1 = Math.round(x1 * mult3 * 20) / 20,
         y2 = Math.round(y1 * 1.25 * 20) / 20;
 
-    let det = utils.twoByTwoSolver(y1, x1 + x2 + x3, y1 + y2, -(x1 + 2 * x2 + x3), (2 * x1 + x2) * T, (3 * x1 + 3 * x2) * T),
+    let det = utils.twoByTwoSolver(-y1, x1 + x2 + x3, y1 + y2, (x1 + 2 * x2 + x3), (2 * x1 + x2) * T, -3*( x1 + x2) * T),
         Bx = sd(det[0]),
         By = sd(det[1]),
         RB = sd((Bx ** 2 + By ** 2) ** 0.5),
-        Ax = Bx,
+        Ax = -Bx,
         Ay = 2 * T - By,
         RA = sd((Ax ** 2 + Ay ** 2) ** 0.5),
-        Cx = -Bx,
+        Cx = Bx,
         Cy = By + 3 * T,
         RC = sd((Cx ** 2 + Cy ** 2) ** 0.5);
 
@@ -60,11 +61,9 @@ QWIZM.question.qES09CF14a = (qNumber) => {
     RC = stringify(RC);
 
 
-    let statement = `A section of walkway is supported by 5 vertical cables attached to arched frame !$ABC!$ as shown. Each cable has a tension of ${T} kN. Determine the magnitude of the reactions at the pinned connections !$A,B!$ and !$C!$.
-    <br>${x1}, ${x2}, ${x3}, ${y1}, ${y2}<br>${Bx}, ${By}, ${RB}<br>${Ax}, ${Ay}, ${RA}<br>${Cx}, ${Cy}, ${RC}`,
-        img = `../../images/09CF/09CF14a.png`;
-
-    let inputs = QWIZM.getInputOverlays([{
+    let statement = `A section of walkway is supported by 5 vertical cables attached to arched frame !$ABC!$ as shown.  Each cable has a tension of ${T} kN. Determine the magnitude of the reactions at the pinned connections !$A,B!$ and !$C!$.`,
+        img = `../../images/09CF/09CF14a.png`,
+        inputs = QWIZM.getInputOverlays([{
             input: x1 + ' m',
             left: 21.625,
             top: 58,
@@ -151,9 +150,15 @@ QWIZM.question.qES09CF14a = (qNumber) => {
             correctSoln: RC
         };
 
+        for (let i = 1; i < thisQuestion.length; i++) {
+            partMarks += thisQuestion[i].marks;
+        }
+        // store question total marks in the empty first element of the array
+        thisQuestion[0] = partMarks;
+
     }
 
-    return `<div class='statement width55'><h3>Q${qNumber}</h3>: 
+    return `<div class='statement width55'><h3>Q${qNumber}</h3>(${thisQuiz[qNumber][0]} marks): 
     ${statement}</div>
     <div id = '${qId}img' class='image width60'>
         <img src= ${img}>

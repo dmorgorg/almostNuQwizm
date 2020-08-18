@@ -4,12 +4,12 @@
   "description": "A refactoring of qwizm.org",
   "main": "index.js",
   "dependencies": {
-    "@babel/polyfill": "^7.7.0"
+    "@babel/polyfill": "^7.0.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.8.3",
-    "@babel/core": "^7.8.3",
-    "@babel/preset-env": "^7.8.3"
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.0",
+    "@babel/preset-env": "^7.0.0"
   },
   "scripts": {
     "build": "babel nuQWIZM/src -d nuQWIZM && babel statics/quizzes/quiz09CF01/src -d statics/quizzes/quiz09CF01 && babel statics/questions/09CF/src -d statics/questions/09CF"

@@ -1,5 +1,3 @@
-// breakpoints
-$SMALL: "376px";
 
 $PRIMARY: maroon;
 $LOGIN_BTN_HOVER: darken($PRIMARY, 7);
@@ -357,7 +355,8 @@ footer {
     display: inline;
     margin: 0;
     margin-right: 0.25em;
-    vertical-align: bottom;
+    vertical-align: baseline;
+    color: $PRIMARY;
   }
 }
 

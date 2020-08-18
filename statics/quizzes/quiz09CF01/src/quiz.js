@@ -20,10 +20,12 @@ QWIZM.quiz = {
     QWIZM.question.qES09CF10a,
     QWIZM.question.qES09CF11a,
     QWIZM.question.qES09CF12a,
+    QWIZM.question.qES09CF12b,
     QWIZM.question.qES09CF13a,
     QWIZM.question.qES09CF14a,
     QWIZM.question.qES09CF15a,
     QWIZM.question.qES09CF16a,
+    QWIZM.question.qES09CF17a,
   ],
   // Instructions can be modified on a per quiz basis here. Not usually necessary.
   instructions: `<div class="statement width70 ">
@@ -36,7 +38,8 @@ QWIZM.quiz = {
             <li> !$x !$-components are positive in the rightward direction, negative in the leftward direction. </li>
             <li> !$y !$-components are positive in the upward direction, negative in the downward direction. </li>
             <li> Force directions are specified in degrees, counter-clockwise from the positive !$x!$-axis. </li>
-            <li> Counter-clockwise moments are negative, clockwise are positive. </li>
+            <li> Clockwise moments are negative, counter-clockwise are positive. </li>
+            <li> Frame members in tension are positive, in compression are negative. </li>
             <li> To convert mass to force, use !$g=9.81\\thinspace\\mathsf{m/s^2}!$.</li>
           </ul>
         </li>

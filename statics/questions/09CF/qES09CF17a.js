@@ -1,0 +1,158 @@
+"use strict";
+
+var QWIZM = QWIZM || {};
+QWIZM.question = QWIZM.question || {};
+
+QWIZM.question.qES09CF17a = function (qNumber) {
+  var qId = 1000357; // question ID number, unique to this question    
+
+  var uId = QWIZM.state.uId,
+      sd = QWIZM.methods.toSigDigs,
+      stringify = QWIZM.methods.stringify,
+      wd = QWIZM.quiz.workingDigs,
+      sin = utils.sin,
+      cos = utils.cos,
+      asin = utils.asin,
+      acos = utils.acos,
+      tan = utils.tan,
+      atan = utils.atan,
+      thisQuiz = QWIZM.state.thisQuiz,
+      thisQuestion,
+      ov = QWIZM.methods.overlayVariable,
+      arrayCount = 0,
+      seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
+      lcrng = new utils.LCRNG(seed),
+      partMarks = 0,
+      debug = false; //inputs - defaults to sigDigs
+
+  var P = lcrng.getNext(2, 4, 0.1),
+      ABx = lcrng.getNext(750, 850, 10),
+      CEy = lcrng.getNext(630, 700, 10),
+      DEx = lcrng.getNext(1280, 1370, 10),
+      CDx = sd(stringify(Math.round(DEx * 1.5 * 10) / 10)),
+      BCx = sd(stringify(Math.round(ABx * 1.5 * 10) / 10)),
+      mult = lcrng.getNext(4.5, 5.5, 0.1),
+      ACy = sd(stringify(Math.round(CEy * mult * 10) / 10)); //calcs
+
+  var AEy = ACy + CEy,
+      GE = sd(ACy * P / AEy),
+      FA = P - GE,
+      ACx = ABx + BCx,
+      ABy = sd(ABx / ACx * ACy),
+      BCy = ACy - ABy,
+      CEx = DEx + CDx,
+      CDy = sd(CDx / CEx * CEy),
+      DEy = CEy - CDy,
+      BDx = CDx - BCx,
+      BDy = BCy + CDy,
+      BDtheta = sd(atan(BDy / BDx)),
+      FB = sd(ACy * FA / (BCy * cos(BDtheta) + BCx * sin(BDtheta))),
+      GD = sd(GE * CEy / (CDx * sin(BDtheta) - CDy * cos(BDtheta))),
+      Cx = sd(FB * cos(BDtheta) - FA),
+      Cy = sd(FB * sin(BDtheta)),
+      FC = sd(Math.pow(Math.pow(Cx, 2) + Math.pow(Cy, 2), 0.5)),
+      Cx2 = -GE - GD * cos(BDtheta),
+      Cy2 = -GD * sin(BDtheta),
+      GC = sd(Math.pow(Math.pow(Cx2, 2) + Math.pow(Cy2, 2), 0.5)); //stringify - defaults to sigDigs
+
+  P = stringify(P);
+  ABx = stringify(ABx);
+  DEx = stringify(DEx / 1000);
+  CDx = stringify(CDx / 1000);
+  BCx = stringify(BCx / 1000);
+  ACy = stringify(ACy / 1000);
+  GE = stringify(GE);
+  FA = stringify(FA);
+  FB = stringify(FB);
+  GE = stringify(GE);
+  FC = stringify(FC);
+  GC = stringify(GC);
+  var statement = "Frame !$ACD!$ is pinned at !$A!$ and !$C!$. There is a frictionless roller at !$E!$ and a cable from !$B!$ to !$D!$. A horizontal force of ".concat(P, " kN is applied to the pin at !$C!$, as shown. Determine the magnitudes of the forces !$F_A!$, !$F_B!$, !$F_C!$ exerted on frame member !$ABC!$ and the forces !$G_C!$, !$G_D!$, !$G_E!$ exerted on frame member !$CDE!$."),
+      img = "../../images/09CF/09CF17a.png";
+
+  if (!thisQuiz[qNumber] || debug) {
+    thisQuiz[qNumber] = [];
+    thisQuestion = thisQuiz[qNumber]; // thisQuiz.push(questionPart)
+
+    thisQuestion[arrayCount++] = '';
+    thisQuestion[arrayCount++] = {
+      partStatement: "!$ G_E !$",
+      units: 'kN',
+      marks: 2,
+      correctSoln: GE
+    };
+    thisQuestion[arrayCount++] = {
+      partStatement: "!$ F_A !$",
+      units: 'kN',
+      marks: 2,
+      correctSoln: FA
+    };
+    thisQuestion[arrayCount++] = {
+      partStatement: "!$ G_D !$",
+      units: 'kN',
+      marks: 2,
+      correctSoln: GD
+    };
+    thisQuestion[arrayCount++] = {
+      partStatement: "!$ F_B !$",
+      units: 'kN',
+      marks: 6,
+      correctSoln: FB
+    };
+    thisQuestion[arrayCount++] = {
+      partStatement: "!$ G_C !$",
+      units: 'kN',
+      marks: 4,
+      correctSoln: GC
+    };
+    thisQuestion[arrayCount++] = {
+      partStatement: "!$ F_C !$",
+      units: 'kN',
+      marks: 4,
+      correctSoln: FC
+    };
+
+    for (var i = 1; i < thisQuestion.length; i++) {
+      partMarks += thisQuestion[i].marks;
+    } // store question total marks in the empty first element of the array
+
+
+    thisQuestion[0] = partMarks;
+  }
+
+  var inputs = QWIZM.getInputOverlays([{
+    input: P + ' kN',
+    left: 72,
+    top: 69,
+    fontWeight: 'bold',
+    color: '#a00',
+    background: 'none',
+    fontSize: 1.6
+  }, {
+    input: ABx + ' mm',
+    left: 41.75,
+    top: 10,
+    rot: 45
+  }, {
+    input: CEy + ' mm',
+    left: 81,
+    top: 75.5
+  }, {
+    input: DEx + ' m',
+    left: 27,
+    top: 89.75
+  }, {
+    input: CDx + ' m',
+    left: 49,
+    top: 89.75
+  }, {
+    input: BCx + ' m',
+    left: 54,
+    top: 10.5
+  }, {
+    input: ACy + ' m',
+    left: 81,
+    top: 47
+  }]);
+  return "<div class='statement width65'><h3>Q".concat(qNumber, "</h3>(").concat(thisQuiz[qNumber][0], " marks):\n    ").concat(statement, "</div>\n    <div id = '").concat(qId, "img' class='image width75'>\n        <img src= ").concat(img, ">\n       ").concat(inputs, "          \n    </div>\n    <form autocomplete=\"off\"><div class='parts paddingLeft5 width55'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
+};

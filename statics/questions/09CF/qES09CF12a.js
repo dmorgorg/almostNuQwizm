@@ -23,7 +23,7 @@ QWIZM.question.qES09CF12a = function (qNumber) {
       seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
       lcrng = new utils.LCRNG(seed),
       partMarks = 0,
-      debug = true; //inputs - dFGaults to sigDigs
+      debug = false; //inputs - dFGaults to sigDigs
 
   var FG = lcrng.getNext(600, 900, 10),
       mult = lcrng.getNext(1.9, 2.1, 0.05),
