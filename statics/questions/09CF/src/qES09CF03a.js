@@ -69,13 +69,12 @@ QWIZM.question.qES09CF03a = (qNumber) => {
     RC = stringify(RC);
     RCtheta = stringify(RCtheta);
 
-    let statement = ` The car has a mass of ${M} kg, half of which is supported by the visible frame !$ABC!$. The connections at !$A, B!$ and !$C!$ are pinned. (You may assume that a similar frame supports the far side of the car.) The centre of gravity of the car is at !$G!$. Determine the magnitude of forces !$F_F!$ and !$F_R!$ exerted by the front and rear wheels on frame members !$AB!$ and !$BC!$. Then determine the force (magnitude and direction) that frame member !$AB!$ exerts on frame member !$BC!$ at !$B!$, and both the magnitude and direction of the reactions at !$A!$ and !$C!$.`,
+    let statement = ` <p>The car has a mass of ${M} kg, half of which is supported by the frame !$ABC!$ shown. The connections at !$A, B!$ and !$C!$ are pinned. (You may assume that a similar frame supports the far side of the car.) The centre of gravity of the car is at !$G!$. Determine the magnitude of forces !$F_F!$ and !$F_R!$ exerted by the front and rear wheels on frame members !$AB!$ and !$BC!$. Then determine the force (magnitude and direction) that frame member !$AB!$ exerts on frame member !$BC!$ at !$B!$, and both the magnitude and direction of the reactions at !$A!$ and !$C!$.`,
         img = `../../images/09CF/09CF03a.png`,
         inputs = QWIZM.getInputOverlays([{
                 input: M + ' kg',
                 left: 55,
-                top: 8,
-                fontWeight: 600
+                top: 8
             },
             {
                 input: FG + ' mm',
@@ -111,12 +110,12 @@ QWIZM.question.qES09CF03a = (qNumber) => {
             {
                 input: RCy + ' mm',
                 left: 74,
-                top: 38,
+                top: 38
             },
             {
                 input: ACy + ' mm',
                 left: 74,
-                top: 51,
+                top: 51
             },
         ]);
 
@@ -182,12 +181,12 @@ QWIZM.question.qES09CF03a = (qNumber) => {
         thisQuestion[0] = partMarks;
     }
 
-    return `<div class='statement width60'><h3>Q${qNumber}</h3> (${thisQuiz[qNumber][0]} marks): 
+    return `<div class='statement'><h3>Q${qNumber}</h3> (${thisQuiz[qNumber][0]} marks):<p> 
     ${statement}</div>
-    <div id = '${qId}img' class='image width65'>
+    <div id = '${qId}img' class='image width120'>
         <img src= ${img}>
         ${inputs}
         </div>
-    <form autocomplete="off"><div class='parts paddingLeft5 width55'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
+    <form autocomplete="off"><div class='parts'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
 
 };

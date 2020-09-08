@@ -75,41 +75,36 @@ QWIZM.question.qES09CF12a = (qNumber) => {
                 input: FG + ' mm',
                 left: 24.75,
                 top: 91,
-                rot: 45,
-                fontSize: 1.4
+                rot: 45
             },
             {
                 input: EF + ' m',
                 left: 42,
-                top: 91.5,
-                fontSize: 1.4
+                top: 91.5
             },
             {
                 input: CCE + ' mm',
                 left: 60,
                 top: 91,
-                rot: 45,
-                fontSize: 1.4
+                rot: 45
             },
             {
                 input: CCD + ' mm',
                 left: 71,
                 top: 91,
-                rot: 45,
-                fontSize: 1.4
+                rot: 45
             },
             {
                 input: vert + ' m',
                 left: 86,
-                top: 32,
-                fontSize: 1.4
+                top: 32
             },
             {
                 input: M + ' kg',
-                left: 43,
+                left: 42,
                 top: 65,
-                fontSize: 1.5,
-                fontWeight: 600
+                fontSize: 110,
+                fontWeight: 500
             }
         ]);
 
@@ -166,12 +161,12 @@ QWIZM.question.qES09CF12a = (qNumber) => {
 
     }
 
-    return `<div class='statement width70'><h3>Q${qNumber}</h3>(${thisQuiz[qNumber][0]} marks): 
+    return `<div class='statement'><h3>Q${qNumber}</h3>(${thisQuiz[qNumber][0]} marks): <p>
     ${statement}</div>
-    <div id = '${qId}img' class='image width70'>
+    <div id = '${qId}img' class='image'>
         <img src= ${img}>
         ${inputs}  
     </div>
-    <form autocomplete="off"><div class='parts paddingLFGt5 width55'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
+    <form autocomplete="off"><div class='parts'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
 
 };

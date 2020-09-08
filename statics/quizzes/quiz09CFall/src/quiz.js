@@ -3,7 +3,7 @@ QWIZM.quiz = {
   id: "ES00MR01",
   subject: "Engineering Statics",
   topic: "Module 09: Frames",
-  subtopic: "Full Exercise Set",
+  subtopic: "All Current Frames Questions",
   sigDigs: 3,
   extraDigitForLeadingOne: true,
   workingDigs: 8,
@@ -28,7 +28,7 @@ QWIZM.quiz = {
     QWIZM.question.qES09CF17a,
   ],
   // Instructions can be modified on a per quiz basis here. Not usually necessary.
-  instructions: `<div class="statement width70 ">
+  instructions: `<div class="statement">
       <h3>Instructions:</h3>
       <ul>
         <li>All intermediate calculations should be accurate to at least five (5) significant digits to prevent the accumulation of rounding errors. (If you prefer, you may store intermediate results in your calculator and use the full precision that your calculator allows.)</li>

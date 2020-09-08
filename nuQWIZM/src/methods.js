@@ -41,7 +41,7 @@ QWIZM.methods.viewsLoad = o => {
 
         $('body').append(QWIZM.methods.writeFooter());
         // set all views to display:none;. Do that here rather than initializing all views to hidden so that when they are shown, display: flex (or whatever) is maintained
-        $('.view').hide();
+        $('article').hide();
         $('#' + QWIZM.state.currentView + 'Btn').addClass("active");
         $('#' + QWIZM.state.currentView).fadeIn();
 
@@ -56,19 +56,19 @@ QWIZM.methods.viewsLoad = o => {
         let len = QWIZM.quiz.questions.length,
             html = '';
 
-        html += `<section id='instructions' class='view'>
-                ${QWIZM.quiz.instructions}</section>
-                <section id='clear' class='card view' > ${QWIZM.methods.writeClearView()}</section>`;
+        html += `<article id='instructions' >
+                ${QWIZM.quiz.instructions}</article>
+                <article id='clear' class='card view' > ${QWIZM.methods.writeClearView()}</article>`;
 
         for (let i = 1; i < len; i++) {
             // QWIZM.quiz.questions[i] is a function where i is the question number
             // We need to pass the question number into this function
-            html += `<section id='Q${i}' class='view'>            
+            html += `<article id='Q${i}' >            
             ${QWIZM.quiz.questions[i](i)}`;
-            html += `</section>`;
+            html += `</article>`;
         }
 
-        html += `<section id='summary' class='view'>${QWIZM.summary.display()}</section>`;
+        html += `<article id='summary' >${QWIZM.summary.display()}</article>`;
 
         return html;
     }
@@ -273,7 +273,7 @@ QWIZM.methods.overlayVariable = (o) => {
         left = o.left,
         top = o.top,
         rot = o.rot || o.rotate || 0, // degrees, measured counterclockwise from positive x-axis
-        fs = o.fs || o.fontSize || 1.4, // units are in vw (view widths)
+        fs = o.fs || o.fontSize || '100%', // units are in % of rem, default is no change from surrounding text
         fw = o.fontWeight || o.fw || 'normal',
         pad = o.pad == 0 ? 0.001 : o.pad || o.padding == 0 ? 0.001 : o.padding || 0.15, //because if 0 is passed, it is falsy and the default of 0.15 is returned.
         color = o.color || 'black',
@@ -285,7 +285,7 @@ QWIZM.methods.overlayVariable = (o) => {
         color: ${color};
         padding: ${pad}vw;
         background-color:${bg};        
-        font-size: ${fs}vw;
+        font-size: ${fs}%;
         font-weight: ${fw};
         line-height: 1;
         transform: translate(-50%, -50%) rotate(${-rot}deg); ">

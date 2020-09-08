@@ -30,11 +30,11 @@ QWIZM.question.qES09CF08a = function (qNumber) {
       BCx = 2 * ABx,
       CDx = ABx,
       mult = lcrng.getNext(0.65, 0.85, 0.05),
-      ABy = Math.round(ABx * mult / 5) * 5,
+      ABy = stringify(Math.round(ABx * mult / 5) * 5),
       BCy = ABy * 2,
       CDy = ABy,
       mult2 = lcrng.getNext(1.1, 1.25, 0.025),
-      DEy = Math.round(BCy * mult2 / 5) * 5,
+      DEy = sd(stringify(Math.round(BCy * mult2 / 5) * 5)),
       DL = lcrng.getNext(2, 3.8, 0.1); //calcs
 
   var BEy = BCy + CDy + DEy,
@@ -133,5 +133,5 @@ QWIZM.question.qES09CF08a = function (qNumber) {
     thisQuestion[0] = partMarks; // console.log(thisQuestion);
   }
 
-  return "<div class='statement width60'><h3>Q".concat(qNumber, "</h3>(").concat(thisQuiz[qNumber][0], " marks): \n        ").concat(statement, "</div>\n        <div id = '").concat(qId, "img' class='image width55'>\n            <img src= ").concat(img, ">\n            ").concat(inputs, "\n        </div>\n        <form autocomplete=\"off\"><div class='parts paddingLeft5 width55'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
+  return "<div class='statement'><h3>Q".concat(qNumber, "</h3>(").concat(thisQuiz[qNumber][0], " marks): <p>\n        ").concat(statement, "</div>\n        <div id = '").concat(qId, "img' class='image'>\n            <img src= ").concat(img, ">\n            ").concat(inputs, "\n        </div>\n        <form autocomplete=\"off\"><div class='parts'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
 };

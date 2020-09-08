@@ -67,36 +67,31 @@ QWIZM.question.qES09CF12a = function (qNumber) {
     input: FG + ' mm',
     left: 24.75,
     top: 91,
-    rot: 45,
-    fontSize: 1.4
+    rot: 45
   }, {
     input: EF + ' m',
     left: 42,
-    top: 91.5,
-    fontSize: 1.4
+    top: 91.5
   }, {
     input: CCE + ' mm',
     left: 60,
     top: 91,
-    rot: 45,
-    fontSize: 1.4
+    rot: 45
   }, {
     input: CCD + ' mm',
     left: 71,
     top: 91,
-    rot: 45,
-    fontSize: 1.4
+    rot: 45
   }, {
     input: vert + ' m',
     left: 86,
-    top: 32,
-    fontSize: 1.4
+    top: 32
   }, {
     input: M + ' kg',
-    left: 43,
+    left: 42,
     top: 65,
-    fontSize: 1.5,
-    fontWeight: 600
+    fontSize: 110,
+    fontWeight: 500
   }]);
 
   if (!thisQuiz[qNumber] || debug) {
@@ -149,5 +144,5 @@ QWIZM.question.qES09CF12a = function (qNumber) {
     thisQuestion[0] = partMarks;
   }
 
-  return "<div class='statement width70'><h3>Q".concat(qNumber, "</h3>(").concat(thisQuiz[qNumber][0], " marks): \n    ").concat(statement, "</div>\n    <div id = '").concat(qId, "img' class='image width70'>\n        <img src= ").concat(img, ">\n        ").concat(inputs, "  \n    </div>\n    <form autocomplete=\"off\"><div class='parts paddingLFGt5 width55'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
+  return "<div class='statement'><h3>Q".concat(qNumber, "</h3>(").concat(thisQuiz[qNumber][0], " marks): <p>\n    ").concat(statement, "</div>\n    <div id = '").concat(qId, "img' class='image'>\n        <img src= ").concat(img, ">\n        ").concat(inputs, "  \n    </div>\n    <form autocomplete=\"off\"><div class='parts'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
 };

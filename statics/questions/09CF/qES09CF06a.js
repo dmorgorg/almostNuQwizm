@@ -73,8 +73,7 @@ QWIZM.question.qES09CF06a = function (qNumber) {
       inputs = QWIZM.getInputOverlays([{
     input: CEy + ' mm',
     left: 83,
-    top: 23,
-    fontSize: 1.4
+    top: 23
   }, {
     input: BEy + ' mm',
     left: 83,
@@ -100,7 +99,7 @@ QWIZM.question.qES09CF06a = function (qNumber) {
     left: 65.5,
     top: 52,
     color: '#a00',
-    fontSize: 1.6,
+    fontSize: 110,
     fontWeight: 'bold'
   }]);
 
@@ -184,5 +183,5 @@ QWIZM.question.qES09CF06a = function (qNumber) {
     thisQuestion[0] = partMarks;
   }
 
-  return "<div class='statement width55'><h3>Q".concat(qNumber, "</h3> (").concat(thisQuiz[qNumber][0], " marks): \n    ").concat(statement, "</div>\n    <div id = '").concat(qId, "img' class='image width50'>\n        <img src= ").concat(img, ">\n        ").concat(inputs, "\n    </div>\n    <form autocomplete=\"off\"><div class='parts paddingLeft10 width65'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
+  return "<div class='statement'><h3>Q".concat(qNumber, "</h3> (").concat(thisQuiz[qNumber][0], " marks): <p>\n    ").concat(statement, "</div>\n    <div id = '").concat(qId, "img' class='image'>\n        <img src= ").concat(img, ">\n        ").concat(inputs, "\n    </div>\n    <form autocomplete=\"off\"><div class='parts'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
 };

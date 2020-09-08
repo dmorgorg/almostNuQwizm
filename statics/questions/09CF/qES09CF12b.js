@@ -89,9 +89,9 @@ QWIZM.question.qES09CF12b = function (qNumber) {
     top: 91.25
   }, {
     input: UDL + ' kN/m',
-    left: 16,
+    left: 14,
     top: 11,
-    fontWeight: 1.6
+    fontWeight: 600
   }]);
 
   if (!thisQuiz[qNumber] || debug) {
@@ -144,5 +144,5 @@ QWIZM.question.qES09CF12b = function (qNumber) {
     thisQuestion[0] = partMarks;
   }
 
-  return "<div class='statement width65'><h3>Q".concat(qNumber, "</h3>(").concat(thisQuiz[qNumber][0], " marks):\n    ").concat(statement, "</div>\n    <div id = '").concat(qId, "img' class='image width55'>\n        <img src= ").concat(img, ">\n       ").concat(inputs, "          \n    </div>\n    <form autocomplete=\"off\"><div class='parts paddingLeft5 width55'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
+  return "<div class='statement'><h3>Q".concat(qNumber, "</h3>(").concat(thisQuiz[qNumber][0], " marks):<p>\n    ").concat(statement, "</div>\n    <div id = '").concat(qId, "img' class='image'>\n        <img src= ").concat(img, ">\n       ").concat(inputs, "          \n    </div>\n    <form autocomplete=\"off\"><div class='parts'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
 };

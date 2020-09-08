@@ -15,7 +15,7 @@ QWIZM.summary.display = function () {
       questionScore = 0,
       questionPossible = 0,
       questionCount = state.thisQuiz.length - 1,
-      html = "<summary class=\"statement width95\">"; // get quizScore and quizPossible for header
+      html = "<summary class=\"statement\">"; // get quizScore and quizPossible for header
 
   for (var _qNumber = 1; _qNumber <= questionCount; _qNumber++) {
     var _qPartCount = state.thisQuiz[_qNumber].length - 1;

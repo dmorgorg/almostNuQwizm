@@ -31,7 +31,7 @@ QWIZM.question.qES09CF11a = function (qNumber) {
       mult2 = lcrng.getNext(1.9, 2.1, 0.05),
       DFy = Math.round(CFy * mult2 / 10) * 10,
       mult3 = lcrng.getNext(2.85, 3.15, 0.05),
-      ABx = Math.round(CFy * mult3 / 10) * 10,
+      ABx = Math.round(CFy * mult3 / 20) * 20,
       mult4 = lcrng.getNext(1.15, 1.3, 0.05),
       BCx = Math.round(ABx * mult4 / 10) * 10,
       P = lcrng.getNext(2.5, 5, 0.1); //calcs
@@ -85,7 +85,7 @@ QWIZM.question.qES09CF11a = function (qNumber) {
     top: 44.5,
     color: '#AC1F2C',
     fontWeight: 'bold',
-    fontSize: 1.5,
+    fontSize: 100,
     background: 'none'
   }, {
     input: BCy + ' m',
@@ -153,5 +153,5 @@ QWIZM.question.qES09CF11a = function (qNumber) {
     thisQuestion[0] = partMarks;
   }
 
-  return "<div class='statement width65'><h3>Q".concat(qNumber, "</h3>(").concat(thisQuiz[qNumber][0], " marks): \n    ").concat(statement, "</div>\n    <div id = '").concat(qId, "img' class='image width65'>\n        <img src= ").concat(img, ">\n       ").concat(inputs, "     \n    </div>\n    <form autocomplete=\"off\"><div class='parts paddingLeft5 width55'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
+  return "<div class='statement'><h3>Q".concat(qNumber, "</h3>(").concat(thisQuiz[qNumber][0], " marks):<p> \n    ").concat(statement, "</div>\n    <div id = '").concat(qId, "img' class='image'>\n        <img src= ").concat(img, ">\n       ").concat(inputs, "     \n    </div>\n    <form autocomplete=\"off\"><div class='parts'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
 };

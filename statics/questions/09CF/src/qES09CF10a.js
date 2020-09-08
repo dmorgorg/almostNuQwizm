@@ -157,12 +157,12 @@ QWIZM.question.qES09CF10a = (qNumber) => {
         thisQuestion[0] = partMarks;
     }
 
-    return `<div class='statement width65'><h3>Q${qNumber}</h3> (${thisQuiz[qNumber][0]} marks): 
+    return `<div class='statement'><h3>Q${qNumber}</h3> (${thisQuiz[qNumber][0]} marks): <p>
     ${statement}</div>
-    <div id = '${qId}img' class='image width65'>
+    <div id = '${qId}img' class='image width120'>
         <img src= ${img}>
        ${inputs}
     </div>
-    <form autocomplete="off"><div class='parts paddingLeft5 width55'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
+    <form autocomplete="off"><div class='parts'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
 
 };

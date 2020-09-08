@@ -58,17 +58,17 @@ QWIZM.question.qES09CF07a = (qNumber) => {
         inputs = QWIZM.getInputOverlays([{
                 input: AB + ' m',
                 left: 37,
-                top: 83
+                top: 83.25
             },
             {
                 input: BC + ' m',
                 left: 74,
-                top: 83
+                top: 83.25
                 //background: 'yellow'
             },
             {
                 input: DL + ' kN/m',
-                left: 23.5,
+                left: 24,
                 top: 16,
                 background: 'none'
             }
@@ -116,12 +116,12 @@ QWIZM.question.qES09CF07a = (qNumber) => {
 
     }
 
-    return `<div class='statement width50'><h3>Q${qNumber}</h3> (${thisQuiz[qNumber][0]} marks): 
+    return `<div class='statement'><h3>Q${qNumber}</h3> (${thisQuiz[qNumber][0]} marks):<p> 
         ${statement}</div>
-        <div id = '${qId}img' class='image width55'>
+        <div id = '${qId}img' class='image'>
             <img src= ${img}>
             ${inputs}
             </div>
-        <form autocomplete="off"><div class='parts paddingLeft5 width55'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
+        <form autocomplete="off"><div class='parts'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
 
 };

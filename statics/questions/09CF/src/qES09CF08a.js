@@ -31,11 +31,11 @@ QWIZM.question.qES09CF08a = (qNumber) => {
         BCx = 2 * ABx,
         CDx = ABx,
         mult = lcrng.getNext(0.65, 0.85, 0.05),
-        ABy = Math.round(ABx * mult / 5) * 5,
+        ABy = stringify(Math.round(ABx * mult / 5) * 5),
         BCy = ABy * 2,
         CDy = ABy,
         mult2 = lcrng.getNext(1.1, 1.25, 0.025),
-        DEy = Math.round(BCy * mult2 / 5) * 5,
+        DEy = sd(stringify(Math.round(BCy * mult2 / 5) * 5)),
         DL = lcrng.getNext(2, 3.8, 0.1);
 
     //calcs
@@ -151,12 +151,12 @@ QWIZM.question.qES09CF08a = (qNumber) => {
         // console.log(thisQuestion);
     }
 
-    return `<div class='statement width60'><h3>Q${qNumber}</h3>(${thisQuiz[qNumber][0]} marks): 
+    return `<div class='statement'><h3>Q${qNumber}</h3>(${thisQuiz[qNumber][0]} marks): <p>
         ${statement}</div>
-        <div id = '${qId}img' class='image width55'>
+        <div id = '${qId}img' class='image'>
             <img src= ${img}>
             ${inputs}
         </div>
-        <form autocomplete="off"><div class='parts paddingLeft5 width55'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
+        <form autocomplete="off"><div class='parts'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
 
 };

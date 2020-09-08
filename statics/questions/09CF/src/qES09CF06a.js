@@ -78,8 +78,7 @@ QWIZM.question.qES09CF06a = (qNumber) => {
         inputs = QWIZM.getInputOverlays([{
                 input: CEy + ' mm',
                 left: 83,
-                top: 23,
-                fontSize: 1.4
+                top: 23
             },
             {
                 input: BEy + ' mm',
@@ -111,7 +110,7 @@ QWIZM.question.qES09CF06a = (qNumber) => {
                 left: 65.5,
                 top: 52,
                 color: '#a00',
-                fontSize: 1.6,
+                fontSize: 110,
                 fontWeight: 'bold'
             }
         ]);
@@ -207,12 +206,12 @@ QWIZM.question.qES09CF06a = (qNumber) => {
         thisQuestion[0] = partMarks;
     }
 
-    return `<div class='statement width55'><h3>Q${qNumber}</h3> (${thisQuiz[qNumber][0]} marks): 
+    return `<div class='statement'><h3>Q${qNumber}</h3> (${thisQuiz[qNumber][0]} marks): <p>
     ${statement}</div>
-    <div id = '${qId}img' class='image width50'>
+    <div id = '${qId}img' class='image'>
         <img src= ${img}>
         ${inputs}
     </div>
-    <form autocomplete="off"><div class='parts paddingLeft10 width65'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
+    <form autocomplete="off"><div class='parts'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
 
 };

@@ -67,59 +67,50 @@ QWIZM.question.qES09CF14a = (qNumber) => {
             input: x1 + ' m',
             left: 21.625,
             top: 58,
-            rotate: 70,
-            fs: 1.25,
+            rotate: 70
         },
         {
             input: x1 + ' m',
             left: 80,
             top: 58,
-            rotate: 70,
-            fs: 1.25,
+            rotate: 70
         },
         {
             input: x3 + ' m',
             left: 41.125,
             top: 58,
-            rotate: 70,
-            fs: 1.25,
+            rotate: 70
         },
         {
             input: x3 + ' m',
             left: 47.625,
             top: 58,
-            rotate: 70,
-            fs: 1.25,
+            rotate: 70
         },
         {
             input: x2 + ' m',
             left: 31.25,
-            top: 58.25,
-            fs: 1.25,
+            top: 58.25
         },
         {
             input: x2 + ' m',
             left: 57.25,
-            top: 58.25,
-            fs: 1.25,
+            top: 58.25
         },
         {
             input: x2 + ' m',
             left: 70,
-            top: 58.25,
-            fs: 1.25,
+            top: 58.25
         },
         {
             input: y1 + ' m',
             left: 8.75,
-            top: 18,
-            fs: 1.25,
+            top: 18
         },
         {
             input: y2 + ' m',
             left: 8.75,
-            top: 33.75,
-            fs: 1.25,
+            top: 33.75
         },
 
     ]);
@@ -158,12 +149,12 @@ QWIZM.question.qES09CF14a = (qNumber) => {
 
     }
 
-    return `<div class='statement width55'><h3>Q${qNumber}</h3>(${thisQuiz[qNumber][0]} marks): 
+    return `<div class='statement'><h3>Q${qNumber}</h3>(${thisQuiz[qNumber][0]} marks): <p>
     ${statement}</div>
-    <div id = '${qId}img' class='image width60'>
+    <div id = '${qId}img' class='image width120'>
         <img src= ${img}>
        ${inputs}        
     </div>
-    <form autocomplete="off"><div class='parts paddingLeft5 width55'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
+    <form autocomplete="off"><div class='parts'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
 
 };

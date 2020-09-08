@@ -37,7 +37,7 @@ QWIZM.methods.viewsLoad = function (o) {
       setHandlers();
       $('body').append(QWIZM.methods.writeFooter()); // set all views to display:none;. Do that here rather than initializing all views to hidden so that when they are shown, display: flex (or whatever) is maintained
 
-      $('.view').hide();
+      $('article').hide();
       $('#' + QWIZM.state.currentView + 'Btn').addClass("active");
       $('#' + QWIZM.state.currentView).fadeIn();
       QWIZM.methods.writeToLocalStorage(QWIZM.QUIZ_KEY, QWIZM.state);
@@ -51,16 +51,16 @@ QWIZM.methods.viewsLoad = function (o) {
   function loadViews() {
     var len = QWIZM.quiz.questions.length,
         html = '';
-    html += "<section id='instructions' class='view'>\n                ".concat(QWIZM.quiz.instructions, "</section>\n                <section id='clear' class='card view' > ").concat(QWIZM.methods.writeClearView(), "</section>");
+    html += "<article id='instructions' >\n                ".concat(QWIZM.quiz.instructions, "</article>\n                <article id='clear' class='card view' > ").concat(QWIZM.methods.writeClearView(), "</article>");
 
     for (var i = 1; i < len; i++) {
       // QWIZM.quiz.questions[i] is a function where i is the question number
       // We need to pass the question number into this function
-      html += "<section id='Q".concat(i, "' class='view'>            \n            ").concat(QWIZM.quiz.questions[i](i));
-      html += "</section>";
+      html += "<article id='Q".concat(i, "' >            \n            ").concat(QWIZM.quiz.questions[i](i));
+      html += "</article>";
     }
 
-    html += "<section id='summary' class='view'>".concat(QWIZM.summary.display(), "</section>");
+    html += "<article id='summary' >".concat(QWIZM.summary.display(), "</article>");
     return html;
   }
   /** Nested function inside viewsLoad. Sets event handlers for button clicks
@@ -286,15 +286,15 @@ QWIZM.methods.overlayVariable = function (o) {
       top = o.top,
       rot = o.rot || o.rotate || 0,
       // degrees, measured counterclockwise from positive x-axis
-  fs = o.fs || o.fontSize || 1.4,
-      // units are in vw (view widths)
+  fs = o.fs || o.fontSize || '100%',
+      // units are in % of rem, default is no change from surrounding text
   fw = o.fontWeight || o.fw || 'normal',
       pad = o.pad == 0 ? 0.001 : o.pad || o.padding == 0 ? 0.001 : o.padding || 0.15,
       //because if 0 is passed, it is falsy and the default of 0.15 is returned.
   color = o.color || 'black',
       bg = o.background || o.bg || 'white'; // default value is 'white', use 'inherit' or 'transparent' or 'none' for no background
 
-  return "<div class='label' style=\" \n        top: ".concat(top, "%; \n        left: ").concat(left, "%;\n        color: ").concat(color, ";\n        padding: ").concat(pad, "vw;\n        background-color:").concat(bg, ";        \n        font-size: ").concat(fs, "vw;\n        font-weight: ").concat(fw, ";\n        line-height: 1;\n        transform: translate(-50%, -50%) rotate(").concat(-rot, "deg); \">\n        ").concat(input, "\n        </div>");
+  return "<div class='label' style=\" \n        top: ".concat(top, "%; \n        left: ").concat(left, "%;\n        color: ").concat(color, ";\n        padding: ").concat(pad, "vw;\n        background-color:").concat(bg, ";        \n        font-size: ").concat(fs, "%;\n        font-weight: ").concat(fw, ";\n        line-height: 1;\n        transform: translate(-50%, -50%) rotate(").concat(-rot, "deg); \">\n        ").concat(input, "\n        </div>");
 };
 
 QWIZM.getInputOverlays = function (arr) {

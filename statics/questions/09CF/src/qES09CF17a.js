@@ -139,11 +139,10 @@ QWIZM.question.qES09CF17a = (qNumber) => {
     let inputs = QWIZM.getInputOverlays([{
             input: P + ' kN',
             left: 72,
-            top: 69,
+            top: 68.5,
             fontWeight: 'bold',
             color: '#a00',
-            background: 'none',
-            fontSize: 1.6
+            background: 'none'
         },
         {
             input: ABx + ' mm',
@@ -180,12 +179,12 @@ QWIZM.question.qES09CF17a = (qNumber) => {
 
     ]);
 
-    return `<div class='statement width65'><h3>Q${qNumber}</h3>(${thisQuiz[qNumber][0]} marks):
+    return `<div class='statement'><h3>Q${qNumber}</h3>(${thisQuiz[qNumber][0]} marks):<p>
     ${statement}</div>
-    <div id = '${qId}img' class='image width75'>
+    <div id = '${qId}img' class='image'>
         <img src= ${img}>
        ${inputs}          
     </div>
-    <form autocomplete="off"><div class='parts paddingLeft5 width55'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
+    <form autocomplete="off"><div class='parts'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
 
 };

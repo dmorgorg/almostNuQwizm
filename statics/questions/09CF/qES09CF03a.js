@@ -66,13 +66,12 @@ QWIZM.question.qES09CF03a = function (qNumber) {
   RAtheta = stringify(RAtheta);
   RC = stringify(RC);
   RCtheta = stringify(RCtheta);
-  var statement = " The car has a mass of ".concat(M, " kg, half of which is supported by the visible frame !$ABC!$. The connections at !$A, B!$ and !$C!$ are pinned. (You may assume that a similar frame supports the far side of the car.) The centre of gravity of the car is at !$G!$. Determine the magnitude of forces !$F_F!$ and !$F_R!$ exerted by the front and rear wheels on frame members !$AB!$ and !$BC!$. Then determine the force (magnitude and direction) that frame member !$AB!$ exerts on frame member !$BC!$ at !$B!$, and both the magnitude and direction of the reactions at !$A!$ and !$C!$."),
+  var statement = " <p>The car has a mass of ".concat(M, " kg, half of which is supported by the frame !$ABC!$ shown. The connections at !$A, B!$ and !$C!$ are pinned. (You may assume that a similar frame supports the far side of the car.) The centre of gravity of the car is at !$G!$. Determine the magnitude of forces !$F_F!$ and !$F_R!$ exerted by the front and rear wheels on frame members !$AB!$ and !$BC!$. Then determine the force (magnitude and direction) that frame member !$AB!$ exerts on frame member !$BC!$ at !$B!$, and both the magnitude and direction of the reactions at !$A!$ and !$C!$."),
       img = "../../images/09CF/09CF03a.png",
       inputs = QWIZM.getInputOverlays([{
     input: M + ' kg',
     left: 55,
-    top: 8,
-    fontWeight: 600
+    top: 8
   }, {
     input: FG + ' mm',
     left: 36.875,
@@ -171,5 +170,5 @@ QWIZM.question.qES09CF03a = function (qNumber) {
     thisQuestion[0] = partMarks;
   }
 
-  return "<div class='statement width60'><h3>Q".concat(qNumber, "</h3> (").concat(thisQuiz[qNumber][0], " marks): \n    ").concat(statement, "</div>\n    <div id = '").concat(qId, "img' class='image width65'>\n        <img src= ").concat(img, ">\n        ").concat(inputs, "\n        </div>\n    <form autocomplete=\"off\"><div class='parts paddingLeft5 width55'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
+  return "<div class='statement'><h3>Q".concat(qNumber, "</h3> (").concat(thisQuiz[qNumber][0], " marks):<p> \n    ").concat(statement, "</div>\n    <div id = '").concat(qId, "img' class='image width120'>\n        <img src= ").concat(img, ">\n        ").concat(inputs, "\n        </div>\n    <form autocomplete=\"off\"><div class='parts'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
 };
