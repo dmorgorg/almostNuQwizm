@@ -21,7 +21,9 @@ QWIZM.question.qES00MR004 = function (qNumber) {
       ov = QWIZM.methods.overlayVariable,
       arrayCount = 0,
       seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
-      lcrng = new utils.LCRNG(seed); //inputs
+      lcrng = new utils.LCRNG(seed),
+      partMarks = 0,
+      debug = true; //inputs
 
   var ABinit = sd(lcrng.getNext(400, 600, 5)),
       BCmult = sd(lcrng.getNext(1.35, 1.65, 0.025)),
@@ -45,23 +47,21 @@ QWIZM.question.qES00MR004 = function (qNumber) {
   deltaDE = stringify(deltaDE);
   var statement = "!$ABCD!$ is a rigid plate, able to rotate about a pinned connection at !$C!$. !$ABCD!$ is held in position by linkages !$BF!$ and !$DE!$. When force !$P!$ is applied at !$A!$, !$A!$ moves rightwards a distance of ".concat(dA, " mm as plate !$ABCD!$ rotates about !$C!$. !$BF!$ increases in length (deforms) but can be assumed to remain horizontal. !$DE!$ decreases in length (its deformation is negative) but remains vertical. <p>\n        Determine the deformation !$\\delta_{BF}!$ in !$BF!$ and the deformation !$\\delta_{DE}!$ in !$DE!$."),
       img = "../../images/00MR/00MR04.png",
-      iV1 = ov({
+      inputs = QWIZM.getInputOverlays([{
     input: AB + ' mm',
     left: 34,
     top: 19
-  }),
-      iV2 = ov({
+  }, {
     input: BC + ' mm',
     left: 34,
     top: 48
-  }),
-      iV3 = ov({
+  }, {
     input: CD + ' mm',
     left: 67,
     top: 80.25
-  });
+  }]);
 
-  if (!thisQuiz[qNumber]) {
+  if (!thisQuiz[qNumber] || debug) {
     thisQuiz[qNumber] = [];
     thisQuestion = thisQuiz[qNumber]; // thisQuiz.push(questionPart)
 
@@ -79,7 +79,14 @@ QWIZM.question.qES00MR004 = function (qNumber) {
       marks: 5,
       correctSoln: deltaDE
     };
+
+    for (var i = 1; i < thisQuestion.length; i++) {
+      partMarks += thisQuestion[i].marks;
+    } // store question total marks in the empty first element of the array
+
+
+    thisQuestion[0] = partMarks;
   }
 
-  return "<div class='statement width60 taleft'><h3>Q".concat(qNumber, "</h3>: ").concat(statement, "</div>\n    <div class='image width45'><img src= ").concat(img, ">\n    ").concat(iV1, "\n    ").concat(iV2, "\n    ").concat(iV3, "\n    </div>\n    <form autocomplete=\"off\"> <div class='parts width40'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
+  return "<div class='statement'><h3>Q".concat(qNumber, "</h3>(").concat(thisQuiz[qNumber][0], " marks):<p>\n     ").concat(statement, "</div>\n    <div id = '").concat(qId, "img' class='image width70'><img src= ").concat(img, ">\n").concat(inputs, "\n    </div>\n    <form autocomplete=\"off\"> <div class='parts'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
 };

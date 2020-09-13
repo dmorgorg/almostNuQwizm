@@ -19,7 +19,9 @@ QWIZM.question.qES00MR002 = (qNumber) => {
         ov = QWIZM.methods.overlayVariable,
         arrayCount = 0,
         seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
-        lcrng = new utils.LCRNG(seed);
+        lcrng = new utils.LCRNG(seed),
+        partMarks = 0,
+        debug = true;
 
     //inputs
     // console.log(stringify(lcrng.getNext(2, 4, 0.025)))
@@ -41,36 +43,38 @@ QWIZM.question.qES00MR002 = (qNumber) => {
 
     let statement = `Determine the length of !$BC!$ and the angle !$ABC!$.`,
         img = `../../images/00MR/00MR02.png`,
-        iV1 = ov({
-            input: A + '&deg;',
-            left: 31,
-            top: 84,
-            background: 'linen'
-        }),
-        iV2 = ov({
-            input: c + ' cm',
-            left: 50,
-            top: 93,
-            background: 'none'
-        }),
-        iV3 = ov({
-            input: b + ' cm',
-            left: 46,
-            top: 49,
-            rot: 55,
-            background: 'none'
-        });
+        inputs = QWIZM.getInputOverlays([{
+                input: A + '&deg;',
+                left: 31,
+                top: 84,
+                background: 'linen'
+            },
+            {
+                input: c + ' cm',
+                left: 50,
+                top: 93,
+                background: 'none'
+            },
+            {
+                input: b + ' cm',
+                left: 46,
+                top: 49,
+                rot: 55,
+                background: 'none'
+            }
+        ]);
 
     //stringify
     a2 = stringify(a2);
     B = stringify(B);
 
-    if (!thisQuiz[qNumber]) {
+    if (!thisQuiz[qNumber] || debug) {
         thisQuiz[qNumber] = [];
         thisQuestion = thisQuiz[qNumber];
 
         // thisQuiz.push(questionPart)
         thisQuestion[arrayCount++] = '';
+
         thisQuestion.push({
             partStatement: `!$ BC !$`,
             units: 'm',
@@ -83,17 +87,23 @@ QWIZM.question.qES00MR002 = (qNumber) => {
             marks: 4,
             correctSoln: B
         });
+
+        for (let i = 1; i < thisQuestion.length; i++) {
+            partMarks += thisQuestion[i].marks;
+        }
+        // store question total marks in the empty first element of the array
+        thisQuestion[0] = partMarks;
     }
 
 
-    return `<div class='statement width50'><h3>Q${qNumber}</h3>: ${statement}<br>
-         </div>
-    <div id = '${qId}img' class='image width30'>
-    <img src= ${img}>
-    ${iV1}
-    ${iV2}
-    ${iV3}</div>
-    <form autocomplete="off"><div class='parts width45'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
+    return `<div class='statement width75'><h3>Q${qNumber}</h3>(${thisQuiz[qNumber][0]} marks):
+        ${statement}<br>
+        </div>
+        <div id = '${qId}img' class='image width50'>
+        <img src= ${img}>
+        ${inputs}
+        </div>
+        <form autocomplete="off"><div class='parts'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
 
 
 };

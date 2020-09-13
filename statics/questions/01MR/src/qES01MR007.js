@@ -19,10 +19,9 @@ QWIZM.question.qES00MR007 = (qNumber) => {
         ov = QWIZM.methods.overlayVariable,
         arrayCount = 0,
         seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
-        lcrng = new utils.LCRNG(seed);
-
-
-
+        lcrng = new utils.LCRNG(seed),
+        partMarks = 0,
+        debug = true;
 
     //inputs - don't stringify these, use 6y instead of 6.00y
     let a11 = sd(lcrng.getNext(1, 8, 1)),
@@ -31,8 +30,6 @@ QWIZM.question.qES00MR007 = (qNumber) => {
         a21 = sd(lcrng.getNext(1, 8, 1)),
         a22 = sd(lcrng.getNext(1, 8, 1)),
         b2 = sd(lcrng.getNext(1, 8, 1));
-
-
 
     //calcs - dont want to write 1x for x
     let a11b = a11 === 1 ? '' : a11,
@@ -54,7 +51,7 @@ QWIZM.question.qES00MR007 = (qNumber) => {
         \\end{aligned}
         $$`;
 
-    if (!thisQuiz[qNumber]) {
+    if (!thisQuiz[qNumber] || debug) {
         thisQuiz[qNumber] = [];
         thisQuestion = thisQuiz[qNumber];
         // thisQuiz.push(questionPart)
@@ -71,8 +68,15 @@ QWIZM.question.qES00MR007 = (qNumber) => {
             marks: 3,
             correctSoln: y
         };
+
+        for (let i = 1; i < thisQuestion.length; i++) {
+            partMarks += thisQuestion[i].marks;
+        }
+        // store question total marks in the empty first element of the array
+        thisQuestion[0] = partMarks;
     }
 
-    return `<div class='statement width50'><h3>Q${qNumber}</h3>: ${statement}</div>
-    <form autocomplete="off"><div class='parts width50'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
+    return `<div class='statement width70'><h3>Q${qNumber}</h3>(${thisQuiz[qNumber][0]} marks):
+     ${statement}</div>
+    <form autocomplete="off"><div class='parts width70'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
 };

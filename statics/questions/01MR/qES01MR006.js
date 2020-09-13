@@ -44,39 +44,36 @@ QWIZM.question.qES00MR006 = function (qNumber) {
   angleOBA = stringify(angleOBA);
   phi = stringify(phi);
   theta = stringify(theta);
-  var statement = "A typical question in Statics is to determine the tension in rods !$AC!$, !$BC!$ and !$CW!$.To solve this, we need to find the angles !$\\theta!$ and !$\\phi!$. Follow the steps outlined below in order, starting with the length of !$ AB !$, to find these angles:",
+  var statement = "A typical question in Statics is to determine the tension in rods !$AC!$, !$BC!$ and !$CW!$. To solve this, we need to find the angles !$\\theta!$ and !$\\phi!$. Follow the steps outlined below in order, starting with calculating the length of !$ AB !$, to find these angles:",
       img = "../../images/00MR/00MR06.png",
-      iV1 = ov({
+      inputs = QWIZM.getInputOverlays([{
     input: AC + ' m',
     left: 35,
     top: 49,
     rot: -26.5,
-    fontSize: 1.75,
+    // fontSize: 110,
     background: 'none'
-  }),
-      iV2 = ov({
+  }, {
     input: BC + ' m',
     left: 60.5,
     top: 38,
     rot: 56.25,
-    fontSize: 1.75,
+    // fontSize: 110,
     background: 'none'
-  }),
-      iV3 = ov({
+  }, {
     input: OA + ' m',
     left: 11.5,
     top: 32,
     rot: 90,
-    fontSize: 1.75,
+    // fontSize: 110,
     background: '#cdc8b0'
-  }),
-      iV4 = ov({
+  }, {
     input: OB + ' m',
     left: 49,
     top: 10,
-    fontSize: 1.75,
+    // fontSize: 110,
     background: '#cdc8b0'
-  });
+  }]);
 
   if (!thisQuiz[qNumber]) {
     thisQuiz[qNumber] = [];
@@ -119,7 +116,14 @@ QWIZM.question.qES00MR006 = function (qNumber) {
       marks: 3,
       correctSoln: theta
     };
+
+    for (var i = 1; i < thisQuestion.length; i++) {
+      partMarks += thisQuestion[i].marks;
+    } // store question total marks in the empty first element of the array
+
+
+    thisQuestion[0] = partMarks;
   }
 
-  return "\n    <div class='statement width50'><h3>Q".concat(qNumber, "</h3>: ").concat(statement, "</div>\n    <div class='image width50'><img src= ").concat(img, ">\n    ").concat(iV1, "\n    ").concat(iV2, "\n    ").concat(iV3, "\n    ").concat(iV4, "\n    </div>\n    <form autocomplete=\"off\"><div class='parts width50'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
+  return "\n    <div class='statement'><h3>Q".concat(qNumber, "</h3>(").concat(thisQuiz[qNumber][0], " marks):<p>\n    ").concat(statement, "</div>\n    <div id = '").concat(qId, "img' class='image width70'><img src= ").concat(img, ">\n    ").concat(inputs, "\n    </div>\n    <form autocomplete=\"off\"><div class='parts'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
 };

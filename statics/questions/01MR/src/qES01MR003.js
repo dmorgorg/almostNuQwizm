@@ -20,7 +20,9 @@ QWIZM.question.qES00MR003 = (qNumber) => {
         ov = QWIZM.methods.overlayVariable,
         arrayCount = 0,
         seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
-        lcrng = new utils.LCRNG(seed);
+        lcrng = new utils.LCRNG(seed),
+        partMarks = 0,
+        debug = true;
 
     //inputs
     let topChordAngle = (lcrng.getNext(30, 40, 0.5)),
@@ -39,29 +41,31 @@ QWIZM.question.qES00MR003 = (qNumber) => {
 
     let statement = `Determine angles !$\\theta!$ and !$\\phi!$.`,
         img = `../../images/00MR/00MR03.png`,
-        iV1 = ov({
-            input: x + ' m',
-            left: 27,
-            top: 86
-        }),
-        iV2 = ov({
-            input: x + ' m',
-            left: 51.5,
-            top: 86
-        }),
-        iV3 = ov({
-            input: x + ' m',
-            left: 75.5,
-            top: 86
-        }),
-        iV4 = ov({
-            input: y + ' m',
-            left: 7,
-            top: 38
-        });
+        inputs = QWIZM.getInputOverlays([{
+                input: x + ' m',
+                left: 27,
+                top: 86
+            },
+            {
+                input: x + ' m',
+                left: 51.5,
+                top: 86
+            },
+            {
+                input: x + ' m',
+                left: 75.5,
+                top: 86
+            },
+            {
+                input: y + ' m',
+                left: 7,
+                top: 38
+            }
+        ]);
 
 
-    if (!thisQuiz[qNumber]) {
+
+    if (!thisQuiz[qNumber] || debug) {
         thisQuiz[qNumber] = [];
         thisQuestion = thisQuiz[qNumber];
         // thisQuiz.push(questionPart)
@@ -78,16 +82,20 @@ QWIZM.question.qES00MR003 = (qNumber) => {
             marks: 5,
             correctSoln: phi
         };
+
+        for (let i = 1; i < thisQuestion.length; i++) {
+            partMarks += thisQuestion[i].marks;
+        }
+        // store question total marks in the empty first element of the array
+        thisQuestion[0] = partMarks;
     }
 
-    return `<div class='statement width40'><h3>Q${qNumber}</h3>: ${statement}    
+    return `<div class='statement width60'><h3>Q${qNumber}</h3>(${thisQuiz[qNumber][0]} marks):
+     ${statement}    
     </div>
-    <div class='image width60'><img src= ${img}>
-    ${iV1}
-    ${iV2}
-    ${iV3}
-    ${iV4}
+    <div id = '${qId}img' class='image'><img src= ${img}>
+     ${inputs}
     </div>
-    <form autocomplete="off"><div class='parts width40'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
+    <form autocomplete="off"><div class='parts'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
 
 };

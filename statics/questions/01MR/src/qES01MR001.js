@@ -20,7 +20,9 @@ QWIZM.question.qES00MR001 = (qNumber) => {
         ov = QWIZM.methods.overlayVariable,
         arrayCount = 0,
         seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
-        lcrng = new utils.LCRNG(seed);
+        lcrng = new utils.LCRNG(seed),
+        partMarks = 0,
+        debug = true;
 
     //inputs - defaults to sigDigs
     let x = stringify(lcrng.getNext(2, 4, 0.025)),
@@ -48,43 +50,40 @@ QWIZM.question.qES00MR001 = (qNumber) => {
 
     let statement = `Determine the lengths of truss members !$BF!$ and !$CE!$.`,
         img = `../../images/00MR/00MR01.png`,
-        iV1 = ov({
-            input: x + ' m',
-            left: 28,
-            top: 89,
-            // background: 'orange'
-        }),
-        iV2 = ov({
-            input: x + ' m',
-            left: 49,
-            top: 89,
-            // background: 'violet'
-        }),
-        iV3 = ov({
-            input: x + ' m',
-            left: 70,
-            top: 89,
-            // background: 'yellow'
-        }),
-        iV4 = ov({
-            input: y1 + ' m',
-            left: 88,
-            top: 60,
-            // background: 'pink'
-        }),
-        iV5 = ov({
-            input: y2 + ' m',
-            left: 88,
-            top: 39,
-            // background: 'yellow'
-        }),
-        iV6 = ov({
-            input: y2 + ' m',
-            left: 88,
-            top: 24
-        });
+        inputs = QWIZM.getInputOverlays([{
+                input: x + ' m',
+                left: 28,
+                top: 89
+            },
+            {
+                input: x + ' m',
+                left: 49,
+                top: 89,
+            },
+            {
+                input: x + ' m',
+                left: 70,
+                top: 89,
+            },
+            {
+                input: y1 + ' m',
+                left: 88,
+                top: 60,
+            },
+            {
+                input: y2 + ' m',
+                left: 88,
+                top: 39,
+            },
+            {
+                input: y2 + ' m',
+                left: 88,
+                top: 24
+            }
+        ]);
 
-    if (!thisQuiz[qNumber]) {
+
+    if (!thisQuiz[qNumber] || debug) {
         thisQuiz[qNumber] = [];
         thisQuestion = thisQuiz[qNumber];
 
@@ -103,19 +102,20 @@ QWIZM.question.qES00MR001 = (qNumber) => {
             marks: 4,
             correctSoln: CE
         };
+
+        for (let i = 1; i < thisQuestion.length; i++) {
+            partMarks += thisQuestion[i].marks;
+        }
+        // store question total marks in the empty first element of the array
+        thisQuestion[0] = partMarks;
     }
 
-    return `<div class='statement width50'><h3>Q${qNumber}</h3>: 
-    ${statement}</div>
-    <div id = '${qId}img' class='image width60'>
-    <img src= ${img}>
-    ${iV1}
-    ${iV2}
-    ${iV3}
-    ${iV4}
-    ${iV5}
-    ${iV6}
-    </div>
-    <form autocomplete="off"><div class='parts width45'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
+    return `<div class='statement width80'><h3>Q${qNumber}</h3> (${thisQuiz[qNumber][0]} marks):
+        ${statement}</div>
+        <div id = '${qId}img' class='image width90'>
+            <img src= ${img}>
+            ${inputs}
+        </div>
+        <form autocomplete="off"><div class='parts'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
 
 };

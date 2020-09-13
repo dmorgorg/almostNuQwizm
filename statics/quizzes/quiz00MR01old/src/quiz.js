@@ -1,6 +1,6 @@
 let QWIZM = QWIZM || {};
 QWIZM.quiz = {
-  id: "ES00MR01",
+  id: "ES01MR01",
   subject: "Engineering Statics",
   topic: "Mathematics Review",
   subtopic: "Exercise Set 01",
@@ -18,7 +18,7 @@ QWIZM.quiz = {
     QWIZM.question.qES00MR008
   ],
   // Instructions can be modified on a per quiz basis here. Not usually necessary.
-  instructions: `<div class="statement width70 ">
+  instructions: `<div class="statement">
       <h3>Instructions:</h3>
       <ul>
         <li>All intermediate calculations should be accurate to at least five (5) significant digits to prevent the accumulation of rounding errors. (If you prefer, you may store intermediate results in your calculator and use the full precision that your calculator allows.)</li>

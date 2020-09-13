@@ -20,7 +20,9 @@ QWIZM.question.qES00MR005 = (qNumber) => {
         ov = QWIZM.methods.overlayVariable,
         arrayCount = 0,
         seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
-        lcrng = new utils.LCRNG(seed);
+        lcrng = new utils.LCRNG(seed),
+        partMarks = 0,
+        debug = true;
 
 
 
@@ -43,7 +45,33 @@ QWIZM.question.qES00MR005 = (qNumber) => {
     BD = stringify(BD);
 
 
-    if (!thisQuiz[qNumber]) {
+
+
+
+    let statement = `Using the Pythagorean Theorem and the theory of similar triangles, determine the lengths of  !$AB!$, !$BD!$ and !$CD!$.`,
+        img = `../../images/00MR/00MR05.png`,
+        inputs = QWIZM.getInputOverlays([{
+                input: AC + ' cm',
+                left: 50,
+                top: 90,
+                fontSize: 1.6,
+                background: 'none'
+            },
+            {
+                input: AD + ' cm',
+                left: 24,
+                top: 57,
+                fontSize: 1.6,
+                background: 'none',
+                rot: 53.5
+            }
+
+        ]);
+
+
+
+
+    if (!thisQuiz[qNumber] || debug) {
         thisQuiz[qNumber] = [];
         thisQuestion = thisQuiz[qNumber];
         // thisQuiz.push(questionPart)
@@ -66,32 +94,20 @@ QWIZM.question.qES00MR005 = (qNumber) => {
             marks: 3,
             correctSoln: CD
         };
+
+        for (let i = 1; i < thisQuestion.length; i++) {
+            partMarks += thisQuestion[i].marks;
+        }
+        // store question total marks in the empty first element of the array
+        thisQuestion[0] = partMarks;
+
     }
 
 
-    let statement = `Using the Pythagorean Theorem and the theory of similar triangles, determine the lengths of  !$AB!$, !$BD!$ and !$CD!$.`,
-        img = `../../images/00MR/00MR05.png`,
-        iV1 = ov({
-            input: AC + ' cm',
-            left: 50,
-            top: 90,
-            fontSize: 1.6,
-            background: 'none'
-        }),
-        iV2 = ov({
-            input: AD + ' cm',
-            left: 24,
-            top: 57,
-            fontSize: 1.6,
-            background: 'none',
-            rot: 53.5
-        });
-
-
-    return `<div class='statement width55 taLeft'><h3>Q${qNumber}</h3>: ${statement}</div>
-    <div class='image width35'><img src= ${img}>
-    ${iV1}
-    ${iV2}
+    return `<div class='statement'><h3>Q${qNumber}</h3>(${thisQuiz[qNumber][0]} marks):<p>
+    ${statement}</div>
+    <div id = '${qId}img' class='image width60'><img src= ${img}>
+    ${inputs}
     </div>
-    <form autocomplete="off"><div class='parts width45'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
+    <form autocomplete="off"><div class='parts'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
 };

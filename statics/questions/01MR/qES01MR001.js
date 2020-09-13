@@ -21,7 +21,9 @@ QWIZM.question.qES00MR001 = function (qNumber) {
       ov = QWIZM.methods.overlayVariable,
       arrayCount = 0,
       seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
-      lcrng = new utils.LCRNG(seed); //inputs - defaults to sigDigs
+      lcrng = new utils.LCRNG(seed),
+      partMarks = 0,
+      debug = true; //inputs - defaults to sigDigs
 
   var x = stringify(lcrng.getNext(2, 4, 0.025)),
       y1 = stringify(lcrng.getNext(0.7, 0.8, 0.01) * x),
@@ -44,43 +46,33 @@ QWIZM.question.qES00MR001 = function (qNumber) {
   CE = stringify(CE);
   var statement = "Determine the lengths of truss members !$BF!$ and !$CE!$.",
       img = "../../images/00MR/00MR01.png",
-      iV1 = ov({
+      inputs = QWIZM.getInputOverlays([{
     input: x + ' m',
     left: 28,
-    top: 89 // background: 'orange'
-
-  }),
-      iV2 = ov({
+    top: 89
+  }, {
     input: x + ' m',
     left: 49,
-    top: 89 // background: 'violet'
-
-  }),
-      iV3 = ov({
+    top: 89
+  }, {
     input: x + ' m',
     left: 70,
-    top: 89 // background: 'yellow'
-
-  }),
-      iV4 = ov({
+    top: 89
+  }, {
     input: y1 + ' m',
     left: 88,
-    top: 60 // background: 'pink'
-
-  }),
-      iV5 = ov({
+    top: 60
+  }, {
     input: y2 + ' m',
     left: 88,
-    top: 39 // background: 'yellow'
-
-  }),
-      iV6 = ov({
+    top: 39
+  }, {
     input: y2 + ' m',
     left: 88,
     top: 24
-  });
+  }]);
 
-  if (!thisQuiz[qNumber]) {
+  if (!thisQuiz[qNumber] || debug) {
     thisQuiz[qNumber] = [];
     thisQuestion = thisQuiz[qNumber]; // thisQuiz.push(questionPart)
 
@@ -97,7 +89,14 @@ QWIZM.question.qES00MR001 = function (qNumber) {
       marks: 4,
       correctSoln: CE
     };
+
+    for (var i = 1; i < thisQuestion.length; i++) {
+      partMarks += thisQuestion[i].marks;
+    } // store question total marks in the empty first element of the array
+
+
+    thisQuestion[0] = partMarks;
   }
 
-  return "<div class='statement width50'><h3>Q".concat(qNumber, "</h3>: \n    ").concat(statement, "</div>\n    <div id = '").concat(qId, "img' class='image width60'>\n    <img src= ").concat(img, ">\n    ").concat(iV1, "\n    ").concat(iV2, "\n    ").concat(iV3, "\n    ").concat(iV4, "\n    ").concat(iV5, "\n    ").concat(iV6, "\n    </div>\n    <form autocomplete=\"off\"><div class='parts width45'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
+  return "<div class='statement width80'><h3>Q".concat(qNumber, "</h3> (").concat(thisQuiz[qNumber][0], " marks):\n        ").concat(statement, "</div>\n        <div id = '").concat(qId, "img' class='image width90'>\n            <img src= ").concat(img, ">\n            ").concat(inputs, "\n        </div>\n        <form autocomplete=\"off\"><div class='parts'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
 };

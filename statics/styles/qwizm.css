@@ -93,7 +93,6 @@ main {
 main > article {
   width: 60%;
   margin: 0 1em;
-  background: pink;
 }
 
 main #clear {
@@ -125,12 +124,14 @@ main .card h2 {
   flex: 1 100%;
   font-family: "Quicksand";
   font-weight: 700;
+  font-size: 175%;
 }
 
 main .card button {
   flex: 1 100%;
   border: none;
-  padding: 0.5em 0.25em;
+  padding: .5em 0.25em;
+  font-size: 125%;
   font-weight: 600;
   font-family: "Quicksand";
   background: linear-gradient(to bottom, maroon, maroon 35%, #670000 65%, #670000);
@@ -165,9 +166,11 @@ main .card .login-list li {
 main .card .login-list li label {
   padding: 0.5em;
   padding-left: 0;
+  font-size: 120%;
 }
 
 main .card .login-list li input {
+  font-size: 120%;
   flex: 1 100%;
   color: maroon;
   border: 1px solid #ccc;
@@ -176,6 +179,7 @@ main .card .login-list li input {
 }
 
 main .card .login-list li input::placeholder {
+  font-size: 80%;
   color: maroon;
   opacity: 0.5;
 }
@@ -301,6 +305,7 @@ footer > .navbar .uname {
 
 #summary .table .row {
   border: 1px solid #aaa;
+  font-size: 90%;
 }
 
 #summary .table .row:nth-child(2n + 1) {
@@ -472,6 +477,7 @@ footer > .navbar .uname {
   height: 1.75em;
   border: none;
   padding: 0.25vw 0.75vw;
+  font-size: 1.5vw;
   text-decoration: none;
   box-shadow: 0 0 0.2em 0 black;
   place-self: center end;

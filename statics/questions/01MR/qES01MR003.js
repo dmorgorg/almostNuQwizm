@@ -21,7 +21,9 @@ QWIZM.question.qES00MR003 = function (qNumber) {
       ov = QWIZM.methods.overlayVariable,
       arrayCount = 0,
       seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
-      lcrng = new utils.LCRNG(seed); //inputs
+      lcrng = new utils.LCRNG(seed),
+      partMarks = 0,
+      debug = true; //inputs
 
   var topChordAngle = lcrng.getNext(30, 40, 0.5),
       multiplier = tan(topChordAngle),
@@ -36,28 +38,25 @@ QWIZM.question.qES00MR003 = function (qNumber) {
       theta = 90 - stringify(atan(y / (1.5 * x)));
   var statement = "Determine angles !$\\theta!$ and !$\\phi!$.",
       img = "../../images/00MR/00MR03.png",
-      iV1 = ov({
+      inputs = QWIZM.getInputOverlays([{
     input: x + ' m',
     left: 27,
     top: 86
-  }),
-      iV2 = ov({
+  }, {
     input: x + ' m',
     left: 51.5,
     top: 86
-  }),
-      iV3 = ov({
+  }, {
     input: x + ' m',
     left: 75.5,
     top: 86
-  }),
-      iV4 = ov({
+  }, {
     input: y + ' m',
     left: 7,
     top: 38
-  });
+  }]);
 
-  if (!thisQuiz[qNumber]) {
+  if (!thisQuiz[qNumber] || debug) {
     thisQuiz[qNumber] = [];
     thisQuestion = thisQuiz[qNumber]; // thisQuiz.push(questionPart)
 
@@ -74,7 +73,14 @@ QWIZM.question.qES00MR003 = function (qNumber) {
       marks: 5,
       correctSoln: phi
     };
+
+    for (var i = 1; i < thisQuestion.length; i++) {
+      partMarks += thisQuestion[i].marks;
+    } // store question total marks in the empty first element of the array
+
+
+    thisQuestion[0] = partMarks;
   }
 
-  return "<div class='statement width40'><h3>Q".concat(qNumber, "</h3>: ").concat(statement, "    \n    </div>\n    <div class='image width60'><img src= ").concat(img, ">\n    ").concat(iV1, "\n    ").concat(iV2, "\n    ").concat(iV3, "\n    ").concat(iV4, "\n    </div>\n    <form autocomplete=\"off\"><div class='parts width40'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
+  return "<div class='statement width60'><h3>Q".concat(qNumber, "</h3>(").concat(thisQuiz[qNumber][0], " marks):\n     ").concat(statement, "    \n    </div>\n    <div id = '").concat(qId, "img' class='image'><img src= ").concat(img, ">\n     ").concat(inputs, "\n    </div>\n    <form autocomplete=\"off\"><div class='parts'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
 };

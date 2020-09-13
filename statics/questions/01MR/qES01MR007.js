@@ -21,7 +21,9 @@ QWIZM.question.qES00MR007 = function (qNumber) {
       ov = QWIZM.methods.overlayVariable,
       arrayCount = 0,
       seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
-      lcrng = new utils.LCRNG(seed); //inputs - don't stringify these, use 6y instead of 6.00y
+      lcrng = new utils.LCRNG(seed),
+      partMarks = 0,
+      debug = true; //inputs - don't stringify these, use 6y instead of 6.00y
 
   var a11 = sd(lcrng.getNext(1, 8, 1)),
       a12 = sd(lcrng.getNext(1, 8, 1)),
@@ -42,7 +44,7 @@ QWIZM.question.qES00MR007 = function (qNumber) {
       y = stringify(Dy / D);
   var statement = "Solve this system of equations for !$x!$ and !$y!$.        \n        $$\n        \\begin{aligned}\n            ".concat(a11b, "x + ").concat(a12b, "y &= ").concat(b1, " \\\\\n            ").concat(a21b, "x - ").concat(a22b, "y &= ").concat(b2, " \n        \\end{aligned}\n        $$");
 
-  if (!thisQuiz[qNumber]) {
+  if (!thisQuiz[qNumber] || debug) {
     thisQuiz[qNumber] = [];
     thisQuestion = thisQuiz[qNumber]; // thisQuiz.push(questionPart)
 
@@ -59,7 +61,14 @@ QWIZM.question.qES00MR007 = function (qNumber) {
       marks: 3,
       correctSoln: y
     };
+
+    for (var i = 1; i < thisQuestion.length; i++) {
+      partMarks += thisQuestion[i].marks;
+    } // store question total marks in the empty first element of the array
+
+
+    thisQuestion[0] = partMarks;
   }
 
-  return "<div class='statement width50'><h3>Q".concat(qNumber, "</h3>: ").concat(statement, "</div>\n    <form autocomplete=\"off\"><div class='parts width50'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
+  return "<div class='statement width70'><h3>Q".concat(qNumber, "</h3>(").concat(thisQuiz[qNumber][0], " marks):\n     ").concat(statement, "</div>\n    <form autocomplete=\"off\"><div class='parts width70'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
 };
