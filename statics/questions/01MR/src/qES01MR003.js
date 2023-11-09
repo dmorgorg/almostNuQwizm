@@ -1,7 +1,7 @@
 let QWIZM = QWIZM || {};
 QWIZM.question = QWIZM.question || {};
 
-QWIZM.question.qES00MR003 = (qNumber) => {
+QWIZM.question.qES01MR003 = (qNumber) => {
 
     let qId = 1000037; // question ID number, unique to this question 
 
@@ -22,7 +22,7 @@ QWIZM.question.qES00MR003 = (qNumber) => {
         seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
         lcrng = new utils.LCRNG(seed),
         partMarks = 0,
-        debug = true;
+        debug = false;
 
     //inputs
     let topChordAngle = (lcrng.getNext(30, 40, 0.5)),
@@ -40,7 +40,7 @@ QWIZM.question.qES00MR003 = (qNumber) => {
         theta = 90 - stringify(atan(y / (1.5 * x)));
 
     let statement = `Determine angles !$\\theta!$ and !$\\phi!$.`,
-        img = `../../images/00MR/00MR03.png`,
+        img = `../../images/01MR/01MR03.png`,
         inputs = QWIZM.getInputOverlays([{
                 input: x + ' m',
                 left: 27,
@@ -96,6 +96,6 @@ QWIZM.question.qES00MR003 = (qNumber) => {
     <div id = '${qId}img' class='image'><img src= ${img}>
      ${inputs}
     </div>
-    <form autocomplete="off"><div class='parts'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
+    <div class='parts'>${QWIZM.methods.questionParts(qNumber)}</div>`;
 
 };

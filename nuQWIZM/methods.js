@@ -79,6 +79,7 @@ QWIZM.methods.viewsLoad = function (o) {
         var partId = "q".concat(qNumber, "part").concat(partNumber, "btn"); // get the question part that has been clicked on and check input for that part
 
         $('#' + partId).on('click', function (e) {
+          e.preventDefault();
           checkAnswer(qNumber, partNumber);
         });
       };
@@ -180,13 +181,13 @@ QWIZM.methods.questionParts = function (qN) {
         pt = QWIZM.state.thisQuiz[qN][part],
         feedback = ''; // part statement
 
-    html += "<div class='partStatement'>".concat(pt.partStatement, ":</div> "); // user input
+    html += "<form autocomplete=\"off\"><div class='partStatement'>".concat(pt.partStatement, ":</div> "); // user input
 
     html += "<input type='text' id='q".concat(qN, "part").concat(part, "input' class='partInput' value=").concat(pt.userInput || '', ">"); // units
 
     html += "<div class='units'>".concat(pt.units, "</div> "); // 'Enter' button
 
-    html += "<button id=".concat(partId, " type='button' class='markButton'>Enter</button>"); // feedback icon
+    html += "<button id=".concat(partId, " type='submit' class='markButton'>Enter</button>"); // feedback icon
 
     if (pt.isAnswered) {
       if (pt.isCorrect) {
@@ -206,13 +207,12 @@ QWIZM.methods.questionParts = function (qN) {
 
     html += "<div id='q".concat(qN, "part").concat(part, "crosscheck' class='crosscheck'>").concat(icon, "</div>"); // feedback
 
-    html += "<div id='q".concat(qN, "part").concat(part, "feedback' class='feedback'>").concat(feedback, "</div>");
+    html += "<div id='q".concat(qN, "part").concat(part, "feedback' class='feedback'>").concat(feedback, "</div></form>");
   }
 
   return html;
 };
-/** Encodes a number (or numerical string) to a string of lower case 
- *      alphabetical characters
+/** Encodes a number (or numerical string) to a string of lower case alphabetical characters
  *  @param {number} number The number to be encoded
  *  @param {number} number The seed for the random number generator that 'predictably'
  *      generates the offset from the numerical character to the encoded alphabetical character.

@@ -89,50 +89,50 @@ QWIZM.question.qES09CF15a = (qNumber) => {
     let statement = `!$A,C,D!$ and !$F!$ are pinned connections. Determine the angle !$\\theta!$ between cable !$BE!$ and the horizontal and then determine the tension !$T_{BE}!$ in cable !$BE!$. Calculate the magnitude of the reactions in the four pinned connections. If the pinned connection at !$A!$ were replaced with a frictionless roller, what would the tension !$T_{BE}(2)!$ become?`,
         img = `../../images/09CF/09CF15a.png`,
         inputs = QWIZM.getInputOverlays([{
-            input: ABx + ' m',
-            left: 22.875,
-            top: 92.25,
-            rot: 45
-        },
-        {
-            input: BCx + ' m',
-            left: 32.125,
-            top: 92.25,
-            rot: 45
-        },
-        {
-            input: EFx + ' m',
-            left: 85.75,
-            top: 92
-        },
-        {
-            input: DEx + ' m',
-            left: 71.5,
-            top: 92
-        },
-        {
-            input: CDx + ' m',
-            left: 49,
-            top: 92
-        },
-        {
-            input: AFy + ' m',
-            left: 9.5,
-            top: 69.5
-        },
-        {
-            input: ACy + ' m',
-            left: 9.5,
-            top: 43
-        },
-        {
-            input: UDL + ' kN/m',
-            left: 57,
-            top: 7,
-            fontWeight: 600,
-            fontSize: 1.5
-        },
-    ]);
+                input: ABx + ' m',
+                left: 22.875,
+                top: 92.25,
+                rot: 45
+            },
+            {
+                input: BCx + ' m',
+                left: 32.125,
+                top: 92.25,
+                rot: 45
+            },
+            {
+                input: EFx + ' m',
+                left: 85.75,
+                top: 92
+            },
+            {
+                input: DEx + ' m',
+                left: 71.5,
+                top: 92
+            },
+            {
+                input: CDx + ' m',
+                left: 49,
+                top: 92
+            },
+            {
+                input: AFy + ' m',
+                left: 9.5,
+                top: 69.5
+            },
+            {
+                input: ACy + ' m',
+                left: 9.5,
+                top: 43
+            },
+            {
+                input: UDL + ' kN/m',
+                left: 57,
+                top: 7,
+                fontWeight: 600,
+                fontSize: 1.5
+            },
+        ]);
 
 
 
@@ -202,6 +202,6 @@ QWIZM.question.qES09CF15a = (qNumber) => {
         <img src= ${img}>
         ${inputs}
     </div>
-    <form autocomplete="off"><div class='parts'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
+    <div class='parts'>${QWIZM.methods.questionParts(qNumber)}</div>`;
 
 };

@@ -1,7 +1,7 @@
 let QWIZM = QWIZM || {};
 QWIZM.question = QWIZM.question || {};
 
-QWIZM.question.qES00MR008 = (qNumber) => {
+QWIZM.question.qES01MR008 = (qNumber) => {
 
     let qId = 1000133; // question ID number, unique to this question  
     // common for import?
@@ -20,8 +20,8 @@ QWIZM.question.qES00MR008 = (qNumber) => {
         arrayCount = 0,
         seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
         lcrng = new utils.LCRNG(seed),
-            partMarks = 0,
-            debug = true;
+        partMarks = 0,
+        debug = false;
 
 
     //inputs
@@ -46,9 +46,9 @@ QWIZM.question.qES00MR008 = (qNumber) => {
         $$
         \\begin{aligned}
             F_{BC}\\cdot\\sin\\left(${phi}^\\circ\\right) +F_{AC}\\cdot\\sin\\left(${theta}^\\circ\\right)  &= ${W} \\\\
-            F_{BC}\\cdot\\cos\\left(${phi}^\\circ\\right) - F_{BC}\\cdot\\cos\\left(${theta}^\\circ\\right) &= 0 
+            F_{BC}\\cdot\\cos\\left(${phi}^\\circ\\right) - F_{AC}\\cdot\\cos\\left(${theta}^\\circ\\right) &= 0 
         \\end{aligned}
-        $$<br/>`;
+        $$`;
 
     if (!thisQuiz[qNumber] || debug) {
         thisQuiz[qNumber] = [];
@@ -56,28 +56,28 @@ QWIZM.question.qES00MR008 = (qNumber) => {
         // thisQuiz.push(questionPart)
         thisQuestion[arrayCount++] = '';
         thisQuestion[arrayCount++] = {
-            partStatement: `!$ x !$`,
+            partStatement: `!$ F_{BC} !$`,
             units: '',
             marks: 5,
             correctSoln: x
         };
         thisQuestion[arrayCount++] = {
-            partStatement: `!$ y !$`,
+            partStatement: `!$ F_{AC} !$`,
             units: '',
             marks: 4,
             correctSoln: y
         };
 
-                for (let i = 1; i < thisQuestion.length; i++) {
-                    partMarks += thisQuestion[i].marks;
-                }
-                // store question total marks in the empty first element of the array
-                thisQuestion[0] = partMarks;
+        for (let i = 1; i < thisQuestion.length; i++) {
+            partMarks += thisQuestion[i].marks;
+        }
+        // store question total marks in the empty first element of the array
+        thisQuestion[0] = partMarks;
     }
 
 
 
     return `<div class='statement width60'><h3>Q${qNumber}</h3>(${thisQuiz[qNumber][0]} marks):<p>
     ${statement}</div><br/>
-    <form autocomplete="off"><div class='parts width80'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
+    <div class='parts width90'>${QWIZM.methods.questionParts(qNumber)}</div>`;
 };

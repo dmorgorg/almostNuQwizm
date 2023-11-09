@@ -3,7 +3,7 @@
 var QWIZM = QWIZM || {};
 QWIZM.question = QWIZM.question || {};
 
-QWIZM.question.qES00MR001 = function (qNumber) {
+QWIZM.question.qES01MR001 = function (qNumber) {
   var qId = 1000003; // question ID number, unique to this question    
 
   var uId = QWIZM.state.uId,
@@ -23,7 +23,7 @@ QWIZM.question.qES00MR001 = function (qNumber) {
       seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
       lcrng = new utils.LCRNG(seed),
       partMarks = 0,
-      debug = true; //inputs - defaults to sigDigs
+      debug = false; //inputs - defaults to sigDigs
 
   var x = stringify(lcrng.getNext(2, 4, 0.025)),
       y1 = stringify(lcrng.getNext(0.7, 0.8, 0.01) * x),
@@ -34,7 +34,8 @@ QWIZM.question.qES00MR001 = function (qNumber) {
   y1 = sd(y1);
   y2 = sd(y2);
   y2 = Math.round(y2 * 100) / 100; // make last (4th) digit a zero
-  //calcs
+
+  console.log(QWIZM.methods.readFromLocalStorage(QWIZM.QUIZ_KEY)); //calcs
 
   var BF = sd(Math.sqrt(x * x + y1 * y1)),
       CE = sd(Math.sqrt(x * x + (y1 + y2) * (y1 + y2))); //stringify - defaults to sigDigs
@@ -45,7 +46,7 @@ QWIZM.question.qES00MR001 = function (qNumber) {
   BF = stringify(BF);
   CE = stringify(CE);
   var statement = "Determine the lengths of truss members !$BF!$ and !$CE!$.",
-      img = "../../images/00MR/00MR01.png",
+      img = "../../images/01MR/01MR01.png",
       inputs = QWIZM.getInputOverlays([{
     input: x + ' m',
     left: 28,
@@ -98,5 +99,5 @@ QWIZM.question.qES00MR001 = function (qNumber) {
     thisQuestion[0] = partMarks;
   }
 
-  return "<div class='statement width80'><h3>Q".concat(qNumber, "</h3> (").concat(thisQuiz[qNumber][0], " marks):\n        ").concat(statement, "</div>\n        <div id = '").concat(qId, "img' class='image width90'>\n            <img src= ").concat(img, ">\n            ").concat(inputs, "\n        </div>\n        <form autocomplete=\"off\"><div class='parts'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
+  return "<div class='statement width80'><h3>Q".concat(qNumber, "</h3> (").concat(thisQuiz[qNumber][0], " marks):\n        ").concat(statement, "</div>\n        <div id = '").concat(qId, "img' class='image width90'>\n            <img src= ").concat(img, ">\n            ").concat(inputs, "\n        </div>\n        <div class='parts'>").concat(QWIZM.methods.questionParts(qNumber), "</div>");
 };

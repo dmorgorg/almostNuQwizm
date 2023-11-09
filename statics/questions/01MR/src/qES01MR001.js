@@ -1,7 +1,7 @@
 let QWIZM = QWIZM || {};
 QWIZM.question = QWIZM.question || {};
 
-QWIZM.question.qES00MR001 = (qNumber) => {
+QWIZM.question.qES01MR001 = (qNumber) => {
 
     let qId = 1000003; // question ID number, unique to this question    
 
@@ -22,7 +22,7 @@ QWIZM.question.qES00MR001 = (qNumber) => {
         seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
         lcrng = new utils.LCRNG(seed),
         partMarks = 0,
-        debug = true;
+        debug = false;
 
     //inputs - defaults to sigDigs
     let x = stringify(lcrng.getNext(2, 4, 0.025)),
@@ -37,6 +37,8 @@ QWIZM.question.qES00MR001 = (qNumber) => {
 
     y2 = Math.round(y2 * 100) / 100; // make last (4th) digit a zero
 
+    console.log(QWIZM.methods.readFromLocalStorage(QWIZM.QUIZ_KEY));
+
     //calcs
     let BF = sd(Math.sqrt(x * x + y1 * y1)),
         CE = sd(Math.sqrt(x * x + (y1 + y2) * (y1 + y2)));
@@ -49,7 +51,7 @@ QWIZM.question.qES00MR001 = (qNumber) => {
     CE = stringify(CE);
 
     let statement = `Determine the lengths of truss members !$BF!$ and !$CE!$.`,
-        img = `../../images/00MR/00MR01.png`,
+        img = `../../images/01MR/01MR01.png`,
         inputs = QWIZM.getInputOverlays([{
                 input: x + ' m',
                 left: 28,
@@ -116,6 +118,6 @@ QWIZM.question.qES00MR001 = (qNumber) => {
             <img src= ${img}>
             ${inputs}
         </div>
-        <form autocomplete="off"><div class='parts'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
+        <div class='parts'>${QWIZM.methods.questionParts(qNumber)}</div>`;
 
 };

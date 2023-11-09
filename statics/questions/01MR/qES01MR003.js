@@ -3,7 +3,7 @@
 var QWIZM = QWIZM || {};
 QWIZM.question = QWIZM.question || {};
 
-QWIZM.question.qES00MR003 = function (qNumber) {
+QWIZM.question.qES01MR003 = function (qNumber) {
   var qId = 1000037; // question ID number, unique to this question 
   // common for import?
 
@@ -23,7 +23,7 @@ QWIZM.question.qES00MR003 = function (qNumber) {
       seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
       lcrng = new utils.LCRNG(seed),
       partMarks = 0,
-      debug = true; //inputs
+      debug = false; //inputs
 
   var topChordAngle = lcrng.getNext(30, 40, 0.5),
       multiplier = tan(topChordAngle),
@@ -37,7 +37,7 @@ QWIZM.question.qES00MR003 = function (qNumber) {
       phi = stringify(atan(y / (x / 2))),
       theta = 90 - stringify(atan(y / (1.5 * x)));
   var statement = "Determine angles !$\\theta!$ and !$\\phi!$.",
-      img = "../../images/00MR/00MR03.png",
+      img = "../../images/01MR/01MR03.png",
       inputs = QWIZM.getInputOverlays([{
     input: x + ' m',
     left: 27,
@@ -82,5 +82,5 @@ QWIZM.question.qES00MR003 = function (qNumber) {
     thisQuestion[0] = partMarks;
   }
 
-  return "<div class='statement width60'><h3>Q".concat(qNumber, "</h3>(").concat(thisQuiz[qNumber][0], " marks):\n     ").concat(statement, "    \n    </div>\n    <div id = '").concat(qId, "img' class='image'><img src= ").concat(img, ">\n     ").concat(inputs, "\n    </div>\n    <form autocomplete=\"off\"><div class='parts'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
+  return "<div class='statement width60'><h3>Q".concat(qNumber, "</h3>(").concat(thisQuiz[qNumber][0], " marks):\n     ").concat(statement, "    \n    </div>\n    <div id = '").concat(qId, "img' class='image'><img src= ").concat(img, ">\n     ").concat(inputs, "\n    </div>\n    <div class='parts'>").concat(QWIZM.methods.questionParts(qNumber), "</div>");
 };

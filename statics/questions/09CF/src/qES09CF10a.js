@@ -163,6 +163,6 @@ QWIZM.question.qES09CF10a = (qNumber) => {
         <img src= ${img}>
        ${inputs}
     </div>
-    <form autocomplete="off"><div class='parts'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
+    <div class='parts'>${QWIZM.methods.questionParts(qNumber)}</div>`;
 
 };

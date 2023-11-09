@@ -23,7 +23,7 @@ QWIZM.question.qES09CF01b = function (qNumber) {
       seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
       lcrng = new utils.LCRNG(seed),
       partMarks = 0,
-      debug = false; //inputs - defaults to sigDigs
+      debug = true; //inputs - defaults to sigDigs
   // sd to convert to number equivalents of string inputs to avoid string concatenation
 
   var ACx = sd(stringify(lcrng.getNext(1, 1.95, 0.05))),
@@ -148,5 +148,5 @@ QWIZM.question.qES09CF01b = function (qNumber) {
     thisQuestion[0] = partMarks;
   }
 
-  return "<div class='statement'><h3>Q".concat(qNumber, "</h3> (").concat(thisQuiz[qNumber][0], " marks):<p> \n    ").concat(statement, "</div>\n    <div id = '").concat(qId, "img' class='image'>\n        <img src= ").concat(img, ">        \n        ").concat(inputs, "\n        </div>\n    <form autocomplete=\"off\"><div class='parts'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
+  return "<div class='statement'><h3>Q".concat(qNumber, "</h3> (").concat(thisQuiz[qNumber][0], " marks):<p> \n    ").concat(statement, "</div>\n    <div id = '").concat(qId, "img' class='image'>\n        <img src= ").concat(img, ">        \n        ").concat(inputs, "\n        </div>\n    <div class='parts'>").concat(QWIZM.methods.questionParts(qNumber), "</div>");
 };

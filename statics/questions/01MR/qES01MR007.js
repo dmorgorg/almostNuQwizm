@@ -3,7 +3,7 @@
 var QWIZM = QWIZM || {};
 QWIZM.question = QWIZM.question || {};
 
-QWIZM.question.qES00MR007 = function (qNumber) {
+QWIZM.question.qES01MR007 = function (qNumber) {
   var qId = 1000121; // question ID number, unique to this question
   // common for import?
 
@@ -23,7 +23,7 @@ QWIZM.question.qES00MR007 = function (qNumber) {
       seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
       lcrng = new utils.LCRNG(seed),
       partMarks = 0,
-      debug = true; //inputs - don't stringify these, use 6y instead of 6.00y
+      debug = false; //inputs - don't stringify these, use 6y instead of 6.00y
 
   var a11 = sd(lcrng.getNext(1, 8, 1)),
       a12 = sd(lcrng.getNext(1, 8, 1)),
@@ -70,5 +70,5 @@ QWIZM.question.qES00MR007 = function (qNumber) {
     thisQuestion[0] = partMarks;
   }
 
-  return "<div class='statement width70'><h3>Q".concat(qNumber, "</h3>(").concat(thisQuiz[qNumber][0], " marks):\n     ").concat(statement, "</div>\n    <form autocomplete=\"off\"><div class='parts width70'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
+  return "<div class='statement width70'><h3>Q".concat(qNumber, "</h3>(").concat(thisQuiz[qNumber][0], " marks):\n     ").concat(statement, "</div>\n    <div class='parts width80'>").concat(QWIZM.methods.questionParts(qNumber), "</div>");
 };

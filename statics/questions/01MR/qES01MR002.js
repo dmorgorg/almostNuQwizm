@@ -3,7 +3,7 @@
 var QWIZM = QWIZM || {};
 QWIZM.question = QWIZM.question || {};
 
-QWIZM.question.qES00MR002 = function (qNumber) {
+QWIZM.question.qES01MR002 = function (qNumber) {
   var qId = 1000033; // question ID number, unique to this question
 
   var uId = QWIZM.state.uId,
@@ -23,7 +23,7 @@ QWIZM.question.qES00MR002 = function (qNumber) {
       seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
       lcrng = new utils.LCRNG(seed),
       partMarks = 0,
-      debug = true; //inputs
+      debug = false; //inputs
   // console.log(stringify(lcrng.getNext(2, 4, 0.025)))
 
   var c = stringify(lcrng.getNext(2, 4, 0.025)),
@@ -40,7 +40,7 @@ QWIZM.question.qES00MR002 = function (qNumber) {
   var a2 = stringify(sd(Math.sqrt(b * b + c * c - 2 * b * c * cos(A))), wd),
       B = sd(acos((a2 * a2 + c * c - b * b) / (2 * a2 * c)), wd);
   var statement = "Determine the length of !$BC!$ and the angle !$ABC!$.",
-      img = "../../images/00MR/00MR02.png",
+      img = "../../images/01MR/01MR02.png",
       inputs = QWIZM.getInputOverlays([{
     input: A + '&deg;',
     left: 31,
@@ -88,5 +88,5 @@ QWIZM.question.qES00MR002 = function (qNumber) {
     thisQuestion[0] = partMarks;
   }
 
-  return "<div class='statement width75'><h3>Q".concat(qNumber, "</h3>(").concat(thisQuiz[qNumber][0], " marks):\n        ").concat(statement, "<br>\n        </div>\n        <div id = '").concat(qId, "img' class='image width50'>\n        <img src= ").concat(img, ">\n        ").concat(inputs, "\n        </div>\n        <form autocomplete=\"off\"><div class='parts'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
+  return "<div class='statement width75'><h3>Q".concat(qNumber, "</h3>(").concat(thisQuiz[qNumber][0], " marks):\n        ").concat(statement, "<br>\n        </div>\n        <div id = '").concat(qId, "img' class='image width50'>\n        <img src= ").concat(img, ">\n        ").concat(inputs, "\n        </div>\n        <div class='parts'>").concat(QWIZM.methods.questionParts(qNumber), "</div>");
 };

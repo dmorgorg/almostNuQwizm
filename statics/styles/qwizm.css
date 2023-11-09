@@ -3,18 +3,25 @@ html {
 }
 
 * {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 *:before,
 *:after {
-  box-sizing: inherit;
+  -webkit-box-sizing: inherit;
+          box-sizing: inherit;
 }
 
 body {
   height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   margin: 0;
   font-size: clamp(8px, 1.5vw, 24px);
   font-family: Arial, Helvetica, sans-serif;
@@ -31,12 +38,19 @@ body::-webkit-scrollbar-thumb {
 }
 
 header {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-flow: row wrap;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
   background-color: maroon;
   margin-bottom: 1em;
   padding: 0 1em;
-  justify-content: space-between;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 header > h1 {
@@ -49,23 +63,38 @@ header > h1 {
   letter-spacing: 0.075em;
   line-height: 1.125em;
   text-shadow: 0.2vw 0.2vw 0.375vw black;
-  align-self: center;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
 }
 
 header > .rightblock {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-flow: row wrap;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
   margin: 0;
   padding: 0.25em 0;
   text-align: right;
-  flex-direction: column;
-  flex: 1 0 0;
-  justify-content: center;
-  align-content: flex-end;
+  -ms-flex-direction: column;
+      flex-direction: column;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 0 0px;
+          flex: 1 0 0;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-line-pack: end;
+      align-content: flex-end;
 }
 
 header > .rightblock > h3 {
-  flex: 1 auto;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 auto;
+          flex: 1 auto;
   font-family: "Quicksand", sans-serif;
   color: white;
   text-shadow: 0.1vw 0.1vw 0.15vw black;
@@ -82,12 +111,21 @@ header > .rightblock > h3 + h3 {
 }
 
 main {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex: 1;
-  align-items: center;
-  flex-wrap: wrap;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   overflow-y: auto;
-  justify-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 main > article {
@@ -104,12 +142,19 @@ main #login {
 }
 
 main .card {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-flow: row wrap;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
   padding: 1em 2em;
   border: 1px solid #ccc;
-  box-shadow: 0.1em 0.1em 0.275em 0.1em grey;
-  flex-basis: 25em;
+  -webkit-box-shadow: 0.1em 0.1em 0.275em 0.1em grey;
+          box-shadow: 0.1em 0.1em 0.275em 0.1em grey;
+  -ms-flex-preferred-size: 25em;
+      flex-basis: 25em;
   background-color: #eee;
 }
 
@@ -121,19 +166,24 @@ main .card h2 {
   margin-top: 0.25em;
   color: maroon;
   text-align: center;
-  flex: 1 100%;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 100%;
+          flex: 1 100%;
   font-family: "Quicksand";
   font-weight: 700;
   font-size: 175%;
 }
 
 main .card button {
-  flex: 1 100%;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 100%;
+          flex: 1 100%;
   border: none;
-  padding: .5em 0.25em;
+  padding: 0.5em 0.25em;
   font-size: 125%;
   font-weight: 600;
   font-family: "Quicksand";
+  background: -webkit-gradient(linear, left top, left bottom, from(maroon), color-stop(35%, maroon), color-stop(65%, #670000), to(#670000));
   background: linear-gradient(to bottom, maroon, maroon 35%, #670000 65%, #670000);
   color: white;
   margin-top: 1em;
@@ -142,6 +192,7 @@ main .card button {
 }
 
 main .card button:hover {
+  background: -webkit-gradient(linear, left top, left bottom, from(#670000), color-stop(35%, #670000), color-stop(85%, maroon), to(maroon));
   background: linear-gradient(to bottom, #670000, #670000 35%, maroon 85%, maroon);
   cursor: pointer;
 }
@@ -154,13 +205,19 @@ main .card .login-list {
   padding: 0;
   margin: 0 auto;
   list-style-type: none;
-  flex-basis: 20.5em;
+  -ms-flex-preferred-size: 20.5em;
+      flex-basis: 20.5em;
 }
 
 main .card .login-list li {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 main .card .login-list li label {
@@ -171,18 +228,23 @@ main .card .login-list li label {
 
 main .card .login-list li input {
   font-size: 120%;
-  flex: 1 100%;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 100%;
+          flex: 1 100%;
   color: maroon;
   border: 1px solid #ccc;
   padding: 0.5em;
   margin-bottom: 0.5em;
 }
 
-main .card .login-list li input::placeholder {
+main .card .login-list li input::-webkit-input-placeholder {
   font-size: 80%;
   color: maroon;
   opacity: 0.5;
 }
+
+
+
 
 main .card .login-list li input:focus {
   outline: 1px solid maroon;
@@ -208,12 +270,16 @@ footer {
 
 footer > .navbar {
   height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   padding: 0;
 }
 
 footer > .navbar > * {
-  flex: 1 auto;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 auto;
+          flex: 1 auto;
 }
 
 footer > .navbar > ul {
@@ -230,8 +296,10 @@ footer > .navbar > ul > li {
   padding: 0 0.5vw;
   display: inline-block;
   margin: 0.25em 0.375em;
-  box-shadow: 0 0 0.2em 0 black;
+  -webkit-box-shadow: 0 0 0.2em 0 black;
+          box-shadow: 0 0 0.2em 0 black;
   background: #670000;
+  background: -webkit-gradient(linear, left top, left bottom, from(maroon), color-stop(35%, maroon), color-stop(65%, #670000), to(#670000));
   background: linear-gradient(to bottom, maroon, maroon 35%, #670000 65%, #670000);
 }
 
@@ -241,12 +309,15 @@ footer > .navbar > ul > li:hover {
 
 footer > .navbar > ul > li.active, footer > .navbar > ul > li:hover {
   color: black;
+  background: -webkit-gradient(linear, left top, left bottom, from(white), color-stop(35%, white), color-stop(65%, #d9d9d9), to(#d9d9d9));
   background: linear-gradient(to bottom, white, white 35%, #d9d9d9 65%, #d9d9d9);
 }
 
 footer > .navbar .uname {
   color: white;
-  align-self: center;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
   font-family: "Architects Daughter", cursive;
   text-align: right;
   padding: 0;
@@ -265,16 +336,22 @@ footer > .navbar .uname {
   color: #080;
   content: "\2714";
   font-weight: bold;
-  justify-self: start;
-  align-self: start;
+  -ms-grid-column-align: start;
+      justify-self: start;
+  -ms-flex-item-align: start;
+      -ms-grid-row-align: start;
+      align-self: start;
 }
 
 .qm:before {
   color: #666;
   content: "\003F";
   font-weight: bold;
-  justify-self: start;
-  align-self: center;
+  -ms-grid-column-align: start;
+      justify-self: start;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
 }
 
 #summary {
@@ -457,72 +534,86 @@ footer > .navbar .uname {
 }
 
 .parts {
-  display: grid;
-  grid-template-columns: 15% 20% 15% 12% 10% 30%;
-  grid-row-gap: 0.3vw;
+  width: 100%;
   margin: 0 auto;
 }
 
-.partStatement {
-  align-self: center;
-  text-align: right;
-  overflow-x: visible;
+.parts form {
+  position: relative;
+  margin: 0.25em;
+  padding: 0.25em;
+  height: 2em;
 }
 
-.markButton {
+.parts form .partStatement {
+  display: inline-block;
+  width: 25%;
+  text-align: right;
+  vertical-align: middle;
+}
+
+.parts form .partInput {
+  border: 0.2vw solid #d5d5d5;
+  width: 15%;
+  margin-right: 0.5%;
+  outline: none;
+  padding-left: 0.5vw;
+  vertical-align: middle;
+  font-size: 1.5vw;
+}
+
+.parts form .partInput:focus {
+  border: 0.3vw solid #aeaeae;
+}
+
+.parts form .units {
+  display: inline-block;
+  width: 10%;
+  font-size: 90%;
+  vertical-align: baseline;
+}
+
+.parts form .markButton {
+  display: inline-block;
   background-color: #670000;
+  background: -webkit-gradient(linear, left top, left bottom, from(maroon), color-stop(35%, maroon), color-stop(65%, #670000), to(#670000));
   background: linear-gradient(to bottom, maroon, maroon 35%, #670000 65%, #670000);
+  font-size: 1.5vw;
   color: white;
-  margin-right: 2vw;
-  height: 1.75em;
   border: none;
   padding: 0.25vw 0.75vw;
   font-size: 1.5vw;
   text-decoration: none;
-  box-shadow: 0 0 0.2em 0 black;
-  place-self: center end;
+  -webkit-box-shadow: 0 0 0.2em 0 black;
+          box-shadow: 0 0 0.2em 0 black;
+  width: 12%;
 }
 
-.markButton:hover {
+.parts form .markButton:hover {
   background-color: maroon;
+  background: -webkit-gradient(linear, left top, left bottom, from(#670000), color-stop(35%, #670000), color-stop(85%, maroon), to(maroon));
   background: linear-gradient(to bottom, #670000, #670000 35%, maroon 85%, maroon);
   cursor: pointer;
 }
 
-.markButton:focus {
+.parts form .markButton:focus {
   position: relative;
   outline: none;
 }
 
-input.partInput {
-  border: 0.2vw solid #d5d5d5;
-  margin: 0 0.5vw;
-  width: 8vw;
-  height: 3vw;
-  place-self: center start;
-  outline: none;
-  padding-left: 0.5vw;
-  padding-top: 0.35vw;
+.parts form .crosscheck {
+  position: absolute;
+  width: 8%;
+  display: inline-block;
+  font-size: 180%;
+  top: -0.125em;
+  text-align: center;
 }
 
-input.partInput:focus {
-  border: 0.3vw solid #aeaeae;
-}
-
-.units {
-  place-self: center start;
-}
-
-.crosscheck {
-  place-self: center start;
-  padding-left: 0;
-}
-
-.feedback {
-  align-self: center;
-  justify-self: start;
-  place-self: center start;
-  overflow-x: visible;
+.parts form .feedback {
+  display: inline-block;
+  width: 20%;
+  margin-left: 8%;
 }
 
 .highlight {

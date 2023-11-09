@@ -1,7 +1,7 @@
 let QWIZM = QWIZM || {};
 QWIZM.question = QWIZM.question || {};
 
-QWIZM.question.qES00MR005 = (qNumber) => {
+QWIZM.question.qES01MR005 = (qNumber) => {
 
     let qId = 1000081; // question ID number, unique to this question 
 
@@ -22,9 +22,7 @@ QWIZM.question.qES00MR005 = (qNumber) => {
         seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
         lcrng = new utils.LCRNG(seed),
         partMarks = 0,
-        debug = true;
-
-
+        debug = false;
 
     //inputs
     let AC = sd(lcrng.getNext(5, 15, 0.5)),
@@ -36,7 +34,6 @@ QWIZM.question.qES00MR005 = (qNumber) => {
         AB = AD * AC / CD,
         BD = Math.sqrt(AB ** 2 - AD ** 2);
 
-
     //stringify
     AC = stringify(AC);
     AD = stringify(AD);
@@ -44,32 +41,25 @@ QWIZM.question.qES00MR005 = (qNumber) => {
     AB = stringify(AB);
     BD = stringify(BD);
 
-
-
-
-
     let statement = `Using the Pythagorean Theorem and the theory of similar triangles, determine the lengths of  !$AB!$, !$BD!$ and !$CD!$.`,
-        img = `../../images/00MR/00MR05.png`,
+        img = `../../images/01MR/01MR05.png`,
         inputs = QWIZM.getInputOverlays([{
                 input: AC + ' cm',
                 left: 50,
                 top: 90,
-                fontSize: 1.6,
+                fontSize: 110,
                 background: 'none'
             },
             {
                 input: AD + ' cm',
                 left: 24,
                 top: 57,
-                fontSize: 1.6,
+                fontSize: 110,
                 background: 'none',
                 rot: 53.5
             }
 
         ]);
-
-
-
 
     if (!thisQuiz[qNumber] || debug) {
         thisQuiz[qNumber] = [];
@@ -104,10 +94,10 @@ QWIZM.question.qES00MR005 = (qNumber) => {
     }
 
 
-    return `<div class='statement'><h3>Q${qNumber}</h3>(${thisQuiz[qNumber][0]} marks):<p>
+    return `<div class='statement width65'><h3>Q${qNumber}</h3>(${thisQuiz[qNumber][0]} marks):<p>
     ${statement}</div>
-    <div id = '${qId}img' class='image width60'><img src= ${img}>
+    <div id = '${qId}img' class='image width50'><img src= ${img}>
     ${inputs}
     </div>
-    <form autocomplete="off"><div class='parts'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
+    <div class='parts'>${QWIZM.methods.questionParts(qNumber)}</div>`;
 };

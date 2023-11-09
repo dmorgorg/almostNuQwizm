@@ -140,7 +140,6 @@ main {
   // padding: 1em 0;
   // padding: 0 1em;
   // background: yellow;
-  
 
   & > article {
     // color: yellow;
@@ -184,11 +183,11 @@ main {
     & button {
       flex: 1 100%;
       border: none;
-      padding: .5em 0.25em;
+      padding: 0.5em 0.25em;
       font-size: 125%;
       font-weight: 600;
       font-family: $HEADER_TOPIC;
-     background: $BUTTON_GRADIENT;
+      background: $BUTTON_GRADIENT;
       color: white;
       margin-top: 1em;
       margin-bottom: 0.5em;
@@ -521,7 +520,7 @@ footer {
     color: $PRIMARY;
   }
 
-  & p{
+  & p {
     // color: blue;
     margin-top: 0.5em;
   }
@@ -553,95 +552,87 @@ footer {
 }
 
 .parts {
-  display: grid;
-  // partStatement, input, units, button, check/cross, marks, feedback
-  grid-template-columns: 15% 20% 15% 12% 10% 30%; // 1fr;
-  // grid-gap: 1vw 0;
-  grid-row-gap: 0.3vw;
-  // width: 5%;
+  width: 100%;
   margin: 0 auto;
-  // padding-right: 2em;
-  //font-size: $FONT_SIZE;
-  //font-size: 80%;
-}
 
-.partStatement {
-  align-self: center;
-  text-align: right;
-  overflow-x: visible;
-}
-
-.markButton {
-  background-color: darken($PRIMARY, 5);
-  background: $BUTTON_GRADIENT;
-  //font-size: $FONT_SIZE;
-  color: white;
-  margin-right: 2vw;
-  height: 1.75em;
-  border: none;
-  padding: 0.25vw 0.75vw;
-  font-size: $FONT_SIZE;
-  text-decoration: none;
-  box-shadow: $SHADOW;
-  place-self: center end;
-
-  // &.active {
-  // position: relative;
-  // // top: 2px;
-  // color: black;
-  // background: $COURSE_LIGHT;
-  // background: linear-gradient(
-  //   to bottom,
-  //   lighten(linen, 5),
-  //   lighten(linen, 5) 45%,
-  //   linen 55%,
-  //   linen
-  // );
-  // }
-
-  &:hover {
-    background-color: $PRIMARY;
-    background: $BUTTON_GRADIENT_HOVER;
-    cursor: pointer;
-  }
-
-  &:focus {
+  & form {
     position: relative;
-    outline: none;
+    margin: 0.25em;
+    padding: 0.25em;
+    height: 2em;
+    // background: palegreen;
+
+    & .partStatement {
+      display: inline-block;
+      width: 25%;
+      text-align: right;
+      vertical-align: middle;
+    }
+
+    & .partInput {
+      border: 0.2vw solid darken($CARD_BACKGROUND, 10);
+      width: 15%;
+      // height: 2em;
+      margin-right: 0.5%;
+      outline: none;
+      padding-left: 0.5vw;
+      vertical-align: middle;
+      font-size: $FONT_SIZE;
+
+      &:focus {
+        border: 0.3vw solid darken($CARD_BACKGROUND, 25);
+      }
+    }
+
+    & .units {
+      display: inline-block;
+      width: 10%;
+      font-size: 90%;
+      vertical-align: baseline;
+    }
+
+    & .markButton {
+      display: inline-block;
+      background-color: darken($PRIMARY, 5);
+      background: $BUTTON_GRADIENT;
+      font-size: $FONT_SIZE;
+      color: white;
+      border: none;
+      padding: 0.25vw 0.75vw;
+      font-size: $FONT_SIZE;
+      text-decoration: none;
+      box-shadow: $SHADOW;
+      width: 12%;
+
+      &:hover {
+        background-color: $PRIMARY;
+        background: $BUTTON_GRADIENT_HOVER;
+        cursor: pointer;
+      }
+
+      &:focus {
+        position: relative;
+        outline: none;
+      }
+    }
+
+    & .crosscheck {
+      position: absolute;
+      width: 8%;
+      display: inline-block;
+      font-size: 180%;
+      top: -0.125em;
+      // background: white;
+      text-align: center;
+    }
+
+    & .feedback {
+      display: inline-block;
+      width: 20%;
+      margin-left: 8%;
+      // overflow-x: visible;
+    }
   }
-}
-
-input.partInput {
-  border: 0.2vw solid darken($CARD_BACKGROUND, 10);
-  //font-size: 100%;
-  margin: 0 0.5vw;
-  width: 8vw;
-  height: 3vw;
-  place-self: center start;
-  outline: none;
-  padding-left: 0.5vw;
-  padding-top: 0.35vw;
-
-  &:focus {
-    border: 0.3vw solid darken($CARD_BACKGROUND, 25);
-  }
-}
-
-.units {
-  place-self: center start;
-}
-
-.crosscheck {
-  //font-size: 140%;
-  place-self: center start;
-  padding-left: 0;
-}
-
-.feedback {
-  align-self: center;
-  justify-self: start;
-  place-self: center start;
-  overflow-x: visible;
 }
 
 // @media screen and (max-width: #{$max_view}px) {

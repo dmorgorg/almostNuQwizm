@@ -1,0 +1,744 @@
+html {
+  height: 100%;
+}
+
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+*:before,
+*:after {
+  -webkit-box-sizing: inherit;
+          box-sizing: inherit;
+}
+
+body {
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin: 0;
+  font-size: clamp(8px, 1.5vw, 24px);
+  font-family: Arial, Helvetica, sans-serif;
+  overflow-y: hidden;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: blue;
+  /* color of the scroll thumb */
+  border-radius: 20px;
+  /* roundness of the scroll thumb */
+  border: 3px solid orange;
+  /* creates padding around scroll thumb */
+}
+
+header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  background-color: teal;
+  margin-bottom: 1em;
+  padding: 0 1em;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+header > h1 {
+  margin: 0;
+  margin-right: 2em;
+  margin-bottom: 0.125em;
+  padding: 0.125em 0;
+  color: white;
+  font-family: "Tillana", cursive;
+  letter-spacing: 0.075em;
+  line-height: 1.125em;
+  text-shadow: 0.2vw 0.2vw 0.375vw black;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+header > .rightblock {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  margin: 0;
+  padding: 0.25em 0;
+  text-align: right;
+  -ms-flex-direction: column;
+      flex-direction: column;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 0 0px;
+          flex: 1 0 0;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-line-pack: end;
+      align-content: flex-end;
+}
+
+header > .rightblock > h3 {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 auto;
+          flex: 1 auto;
+  font-family: "Quicksand", sans-serif;
+  color: white;
+  text-shadow: 0.1vw 0.1vw 0.15vw black;
+  text-align: right;
+  line-height: 1em;
+  letter-spacing: 0.075em;
+  margin: 0.125em 0 0.25em 1.5em;
+  padding-top: 0.25em;
+  padding-bottom: 0.25em;
+}
+
+header > .rightblock > h3 + h3 {
+  text-align: right;
+}
+
+main {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  overflow-y: auto;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+main > article {
+  width: 60%;
+  margin: 0 1em;
+}
+
+main #clear {
+  text-align: center;
+}
+
+main #login {
+  text-align: center;
+}
+
+main .card {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  padding: 1em 2em;
+  border: 1px solid #ccc;
+  -webkit-box-shadow: 0.1em 0.1em 0.275em 0.1em grey;
+          box-shadow: 0.1em 0.1em 0.275em 0.1em grey;
+  -ms-flex-preferred-size: 25em;
+      flex-basis: 25em;
+  background-color: #eee;
+}
+
+main .card p {
+  margin: 0.5em 0;
+}
+
+main .card h2 {
+  margin-top: 0.25em;
+  color: teal;
+  text-align: center;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 100%;
+          flex: 1 100%;
+  font-family: "Quicksand";
+  font-weight: 700;
+  font-size: 175%;
+}
+
+main .card button {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 100%;
+          flex: 1 100%;
+  border: none;
+  padding: 0.5em 0.25em;
+  font-size: 125%;
+  font-weight: 600;
+  font-family: "Quicksand";
+  background: -webkit-gradient(linear, left top, left bottom, from(teal), color-stop(35%, teal), color-stop(65%, #006767), to(#006767));
+  background: linear-gradient(to bottom, teal, teal 35%, #006767 65%, #006767);
+  color: white;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+  letter-spacing: 0.075em;
+}
+
+main .card button:hover {
+  background: -webkit-gradient(linear, left top, left bottom, from(#006767), color-stop(35%, #006767), color-stop(85%, teal), to(teal));
+  background: linear-gradient(to bottom, #006767, #006767 35%, teal 85%, teal);
+  cursor: pointer;
+}
+
+main .card button:focus {
+  outline: none;
+}
+
+main .card .login-list {
+  padding: 0;
+  margin: 0 auto;
+  list-style-type: none;
+  -ms-flex-preferred-size: 20.5em;
+      flex-basis: 20.5em;
+}
+
+main .card .login-list li {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+main .card .login-list li label {
+  padding: 0.5em;
+  padding-left: 0;
+  font-size: 120%;
+}
+
+main .card .login-list li input {
+  font-size: 120%;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 100%;
+          flex: 1 100%;
+  color: teal;
+  border: 1px solid #ccc;
+  padding: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+main .card .login-list li input::-webkit-input-placeholder {
+  font-size: 80%;
+  color: teal;
+  opacity: 0.5;
+}
+
+main .card .login-list li input:-ms-input-placeholder {
+  font-size: 80%;
+  color: teal;
+  opacity: 0.5;
+}
+
+main .card .login-list li input::-ms-input-placeholder {
+  font-size: 80%;
+  color: teal;
+  opacity: 0.5;
+}
+
+main .card .login-list li input::placeholder {
+  font-size: 80%;
+  color: teal;
+  opacity: 0.5;
+}
+
+main .card .login-list li input:focus {
+  outline: 1px solid teal;
+}
+
+main .card .login-list li#uIdError,
+main .card .login-list li#unameError {
+  display: block;
+  color: teal;
+  margin-bottom: 1em;
+  text-align: center;
+  margin: 0 auto 0.5em auto;
+  text-transform: uppercase;
+  font-weight: bold;
+  height: 1.5em;
+}
+
+footer {
+  background-color: teal;
+  margin-top: 1em;
+  padding: 0.05em 1em;
+}
+
+footer > .navbar {
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0;
+}
+
+footer > .navbar > * {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 auto;
+          flex: 1 auto;
+}
+
+footer > .navbar > ul {
+  display: inline;
+  text-align: center;
+  padding: 0;
+  margin: 0.5em 0;
+  margin-right: 1em;
+  list-style: none;
+  color: whitesmoke;
+}
+
+footer > .navbar > ul > li {
+  padding: 0 0.5vw;
+  display: inline-block;
+  margin: 0.25em 0.375em;
+  -webkit-box-shadow: 0 0 0.2em 0 black;
+          box-shadow: 0 0 0.2em 0 black;
+  background: #006767;
+  background: -webkit-gradient(linear, left top, left bottom, from(teal), color-stop(35%, teal), color-stop(65%, #006767), to(#006767));
+  background: linear-gradient(to bottom, teal, teal 35%, #006767 65%, #006767);
+}
+
+footer > .navbar > ul > li:hover {
+  cursor: pointer;
+}
+
+footer > .navbar > ul > li.active, footer > .navbar > ul > li:hover {
+  color: black;
+  background: -webkit-gradient(linear, left top, left bottom, from(white), color-stop(35%, white), color-stop(65%, #d9d9d9), to(#d9d9d9));
+  background: linear-gradient(to bottom, white, white 35%, #d9d9d9 65%, #d9d9d9);
+}
+
+footer > .navbar .uname {
+  color: white;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  font-family: "Architects Daughter", cursive;
+  text-align: right;
+  padding: 0;
+  margin: 0;
+  text-shadow: 0.12vw 0.12vw 0.25vw black;
+}
+
+.cross:before {
+  color: maroon;
+  content: "\2718";
+  font-weight: bold;
+}
+
+.check:before {
+  position: relative;
+  color: #080;
+  content: "\2714";
+  font-weight: bold;
+  -ms-grid-column-align: start;
+      justify-self: start;
+  -ms-flex-item-align: start;
+      -ms-grid-row-align: start;
+      align-self: start;
+}
+
+.qm:before {
+  color: #666;
+  content: "\003F";
+  font-weight: bold;
+  -ms-grid-column-align: start;
+      justify-self: start;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+#summary {
+  width: 100%;
+}
+
+#summary summary.statement h3 {
+  display: inline-block;
+  background-color: teal;
+  color: white;
+  padding: 1vw 2vw;
+  vertical-align: bottom;
+  font-weight: normal;
+  font-size: 125%;
+}
+
+#summary summary.statement h3 .total {
+  padding-top: 0.5vw;
+}
+
+#summary summary.statement h3 .uname {
+  color: white;
+  font-family: "Architects Daughter";
+  text-align: right;
+  text-shadow: 0.12vw 0.12vw 0.25vw black;
+  letter-spacing: 0.1vw;
+}
+
+#summary .table .row {
+  border: 1px solid #aaa;
+  font-size: 100%;
+}
+
+#summary .table .row:nth-child(2n + 1) {
+  background-color: #ccc;
+}
+
+#summary .table .row:nth-child(2n) {
+  background-color: #eee;
+}
+
+#summary .table .row .qNumber {
+  vertical-align: top;
+  width: 10%;
+  font-weight: bold;
+  display: inline-block;
+  padding: 0.2vw;
+  margin: 0.2vw 0 0.2vw auto;
+}
+
+#summary .table .row .qNumber .questionMarks {
+  font-weight: normal;
+  margin-left: 1vw;
+}
+
+#summary .table .row .items {
+  width: 89%;
+  display: inline-block;
+  margin-right: 0;
+  vertical-align: middle;
+}
+
+#summary .table .row .items .item {
+  padding-top: 0.2em;
+  border: 0.5px solid #aaa;
+  display: inline-block;
+  width: 32.6%;
+  margin: 0.2em;
+  height: 1.75em;
+}
+
+#summary .table .row .items .item .ps {
+  width: 38%;
+  display: inline-block;
+  text-align: right;
+}
+
+#summary .table .row .items .item .ui {
+  width: 27%;
+  display: inline-block;
+  text-align: center;
+}
+
+#summary .table .row .items .item .symb {
+  position: relative;
+  width: 15%;
+  font-size: 130%;
+  display: inline-block;
+  margin-top: -0.2em;
+  text-align: center;
+}
+
+#summary .table .row .items .item .marked {
+  width: 16%;
+  display: inline-block;
+  text-align: center;
+}
+
+#summary .table .row + .row {
+  border-top: none;
+}
+
+.fright {
+  float: right;
+}
+
+.katex {
+  font-size: 110%;
+  font-weight: 500;
+}
+
+#instructions ul {
+  list-style: none;
+  margin-top: 1em;
+  margin-bottom: 2em;
+}
+
+#instructions ul:last-of-type {
+  margin-bottom: 0;
+}
+
+#instructions ul li {
+  margin-bottom: 1em;
+  line-height: 1.25;
+}
+
+#instructions ul li::before {
+  display: inline-block;
+  width: 0.75em;
+  margin-left: -0.75em;
+  font-weight: bold;
+  content: "\2134";
+  color: teal;
+  line-height: 1;
+  font-size: 150%;
+}
+
+#instructions h3 {
+  display: inline-block;
+  color: teal;
+  font-family: "Quicksand";
+  font-weight: bold;
+  letter-spacing: 0.9;
+  text-decoration: underline;
+}
+
+.center {
+  margin: 0 auto;
+}
+
+.statement {
+  margin: 0 auto;
+  text-align: left;
+  line-height: 1.1;
+}
+
+.statement strong {
+  color: teal;
+}
+
+.statement p {
+  margin: 0.25em;
+  margin-top: 0.75em;
+}
+
+.statement h3 {
+  display: inline;
+  margin: 0;
+  margin-right: 0.25em;
+  vertical-align: baseline;
+  color: teal;
+}
+
+.image {
+  position: relative;
+  margin: 1em auto;
+}
+
+.image img {
+  width: 100%;
+  margin: 0;
+}
+
+.image .label {
+  position: absolute;
+  z-index: 100;
+  padding: 0.25vw 0.5vw;
+}
+
+.parts {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.parts form {
+  position: relative;
+  margin: 0.25em;
+  padding: 0.25em;
+  height: 2em;
+}
+
+.parts form .partStatement {
+  display: inline-block;
+  width: 25%;
+  text-align: right;
+  vertical-align: middle;
+}
+
+.parts form .partInput {
+  border: 0.2vw solid #d5d5d5;
+  width: 15%;
+  margin-right: 0.5%;
+  outline: none;
+  padding-left: 0.5vw;
+  vertical-align: middle;
+  font-size: 1.5vw;
+}
+
+.parts form .partInput:focus {
+  border: 0.3vw solid #aeaeae;
+}
+
+.parts form .units {
+  display: inline-block;
+  width: 10%;
+  font-size: 90%;
+  vertical-align: baseline;
+}
+
+.parts form .markButton {
+  display: inline-block;
+  background-color: #006767;
+  background: -webkit-gradient(linear, left top, left bottom, from(teal), color-stop(35%, teal), color-stop(65%, #006767), to(#006767));
+  background: linear-gradient(to bottom, teal, teal 35%, #006767 65%, #006767);
+  font-size: 1.5vw;
+  color: white;
+  border: none;
+  padding: 0.25vw 0.75vw;
+  font-size: 1.5vw;
+  text-decoration: none;
+  -webkit-box-shadow: 0 0 0.2em 0 black;
+          box-shadow: 0 0 0.2em 0 black;
+  width: 12%;
+}
+
+.parts form .markButton:hover {
+  background-color: teal;
+  background: -webkit-gradient(linear, left top, left bottom, from(#006767), color-stop(35%, #006767), color-stop(85%, teal), to(teal));
+  background: linear-gradient(to bottom, #006767, #006767 35%, teal 85%, teal);
+  cursor: pointer;
+}
+
+.parts form .markButton:focus {
+  position: relative;
+  outline: none;
+}
+
+.parts form .crosscheck {
+  position: absolute;
+  width: 8%;
+  display: inline-block;
+  font-size: 180%;
+  top: -0.125em;
+  text-align: center;
+}
+
+.parts form .feedback {
+  display: inline-block;
+  position: absolute;
+  top: 0.5em;
+  width: 40%;
+  margin-left: 8%;
+  overflow-x: visible;
+}
+
+.highlight {
+  color: teal;
+  font-weight: bold;
+}
+
+.width25 {
+  width: 25%;
+}
+
+.width30 {
+  width: 30%;
+}
+
+.width35 {
+  width: 35%;
+}
+
+.width40 {
+  width: 40%;
+}
+
+.width45 {
+  width: 45%;
+}
+
+.width50 {
+  width: 50%;
+}
+
+.width55 {
+  width: 55%;
+}
+
+.width60 {
+  width: 60%;
+}
+
+.width65 {
+  width: 65%;
+}
+
+.width70 {
+  width: 70%;
+}
+
+.width75 {
+  width: 75%;
+}
+
+.width80 {
+  width: 80%;
+}
+
+.width85 {
+  width: 85%;
+}
+
+.width90 {
+  width: 90%;
+}
+
+.width95 {
+  width: 95%;
+}
+
+.width100 {
+  width: 100%;
+}
+
+.width110 {
+  width: 110%;
+  margin-left: -5%;
+}
+
+.width120 {
+  width: 120%;
+  margin-left: -10%;
+}
+
+.width130 {
+  width: 130%;
+  margin-left: -15%;
+}
+
+.width140 {
+  width: 140%;
+  margin-left: -20%;
+}
+
+.paddingLeft5 {
+  padding-left: 5%;
+}
+
+.paddingLeft10 {
+  padding-left: 10%;
+}
+
+.paddingLeft15 {
+  padding-left: 15%;
+}

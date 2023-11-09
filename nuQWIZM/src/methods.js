@@ -84,7 +84,8 @@ QWIZM.methods.viewsLoad = o => {
             for (let partNumber = 1; partNumber <= numberOfParts; partNumber++) {
                 let partId = `q${qNumber}part${partNumber}btn`;
                 // get the question part that has been clicked on and check input for that part
-                $('#' + partId).on('click', function (e) {
+                $('#' + partId).on('click', function(e) {
+                    e.preventDefault();
                     checkAnswer(qNumber, partNumber);
                 })
             }
@@ -174,13 +175,13 @@ QWIZM.methods.questionParts = (qN) => {
             feedback = '';
 
         // part statement
-        html += `<div class='partStatement'>${pt.partStatement}:</div> `;
+        html += `<form autocomplete="off"><div class='partStatement'>${pt.partStatement}:</div> `;
         // user input
         html += `<input type='text' id='q${qN}part${part}input' class='partInput' value=${pt.userInput || ''}>`;
         // units
         html += `<div class='units'>${pt.units}</div> `;
         // 'Enter' button
-        html += `<button id=${partId} type='button' class='markButton'>Enter</button>`;
+        html += `<button id=${partId} type='submit' class='markButton'>Enter</button>`;
         // feedback icon
         if (pt.isAnswered) {
             if (pt.isCorrect) {
@@ -196,17 +197,16 @@ QWIZM.methods.questionParts = (qN) => {
         } else {
             icon = '';
             feedback = pt.marks > 1 ? `${pt.marks} marks` : `${pt.marks} mark`
-            // feedback = `${pt.marks} marks`;
+                // feedback = `${pt.marks} marks`;
         }
         html += `<div id='q${qN}part${part}crosscheck' class='crosscheck'>${icon}</div>`;
         // feedback
-        html += `<div id='q${qN}part${part}feedback' class='feedback'>${feedback}</div>`;
+        html += `<div id='q${qN}part${part}feedback' class='feedback'>${feedback}</div></form>`;
     }
     return html;
 }
 
-/** Encodes a number (or numerical string) to a string of lower case 
- *      alphabetical characters
+/** Encodes a number (or numerical string) to a string of lower case alphabetical characters
  *  @param {number} number The number to be encoded
  *  @param {number} number The seed for the random number generator that 'predictably'
  *      generates the offset from the numerical character to the encoded alphabetical character.
@@ -390,17 +390,17 @@ QWIZM.methods.writeFooter = () => {
  *  @returns {string} html string for clear view
  */
 QWIZM.methods.writeClearView = () => {
-    let html = `<h2>Warning!</h2>
+        let html = `<h2>Warning!</h2>
                 <p> Clicking the <span class = "highlight"> Clear Quiz </span> button below will reset the quiz, requiring you to log in again.</p >
                 <p><span class="highlight"> All your input answers, currently stored in the browser, will be lost!</span></p>
                 <p> Only click the <span class = "highlight"> Clear Quiz </span> button below if this is really what you intend.</p >
                 <p>(Generally, the only reason to clear the quiz from the browser is if you plan to enter a fictitious ID to practise the quiz with a different set of question values.)</p>
                 <button id="clear-button" type="submit">Clear Quiz</button>`;
-    return html;
-}
-/** Writes login page
- *  @returns {string} html string for login page
- */
+        return html;
+    }
+    /** Writes login page
+     *  @returns {string} html string for login page
+     */
 QWIZM.methods.writeLoginForm = () => {
     $('main').append(`<div id="login" class="card view">
             <h2> Please Log In </h2>

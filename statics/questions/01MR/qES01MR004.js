@@ -3,7 +3,7 @@
 var QWIZM = QWIZM || {};
 QWIZM.question = QWIZM.question || {};
 
-QWIZM.question.qES00MR004 = function (qNumber) {
+QWIZM.question.qES01MR004 = function (qNumber) {
   var qId = 1000039; // question ID number, unique to this question 
   // common for import?
 
@@ -23,7 +23,7 @@ QWIZM.question.qES00MR004 = function (qNumber) {
       seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
       lcrng = new utils.LCRNG(seed),
       partMarks = 0,
-      debug = true; //inputs
+      debug = false; //inputs
 
   var ABinit = sd(lcrng.getNext(400, 600, 5)),
       BCmult = sd(lcrng.getNext(1.35, 1.65, 0.025)),
@@ -46,7 +46,7 @@ QWIZM.question.qES00MR004 = function (qNumber) {
   deltaBF = stringify(deltaBF);
   deltaDE = stringify(deltaDE);
   var statement = "!$ABCD!$ is a rigid plate, able to rotate about a pinned connection at !$C!$. !$ABCD!$ is held in position by linkages !$BF!$ and !$DE!$. When force !$P!$ is applied at !$A!$, !$A!$ moves rightwards a distance of ".concat(dA, " mm as plate !$ABCD!$ rotates about !$C!$. !$BF!$ increases in length (deforms) but can be assumed to remain horizontal. !$DE!$ decreases in length (its deformation is negative) but remains vertical. <p>\n        Determine the deformation !$\\delta_{BF}!$ in !$BF!$ and the deformation !$\\delta_{DE}!$ in !$DE!$."),
-      img = "../../images/00MR/00MR04.png",
+      img = "../../images/01MR/01MR04.png",
       inputs = QWIZM.getInputOverlays([{
     input: AB + ' mm',
     left: 34,
@@ -88,5 +88,5 @@ QWIZM.question.qES00MR004 = function (qNumber) {
     thisQuestion[0] = partMarks;
   }
 
-  return "<div class='statement'><h3>Q".concat(qNumber, "</h3>(").concat(thisQuiz[qNumber][0], " marks):<p>\n     ").concat(statement, "</div>\n    <div id = '").concat(qId, "img' class='image width70'><img src= ").concat(img, ">\n").concat(inputs, "\n    </div>\n    <form autocomplete=\"off\"> <div class='parts'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
+  return "<div class='statement'><h3>Q".concat(qNumber, "</h3>(").concat(thisQuiz[qNumber][0], " marks):<p>\n     ").concat(statement, "</div>\n    <div id = '").concat(qId, "img' class='image width70'><img src= ").concat(img, ">\n    ").concat(inputs, "\n    </div>\n    <div class='parts'>").concat(QWIZM.methods.questionParts(qNumber), "</div>");
 };

@@ -8,14 +8,14 @@ QWIZM.quiz = {
   extraDigitForLeadingOne: true,
   workingDigs: 8,
   questions: [
-      QWIZM.question.qES00MR001,
-        QWIZM.question.qES00MR002,
-        QWIZM.question.qES00MR003,
-        QWIZM.question.qES00MR004,
-        QWIZM.question.qES00MR005,
-        QWIZM.question.qES00MR006,
-        QWIZM.question.qES00MR007,
-        QWIZM.question.qES00MR008
+      QWIZM.question.qES01MR001,
+        QWIZM.question.qES01MR002,
+        QWIZM.question.qES01MR003,
+        QWIZM.question.qES01MR004,
+        QWIZM.question.qES01MR005,
+        QWIZM.question.qES01MR006,
+        QWIZM.question.qES01MR007,
+        QWIZM.question.qES01MR008
   ],
   // Instructions can be modified on a per quiz basis here. Not usually necessary.
   instructions: `<div class="statement">

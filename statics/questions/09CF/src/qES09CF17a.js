@@ -27,36 +27,36 @@ QWIZM.question.qES09CF17a = (qNumber) => {
 
     //inputs - defaults to sigDigs
     let P = lcrng.getNext(2, 4, 0.1),
-        ABx = lcrng.getNext(750,850,10),
-        CEy = lcrng.getNext(630,700,10),
-        DEx = lcrng.getNext(1280,1370,10),
-        CDx = sd(stringify(Math.round(DEx*1.5*10)/10)),
-        BCx = sd(stringify(Math.round(ABx*1.5*10)/10)),
+        ABx = lcrng.getNext(750, 850, 10),
+        CEy = lcrng.getNext(630, 700, 10),
+        DEx = lcrng.getNext(1280, 1370, 10),
+        CDx = sd(stringify(Math.round(DEx * 1.5 * 10) / 10)),
+        BCx = sd(stringify(Math.round(ABx * 1.5 * 10) / 10)),
         mult = lcrng.getNext(4.5, 5.5, 0.1),
         ACy = sd(stringify(Math.round(CEy * mult * 10) / 10));
 
     //calcs
-        let AEy = ACy+CEy,
-            GE = sd(ACy*P/AEy),
-            FA = P-GE,
-            ACx = ABx+BCx,
-            ABy = sd(ABx/ACx*ACy),
-            BCy=ACy-ABy,
-            CEx=DEx+CDx,
-            CDy=sd(CDx/CEx*CEy),
-            DEy=CEy-CDy,
-            BDx=CDx-BCx,
-            BDy=BCy+CDy,
-            BDtheta=sd(atan(BDy/BDx)),
-            FB = sd(ACy*FA/(BCy*cos(BDtheta)+BCx*sin(BDtheta))),
-            GD = sd(GE*CEy/(CDx*sin(BDtheta)-CDy*cos(BDtheta))),
-            Cx = sd(FB*cos(BDtheta)-FA),
-            Cy=sd(FB*sin(BDtheta)),
-            FC=sd((Cx**2+Cy**2)**0.5),
-            Cx2=-GE-GD*cos(BDtheta),
-            Cy2=-GD*sin(BDtheta),
-            GC = sd((Cx2 ** 2 + Cy2 ** 2) ** 0.5);
-   
+    let AEy = ACy + CEy,
+        GE = sd(ACy * P / AEy),
+        FA = P - GE,
+        ACx = ABx + BCx,
+        ABy = sd(ABx / ACx * ACy),
+        BCy = ACy - ABy,
+        CEx = DEx + CDx,
+        CDy = sd(CDx / CEx * CEy),
+        DEy = CEy - CDy,
+        BDx = CDx - BCx,
+        BDy = BCy + CDy,
+        BDtheta = sd(atan(BDy / BDx)),
+        FB = sd(ACy * FA / (BCy * cos(BDtheta) + BCx * sin(BDtheta))),
+        GD = sd(GE * CEy / (CDx * sin(BDtheta) - CDy * cos(BDtheta))),
+        Cx = sd(FB * cos(BDtheta) - FA),
+        Cy = sd(FB * sin(BDtheta)),
+        FC = sd((Cx ** 2 + Cy ** 2) ** 0.5),
+        Cx2 = -GE - GD * cos(BDtheta),
+        Cy2 = -GD * sin(BDtheta),
+        GC = sd((Cx2 ** 2 + Cy2 ** 2) ** 0.5);
+
 
 
 
@@ -64,17 +64,17 @@ QWIZM.question.qES09CF17a = (qNumber) => {
     //stringify - defaults to sigDigs
     P = stringify(P);
     ABx = stringify(ABx);
-    DEx = stringify(DEx/1000);
-    CDx = stringify(CDx/1000);
-    BCx = stringify(BCx/1000);
-    ACy = stringify(ACy/1000);
+    DEx = stringify(DEx / 1000);
+    CDx = stringify(CDx / 1000);
+    BCx = stringify(BCx / 1000);
+    ACy = stringify(ACy / 1000);
     GE = stringify(GE);
     FA = stringify(FA);
     FB = stringify(FB);
     GE = stringify(GE);
     FC = stringify(FC);
     GC = stringify(GC);
-    
+
 
 
     let statement = `Frame !$ACD!$ is pinned at !$A!$ and !$C!$. There is a frictionless roller at !$E!$ and a cable from !$B!$ to !$D!$. A horizontal force of ${P} kN is applied to the pin at !$C!$, as shown. Determine the magnitudes of the forces !$F_A!$, !$F_B!$, !$F_C!$ exerted on frame member !$ABC!$ and the forces !$G_C!$, !$G_D!$, !$G_E!$ exerted on frame member !$CDE!$.`,
@@ -100,7 +100,7 @@ QWIZM.question.qES09CF17a = (qNumber) => {
             marks: 2,
             correctSoln: FA
         };
-        
+
         thisQuestion[arrayCount++] = {
             partStatement: `!$ G_D !$`,
             units: 'kN',
@@ -113,19 +113,19 @@ QWIZM.question.qES09CF17a = (qNumber) => {
             marks: 6,
             correctSoln: FB
         };
-         thisQuestion[arrayCount++] = {
-             partStatement: `!$ G_C !$`,
-             units: 'kN',
-             marks: 4,
-             correctSoln: GC
-         };
+        thisQuestion[arrayCount++] = {
+            partStatement: `!$ G_C !$`,
+            units: 'kN',
+            marks: 4,
+            correctSoln: GC
+        };
         thisQuestion[arrayCount++] = {
             partStatement: `!$ F_C !$`,
             units: 'kN',
             marks: 4,
             correctSoln: FC
         };
-       
+
 
         for (let i = 1; i < thisQuestion.length; i++) {
             partMarks += thisQuestion[i].marks;
@@ -175,7 +175,7 @@ QWIZM.question.qES09CF17a = (qNumber) => {
             left: 81,
             top: 47,
         },
-      
+
 
     ]);
 
@@ -185,6 +185,6 @@ QWIZM.question.qES09CF17a = (qNumber) => {
         <img src= ${img}>
        ${inputs}          
     </div>
-    <form autocomplete="off"><div class='parts'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
+    <div class='parts'>${QWIZM.methods.questionParts(qNumber)}</div>`;
 
 };

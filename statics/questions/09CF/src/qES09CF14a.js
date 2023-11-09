@@ -36,7 +36,7 @@ QWIZM.question.qES09CF14a = (qNumber) => {
         y1 = Math.round(x1 * mult3 * 20) / 20,
         y2 = Math.round(y1 * 1.25 * 20) / 20;
 
-    let det = utils.twoByTwoSolver(-y1, x1 + x2 + x3, y1 + y2, (x1 + 2 * x2 + x3), (2 * x1 + x2) * T, -3*( x1 + x2) * T),
+    let det = utils.twoByTwoSolver(-y1, x1 + x2 + x3, y1 + y2, (x1 + 2 * x2 + x3), (2 * x1 + x2) * T, -3 * (x1 + x2) * T),
         Bx = sd(det[0]),
         By = sd(det[1]),
         RB = sd((Bx ** 2 + By ** 2) ** 0.5),
@@ -64,56 +64,56 @@ QWIZM.question.qES09CF14a = (qNumber) => {
     let statement = `A section of walkway is supported by 5 vertical cables attached to arched frame !$ABC!$ as shown.  Each cable has a tension of ${T} kN. Determine the magnitude of the reactions at the pinned connections !$A,B!$ and !$C!$.`,
         img = `../../images/09CF/09CF14a.png`,
         inputs = QWIZM.getInputOverlays([{
-            input: x1 + ' m',
-            left: 21.625,
-            top: 58,
-            rotate: 70
-        },
-        {
-            input: x1 + ' m',
-            left: 80,
-            top: 58,
-            rotate: 70
-        },
-        {
-            input: x3 + ' m',
-            left: 41.125,
-            top: 58,
-            rotate: 70
-        },
-        {
-            input: x3 + ' m',
-            left: 47.625,
-            top: 58,
-            rotate: 70
-        },
-        {
-            input: x2 + ' m',
-            left: 31.25,
-            top: 58.25
-        },
-        {
-            input: x2 + ' m',
-            left: 57.25,
-            top: 58.25
-        },
-        {
-            input: x2 + ' m',
-            left: 70,
-            top: 58.25
-        },
-        {
-            input: y1 + ' m',
-            left: 8.75,
-            top: 18
-        },
-        {
-            input: y2 + ' m',
-            left: 8.75,
-            top: 33.75
-        },
+                input: x1 + ' m',
+                left: 21.625,
+                top: 58,
+                rotate: 70
+            },
+            {
+                input: x1 + ' m',
+                left: 80,
+                top: 58,
+                rotate: 70
+            },
+            {
+                input: x3 + ' m',
+                left: 41.125,
+                top: 58,
+                rotate: 70
+            },
+            {
+                input: x3 + ' m',
+                left: 47.625,
+                top: 58,
+                rotate: 70
+            },
+            {
+                input: x2 + ' m',
+                left: 31.25,
+                top: 58.25
+            },
+            {
+                input: x2 + ' m',
+                left: 57.25,
+                top: 58.25
+            },
+            {
+                input: x2 + ' m',
+                left: 70,
+                top: 58.25
+            },
+            {
+                input: y1 + ' m',
+                left: 8.75,
+                top: 18
+            },
+            {
+                input: y2 + ' m',
+                left: 8.75,
+                top: 33.75
+            },
 
-    ]);
+        ]);
 
     if (!thisQuiz[qNumber] || debug) {
         thisQuiz[qNumber] = [];
@@ -155,6 +155,6 @@ QWIZM.question.qES09CF14a = (qNumber) => {
         <img src= ${img}>
        ${inputs}        
     </div>
-    <form autocomplete="off"><div class='parts'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
+    <div class='parts'>${QWIZM.methods.questionParts(qNumber)}</div>`;
 
 };

@@ -22,7 +22,7 @@ QWIZM.question.qES09CF01b = (qNumber) => {
         seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
         lcrng = new utils.LCRNG(seed),
         partMarks = 0,
-        debug = false;
+        debug = true;
 
 
     //inputs - defaults to sigDigs
@@ -176,6 +176,6 @@ QWIZM.question.qES09CF01b = (qNumber) => {
         <img src= ${img}>        
         ${inputs}
         </div>
-    <form autocomplete="off"><div class='parts'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
+    <div class='parts'>${QWIZM.methods.questionParts(qNumber)}</div>`;
 
 };

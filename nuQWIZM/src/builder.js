@@ -8,6 +8,7 @@ $(document).ready(() => {
         $('body').append("<main></main>");
         QWIZM.methods.viewsLoad(Qq);
         katexify();
+        // console.log(QWIZM.methods.readFromLocalStorage(quiz_ES01MR01));
     })(QWIZM.quiz);
 
 })

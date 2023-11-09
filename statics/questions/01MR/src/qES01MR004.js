@@ -1,7 +1,7 @@
 let QWIZM = QWIZM || {};
 QWIZM.question = QWIZM.question || {};
 
-QWIZM.question.qES00MR004 = (qNumber) => {
+QWIZM.question.qES01MR004 = (qNumber) => {
 
     let qId = 1000039; // question ID number, unique to this question 
 
@@ -22,7 +22,7 @@ QWIZM.question.qES00MR004 = (qNumber) => {
         seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
         lcrng = new utils.LCRNG(seed),
         partMarks = 0,
-        debug = true;
+        debug = false;
 
     //inputs
     let ABinit = sd(lcrng.getNext(400, 600, 5)),
@@ -53,7 +53,7 @@ QWIZM.question.qES00MR004 = (qNumber) => {
 
     let statement = `!$ABCD!$ is a rigid plate, able to rotate about a pinned connection at !$C!$. !$ABCD!$ is held in position by linkages !$BF!$ and !$DE!$. When force !$P!$ is applied at !$A!$, !$A!$ moves rightwards a distance of ${dA} mm as plate !$ABCD!$ rotates about !$C!$. !$BF!$ increases in length (deforms) but can be assumed to remain horizontal. !$DE!$ decreases in length (its deformation is negative) but remains vertical. <p>
         Determine the deformation !$\\delta_{BF}!$ in !$BF!$ and the deformation !$\\delta_{DE}!$ in !$DE!$.`,
-        img = `../../images/00MR/00MR04.png`,
+        img = `../../images/01MR/01MR04.png`,
         inputs = QWIZM.getInputOverlays([{
                 input: AB + ' mm',
                 left: 34,
@@ -106,7 +106,7 @@ QWIZM.question.qES00MR004 = (qNumber) => {
     return `<div class='statement'><h3>Q${qNumber}</h3>(${thisQuiz[qNumber][0]} marks):<p>
      ${statement}</div>
     <div id = '${qId}img' class='image width70'><img src= ${img}>
-${inputs}
+    ${inputs}
     </div>
-    <form autocomplete="off"> <div class='parts'>${QWIZM.methods.questionParts(qNumber)}</div></form>`;
+    <div class='parts'>${QWIZM.methods.questionParts(qNumber)}</div>`;
 };

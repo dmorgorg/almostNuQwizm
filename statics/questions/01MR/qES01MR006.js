@@ -3,7 +3,7 @@
 var QWIZM = QWIZM || {};
 QWIZM.question = QWIZM.question || {};
 
-QWIZM.question.qES00MR006 = function (qNumber) {
+QWIZM.question.qES01MR006 = function (qNumber) {
   var qId = 1000117; // question ID number, unique to this question   
   // common for import?
 
@@ -21,7 +21,9 @@ QWIZM.question.qES00MR006 = function (qNumber) {
       ov = QWIZM.methods.overlayVariable,
       arrayCount = 0,
       seed = qId > uId ? qId % uId : uId === qId ? uId : uId % qId,
-      lcrng = new utils.LCRNG(seed); //inputs
+      lcrng = new utils.LCRNG(seed),
+      partMarks = 0,
+      debug = false; //inputs
 
   var OA = stringify(lcrng.getNext(0.5, 2.5, 0.1)),
       multOB = lcrng.getNext(1.8, 2.2, 0.05),
@@ -45,7 +47,7 @@ QWIZM.question.qES00MR006 = function (qNumber) {
   phi = stringify(phi);
   theta = stringify(theta);
   var statement = "A typical question in Statics is to determine the tension in rods !$AC!$, !$BC!$ and !$CW!$. To solve this, we need to find the angles !$\\theta!$ and !$\\phi!$. Follow the steps outlined below in order, starting with calculating the length of !$ AB !$, to find these angles:",
-      img = "../../images/00MR/00MR06.png",
+      img = "../../images/01MR/01MR06.png",
       inputs = QWIZM.getInputOverlays([{
     input: AC + ' m',
     left: 35,
@@ -75,7 +77,7 @@ QWIZM.question.qES00MR006 = function (qNumber) {
     background: '#cdc8b0'
   }]);
 
-  if (!thisQuiz[qNumber]) {
+  if (!thisQuiz[qNumber] || debug) {
     thisQuiz[qNumber] = [];
     thisQuestion = thisQuiz[qNumber]; // thisQuiz.push(questionPart)
 
@@ -125,5 +127,5 @@ QWIZM.question.qES00MR006 = function (qNumber) {
     thisQuestion[0] = partMarks;
   }
 
-  return "\n    <div class='statement'><h3>Q".concat(qNumber, "</h3>(").concat(thisQuiz[qNumber][0], " marks):<p>\n    ").concat(statement, "</div>\n    <div id = '").concat(qId, "img' class='image width70'><img src= ").concat(img, ">\n    ").concat(inputs, "\n    </div>\n    <form autocomplete=\"off\"><div class='parts'>").concat(QWIZM.methods.questionParts(qNumber), "</div></form>");
+  return "\n    <div class='statement'><h3>Q".concat(qNumber, "</h3>(").concat(thisQuiz[qNumber][0], " marks):<p>\n    ").concat(statement, "</div>\n    <div id = '").concat(qId, "img' class='image width70'><img src= ").concat(img, ">\n    ").concat(inputs, "\n    </div>\n    <div class='parts'>").concat(QWIZM.methods.questionParts(qNumber), "</div>");
 };
